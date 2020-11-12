@@ -129,7 +129,7 @@ public class Game {
      * @param stringURL URL to get the message from
      * @return the message from the website
      */
-    public static String getMessage(String stringURL) {
+    public String getMessage(String stringURL) {
         String msg = "";
 
         try {
