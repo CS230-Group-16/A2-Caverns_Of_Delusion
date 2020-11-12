@@ -1,3 +1,10 @@
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 /**
  * The main game class that initialises all objects.
  * @author Bartosz Kubica & Marius Antemir
@@ -58,7 +65,66 @@ public class Game {
      * Displays daily message
      */
     public void displayMessage() {
+        String message = getMessage("http://cswebcat.swansea.ac.uk/message?solution=" 
+                + decodeMessage(getMessage("http://cswebcat.swansea.ac.uk/puzzle")));
         
+        System.out.println(message);
+    }
+    
+    /**
+     * Decodes the message as per the instructions on the website
+     * @param msg message to decode
+     * @return decoded message
+     */
+    private String decodeMessage(String msg){
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String solution = "CS-230";
+        int alphabetLength = alphabet.length();
+        boolean back = true;
+        int move = 0;
+        
+        String [] msgArr = msg.split("");
+        for (int i = 0; i < msg.length(); i++) {
+            if (back) {
+                move = alphabet.indexOf(msgArr[i]) - (i + 1);
+                if (move < 0) {
+                    move = alphabetLength - (move*-1);
+                }
+                solution += alphabet.charAt(move);
+                back = false;
+            } else {
+                move = alphabet.indexOf(msgArr[i]) + (i + 1);
+                if (move >= alphabetLength) {
+                    move = (move-alphabetLength);
+                }
+                solution += alphabet.charAt(move);
+                back = true;
+            }
+        }
+        
+        solution = solution + Integer.toString(solution.length());
+        return solution;
+    }
+    
+    /**
+     * Gets the message from a specific URL
+     * @param stringURL URL to get the message from
+     * @return the message from the website
+     */
+    public static String getMessage(String stringURL){
+        String msg = "";
+        
+        try {
+            URL url = new URL(stringURL);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            msg = in.readLine();
+            in.close();
+        } catch (IOException e) {
+            System.err.println("Something went wrong");
+        }
+        return msg;
     }
     
     /**
