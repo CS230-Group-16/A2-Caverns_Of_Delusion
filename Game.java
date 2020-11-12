@@ -5,7 +5,7 @@
  */
 public class Game {
     
-    private Boolean gameInProgress;
+    private boolean gameInProgress;
     
     private Board board;
     private SilkBag silkBag;
