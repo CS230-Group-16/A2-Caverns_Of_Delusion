@@ -9,7 +9,7 @@ public class SilkBag {
     private int numOfTiles;
     
     public SilkBag (Tile tiles[]) {
-        for (int i = 0; i > tiles.length; i++) {
+        for (int i = 0; i < tiles.length; i++) {
             this.addTile(tiles[i]);
         }
     }
