@@ -8,7 +8,7 @@ import java.net.URL;
  * The main game class that initialises all objects.
  *
  * @author Bartosz Kubica & Marius Antemir
- * @version 0.1
+ * @version 0.4
  */
 public class Game {
 
