@@ -140,8 +140,9 @@ public class Game {
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             msg = in.readLine();
             in.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("Something went wrong");
+            e.printStackTrace();
         }
         return msg;
     }
