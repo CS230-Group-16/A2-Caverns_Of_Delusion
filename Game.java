@@ -7,7 +7,11 @@ public class Game {
     
     private Boolean gameInProgress;
     
-    
+    private Board board;
+    private SilkBag silkBag;
+    private RoundTable round;
+    private Player [] players;
+    private Leaderboard leaderboard;
     
     /**
      * Constructor 1 used to construct a new game.
