@@ -62,19 +62,7 @@ public class Game {
      * @param boardFileLocation
      */
     private void createBoard(String boardFileLocation) {
-        int[] player1Location = {0,0};
-        int[] player2Location = {0,0};
-        int[] player3Location = {0,0};
-        int[] player4Location = {0,0};
-        int width = 0;
-        int height = 0;
-        String[] fixedTiles = {"Goal"};
-        int[] tileRotation = {0,0};
-        int[] tileLocation = {0,0};
-        
-        //read file
-        
-        this.board = new Board(player1Location, player2Location, player3Location, player4Location, width, height, fixedTiles, tileRotation, tileLocation);
+        this.board = FileReader.readBoardFile(boardFileLocation);
     }
 
     /**
