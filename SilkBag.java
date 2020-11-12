@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * The silk bag class holding all the tiles ready to be played.
- * @author Bartosz Kubica
+ * @author Bartosz Kubica & Marius Antemir
  * @version 1.0
  */
 public class SilkBag {
