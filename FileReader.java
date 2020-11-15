@@ -10,7 +10,12 @@ import java.util.Scanner;
  */
 public class FileReader {
     
-    public static Board readBoardFile(String filename) {
+    /**
+     * Open scanner to read board file
+     * @param filename name of file to be opened
+     * @return created board
+     */
+    public Board readBoardFile(String filename) {
         Scanner in = new Scanner(System.in);
         File file = new File(filename);
 
@@ -25,7 +30,12 @@ public class FileReader {
 
     }
     
-    private static Board readBoardFile(Scanner in) {
+    /**
+     * Read file and create board
+     * @param in scanner
+     * @return created board
+     */
+    private Board readBoardFile(Scanner in) {
         int width = 0;
         int height = 0;
         int[] player1Location = {0,0};
@@ -42,5 +52,23 @@ public class FileReader {
         Board board = new Board(player1Location, player2Location, player3Location, player4Location, width, height, fixedTiles, tileRotation, tileLocation);
 
         return null;
+    }
+    
+    /**
+     * Read Player profile
+     * @return player profile
+     */
+    public Player readPlayerFile(){
+        Player p = new Player();
+        return null;
+    }
+    
+    /**
+     * delete player profile
+     * @param filename name of file to delete
+     */
+    public void deleteFile(String filename){
+        File f = new File(filename);
+        f.delete();
     }
 }
