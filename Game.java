@@ -71,7 +71,9 @@ public class Game {
     public void displayMessage() {
         String message = getMessage("http://cswebcat.swansea.ac.uk/message?solution="
                 + decodeMessage(getMessage("http://cswebcat.swansea.ac.uk/puzzle")));
-
+        
+        //printing to screen for now
+        //output to label needs implementing
         System.out.println(message);
     }
 
@@ -140,6 +142,9 @@ public class Game {
      * @return Player profile
      */
     private Player playerProfile(String username) {
+        //get player file
+        //read player file
+        //create profile
         return null;
     }
 
@@ -149,21 +154,21 @@ public class Game {
      * @return leaderboard object
      */
     public Leaderboard getLeaderboard() {
-        return null;
+        return this.leaderboard;
     }
 
     /**
      * Starts the game by calling function in RoundTable
      */
     public void gameStart() {
-
+        round.gameStart();
     }
 
     /**
      * Starts the game won sequence once a player is on the goal tile
      */
-    public void gameVon() {
-
+    public void gameWon() {
+        //game won sequence
     }
 
     /**
@@ -191,7 +196,10 @@ public class Game {
      * @param numOfPlayers total number of players
      */
     public void createPlayerArray(String playerNames[], int numOfPlayers) {
-
+        this.players = new Player[numOfPlayers];
+        for (int i = 0; i < numOfPlayers; i++) {
+            this.players[i] = playerProfile(playerNames[i]);
+        }
     }
 
     /**
@@ -200,6 +208,6 @@ public class Game {
      * @param username name of profile to delete
      */
     public void deletePlayer(String username) {
-
+        FileReader.deleteFile(username);
     }
 }
