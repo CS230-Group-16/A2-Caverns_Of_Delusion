@@ -24,7 +24,7 @@ public class FileReader {
             in = new Scanner(file);
         } catch (FileNotFoundException e) {
             System.out.println("File not found in directory");
-            System.exit(0);
+            e.printStackTrace();
         }
 
         return in;
@@ -81,23 +81,31 @@ public class FileReader {
     public SilkBag readSilkFile(String filename) {
         Scanner in = readFile(filename);
 
-        boolean isReading = true;
         String stringTemp = in.nextLine();;
         String[] stringTempArr;
-        int intTemp;
-        int[] intTempArr;
-        Tile[] tiles = new Tile();
-
-        while (isReading) {
-            stringTemp = in.nextLine();
-            stringTempArr = stringTemp.split(",");
-            for (int i = 0; i < stringTempArr.length; i++) {
-                intTempArr = new int[stringTempArr.length];
-                intTempArr[i] = Integer.parseInt(stringTempArr[i]);
-            }
-        }
-
+        int totalTiles;
+        int[] actionTiles;
+        int[] floorTiles;
         
+
+        stringTemp = in.nextLine();
+        stringTempArr = stringTemp.split(",");
+        for (int i = 0; i < stringTempArr.length; i++) {
+            actionTiles = new int[stringTempArr.length];
+            actionTiles[i] = Integer.parseInt(stringTempArr[i]);
+            totalTiles =+ actionTiles[i];
+        }
+        stringTemp = in.nextLine();
+        stringTempArr = stringTemp.split(",");
+        for (int i = 0; i < stringTempArr.length; i++) {
+            floorTiles = new int[stringTempArr.length];
+            floorTiles[i] = Integer.parseInt(stringTempArr[i]);
+            totalTiles =+ floorTiles[i];
+        }
+        
+        Tile[] tiles = new Tile[totalTiles];
+        
+        for (int i = 0; i < actionTiles.length; i++)
 
         return null;
     }
