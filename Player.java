@@ -1,7 +1,11 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  * The Player class creates profile for user
  * @author Michelle Bhaskaran & Chloe Thomas
- * @version 0.1
+ * @version 0.2
  */
 
 public class Player {
@@ -89,7 +93,7 @@ public class Player {
      * Saves the player profile
      */
     public void saveProfile() {
-
+        Player p = new Player (username);
     }
 
     /**
@@ -113,6 +117,7 @@ public class Player {
      * @param tile
      */
     public void insertTile(ActionTile tile) {
+
     }
 
     /**
