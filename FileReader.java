@@ -15,7 +15,7 @@ public class FileReader {
      * @param filename name of file to be opened
      * @return created board
      */
-    public Board readBoardFile(String filename) {
+    public Scanner readFile(String filename) {
         Scanner in = new Scanner(System.in);
         File file = new File(filename);
 
@@ -26,7 +26,7 @@ public class FileReader {
             System.exit(0);
         }
 
-        return FileReader.readBoardFile(in);
+        return in;
 
     }
     
@@ -35,7 +35,9 @@ public class FileReader {
      * @param in scanner
      * @return created board
      */
-    private Board readBoardFile(Scanner in) {
+    private Board readBoardFile(String filename) {
+        Scanner in = readFile(filename);
+        
         int width = 0;
         int height = 0;
         int[] player1Location = {0,0};
@@ -48,7 +50,7 @@ public class FileReader {
         int temp;
         
         //read file
-        
+        //skip lines 2 and 3
         Board board = new Board(player1Location, player2Location, player3Location, player4Location, width, height, fixedTiles, tileRotation, tileLocation);
 
         return null;
@@ -70,5 +72,10 @@ public class FileReader {
     public void deleteFile(String filename){
         File f = new File(filename);
         f.delete();
+    }
+    
+    public SilkBag readSilkFile(String filename){
+        
+        return null;
     }
 }
