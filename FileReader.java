@@ -16,7 +16,7 @@ public class FileReader {
      * @param filename name of file to be opened
      * @return created board
      */
-    public Scanner readFile(String filename) {
+    private Scanner readFile(String filename) {
         Scanner in = new Scanner(System.in);
         File file = new File(filename);
 
@@ -37,7 +37,7 @@ public class FileReader {
      * @param in scanner
      * @return created board
      */
-    private Board readBoardFile(String filename) {
+    public Board readBoardFile(String filename) {
         Scanner in = readFile(filename);
 
         int width = 0;
