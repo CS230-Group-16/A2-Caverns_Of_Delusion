@@ -75,6 +75,21 @@ public class FileReader {
     }
     
     public SilkBag readSilkFile(String filename){
+        Scanner in = readFile(filename);
+        
+        String stringTemp;
+        String [] stringTempArr;
+        int intTemp;
+        int [] intTempArr = new int[3];
+        
+        stringTemp = in.nextLine();
+        stringTemp = in.nextLine();
+        stringTempArr = stringTemp.split(",");
+        
+        for(int i = 0; i < stringTempArr.length; i++){
+            intTempArr[i] = Integer.parseInt(stringTempArr[i]);
+        }
+        
         
         return null;
     }
