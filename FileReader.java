@@ -4,14 +4,15 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- * 
+ *
  * @author Bartosz Kubica & Marius Antemir
  * @version 0.1
  */
 public class FileReader {
-    
+
     /**
      * Open scanner to read board file
+     *
      * @param filename name of file to be opened
      * @return created board
      */
@@ -29,68 +30,75 @@ public class FileReader {
         return in;
 
     }
-    
+
     /**
      * Read file and create board
+     *
      * @param in scanner
      * @return created board
      */
     private Board readBoardFile(String filename) {
         Scanner in = readFile(filename);
-        
+
         int width = 0;
         int height = 0;
-        int[] player1Location = {0,0};
-        int[] player2Location = {0,0};
-        int[] player3Location = {0,0};
-        int[] player4Location = {0,0};
+        int[] player1Location = {0, 0};
+        int[] player2Location = {0, 0};
+        int[] player3Location = {0, 0};
+        int[] player4Location = {0, 0};
         String[] fixedTiles = {"Goal"};
-        int[] tileRotation = {0,0};
-        int[] tileLocation = {0,0};
+        int[] tileRotation = {0, 0};
+        int[] tileLocation = {0, 0};
         int temp;
-        
+
         //read file
         //skip lines 2 and 3
         Board board = new Board(player1Location, player2Location, player3Location, player4Location, width, height, fixedTiles, tileRotation, tileLocation);
 
         return null;
     }
-    
+
     /**
      * Read Player profile
+     *
      * @return player profile
      */
-    public Player readPlayerFile(){
+    public Player readPlayerFile() {
         Player p = new Player();
         return null;
     }
-    
+
     /**
      * delete player profile
+     *
      * @param filename name of file to delete
      */
-    public void deleteFile(String filename){
+    public void deleteFile(String filename) {
         File f = new File(filename);
         f.delete();
     }
-    
-    public SilkBag readSilkFile(String filename){
+
+    public SilkBag readSilkFile(String filename) {
         Scanner in = readFile(filename);
-        
-        String stringTemp;
-        String [] stringTempArr;
+
+        boolean isReading = true;
+        String stringTemp = in.nextLine();;
+        String[] stringTempArr;
         int intTemp;
-        int [] intTempArr = new int[3];
-        
-        stringTemp = in.nextLine();
-        stringTemp = in.nextLine();
-        stringTempArr = stringTemp.split(",");
-        
-        for(int i = 0; i < stringTempArr.length; i++){
-            intTempArr[i] = Integer.parseInt(stringTempArr[i]);
+        int[] intTempArr;
+        Tile[] tiles = new Tile();
+
+        while (isReading) {
+            stringTemp = in.nextLine();
+            stringTempArr = stringTemp.split(",");
+            for (int i = 0; i < stringTempArr.length; i++) {
+                intTempArr = new int[stringTempArr.length];
+                intTempArr[i] = Integer.parseInt(stringTempArr[i]);
+            }
         }
+
         
-        
+
         return null;
     }
 }
