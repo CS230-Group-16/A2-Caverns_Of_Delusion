@@ -161,7 +161,7 @@ public class Game {
      * Starts the game by calling function in RoundTable
      */
     public void gameStart() {
-        round.gameStart();
+        //round.gameStart();
     }
 
     /**
