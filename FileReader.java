@@ -81,32 +81,79 @@ public class FileReader {
     public SilkBag readSilkFile(String filename) {
         Scanner in = readFile(filename);
 
-        String stringTemp = in.nextLine();;
+        String stringTemp = in.nextLine();
         String[] stringTempArr;
-        int totalTiles;
-        int[] actionTiles;
-        int[] floorTiles;
+        int totalTiles = 0;
+        int[] actionTiles = null;
+        int[] floorTiles = null;
         
 
         stringTemp = in.nextLine();
         stringTempArr = stringTemp.split(",");
+        actionTiles = new int[stringTempArr.length];
         for (int i = 0; i < stringTempArr.length; i++) {
-            actionTiles = new int[stringTempArr.length];
             actionTiles[i] = Integer.parseInt(stringTempArr[i]);
-            totalTiles =+ actionTiles[i];
+            totalTiles += actionTiles[i];
         }
         stringTemp = in.nextLine();
         stringTempArr = stringTemp.split(",");
+        floorTiles = new int[stringTempArr.length];
         for (int i = 0; i < stringTempArr.length; i++) {
-            floorTiles = new int[stringTempArr.length];
             floorTiles[i] = Integer.parseInt(stringTempArr[i]);
-            totalTiles =+ floorTiles[i];
+            totalTiles += floorTiles[i];
         }
         
         Tile[] tiles = new Tile[totalTiles];
+        int pos = 0;
         
-        for (int i = 0; i < actionTiles.length; i++)
+        for (int i = 0; i < actionTiles.length; i++){
+            for (int y = 0; y < actionTiles[i]; y++){
+                //tile[pos] = new ActionTile("fire");
+                switch (i) {
+                    case 0:
+                        tiles[pos] = new EffectTile("fire");
+                        pos++;
+                        break;
+                    case 1:
+                        tiles[pos] = new EffectTile("ice");
+                        pos++;
+                        break;
+                    case 2:
+                        tiles[pos] = new MovementTile(true);
+                        pos++;
+                        break;
+                    case 3:
+                        tiles[pos] = new MovementTile(false);
+                        pos++;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        
+        for (int i = 0; i < floorTiles.length; i++){
+            for (int y = 0; y < floorTiles[i]; y++){
+                //tile[pos] = new ActionTile("fire");
+                switch (i) {
+                    case 0:
+                        tiles[pos] = new StraightTile("straight",0);
+                        pos++;
+                        break;
+                    case 1:
+                        tiles[pos] = new TShapeTile("tshape",0);
+                        pos++;
+                        break;
+                    case 2:
+                        tiles[pos] = new CornerTile("corner",0);
+                        pos++;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
 
-        return null;
+        return new SilkBag(tiles);
     }
 }
