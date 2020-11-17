@@ -29,8 +29,9 @@ public class SilkBag {
      * @return randomly selected tile from bag.
      */
     public Tile drawTile() {
+        int random = randNum.nextInt(numOfTiles);
         this.numOfTiles--;
-        return this.tileList.remove(randNum);
+        return this.tileList.remove(random);
     }
     
     /**
