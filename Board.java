@@ -6,7 +6,6 @@
  * @version 1.0
  */
 public class Board {
-
     private static int[] player1Location;
     private static int[] player2Location;
     private static int[] player3Location;
@@ -87,7 +86,7 @@ public class Board {
 	 * @param positionNum where the tile should be inserted(column)
 	 * @param rotation orientation of the tile(0 degrees, 90 degrees, ..)
      */
-    void insertTile(FloorTile tile, Boolean row, int positionNum, int rotation) {
+    public void insertTile(FloorTile tile, Boolean row, int positionNum, int rotation) {
         ;
     }
 
@@ -104,8 +103,15 @@ public class Board {
     /*
 	 * checks if player is out of the game board
      */
-    public void pushedOut() {
-        ;
+    public void pushedOut(int playerNum) {
+        int[] playerPos = getPlayerLocation(playerNum);
+        
+        int x = playerPos[0];
+        int y = playerPos[1];
+        
+        do {
+        	//....
+        }while(playerPos[x] > width || playerPos[y] > height);//may not work?
     }
 
     /*
@@ -133,7 +139,7 @@ public class Board {
 	 * checks if player has reached finish
 	 * @return whether player is finished or not
      */
-    Boolean reachedGoal() {
+    public Boolean reachedGoal() {
         return false;
     }
 
@@ -141,7 +147,7 @@ public class Board {
 	 * checks if tile can be used to make a path
 	 * @param tile the tile to be checked
      */
-    void checkPathway(Tile tile) {
+    public void checkPathway(Tile tile) {
         ;
     }
 
@@ -149,24 +155,37 @@ public class Board {
 	 * when a player's turn, signifies their action/'move'
 	 * @param playerNum
      */
-    void move(int playerNum) {
+    public void move(int playerNum) {
         ;
     }
 
     /*
-	 * moves the player forwards/backwards depending on return
+	 * moves the player forwards/backwards depending on boolean
 	 * @param move if true player moves forward, otherwise backwards
 	 * @param playerNum player's number
 	 * @param finalLocation player's goal location
      */
-    void movePlayer(Boolean move, int playerNum, int[] finalLocation) {
-        ;
+    public void movePlayer(Boolean move, int playerNum, int[] finalLocation) {
+    	int[] playerPos = getPlayerLocation(playerNum);
+    	
+    	try {
+    		for(int i = 0; i < finalLocation[i]; i++) {
+    			if(move == true) {
+    				playerPos[i] = playerPos[i] + 1;
+    			}else {
+    				playerPos[i] = playerPos[i] - 1;
+    			}
+    		}
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
     }
 
     /*
 	 * saves board constructor to a .txt file
      */
-    void saveBoardToFile() {
+    public void saveBoardToFile() {
         ;
     }
 
@@ -175,7 +194,7 @@ public class Board {
 	 * @param tile tile to be placed
 	 * @param location where the tile should be placed
      */
-    void placeTile(FloorTile tile, int[] location) {
+    public void placeTile(FloorTile tile, int[] location) {
         ;
     }
 }
