@@ -174,10 +174,10 @@ public class Game {
     /**
      * Creates a new silk bag using tiles from file
      *
-     * @param tiles Array of tiles to place into the silk bag
+     * @param filename level file to create tiles and place in to silk bag
      */
-    public void createSilkBag(Tiles tiles[]) {
-        this.silkBag = new SilkBag(tiles);
+    public void createSilkBag(String filename) {
+        this.silkBag = FileReader.readSilkFile(filename);
     }
 
     /**
