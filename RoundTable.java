@@ -4,6 +4,8 @@
  * @version 1.0
  */
 
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 public class RoundTable {
 
 	private int numOfPlayers;
@@ -45,9 +47,25 @@ public class RoundTable {
 	/**
 	 * calls the movePlayer
 	 */
-	public void movement() {
+	public void movement(KeyEvent e) {
 		movePlayer(currentPlayer);
 		//calls the movePlayer
+		int keyCode = e.getKeyCode();
+		if(keyCode == KeyEvent.VK_UP) {
+			System.out.println("Going up");
+		}
+		else if(keyCode == KeyEvent.VK_DOWN) {
+			System.out.println("Going down");
+		}
+		else if(keyCode == KeyEvent.VK_LEFT) {
+			System.out.println("Going left");
+		}
+		else if(keyCode == KeyEvent.VK_RIGHT) {
+			System.out.println("Going right");
+		}
+		else {
+			System.out.println("Please press arrow keys");
+		}
 	}
 
 	/**
@@ -69,8 +87,14 @@ public class RoundTable {
 	public Player nextPlayer(Player player) {
 		setCurrentPlayer(player);
 		nextPlayer = playerArray(counter + 2);
-		//an array of players. cycle through the index to change players
-
+		//an List of players. cycle through the index to change players
+		// .... depends on how the Player class is implemented
+		List<Player> players = Arrays.asList(new Player(....), new Player(....), new Player(....), new Player(....));
+		Player currentPlayer = players.get(0);
+		if (endTurn()){
+			//This will assign the currentPlayer to the nextPlayer and also put the previous currentPlayer at the end of the list.
+			currentPlayer = players.get((players.indexOf(currentPlayer)+1)%players.size());
+		}
 	}
 
 	/**
