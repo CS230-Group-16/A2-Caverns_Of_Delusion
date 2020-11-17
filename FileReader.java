@@ -61,14 +61,22 @@ public class FileReader {
     /**
      * Read Player profile
      *
+     * @param filename name of the file to initialise player
      * @return player profile
      */
     public Player readPlayerFile(String filename) {
-        Scanner in = readFile(filename);
+        String username = "";
+        int gamesWon = 0;
+        int gamesLost = 0;
         
-        String username = filename.split("\\.")[0];
-        int gamesWon = in.nextInt();
-        int gamesLost = in.nextInt();
+        try {
+            Scanner in = readFile(filename);
+            username = filename.split("\\.")[0];
+            gamesWon = in.nextInt();
+            gamesLost = in.nextInt();
+        }catch(Exception e){
+            System.err.println("Player not Found");
+        }
         
         return new Player(username,gamesWon,gamesLost,0);
     }
