@@ -142,10 +142,7 @@ public class Game {
      * @return Player profile
      */
     private Player playerProfile(String username) {
-        //get player file
-        //read player file
-        //create profile
-        return null;
+        return FileReader.readPlayerFile(username);
     }
 
     /**
@@ -199,6 +196,7 @@ public class Game {
         this.players = new Player[numOfPlayers];
         for (int i = 0; i < numOfPlayers; i++) {
             this.players[i] = playerProfile(playerNames[i]);
+            this.players[i].setPlayerNum(i);
         }
     }
 

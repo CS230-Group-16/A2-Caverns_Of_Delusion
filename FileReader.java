@@ -63,13 +63,18 @@ public class FileReader {
      *
      * @return player profile
      */
-    public Player readPlayerFile() {
-        Player p = new Player();
-        return null;
+    public Player readPlayerFile(String filename) {
+        Scanner in = readFile(filename);
+        
+        String username = filename.split("\\.")[0];
+        int gamesWon = in.nextInt();
+        int gamesLost = in.nextInt();
+        
+        return new Player(username,gamesWon,gamesLost,0);
     }
 
     /**
-     * delete player profile
+     * delete file
      *
      * @param filename name of file to delete
      */
