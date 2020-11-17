@@ -8,7 +8,7 @@ import java.net.URL;
  * The main game class that initialises all objects.
  *
  * @author Bartosz Kubica & Marius Antemir
- * @version 0.4
+ * @version 0.6
  */
 public class Game {
 
@@ -27,17 +27,25 @@ public class Game {
      * @param playerUsername names of the players in the current game
      */
     public Game(String boardFileLocation, String playerUsername[]) {
-
+        createBoard(boardFileLocation);
+        createPlayerArray(playerUsername, playerUsername.length);
+        createSilkBag(boardFileLocation);
+        //create leaderboard
+        //create round
     }
 
     /**
      * Constructor 2 used to construct a saved game.
      *
-     * @param saveboardFileLocation location of file of saved board
+     * @param saveBoardFileLocation location of file of saved board
      * @param saveGameFileLocation location of file of saved game info
      */
-    public Game(String saveboardFileLocation, String saveGameFileLocation) {
-
+    public Game(String saveBoardFileLocation, String saveGameFileLocation) {
+        createBoard(saveBoardFileLocation);
+        //get players
+        //get game state
+        //silk bag
+        
     }
 
     /**
@@ -45,7 +53,7 @@ public class Game {
      *
      * @return True if the game is being played and False if not
      */
-    public Boolean gameInProgress() {
+    private Boolean gameInProgress() {
         return this.gameInProgress;
     }
 
