@@ -88,6 +88,14 @@ public class Player {
     public int getPlayerNum() {
         return playerNum;
     }
+    
+    /**
+     * sets number of the player
+     * @param i player number of the player
+     */
+    public void setPlayerNum(int i) {
+        this.playerNum = i;
+    }
 
     /**
      * Saves the player profile
