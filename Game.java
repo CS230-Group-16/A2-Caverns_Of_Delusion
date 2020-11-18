@@ -13,6 +13,7 @@ import java.net.URL;
 public class Game {
 
     private boolean gameInProgress;
+    private final String LEADERBOARD_FILE = "leaderboard.txt";
 
     private Board board;
     private SilkBag silkBag;
@@ -30,8 +31,8 @@ public class Game {
         createBoard(boardFileLocation);
         createPlayerArray(playerUsername, playerUsername.length);
         createSilkBag(boardFileLocation);
-        //create leaderboard
-        //create round
+        createLeaderboard(LEADERBOARD_FILE);
+        //this.round = new RoundTable(playerUsername.length);
     }
 
     /**
@@ -42,7 +43,7 @@ public class Game {
      */
     public Game(String saveBoardFileLocation, String saveGameFileLocation) {
         createBoard(saveBoardFileLocation);
-        //get players
+        createPlayerArray(playerUsername, playerUsername.length);
         //get game state
         //silk bag
         
