@@ -8,7 +8,7 @@ import java.net.URL;
  * The main game class that initialises all objects.
  *
  * @author Bartosz Kubica & Marius Antemir
- * @version 0.4
+ * @version 0.6
  */
 public class Game {
 
@@ -27,17 +27,25 @@ public class Game {
      * @param playerUsername names of the players in the current game
      */
     public Game(String boardFileLocation, String playerUsername[]) {
-
+        createBoard(boardFileLocation);
+        createPlayerArray(playerUsername, playerUsername.length);
+        createSilkBag(boardFileLocation);
+        //create leaderboard
+        //create round
     }
 
     /**
      * Constructor 2 used to construct a saved game.
      *
-     * @param saveboardFileLocation location of file of saved board
+     * @param saveBoardFileLocation location of file of saved board
      * @param saveGameFileLocation location of file of saved game info
      */
-    public Game(String saveboardFileLocation, String saveGameFileLocation) {
-
+    public Game(String saveBoardFileLocation, String saveGameFileLocation) {
+        createBoard(saveBoardFileLocation);
+        //get players
+        //get game state
+        //silk bag
+        
     }
 
     /**
@@ -45,7 +53,7 @@ public class Game {
      *
      * @return True if the game is being played and False if not
      */
-    public Boolean gameInProgress() {
+    private Boolean gameInProgress() {
         return this.gameInProgress;
     }
 
@@ -142,10 +150,7 @@ public class Game {
      * @return Player profile
      */
     private Player playerProfile(String username) {
-        //get player file
-        //read player file
-        //create profile
-        return null;
+        return FileReader.readPlayerFile(username);
     }
 
     /**
@@ -161,7 +166,7 @@ public class Game {
      * Starts the game by calling function in RoundTable
      */
     public void gameStart() {
-        round.gameStart();
+        //round.gameStart();
     }
 
     /**
@@ -174,10 +179,10 @@ public class Game {
     /**
      * Creates a new silk bag using tiles from file
      *
-     * @param tiles Array of tiles to place into the silk bag
+     * @param filename level file to create tiles and place in to silk bag
      */
-    public void createSilkBag(Tiles tiles[]) {
-        this.silkBag = new SilkBag(tiles);
+    public void createSilkBag(String filename) {
+        this.silkBag = FileReader.readSilkFile(filename);
     }
 
     /**
@@ -199,6 +204,7 @@ public class Game {
         this.players = new Player[numOfPlayers];
         for (int i = 0; i < numOfPlayers; i++) {
             this.players[i] = playerProfile(playerNames[i]);
+            this.players[i].setPlayerNum(i);
         }
     }
 

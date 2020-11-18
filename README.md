@@ -8,6 +8,6 @@ Authors:
 \nMichelle Bhaskaran
 \nMaciej Buczkowski
 \nJimmy Kells
-\nCameron	Mcdonagh
+\nCameron	McDonagh
 \nSurinder Singh
 \nChloe Thomas
