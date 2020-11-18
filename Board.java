@@ -102,6 +102,7 @@ public class Board {
 
     /*
 	 * checks if player is out of the game board
+	 * @param playerNum player's number
      */
     public void pushedOut(int playerNum) {
         int[] playerPos = getPlayerLocation(playerNum);
@@ -109,9 +110,8 @@ public class Board {
         int x = playerPos[0];
         int y = playerPos[1];
         
-        do {
-        	//....
-        }while(playerPos[x] > width || playerPos[y] > height);//may not work?
+        
+        
     }
 
     /*
@@ -147,8 +147,24 @@ public class Board {
 	 * checks if tile can be used to make a path
 	 * @param tile the tile to be checked
      */
-    public void checkPathway(Tile tile) {
-        ;
+    public Boolean checkPathway(Tile tile) { // ** needs to return boolean
+    	int rotation = 0;
+    	int[] pathways;
+    	StraightTile t = new StraightTile("Straight", rotation);
+    	
+    	t.generatePathways(rotation);
+    	pathways = t.getPathways();
+    	
+    	int i = 0;
+    	do {
+    		if(pathways[i] == 1) {
+    			System.out.println("found path");
+    			return true;
+    		}
+    		i += 1;
+    	}while(i < pathways.length);
+    	
+    	return false;
     }
 
     /*
@@ -171,9 +187,9 @@ public class Board {
     	try {
     		for(int i = 0; i < finalLocation[i]; i++) {
     			if(move == true) {
-    				playerPos[i] = playerPos[i] + 1;
+    				playerPos[0] = playerPos[0] + 1;
     			}else {
-    				playerPos[i] = playerPos[i] - 1;
+    				playerPos[0] = playerPos[0] - 1;
     			}
     		}
     	}catch(Exception e) {
