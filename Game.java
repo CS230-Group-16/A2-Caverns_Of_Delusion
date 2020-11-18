@@ -43,10 +43,10 @@ public class Game {
      */
     public Game(String saveBoardFileLocation, String saveGameFileLocation) {
         createBoard(saveBoardFileLocation);
-        createPlayerArray(playerUsername, playerUsername.length);
-        //get game state
-        //silk bag
-        
+        this.players = FileReader.readSavedGameFile(saveGameFileLocation);
+        createSilkBag(saveBoardFileLocation);
+        createLeaderboard(LEADERBOARD_FILE);
+        //this.round = new RoundTable(this.players.length);
     }
 
     /**

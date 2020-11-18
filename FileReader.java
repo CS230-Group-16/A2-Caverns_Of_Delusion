@@ -1,6 +1,7 @@
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -61,15 +62,15 @@ public class FileReader {
     /**
      * Read Player profile
      *
-     * @param filename name of the file to initialise player
+     * @param username name of user for file to be found
      * @return player profile
      */
-    public Player readPlayerFile(String filename) {
+    public Player readPlayerFile(String username) {
         int gamesWon = 0;
         int gamesLost = 0;
         
         try {
-            Scanner in = readFile(filename+".txt");
+            Scanner in = readFile(username+".txt");
             gamesWon = in.nextInt();
             gamesLost = in.nextInt();
         }catch(Exception e){
@@ -171,17 +172,40 @@ public class FileReader {
     /**
      * Read saved game file storing player info
      * @param filename name of file to open
+     * @return array of player profiles
      */
-    public void readGameFile(String filename){
+    public Player [] readSavedGameFile(String filename){
         Scanner in  = readFile(filename);
+        ArrayList<Player> players = new ArrayList<>();
         String temp = "";
         String [] tempArr;
         
         while (in.hasNextLine()) {
             temp = in.nextLine();
+            Player p = readPlayerFile(temp);
+            temp = in.nextLine();
             tempArr = temp.split(",");
             
+            for (String tempArr1 : tempArr) {
+                switch (tempArr1) {
+                    case "fire":
+                        p.insertTile(new EffectTile("fire"));
+                        break;
+                    case "ice":
+                        p.insertTile(new EffectTile("ice"));
+                        break;
+                    case "double":
+                        p.insertTile(new MovementTile(true));
+                        break;
+                    case "backtrack":
+                        p.insertTile(new MovementTile(false));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            players.add(p);
         }
-        
+        return (Player[]) players.toArray();
     }
 }
