@@ -6,7 +6,7 @@ import java.util.Scanner;
 /**
  *
  * @author Bartosz Kubica & Marius Antemir
- * @version 0.1
+ * @version 0.7
  */
 public class FileReader {
 
@@ -65,13 +65,11 @@ public class FileReader {
      * @return player profile
      */
     public Player readPlayerFile(String filename) {
-        String username = "";
         int gamesWon = 0;
         int gamesLost = 0;
         
         try {
-            Scanner in = readFile(filename);
-            username = filename.split("\\.")[0];
+            Scanner in = readFile(filename+".txt");
             gamesWon = in.nextInt();
             gamesLost = in.nextInt();
         }catch(Exception e){
@@ -168,5 +166,22 @@ public class FileReader {
         }
 
         return new SilkBag(tiles);
+    }
+    
+    /**
+     * Read saved game file storing player info
+     * @param filename name of file to open
+     */
+    public void readGameFile(String filename){
+        Scanner in  = readFile(filename);
+        String temp = "";
+        String [] tempArr;
+        
+        while (in.hasNextLine()) {
+            temp = in.nextLine();
+            tempArr = temp.split(",");
+            
+        }
+        
     }
 }
