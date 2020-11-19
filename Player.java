@@ -130,7 +130,7 @@ public class Player {
      */
     /*
      public void insertTile(ActionTile tile) {
-
+        this.spellBook.add(tile);
      }
     */
 
