@@ -8,7 +8,7 @@ import java.net.URL;
  * The main game class that initialises all objects.
  *
  * @author Bartosz Kubica & Marius Antemir
- * @version 0.6
+ * @version 1.0
  */
 public class Game {
 
@@ -87,7 +87,7 @@ public class Game {
     }
 
     /**
-     * Decodes the message as per the instructions on the website
+     * Decodes the message as per the instructions on the web site
      *
      * @param msg message to decode
      * @return decoded message

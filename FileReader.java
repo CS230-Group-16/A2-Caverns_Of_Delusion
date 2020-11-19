@@ -7,7 +7,7 @@ import java.util.Scanner;
 /**
  *
  * @author Bartosz Kubica & Marius Antemir
- * @version 0.7
+ * @version 1.0
  */
 public class FileReader {
 
@@ -17,7 +17,7 @@ public class FileReader {
      * @param filename name of file to be opened
      * @return created board
      */
-    private Scanner readFile(String filename) {
+    private static Scanner readFile(String filename) {
         Scanner in = new Scanner(System.in);
         File file = new File(filename);
 
@@ -38,7 +38,7 @@ public class FileReader {
      * @param in scanner
      * @return created board
      */
-    public Board readBoardFile(String filename) {
+    public static Board readBoardFile(String filename) {
         Scanner in = readFile(filename);
 
         int width = 0;
@@ -65,7 +65,7 @@ public class FileReader {
      * @param username name of user for file to be found
      * @return player profile
      */
-    public Player readPlayerFile(String username) {
+    public static Player readPlayerFile(String username) {
         int gamesWon = 0;
         int gamesLost = 0;
         
@@ -85,12 +85,12 @@ public class FileReader {
      *
      * @param filename name of file to delete
      */
-    public void deleteFile(String filename) {
+    public static void deleteFile(String filename) {
         File f = new File(filename);
         f.delete();
     }
 
-    public SilkBag readSilkFile(String filename) {
+    public static SilkBag readSilkFile(String filename) {
         Scanner in = readFile(filename);
 
         String stringTemp = in.nextLine();
@@ -174,7 +174,7 @@ public class FileReader {
      * @param filename name of file to open
      * @return array of player profiles
      */
-    public Player [] readSavedGameFile(String filename){
+    public static Player [] readSavedGameFile(String filename){
         Scanner in  = readFile(filename);
         ArrayList<Player> players = new ArrayList<>();
         String temp = "";
