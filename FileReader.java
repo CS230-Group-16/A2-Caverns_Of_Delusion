@@ -2,6 +2,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -35,30 +36,96 @@ public class FileReader {
     /**
      * Read file and create board
      *
-     * @param in scanner
+     * @param filename name of board file to read
      * @return created board
      */
     public static Board readBoardFile(String filename) {
         Scanner in = readFile(filename);
 
-        int width = 0;
-        int height = 0;
-        int[] player1Location = {0, 0};
-        int[] player2Location = {0, 0};
-        int[] player3Location = {0, 0};
-        int[] player4Location = {0, 0};
-        String[] fixedTiles = {"Goal"};
-        int[] tileRotation = {0, 0};
-        int[] tileLocation = {0, 0};
-        int temp;
+        int width;
+        int height;
+        int[] player1Location = {-1, -1};
+        int[] player2Location = {-1, -1};
+        int[] player3Location = {-1, -1};
+        int[] player4Location = {-1, -1};
+        int numOfFixedTiles;
+        int numOfPlayers;
 
-        //read file
-        //skip lines 2 and 3
-        Board board = new Board(player1Location, player2Location, player3Location, player4Location, width, height, fixedTiles, tileRotation, tileLocation);
+        String temp = in.nextLine();
+        String[] tempArr;
+        
+        width = Integer.parseInt(temp.split(",")[0]);
+        height = Integer.parseInt(temp.split(",")[1]);
 
-        return null;
+        //dont need next 2 lines from file as they are for the SilkBag
+        in.nextLine();
+        in.nextLine();
+        
+        numOfFixedTiles = Integer.parseInt(in.nextLine()) + 1;
+        //FloorTile[] tiles = new FloorTile[numOfFixedTiles];
+        String[] tiles = new String[numOfFixedTiles];
+        int[][] tileLocations = new int[numOfFixedTiles][2];
+        
+        for (int i = 1; i < numOfFixedTiles; i++) {
+            temp = in.nextLine();
+            if (temp.contains("CORNER")) {
+                tempArr = temp.split(",");
+                //tiles[i] = new CornerTile(tempArr[2],Integer.parseInt(tempArr[2]));
+                tiles[i] = tempArr[2];
+                tileLocations[i][0] = Integer.parseInt(tempArr[0]);
+                tileLocations[i][1] = Integer.parseInt(tempArr[1]);
+            } else if (temp.contains("TSHAPE")) {
+                tempArr = temp.split(",");
+                //tiles[i] = new TShapeTile(tempArr[2],Integer.parseInt(tempArr[2]));
+                tiles[i] = tempArr[2];
+                tileLocations[i][0] = Integer.parseInt(tempArr[0]);
+                tileLocations[i][1] = Integer.parseInt(tempArr[1]);
+            } else if (temp.contains("STRAIGHT")) {
+                tempArr = temp.split(",");
+                //tiles[i] = new StraightTile(tempArr[2],Integer.parseInt(tempArr[2]));
+                tiles[i] = tempArr[2];
+                tileLocations[i][0] = Integer.parseInt(tempArr[0]);
+                tileLocations[i][1] = Integer.parseInt(tempArr[1]);
+            }
+        }
+        
+        //tiles[0] = new GoalTile("goal");
+        tiles[0] = "GOAL";
+        tempArr = in.nextLine().split(",");
+        tileLocations[0][0] = Integer.parseInt(tempArr[0]);
+        tileLocations[0][1] = Integer.parseInt(tempArr[1]);
+        
+        numOfPlayers = Integer.parseInt(in.nextLine());
+        
+        for (int i = 0; i < numOfPlayers; i++) {
+            tempArr = in.nextLine().split(","); 
+            switch (i) {
+                case 0:
+                    player1Location[0] = Integer.parseInt(tempArr[0]);
+                    player1Location[1] = Integer.parseInt(tempArr[1]);
+                    break;
+                case 1:
+                    player2Location[0] = Integer.parseInt(tempArr[0]);
+                    player2Location[1] = Integer.parseInt(tempArr[1]);
+                    break;
+                case 2:
+                    player3Location[0] = Integer.parseInt(tempArr[0]);
+                    player3Location[1] = Integer.parseInt(tempArr[1]);
+                    break;
+                case 3:
+                    player4Location[0] = Integer.parseInt(tempArr[0]);
+                    player4Location[1] = Integer.parseInt(tempArr[1]);
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        System.out.println(Arrays.toString(player1Location) + " " + Arrays.toString(player2Location) + " " + Arrays.toString(player3Location) + " " + Arrays.toString(player4Location) + " " + width + " " + height + " " + Arrays.toString(tiles));
+        Board board = new Board(player1Location, player2Location, player3Location, player4Location, width, height, tiles, tileLocations);
+        return board;
     }
-
+    
     /**
      * Read Player profile
      *
