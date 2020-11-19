@@ -123,11 +123,11 @@ public class FileReader {
                 //tile[pos] = new ActionTile("fire");
                 switch (i) {
                     case 0:
-                        tiles[pos] = new EffectTile("fire");
+                        tiles[pos] = new EffectTile("FIRE");
                         pos++;
                         break;
                     case 1:
-                        tiles[pos] = new EffectTile("ice");
+                        tiles[pos] = new EffectTile("ICE");
                         pos++;
                         break;
                     case 2:
@@ -149,15 +149,15 @@ public class FileReader {
                 //tile[pos] = new ActionTile("fire");
                 switch (i) {
                     case 0:
-                        tiles[pos] = new StraightTile("straight",0);
+                        tiles[pos] = new StraightTile("STRAIGHT",0);
                         pos++;
                         break;
                     case 1:
-                        tiles[pos] = new TShapeTile("tshape",0);
+                        tiles[pos] = new TShapeTile("TSHAPE",0);
                         pos++;
                         break;
                     case 2:
-                        tiles[pos] = new CornerTile("corner",0);
+                        tiles[pos] = new CornerTile("CORNER",0);
                         pos++;
                         break;
                     default:
