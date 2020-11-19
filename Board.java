@@ -27,7 +27,7 @@ public class Board {
 	 * @param tileLocation location of tile 
      */
     Board(int[] player1Location, int[] player2Location, int[] player3Location, int[] player4Location,
-            int width, int height, FloorTiles[] tiles, int[][] tileLocation) {
+            int width, int height, FloorTile[] tiles, int[][] tileLocation) {
         this.player1Location = player1Location;
         this.player2Location = player2Location;
         this.player3Location = player3Location;
