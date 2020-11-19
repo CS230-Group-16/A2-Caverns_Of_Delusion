@@ -1,11 +1,12 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * The Player class creates profile for user
  * @author Michelle Bhaskaran & Chloe Thomas
- * @version 0.3
+ * @version 0.4
  */
 
 public class Player {
@@ -16,6 +17,7 @@ public class Player {
     private int playerNum;
     private int[] pathHistory;
     private boolean backtrackUsed;
+    private ArrayList<ActionTile> spellBook = new ArrayList<ActionTile>();
 
     /**
      * Constructor used to make player profile
@@ -128,11 +130,11 @@ public class Player {
      * inserts tile
      * @param tile
      */
-    /*
+
      public void insertTile(ActionTile tile) {
         this.spellBook.add(tile);
      }
-    */
+
 
     /**
      * updates path history
