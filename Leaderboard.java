@@ -1,14 +1,14 @@
 /**
  * The Leaderboard class creates a leaderboard for the players
  * @author Michelle Bhaskaran & Chloe Thomas
- * @version 0.1
+ * @version 0.2
  */
 
 public class Leaderboard {
 
     /**
      * Constructor used to make leaderboard
-     * @param leaderboardFile the leaderboard
+     * @param leaderboardFile the leaderboard file
      */
     public Leaderboard(String leaderboardFile) {
         this.leaderboardFile = leaderboardFile;
@@ -19,7 +19,7 @@ public class Leaderboard {
      * @param player the player's profile
      * @param score the player's score
      */
-    public insertScore(Player player, int score) {
+    public void insertScore(Player player, int score) {
 
     }
 
