@@ -23,12 +23,11 @@ public class Board {
 	 * @param player4Location fourth player's location
 	 * @param width the width of the gameboard
 	 * @param height the height of the gameboard
-	 * @param fixedTiles all non-moving tiles
-	 * @param tileRotation orientation of tile(0 degrees, 90 degrees, ...)
+	 * @param tiles all fixed tiles to place on to board
 	 * @param tileLocation location of tile 
      */
     Board(int[] player1Location, int[] player2Location, int[] player3Location, int[] player4Location,
-            int width, int height, String[] fixedTiles, int[] tileRotation, int[] tileLocation) {
+            int width, int height, FloorTiles[] tiles, int[][] tileLocation) {
         this.player1Location = player1Location;
         this.player2Location = player2Location;
         this.player3Location = player3Location;
