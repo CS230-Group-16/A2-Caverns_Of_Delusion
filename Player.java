@@ -15,7 +15,7 @@ public class Player {
     private int gamesWon;
     private int gamesLost;
     private int playerNum;
-    private int[] pathHistory;
+    private int[][] pathHistory = {{0,0},{0,0}};
     private boolean backtrackUsed;
     private ArrayList<ActionTile> spellBook = new ArrayList<ActionTile>();
 
@@ -122,8 +122,8 @@ public class Player {
      * gets path history of player
      * @return pathHistory
      */
-    public int[] getPathHistory() {
-        return pathHistory;
+    public int[][] getPathHistory() {
+        return this.pathHistory;
     }
 
     /**
@@ -141,6 +141,8 @@ public class Player {
      * @param lastLocation The last location of player
      */
     public void updatePathHistory(int[] lastLocation) {
-        this.pathHistory = (lastLocation);
+        this.pathHistory[1] = this.pathHistory[0];
+        this.pathHistory[0][0] = lastLocation[0];
+        this.pathHistory[0][1] = lastLocation[1];
     }
 }
