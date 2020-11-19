@@ -1,11 +1,11 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * The Player class creates profile for user
  * @author Michelle Bhaskaran & Chloe Thomas
- * @version 0.2
+ * @version 0.3
  */
 
 public class Player {
@@ -40,7 +40,6 @@ public class Player {
         this.username = username;
     }
 
-
     /**
      * Gets the players Username
      * @return username
@@ -64,14 +63,12 @@ public class Player {
         return gamesWon;
     }
 
-
     /**
      * increases how many games lost
      */
     public void incLost() {
         this.gamesLost = gamesLost + 1;
     }
-
 
     /**
      * gets how many games lost
@@ -88,7 +85,7 @@ public class Player {
     public int getPlayerNum() {
         return playerNum;
     }
-    
+
     /**
      * sets number of the player
      * @param i player number of the player
@@ -101,7 +98,14 @@ public class Player {
      * Saves the player profile
      */
     public void saveProfile() {
-        Player p = new Player (username);
+        try {
+            FileWriter playerFile = new FileWriter("Player_Profile.txt", true);
+            playerFile.write(username + " " + gamesWon + " " + gamesLost + "\n");
+            playerFile.close();
+            System.out.println("Player successfully saved");
+        } catch (IOException e) {
+            System.out.println("Player has not saved");
+        }
     }
 
     /**
@@ -124,15 +128,17 @@ public class Player {
      * inserts tile
      * @param tile
      */
-    public void insertTile(ActionTile tile) {
+    /*
+     public void insertTile(ActionTile tile) {
 
-    }
+     }
+    */
 
     /**
      * updates path history
      * @param lastLocation The last location of player
      */
-     public void updatePathHistory(int[] lastLocation) {
-     //this.pathHistory = new pathHistory (lastLocation);
-     }
+    public void updatePathHistory(int[] lastLocation) {
+        this.pathHistory = (lastLocation);
+    }
 }
