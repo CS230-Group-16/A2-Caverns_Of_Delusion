@@ -97,7 +97,7 @@ public class Board {
 	 * @return FloorTile tile
      */
     private FloorTile createTile(String type, int rotation) {
-        ;
+        return null;
     }
 
     /*
