@@ -52,6 +52,10 @@ public class StraightTile extends FloorTile  {
 				this.pathways = defaultPathway;
     }
 
+    /**
+     * returns the pathways array of the current tile, showing valid and invalid paths
+     * @return pathways - the pathways array of the tile
+     */
 		public int[] getPathways() {
 		    return this.pathways;
 		}
