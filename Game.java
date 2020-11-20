@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 
 /**
  * The main game class that initialises all objects.
@@ -216,5 +217,18 @@ public class Game {
      */
     public void deletePlayer(String username) {
         FileReader.deleteFile(username);
+    }
+    
+    /**
+     * method to print object to console
+     */
+    public void toStr(){
+        System.out.println("Current Game state: " + this.gameInProgress);
+        //this.board.toStr();
+        //this.leaderboard.toStr();
+        //this.round.toStr();
+        this.silkBag.toStr();
+        System.out.println("Current Players in game: " + Arrays.toString(this.players));
+        
     }
 }
