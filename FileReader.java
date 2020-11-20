@@ -71,26 +71,26 @@ public class FileReader {
             temp = in.nextLine();
             if (temp.contains("CORNER")) {
                 tempArr = temp.split(",");
-                tiles[i] = new CornerTile(tempArr[2],Integer.parseInt(tempArr[2]));
+                tiles[i] = new CornerTile(Integer.parseInt(tempArr[2]));
                 //tiles[i] = tempArr[2];
                 tileLocations[i][0] = Integer.parseInt(tempArr[0]);
                 tileLocations[i][1] = Integer.parseInt(tempArr[1]);
             } else if (temp.contains("TSHAPE")) {
                 tempArr = temp.split(",");
-                tiles[i] = new TShapeTile(tempArr[2],Integer.parseInt(tempArr[2]));
+                tiles[i] = new TShapeTile(Integer.parseInt(tempArr[2]));
                 //tiles[i] = tempArr[2];
                 tileLocations[i][0] = Integer.parseInt(tempArr[0]);
                 tileLocations[i][1] = Integer.parseInt(tempArr[1]);
             } else if (temp.contains("STRAIGHT")) {
                 tempArr = temp.split(",");
-                tiles[i] = new StraightTile(tempArr[2],Integer.parseInt(tempArr[2]));
+                tiles[i] = new StraightTile(Integer.parseInt(tempArr[2]));
                 //tiles[i] = tempArr[2];
                 tileLocations[i][0] = Integer.parseInt(tempArr[0]);
                 tileLocations[i][1] = Integer.parseInt(tempArr[1]);
             }
         }
         
-        tiles[0] = new GoalTile("goal");
+        tiles[0] = new GoalTile();
         //tiles[0] = "GOAL";
         tempArr = in.nextLine().split(",");
         tileLocations[0][0] = Integer.parseInt(tempArr[0]);
@@ -217,15 +217,15 @@ public class FileReader {
                 //tile[pos] = new ActionTile("fire");
                 switch (i) {
                     case 0:
-                        tiles[pos] = new StraightTile("STRAIGHT",0);
+                        tiles[pos] = new StraightTile(0);
                         pos++;
                         break;
                     case 1:
-                        tiles[pos] = new TShapeTile("TSHAPE",0);
+                        tiles[pos] = new TShapeTile(0);
                         pos++;
                         break;
                     case 2:
-                        tiles[pos] = new CornerTile("CORNER",0);
+                        tiles[pos] = new CornerTile(0);
                         pos++;
                         break;
                     default:
