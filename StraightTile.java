@@ -2,11 +2,25 @@ public class StraightTile extends FloorTile  {
     private int[] pathways = {0,0,0,0};
     private int rotation;
 
+    /**
+     * Constructor used to make a straight tile
+     *
+     * @param type the type of tile (Straight)
+     * @param rotation/orientation of the tile
+     */
     public StraightTile (String type, int rotation) {
       super(type, "Straight");
       this.generatePathways(rotation);
     }
 
+    /**
+		 * Generates an int array (of length 4) that represents
+		 * the pathways of the tile, the array represents the following
+		 * [North, East, South, West]. '1' represents a path in that direction
+		 * whereas '0' is a lack of a path.
+		 *
+		 * @param rotation - generates the pathways based on the rotation (orientation) of the tile
+		 */
     public void generatePathways(int rotation) {
 				int[] defaultPathway = new int[4];
         switch (rotation) {
@@ -39,6 +53,6 @@ public class StraightTile extends FloorTile  {
     }
 
 		public int[] getPathways() {
-			return this.pathways;
+		    return this.pathways;
 		}
 }
