@@ -4,9 +4,9 @@ abstract class FloorTile extends Tile {
     private boolean occupied;
     private String tileType;
 
-    public FloorTile(String type, String tileType) {
+    public FloorTile(String type) {
         super(type);
-        this.tileType = tileType;
+        this.tileType = type;
     }
 
     public void setFrozen(boolean value) {

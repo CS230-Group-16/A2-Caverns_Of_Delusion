@@ -1,7 +1,7 @@
 /*
  * class represents the floor tile of type 'T-Shape'
  * @author Cameron McDonagh & Maciej Buczkowski
- * @version 1.0
+ * @version 1.2
  */
 
 public class TShapeTile extends FloorTile  {
@@ -11,11 +11,10 @@ public class TShapeTile extends FloorTile  {
 		/**
 		 * Constructor used to make a T-Shape tile
 		 *
-		 * @param type the type of tile (T-Shape)
 		 * @param rotation the rotation/orientation of the tile
 		 */
-		public TShapeTile (String type, int rotation) {
-		    super(type, "T-Shape");
+		public TShapeTile (int rotation) {
+		    super("T-Shape");
 				this.generatePathways(rotation);
 		}
 
@@ -65,5 +64,10 @@ public class TShapeTile extends FloorTile  {
 		 */
 		public int[] getPathways() {
 				return this.pathways;
+		}
+
+		public static void main(String[] args) {
+			TShapeTile t1 = new TShapeTile(0);
+			System.out.println(t1.getType());
 		}
 }

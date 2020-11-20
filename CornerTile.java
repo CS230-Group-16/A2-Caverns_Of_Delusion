@@ -1,7 +1,7 @@
 /*
  * class represents the floor tile of type Corner
  * @author Cameron McDonagh & Maciej Buczkowski
- * @version 1.0
+ * @version 1.3
  */
 
 public class CornerTile extends FloorTile  {
@@ -11,11 +11,10 @@ public class CornerTile extends FloorTile  {
 		/**
 		 * Constructor used to make a corner tile
 		 *
-		 * @param type the type of tile (Corner)
 		 * @param rotation/orientation of the tile
 		 */
-		public CornerTile (String type, int rotation) {
-		    super(type, "Corner");
+		public CornerTile (int rotation) {
+		    super("Corner");
 				this.generatePathways(rotation);
 		}
 

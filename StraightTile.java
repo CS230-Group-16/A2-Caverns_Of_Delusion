@@ -1,7 +1,7 @@
 /*
  * class represents the floor tile of type Corner
  * @author Cameron McDonagh & Maciej Buczkowski
- * @version 1.4
+ * @version 1.6
  */
 public class StraightTile extends FloorTile  {
     private int[] pathways = {0,0,0,0};
@@ -10,11 +10,10 @@ public class StraightTile extends FloorTile  {
     /**
      * Constructor used to make a straight tile
      *
-     * @param type the type of tile (Straight)
      * @param rotation/orientation of the tile
      */
-    public StraightTile (String type, int rotation) {
-      super(type, "Straight");
+    public StraightTile (int rotation) {
+      super("Straight");
       this.generatePathways(rotation);
     }
 
