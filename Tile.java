@@ -27,4 +27,11 @@ abstract class Tile {
     public String getType() {
         return this.type;
     }
+    
+    /**
+     * Prints the tile to screen
+     */
+    public void toStr(){
+        System.out.println(type);
+    }
 }
