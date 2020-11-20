@@ -12,6 +12,7 @@ public class CornerTile extends FloorTile  {
 		 * Constructor used to make a corner tile
 		 *
 		 * @param type the type of tile (Corner)
+		 * @param rotation/orientation of the tile
 		 */
 		public CornerTile (String type, int rotation) {
 		    super(type, "Corner");
