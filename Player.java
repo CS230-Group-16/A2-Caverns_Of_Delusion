@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * The Player class creates profile for user
  * @author Michelle Bhaskaran & Chloe Thomas
- * @version 0.5
+ * @version 0.6
  */
 
 public class Player {
@@ -36,6 +36,7 @@ public class Player {
      * @param username the name of the player in current game
      */
     public void updateUsername(String username) {
+    	FileReader.deleteFile(this.username + ".txt");
         this.username = username;
     }
 
