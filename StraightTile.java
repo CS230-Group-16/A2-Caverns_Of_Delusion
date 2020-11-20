@@ -1,3 +1,8 @@
+/*
+ * class represents the floor tile of type Corner
+ * @author Cameron McDonagh & Maciej Buczkowski
+ * @version 1.4
+ */
 public class StraightTile extends FloorTile  {
     private int[] pathways = {0,0,0,0};
     private int rotation;
