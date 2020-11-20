@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * The Player class creates profile for user
  * @author Michelle Bhaskaran & Chloe Thomas
- * @version 0.4
+ * @version 0.5
  */
 
 public class Player {
@@ -24,13 +24,11 @@ public class Player {
      * @param username  the names of the player in current game
      * @param gamesWon  the number of games won by player
      * @param gamesLost the number of games lost by player
-     * @param playerNum the player number
      */
-    public Player(String username, int gamesWon, int gamesLost, int playerNum) {
+    public Player(String username, int gamesWon, int gamesLost) {
         this.username = username;
         this.gamesWon = gamesWon;
         this.gamesLost = gamesLost;
-        this.playerNum = playerNum;
     }
 
     /**
@@ -94,14 +92,22 @@ public class Player {
     public void setPlayerNum(int i) {
         this.playerNum = i;
     }
+    
+    public boolean getBackTracked() {
+		return backtrackUsed;
+    	
+    }
+    
+    public void setBackTracked() {
+    	this.backtrackUsed = true;
+    }
 
     /**
      * Saves the player profile
      */
     public void saveProfile() {
         try {
-            FileWriter playerFile = new FileWriter("Player_Profiles.txt", false);
-            //In our opinion we think it would be easier to keep it this way, especailly when sorting the leader board.
+            FileWriter playerFile = new FileWriter(username + ".txt", false);
             playerFile.write(username + " " + gamesWon + " " + gamesLost + "\n");
             playerFile.close();
             System.out.println("Player successfully saved");
