@@ -42,4 +42,15 @@ public class SilkBag {
         this.tileList.add(t);
         this.numOfTiles++;
     }
+    
+    /**
+     * method to print silk bag to console
+     */
+    public void toStr(){
+        System.out.println("Current Number of Tiles: " + this.numOfTiles);
+        System.out.print("Current Tiles in Bag: ");
+        for (int i = 0; i < this.numOfTiles; i++) {
+            System.out.print(this.tileList.get(i));
+        }
+    }
 }
