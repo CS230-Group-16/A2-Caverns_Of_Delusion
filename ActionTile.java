@@ -1,19 +1,20 @@
 /**
  * The ActionTile class creates action tile
  * @author Michelle Bhaskaran & Chloe Thomas
- * @version 0.1
+ * @version 1.2
  */
 
-abstract class ActionTile {
+abstract class ActionTile extends Tile {
 
     private String effect;
     private int turnDrawn;
 
     /**
-     *Constructor used to make ActionTile
+     * Constructor used to make ActionTile
      * @param effect the effect of the tile
      */
     public ActionTile(String effect) {
+        super(effect);
         this.effect = effect;
     }
 
