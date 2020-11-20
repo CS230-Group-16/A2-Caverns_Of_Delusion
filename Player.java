@@ -16,7 +16,7 @@ public class Player {
     private int playerNum;
     private int[][] pathHistory = {{0,0},{0,0}};
     private boolean backtrackUsed;
-    private ArrayList<ActionTile> spellBook = new ArrayList<ActionTile>();
+    private ArrayList<ActionTile> spellBook = new ArrayList<>();
 
     /**
      * Constructor used to make player profile
@@ -32,7 +32,7 @@ public class Player {
     }
 
     /**
-     * updates the players Username
+     * Updates the players Username
      * @param username the name of the player in current game
      */
     public void updateUsername(String username) {
@@ -49,14 +49,14 @@ public class Player {
     }
 
     /**
-     * increases how many games won?
+     * Increases how many games player wins
      */
     public void incWon() {
         this.gamesWon = gamesWon + 1;
     }
 
     /**
-     * gets how many games won
+     * Gets how many games won
      * @return gamesWon
      */
     public int getWon() {
@@ -64,14 +64,14 @@ public class Player {
     }
 
     /**
-     * increases how many games lost
+     * Increases how many games player looses
      */
     public void incLost() {
         this.gamesLost = gamesLost + 1;
     }
 
     /**
-     * gets how many games lost
+     * Gets how many games lost
      * @return gamesLost
      */
     public int getLost() {
@@ -79,7 +79,7 @@ public class Player {
     }
 
     /**
-     * gets number of players
+     * Gets player number
      * @return PlayerNum
      */
     public int getPlayerNum() {
@@ -87,19 +87,26 @@ public class Player {
     }
 
     /**
-     * sets number of the player
+     * Sets player number
      * @param i player number of the player
      */
     public void setPlayerNum(int i) {
         this.playerNum = i;
     }
-    
+
+    /**
+     * Gets backtrackUsed
+     * @return backtrackUsed
+     */
     public boolean getBackTracked() {
 		return backtrackUsed;
-    	
     }
-    
-    public void setBackTracked() {
+
+    /**
+     * Sets backtrack
+     * @param backtrackUsed backtracks the player
+     */
+    public void setBackTracked(boolean backtrackUsed) {
     	this.backtrackUsed = true;
     }
 
@@ -118,7 +125,7 @@ public class Player {
     }
 
     /**
-     * gets number of games played
+     * Gets number of games played
      * @return gamesPlayed
      */
     public int getGamesPlayed() {
@@ -126,7 +133,7 @@ public class Player {
     }
 
     /**
-     * gets path history of player
+     * Gets path history of player
      * @return pathHistory
      */
     public int[][] getPathHistory() {
@@ -134,17 +141,15 @@ public class Player {
     }
 
     /**
-     * inserts tile
-     * @param tile
+     * Inserts tile
+     * @param tile the tiles played
      */
-
      public void insertTile(ActionTile tile) {
         this.spellBook.add(tile);
      }
 
-
     /**
-     * updates path history
+     * Updates path history
      * @param lastLocation The last location of player
      */
     public void updatePathHistory(int[] lastLocation) {
