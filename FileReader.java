@@ -27,6 +27,7 @@ public class FileReader {
         } catch (FileNotFoundException e) {
             System.out.println("File not found in directory");
             e.printStackTrace();
+            System.exit(0);
         }
 
         return in;
