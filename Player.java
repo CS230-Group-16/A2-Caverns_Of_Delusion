@@ -100,7 +100,8 @@ public class Player {
      */
     public void saveProfile() {
         try {
-            FileWriter playerFile = new FileWriter(username, false);
+            FileWriter playerFile = new FileWriter("Player_Profiles.txt", false);
+            //In our opinion we think it would be easier to keep it this way, especailly when sorting the leader board.
             playerFile.write(username + " " + gamesWon + " " + gamesLost + "\n");
             playerFile.close();
             System.out.println("Player successfully saved");
