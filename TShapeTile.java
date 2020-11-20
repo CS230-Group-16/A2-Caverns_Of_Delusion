@@ -12,6 +12,7 @@ public class TShapeTile extends FloorTile  {
 		 * Constructor used to make a T-Shape tile
 		 *
 		 * @param type the type of tile (T-Shape)
+		 * @param rotation the rotation/orientation of the tile
 		 */
 		public CornerTile (String type, int rotation) {
 		    super(type, "T-Shape");
