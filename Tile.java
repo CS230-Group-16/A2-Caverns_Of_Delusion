@@ -12,10 +12,10 @@ abstract class Tile {
     protected final String type;
 
     /**
-    * Constructor used to the Tile class
-    *
-    * @param type - the type of the current tile.
-    */
+     * Constructor used to the Tile class
+     *
+     * @param type - the type of the current tile.
+     */
     public Tile (String type){
         this.type = type;
     }
