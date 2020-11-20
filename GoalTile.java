@@ -1,7 +1,7 @@
 /*
  * class represents the floor tile of type 'T-Shape'
  * @author Cameron McDonagh & Maciej Buczkowski
- * @version 1.1
+ * @version 1.2
  */
 
 public class GoalTile extends FloorTile  {
@@ -11,7 +11,7 @@ public class GoalTile extends FloorTile  {
 	 *
 	 * @param type the type of tile (Goal)
 	 */
-	public GoalTile (String type) {
-			super(type);
+	public GoalTile () {
+			super("Goal");
 	}
 }
