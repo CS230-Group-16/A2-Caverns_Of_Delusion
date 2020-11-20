@@ -6,6 +6,8 @@
 
 public class Leaderboard {
 
+    private String leaderboardFile;
+
     /**
      * Constructor used to make leaderboard
      * @param leaderboardFile the leaderboard file
@@ -35,6 +37,6 @@ public class Leaderboard {
      * Updates the file
      */
     public void updateFile() {
-
+        this.leaderboardFile = leaderboardFile;
     }
 }
