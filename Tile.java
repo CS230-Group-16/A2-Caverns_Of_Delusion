@@ -2,7 +2,7 @@
  * class represents the abstract class of tile, cannot be
  * instantiated.
  * @author Cameron McDonagh & Maciej Buczkowski
- * @version 1.1
+ * @version 1.2
  */
 
 abstract class Tile {
@@ -14,7 +14,7 @@ abstract class Tile {
     /**
      * Constructor used to the Tile class
      *
-     * @param type - the type of the current tile.
+     * @param type the type of the current tile.
      */
     public Tile (String type){
         this.type = type;
