@@ -101,7 +101,7 @@ public class Player {
      */
     public void saveProfile() {
         try {
-            FileWriter playerFile = new FileWriter("Player_Profile.txt", true);
+            FileWriter playerFile = new FileWriter(username, false);
             playerFile.write(username + " " + gamesWon + " " + gamesLost + "\n");
             playerFile.close();
             System.out.println("Player successfully saved");
