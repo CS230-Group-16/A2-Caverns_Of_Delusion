@@ -98,7 +98,7 @@ public class RoundTable {
 	public Player nextPlayer(Player player) {
 		setCurrentPlayer(player);
 		nextPlayer = playerArray(counter + 2);
-		//an List of players. cycle through the index to change players
+		//an ArrayList of players. cycle through the index to change players
 		// .... depends on how the Player class is implemented
 		List<Player> players = Arrays.asList(new Player(....), new Player(....), new Player(....), new Player(....));
 		Player currentPlayer = players.get(0);
@@ -158,7 +158,7 @@ public class RoundTable {
 	 */
 	private FloorTile[] getSurroundingTile(int centralTile) {
 		//provides an array of the surrounding tiles.
-		//index 1 will be array to the north, 2 is east...
+		//index 0 will be array to the north, 1 is east...
 		int x = 0;
 		int y = 0;
 		//This loops through all the tiles on the board
@@ -199,9 +199,23 @@ public class RoundTable {
 	/**
 	 * Moves the player
 	 *
-	 * @param move checks to see if the player is able to move
+	 * @param player is the player that will move.
 	 */
-	private void movePlayer(boolean move) {
+	private void movePlayer(Player currentPlayer) {
+		//move will check if the user has a valid pathway
+		boolean move = False;
+		int counter = 0;
+		while move == False {
+			int[] location = Board.getPlayerLocation(currentPlayer);
+			Tile[] currentTile = getTile
+			//find way to turn coords into a Tile
+			move = Board.checkPathway(currentTile);
+		}
+		if move == True {
+			Board.move(currentPlayer);
+		} else {
+			System.out.println("You cannot move this turn");
+		}
 		//calls board class to move player
 	}
 
