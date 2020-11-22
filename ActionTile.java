@@ -1,36 +1,44 @@
 /**
- * The ActionTile class creates action tile
- * @author Michelle Bhaskaran & Chloe Thomas
- * @version 1.2
+ * abstract superclass for making action tiles
+ * @author Cameron McDonagh & Maciej Buczkowski
+ * @version 1.4
  */
-
 abstract class ActionTile extends Tile {
 
-    private String effect;
-    private int turnDrawn;
+    public Integer turnDrawn;
 
     /**
-     * Constructor used to make ActionTile
-     * @param effect the effect of the tile
+     * Constructor for Action Tiles
+     * @param effect effect of the tile
+     * (effect codes: "engulf", "freeze", "backTrack", "doubleMove")
+     * @param turnDrawn turn that the tile is drawn for the movement based effects
      */
-    public ActionTile(String effect) {
+    public ActionTile(String effect, Integer turnDrawn){
         super(effect);
-        this.effect = effect;
+        setTurnDrawn(turnDrawn);
     }
 
     /**
-     * gets effect of tile
-     * @return effect
+     *
+     * @return effect type
      */
-    public String getEffect () {
-        return effect;
+    public String getEffect() {
+        return super.getType();
     }
 
     /**
-     * gets turn drawn
-     * @return effect
+     *
+     * @return turn drawn
      */
-    public int getTurnDrawn () {
+    public Integer getTurnDrawn() {
         return turnDrawn;
+    }
+
+    /**
+     * sets the draw turn for movement effects
+     * @param turnDrawn the turn drawn
+     */
+    public void setTurnDrawn(Integer turnDrawn){
+        this.turnDrawn = turnDrawn;
     }
 }
