@@ -145,7 +145,7 @@ public class FileReader {
             System.err.println("Player not Found");
         }
         
-        return new Player(username,gamesWon,gamesLost,0);
+        return new Player(username,gamesWon,gamesLost);
     }
 
     /**
