@@ -4,8 +4,9 @@
  * @version 1.0
  */
 
-import java.awt.event.KeyEvent;//shouldnt be using awt import - Bartosz
+import javafx.scene.input.KeyEvent; 
 import java.util.ArrayList;
+import java.util.Random;
 public class RoundTable {
 
 	private int numOfPlayers;
@@ -31,8 +32,18 @@ public class RoundTable {
 	 * @return tileString the tile type in a string
 	 */
 	public String checkTileType(String tileType) {
-
-		//https://www.tutorialspoint.com/java/lang/class_tostring.htm#:~:text=lang.-,Class.,the%20format%20returned%20by%20getName.
+			if(tileType == "StraightTile") {
+				return "This is a straight tile";
+			}
+			else if(tileType == "CornerTile") {
+				return "This is a corner tile";
+			}
+			else if(tileType == "TShapeTile") {
+				return "This is a T Shape tile";
+			}
+			else {
+				return "This is an action tile";
+			}
 	}
 
 	/**
@@ -102,7 +113,8 @@ public class RoundTable {
 	 *
 	 */
 	public void drawTile() {
-		SilkBag.drawTile();
+		Random tile = new Random():
+		Random.SilkBag.drawTile();
 		//An array of tiles
 		//use Random to draw out tiles
 	}
@@ -125,7 +137,8 @@ public class RoundTable {
 	 * @param tile The action tile sent to the player's spellbook
 	 */
 	public void sendToPlayer(ActionTile tile) {
-		//add the drawn tile to the player's spellbook
+		Player player = new Player();
+		player.spellBook.add(tile);
 	}
 
 	/**
@@ -133,7 +146,8 @@ public class RoundTable {
 	 *
 	 */
 	public void playActionTile() {
-
+		ActionTile play = new ActionTile();
+		//
 	}
 
 	/**
@@ -142,9 +156,22 @@ public class RoundTable {
 	 * @param centralTile is the center of the 9x9 square of tiles
 	 * @return an array of the surrounding tiles
 	 */
-	private FloorTile[] getSurroundingTile(int[] centralTile) {
+	private FloorTile[] getSurroundingTile(int centralTile) {
 		//provides an array of the surrounding tiles.
 		//index 1 will be array to the north, 2 is east...
+		int x = 0;
+		int y = 0;
+		//This loops through all the tiles on the board
+		for(int i = x-1; i <= x+1; i++) {
+		    for(int j = y-1; j <= y+1; j++) {
+		    	if (i = centralTile && j == centralTile) {
+		        Floortile[0].add(i);
+		        Floortile[1].add(i+1);
+		        Floortile[2].add(i+2);
+		        Floortile[3].add(i-(i+2));
+		    	}
+		    }
+		}
 	}
 
 	/**
