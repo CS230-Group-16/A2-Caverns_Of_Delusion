@@ -191,19 +191,19 @@ public class FileReader {
                 //tile[pos] = new ActionTile("fire");
                 switch (i) {
                     case 0:
-                        tiles[pos] = new EffectTile("FIRE");
+                        tiles[pos] = new EffectTile("FIRE",-1);
                         pos++;
                         break;
                     case 1:
-                        tiles[pos] = new EffectTile("ICE");
+                        tiles[pos] = new EffectTile("ICE",-1);
                         pos++;
                         break;
                     case 2:
-                        tiles[pos] = new MovementTile(true);
+                        tiles[pos] = new MovementTile("DOUBLEMOVE",-1);
                         pos++;
                         break;
                     case 3:
-                        tiles[pos] = new MovementTile(false);
+                        tiles[pos] = new MovementTile("BACKTRACK",-1);
                         pos++;
                         break;
                     default:
@@ -257,16 +257,16 @@ public class FileReader {
             for (String tempArr1 : tempArr) {
                 switch (tempArr1) {
                     case "fire":
-                        p.insertTile(new EffectTile("fire"));
+                        p.insertTile(new EffectTile("FIRE",-1));
                         break;
                     case "ice":
-                        p.insertTile(new EffectTile("ice"));
+                        p.insertTile(new EffectTile("ICE",-1));
                         break;
                     case "double":
-                        p.insertTile(new MovementTile(true));
+                        p.insertTile(new MovementTile("DOUBLEMOVE",-1));
                         break;
                     case "backtrack":
-                        p.insertTile(new MovementTile(false));
+                        p.insertTile(new MovementTile("DOUBLEMOVE",-1));
                         break;
                     default:
                         break;
