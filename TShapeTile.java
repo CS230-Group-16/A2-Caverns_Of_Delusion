@@ -14,7 +14,7 @@ public class TShapeTile extends FloorTile  {
 		 * @param rotation the rotation/orientation of the tile
 		 */
 		public TShapeTile (int rotation) {
-		    super("T-Shape");
+		    super("TSHAPE");
 				this.generatePathways(rotation);
 		}
 

@@ -14,9 +14,9 @@ public class MovementTile extends ActionTile {
      */
     public MovementTile(String effect,Integer turnDrawn) {
         super(effect, turnDrawn);
-        if (effect == "backTrack"){
+        if (effect == "BACKTRACK"){
             this.movement = false; // false means go back
-        }else if (effect == "doubleMove"){
+        }else if (effect == "DOUBLEMOVE"){
             this.movement = true; // true means go forwards
         }
 

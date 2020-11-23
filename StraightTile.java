@@ -13,7 +13,7 @@ public class StraightTile extends FloorTile  {
      * @param rotation/orientation of the tile
      */
     public StraightTile (int rotation) {
-      super("Straight");
+      super("STRIAGHT");
       this.generatePathways(rotation);
     }
 
