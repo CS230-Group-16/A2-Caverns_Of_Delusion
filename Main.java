@@ -25,8 +25,9 @@ public class Main extends Application {
     
     public static void main(String [] args){
         Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000"});
-        g.toStr();
+        //g.toStr();
         
+        launch(args);
         /*
         Player p1 = new Player("Michelle", 2, 1);
 		Player p2 = new Player("Chloe", 5, 3);
