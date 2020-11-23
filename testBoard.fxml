@@ -51,6 +51,21 @@
                         <Image url="@images/Straight.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="115.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                     <image>
+                        <Image url="@images/Corner.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="118.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                     <image>
+                        <Image url="@images/TShape.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="120.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+                     <image>
+                        <Image url="@images/Goal.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </center>
