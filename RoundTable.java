@@ -130,11 +130,11 @@ public class RoundTable {
 	 *
 	 */
 	public void drawTile() {
-		SilkBag.drawtile();
-		if tile == actionTile {
-			sendToPlayer(tile);
+		Tile t = SilkBag.drawtile();
+		if (t == actionTile) {
+			sendToPlayer(t);
 		} else {
-			insertTile(tile);
+			insertTile(t);
 		}
 	}
 
