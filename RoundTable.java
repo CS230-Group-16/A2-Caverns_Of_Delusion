@@ -55,8 +55,11 @@ public class RoundTable {
 	public void turnStart(); {
 		drawTile();
 		playActionTile();
+		movement();
 		endTurn();
-		return;
+		if (Board.reachedGoal == True) {
+			return;
+		}
 	}
 	/**
 	 * gets the current player
@@ -152,11 +155,11 @@ public class RoundTable {
 	 *
 	 */
 	public void drawTile() {
-		Tile t = SilkBag.drawtile();
-		if (t == actionTile) {
-			sendToPlayer(t);
+		SilkBag.drawtile();
+		if tile == actionTile {
+			sendToPlayer(tile);
 		} else {
-			insertTile(t);
+			insertTile(tile);
 		}
 	}
 
@@ -208,10 +211,10 @@ public class RoundTable {
 	 *
 	 */
 	public void playActionTile(ActionTile t) {
-		checkTileType(t);
+		String type = checkTileType(t);
 		int coords[] = Board.getTile(t);
-		if (tile == "backtrack") {
-			System.out.println("Who would you like to backtrack?")
+		if (type == "backtrack") {
+			System.out.println("Who would you like to backtrack?");
 			//allow the player to click on another player to backtrack
 			//check if the player selected has been backtracked before
 
@@ -224,17 +227,18 @@ public class RoundTable {
 				PlayerSelected.setBackTracked();
 			}
 		}
-		else if(t == "doublemove") {
-			currentPlayer.movement();
+		else if(type == "doublemove") {
+			movement();
 		}
-		else if(t == "fire"){
+		else if(type == "fire"){
+			//ask user for central tile
 			engulfTiles(getSurroundingTile(coords[]));
 		}
 		else {
+			//ask user for central tile
 			freezeTiles(getSurroundingTile(coords[]));
 		}
-		ActionTile play = new ActionTile();
-		//
+
 	}
 
 	/**
@@ -301,30 +305,39 @@ public class RoundTable {
 	 *
 	 * @param tile The tiles to be engulfed
 	 */
-	private void engulfTiles(Tile[] tile) {
-		blockingPlayer = False;
-		for (int i = 1; i <= 4; i++) {
-			if (Board.getPlayerLocation(i) == tile) {
-				blockingPlayer = True;
-			}
+	private void engulfTiles(int[] tile) {
+		Tile[] tiles = getSurroundingTile(tile);
+		for (int i = 0; i < tiles.length; i++) {
+			tiles[i].engulf;
 		}
-		if (blockingPlayer == False) {
-			tile = EffectTile.engulf();
-		} else {
-			System.out.println("you cannot engulf a tile with a player on it");
 
-		}
-		//take a central tile and engulf all tiles touching it.
-		//needs to check that there are no players on the fire tiles
+		// 	blockingPlayer = False;
+		// 	for (int i = 1; i <= 4; i++) {
+		// 		if (Board.getPlayerLocation(i) == tile) {
+		// 			blockingPlayer = True;
+		// 		}
+		// 	}
+		// 	if (blockingPlayer == False) {
+		// 		tile = EffectTile.engulf();
+		// } else {
+		// 	System.out.println("you cannot engulf a tile with a player on it");
+
 	}
+	//take a central tile and engulf all tiles touching it.
+	//needs to check that there are no players on the fire tiles
+}
 
 	/**
 	 * Freezes all the tiles passed in as arguments
 	 *
 	 * @param Tile[] The tiles to be frozen
 	 */
-	private void freezeTiles(Tile[] tile) {
-		tile = EffectTile.freeze(); //freezes all tiles passes in as arguments
+	private void freezeTiles(int[] tile) {
+		Tile[] tiles = getSurroundingTile(tile);
+		for (int i = 0; i < tiles.length; i++) {
+			tiles[i].freeze;
+		}
+		//freezes all tiles passes in as arguments
 		//take a central tile and freeze all tiles touching it.
 		//checks that the tiles are on the board
 	}
