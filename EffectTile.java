@@ -19,7 +19,7 @@ public class EffectTile extends ActionTile {
      * @param tile tile you wish to effect
      */
     public static void engulf(FloorTile tile){
-        tile.setEngulfed();
+        tile.setEngulfed(true);
     }
 
     /**
@@ -35,7 +35,7 @@ public class EffectTile extends ActionTile {
      * @param tile tile you with to effect
      */
     public static void freeze(FloorTile tile){
-            tile.setFrozen();
+            tile.setFrozen(true);
     }
 
 }

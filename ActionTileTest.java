@@ -9,7 +9,7 @@ public class ActionTileTest {
         MovementTile move = new MovementTile("backTrack", 0 );
         MovementTile moveTwo = new MovementTile("doubleMove", 0 );
 
-        CornerTile testTile = new CornerTile("Corner",1);
+        CornerTile testTile = new CornerTile(1);
 
         System.out.println(fire.getAction());
         System.out.println(fire.getTurnDrawn());
