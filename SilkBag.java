@@ -47,10 +47,12 @@ public class SilkBag {
      * method to print silk bag to console
      */
     public void toStr(){
+        System.out.println("---SilkBag---");
         System.out.println("Current Number of Tiles: " + this.numOfTiles);
-        System.out.print("Current Tiles in Bag: ");
+        System.out.println("Current Tiles in Bag: ");
         for (int i = 0; i < this.numOfTiles; i++) {
             this.tileList.get(i).toStr();
         }
+        System.out.println("-------------");
     }
 }

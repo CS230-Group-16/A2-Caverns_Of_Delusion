@@ -163,15 +163,18 @@ public class Player {
      * Method to string to print player to screen
      */
     public void toStr(){
+        System.out.println("---Player---");
         System.out.println("Username: " + this.username);
         System.out.println("Games Lost: " + this.gamesLost + " Games Won: " + this.gamesWon);
         System.out.println("Backtrack: " + this.backtrackUsed);
         System.out.println("Player Num: " + this.playerNum);
         System.out.println("Path History: " + Arrays.toString(this.pathHistory));
-        System.out.print("Spell Book: ");
+        System.out.println("Spell Book: ");
         for (int i = 0; i < this.spellBook.size(); i++) {
-            System.out.print(this.spellBook.get(i).toStr());
+            this.spellBook.get(i).toStr();
+            
         }
-        System.out.println();
+        System.out.println("------------");
+        
     }
 }

@@ -224,11 +224,17 @@ public class Game {
      */
     public void toStr(){
         System.out.println("Current Game state: " + this.gameInProgress);
+        System.out.println();
         //this.board.toStr();
         //this.leaderboard.toStr();
         //this.round.toStr();
         this.silkBag.toStr();
-        System.out.println("Current Players in game: " + Arrays.toString(this.players));
+        System.out.println();
+        System.out.println("Current Players in game: ");
+        for (int i = 0; i < this.players.length; i++) {
+            this.players[i].toStr();
+        }
+        System.out.println();
         
     }
 }

@@ -32,6 +32,6 @@ abstract class Tile {
      * Prints the tile to screen
      */
     public void toStr(){
-        System.out.println(type);
+        System.out.println("Type:" + this.type);
     }
 }

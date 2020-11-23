@@ -48,5 +48,6 @@ abstract class ActionTile extends Tile {
     public void toStr(){
         super.toStr();
         System.out.println("Turn Drawn: " + this.turnDrawn);
+        System.out.println();
     }
 }

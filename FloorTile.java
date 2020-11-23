@@ -76,5 +76,6 @@ abstract class FloorTile extends Tile {
         System.out.println("Frozen: " + this.frozen);
         System.out.println("Engulfed: " + this.engulfed);
         System.out.println("Occupied: " + this.occupied);
+        System.out.println();
     }
 }
