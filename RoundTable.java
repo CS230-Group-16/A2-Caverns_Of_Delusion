@@ -4,7 +4,7 @@
  * @version 1.0
  */
 
-import javafx.scene.input.KeyEvent; 
+import javafx.scene.input.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
 public class RoundTable {
@@ -12,20 +12,20 @@ public class RoundTable {
 	private int numOfPlayers;
 	private int turnCounter;
 	private Player currentPlayer;
-        private Player nextPlayer;
+	private Player nextPlayer;
 
 	/**
 	 *
 	 * @param numOfPlayers The number of players
 	 * @param turnCounter  The number of turns that have been taken
 	 * @param currentPlayer The current player
-         * @param nextPlayer The player after the current player
+	 * @param nextPlayer The player after the current player
 	 */
 	public RoundTable(int numOfPlayers, int turnCounter, Player currentPlayer, Player nextPlayer) {
 		this.numOfPlayers = numOfPlayers;
 		this.turnCounter = turnCounter;
 		this.currentPlayer = currentPlayer;
-                this.nextPlayer = nextPlayer;
+		this.nextPlayer = nextPlayer;
 	}
 
 	/**
@@ -35,18 +35,18 @@ public class RoundTable {
 	 * @return tileString the tile type in a string
 	 */
 	public String checkTileType(String tileType) {
-			if(tileType == "StraightTile") {
-				return "This is a straight tile";
-			}
-			else if(tileType == "CornerTile") {
-				return "This is a corner tile";
-			}
-			else if(tileType == "TShapeTile") {
-				return "This is a T Shape tile";
-			}
-			else {
-				return "This is an action tile";
-			}
+		if(tileType == "StraightTile") {
+			return "This is a straight tile";
+		}
+		else if(tileType == "CornerTile") {
+			return "This is a corner tile";
+		}
+		else if(tileType == "TShapeTile") {
+			return "This is a T Shape tile";
+		}
+		else {
+			return "This is an action tile";
+		}
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class RoundTable {
 	 */
 	public boolean endTurn() {
 		nextPlayer(PlayerArray(counter + 1));
-                //return back to game to increment player
+		//return back to game to increment player
 	}
 
 	/**
@@ -102,10 +102,10 @@ public class RoundTable {
 	 * @return the next player
 	 */
 	public Player nextPlayer(Player player) {
-            
-            //setNextPlayer
-            
-            
+
+		//setNextPlayer
+
+
 		setCurrentPlayer(player);
 		nextPlayer = playerArray(counter + 2);
 		//an ArrayList of players. cycle through the index to change players
@@ -123,9 +123,12 @@ public class RoundTable {
 	 *
 	 */
 	public void drawTile() {
-		return ;
-		//An array of tiles
-		//use Random to draw out tiles
+		SilkBag.drawtile();
+		if tile == actionTile {
+			sendToPlayer(tile);
+		} else {
+			insertTile(tile);
+		}
 	}
 
 	/**
@@ -136,7 +139,11 @@ public class RoundTable {
 	 * @param positionNum
 	 */
 	public void insertTile(FloorTile tile, boolean row, int positionNum) {
-		SilkBag.addTile(tile);
+		if row == True {
+			SilkBag.addTile(tile);
+		}
+
+		Board.placeTile(tile);
 		//check ouput type
 	}
 
@@ -165,22 +172,56 @@ public class RoundTable {
 	 * @param centralTile is the center of the 9x9 square of tiles
 	 * @return an array of the surrounding tiles
 	 */
-	private FloorTile[] getSurroundingTile(int centralTile) {
+	private FloorTile[] getSurroundingTile(int[] centralTile) {
 		//provides an array of the surrounding tiles.
 		//index 0 will be array to the north, 1 is east...
+		Board addingTiles = new Board();
+		centralTile = new int[2];
+		int chosenx = centralTile[0];
+		int choseny = centralTile[1];
 		int x = 0;
 		int y = 0;
+		FloorTile[] selectedTiles = new FloorTile[];
 		//This loops through all the tiles on the board
 		for(int i = x-1; i <= x+1; i++) {
-		    for(int j = y-1; j <= y+1; j++) {
-		    	if (i = centralTile && j == centralTile) {
-		        Floortile[0].add(i);
-		        Floortile[1].add(i+1);
-		        Floortile[2].add(i+2);
-		        Floortile[3].add(i-(i+2));
-		    	}
-		    }
+			for(int j = y-1; j <= y+1; j++) {
+				if (i = chosenx && j == choseny) {
+					//centre
+					selectedTiles[0].add(x);
+					selectedTiles[1].add(y);
+					//To the right
+					selectedTiles[2].add(x+1);
+					selectedTiles[3].add(y);
+					//to the left
+					selectedTiles[4].add(x-1);
+					selectedTiles[5].add(y);
+					//top
+					selectedTiles[6].add(x);
+					selectedTiles[7].add(y-1);
+					//bottom
+					selectedTiles[8].add(x);
+					selectedTiles[9].add(y+1);
+					//top left corner
+					selectedTiles[10].add(x-1);
+					selectedTiles[11].add(y-1);
+					//top right corner
+					selectedTiles[12].add(x+1);
+					selectedTiles[13].add(y-1);
+					//bottom left corner
+					selectedTiles[14].add(x-1);
+					selectedTiles[15].add(y+1);
+					//bottom right corner
+					selectedTiles[16].add(x+1);
+					selectedTiles[17].add(y+1);
+				}
+
+
+			}
 		}
+		for (int i = 0; i < selectedTiles.size(); i++) {
+			addingTiles.getTile(selectedTiles[i]); //getTile() to be made in board
+		}
+		return selectedTiles;
 	}
 
 	/**
@@ -216,7 +257,9 @@ public class RoundTable {
 		int counter = 0;
 		while move == False {
 			int[] location = Board.getPlayerLocation(currentPlayer);
-			Tile[] currentTile = getTile
+			int x = location[0];
+			int y = location[1];
+			Tile currentTile = Board.getTile(x, y);
 			//find way to turn coords into a Tile
 			move = Board.checkPathway(currentTile);
 		}
