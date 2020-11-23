@@ -49,6 +49,12 @@ public class RoundTable {
 		}
 	}
 
+	public void turnStart(); {
+		drawTile();
+
+		endTurn();
+		return;
+	}
 	/**
 	 * gets the current player
 	 * 	DISCUSS why we need getCurrentPlayer
@@ -92,6 +98,7 @@ public class RoundTable {
 	 */
 	public boolean endTurn() {
 		nextPlayer(PlayerArray(counter + 1));
+		roundStart();
 		//return back to game to increment player
 	}
 
@@ -139,11 +146,28 @@ public class RoundTable {
 	 * @param positionNum
 	 */
 	public void insertTile(FloorTile tile, boolean row, int positionNum) {
-		if row == True {
-			SilkBag.addTile(tile);
-		}
+		Board.insertTile(tile, row, positionNum);
+		// int x;
+		// int y;
+		// if row == True {
+		// 	y = positionNum;
+		// 	x = 0;
+		// } else {
+		// 	x = positionNum;
+		// 	y = 0;
+		// }
+		// insertPosition[0] = x;
+		// insertPosition[1] = y;
+		//
+		// Board.placeTile(tile, insertPosition);
+		// int xSize = Board.getSizex();
+		// int ySize = Board.getSizey();
+		// if (row == True && positionNum == ySize) {
+		// 	SilkBag.addTile(Board.getTile(0, positionNum));
+		// }
+		// SilkBag.addTile(tile);
 
-		Board.placeTile(tile);
+
 		//check ouput type
 	}
 
@@ -161,7 +185,9 @@ public class RoundTable {
 	 * Allows an action tile to be played
 	 *
 	 */
-	public void playActionTile() {
+	public void playActionTile(ActionTile t) {
+		checkTileType(t);
+
 		ActionTile play = new ActionTile();
 		//
 	}
@@ -172,7 +198,7 @@ public class RoundTable {
 	 * @param centralTile is the center of the 9x9 square of tiles
 	 * @return an array of the surrounding tiles
 	 */
-	private FloorTile[] getSurroundingTile(int[] centralTile) {
+	private FloorTile[][] getSurroundingTile(int[] centralTile) {
 		//provides an array of the surrounding tiles.
 		//index 0 will be array to the north, 1 is east...
 		Board addingTiles = new Board();
@@ -181,38 +207,38 @@ public class RoundTable {
 		int choseny = centralTile[1];
 		int x = 0;
 		int y = 0;
-		FloorTile[] selectedTiles = new FloorTile[];
+		FloorTile[][] selectedTiles = new FloorTile[];
 		//This loops through all the tiles on the board
 		for(int i = x-1; i <= x+1; i++) {
 			for(int j = y-1; j <= y+1; j++) {
 				if (i = chosenx && j == choseny) {
 					//centre
-					selectedTiles[0].add(x);
-					selectedTiles[1].add(y);
+					selectedTiles[0][0].add(x);
+					selectedTiles[0][1].add(y);
 					//To the right
-					selectedTiles[2].add(x+1);
-					selectedTiles[3].add(y);
+					selectedTiles[1][0].add(x+1);
+					selectedTiles[1][1].add(y);
 					//to the left
-					selectedTiles[4].add(x-1);
-					selectedTiles[5].add(y);
+					selectedTiles[2][0].add(x-1);
+					selectedTiles[2][1].add(y);
 					//top
-					selectedTiles[6].add(x);
-					selectedTiles[7].add(y-1);
+					selectedTiles[3][0].add(x);
+					selectedTiles[3][1].add(y-1);
 					//bottom
-					selectedTiles[8].add(x);
-					selectedTiles[9].add(y+1);
+					selectedTiles[4][0].add(x);
+					selectedTiles[4][1].add(y+1);
 					//top left corner
-					selectedTiles[10].add(x-1);
-					selectedTiles[11].add(y-1);
+					selectedTiles[5][0].add(x-1);
+					selectedTiles[5][1].add(y-1);
 					//top right corner
-					selectedTiles[12].add(x+1);
-					selectedTiles[13].add(y-1);
+					selectedTiles[6][0].add(x+1);
+					selectedTiles[6][1].add(y-1);
 					//bottom left corner
-					selectedTiles[14].add(x-1);
-					selectedTiles[15].add(y+1);
+					selectedTiles[7][0].add(x-1);
+					selectedTiles[7][1].add(y+1);
 					//bottom right corner
-					selectedTiles[16].add(x+1);
-					selectedTiles[17].add(y+1);
+					selectedTiles[8][0].add(x+1);
+					selectedTiles[8][1].add(y+1);
 				}
 
 
@@ -230,7 +256,15 @@ public class RoundTable {
 	 * @param tile The tiles to be engulfed
 	 */
 	private void engulfTiles(Tile[] tile) {
-		tile = EffectTile.engulf();
+		blockingPlayer = False;
+		for (int i = 1; i <= 4; i++) {
+			if (Board.getPlayerLocation(i) == tile) {
+				blockingPlayer = True;
+			}
+		}
+		if (blockingPlayer == False) {
+			tile = EffectTile.engulf();
+		}
 		//take a central tile and engulf all tiles touching it.
 		//needs to check that there are no players on the fire tiles
 	}
