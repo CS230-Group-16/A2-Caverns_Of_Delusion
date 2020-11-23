@@ -206,7 +206,7 @@ public class Game {
         this.players = new Player[numOfPlayers];
         for (int i = 0; i < numOfPlayers; i++) {
             this.players[i] = playerProfile(playerNames[i]);
-            this.players[i].setPlayerNum(i);
+            this.players[i].setPlayerNum(i+1);
         }
     }
 
