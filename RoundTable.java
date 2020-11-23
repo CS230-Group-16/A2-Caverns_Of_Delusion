@@ -13,6 +13,8 @@ public class RoundTable {
 	private int turnCounter;
 	private Player currentPlayer;
 	private Player nextPlayer;
+	private Player[] players;
+
 
 	/**
 	 *
@@ -21,9 +23,10 @@ public class RoundTable {
 	 * @param currentPlayer The current player
 	 * @param nextPlayer The player after the current player
 	 */
-	public RoundTable(int numOfPlayers, int turnCounter, Player currentPlayer, Player nextPlayer) {
+	public RoundTable(int numOfPlayers, int turnCounter, Player currentPlayer, Player nextPlayer, Player[] players) {
 		this.numOfPlayers = numOfPlayers;
 		this.turnCounter = turnCounter;
+		this.players = players;
 		this.currentPlayer = currentPlayer;
 		this.nextPlayer = nextPlayer;
 	}
@@ -51,7 +54,7 @@ public class RoundTable {
 
 	public void turnStart(); {
 		drawTile();
-
+		playActionTile();
 		endTurn();
 		return;
 	}
@@ -67,6 +70,25 @@ public class RoundTable {
 	/**
 	 * calls the movePlayer
 	 */
+	public void movement () {
+		//move will check if the user has a valid pathway
+		boolean move = False;
+		int counter = 0;
+		while move == False {
+			int[] location = Board.getPlayerLocation(currentPlayer);
+			int x = location[0];
+			int y = location[1];
+			Tile currentTile = Board.getTile(x, y);
+			//find way to turn coords into a Tile
+			move = Board.checkPathway(currentTile);
+		}
+		if move == True {
+			Board.move(currentPlayer);
+		} else {
+			System.out.println("You cannot move this turn");
+		}
+		//calls board class to move player
+	}
         /*
 	public void movement(KeyEvent e) {
 		movePlayer(currentPlayer);
@@ -187,7 +209,30 @@ public class RoundTable {
 	 */
 	public void playActionTile(ActionTile t) {
 		checkTileType(t);
+		int coords[] = Board.getTile(t);
+		if (tile == "backtrack") {
+			System.out.println("Who would you like to backtrack?")
+			//allow the player to click on another player to backtrack
+			//check if the player selected has been backtracked before
 
+			if(PlayerSelected.getBackTracked()) {
+				System.out.println("This person has already been backtracked");
+				playActionTile(t);
+			}
+			else {
+				PlayerSelected.backtrack();
+				PlayerSelected.setBackTracked();
+			}
+		}
+		else if(t == "doublemove") {
+			currentPlayer.movement();
+		}
+		else if(t == "fire"){
+			engulfTiles(getSurroundingTile(coords[]));
+		}
+		else {
+			freezeTiles(getSurroundingTile(coords[]));
+		}
 		ActionTile play = new ActionTile();
 		//
 	}
@@ -245,7 +290,8 @@ public class RoundTable {
 			}
 		}
 		for (int i = 0; i < selectedTiles.size(); i++) {
-			addingTiles.getTile(selectedTiles[i]); //getTile() to be made in board
+			addingTiles.getTile(selectedTiles[i][0]); //getTile() to be made in board
+			addingTiles.getTile(selectedTiles[i][1]);
 		}
 		return selectedTiles;
 	}
@@ -264,6 +310,9 @@ public class RoundTable {
 		}
 		if (blockingPlayer == False) {
 			tile = EffectTile.engulf();
+		} else {
+			System.out.println("you cannot engulf a tile with a player on it");
+
 		}
 		//take a central tile and engulf all tiles touching it.
 		//needs to check that there are no players on the fire tiles
@@ -285,24 +334,8 @@ public class RoundTable {
 	 *
 	 * @param player is the player that will move.
 	 */
-	private void movePlayer(Player currentPlayer) {
-		//move will check if the user has a valid pathway
-		boolean move = False;
-		int counter = 0;
-		while move == False {
-			int[] location = Board.getPlayerLocation(currentPlayer);
-			int x = location[0];
-			int y = location[1];
-			Tile currentTile = Board.getTile(x, y);
-			//find way to turn coords into a Tile
-			move = Board.checkPathway(currentTile);
-		}
-		if move == True {
-			Board.move(currentPlayer);
-		} else {
-			System.out.println("You cannot move this turn");
-		}
-		//calls board class to move player
+	private void backtrackPlayer(Player currentPlayer) {
+
 	}
 
 	/**
