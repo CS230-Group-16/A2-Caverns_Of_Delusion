@@ -86,6 +86,30 @@ public class Board {
 	 * @param rotation orientation of the tile(0 degrees, 90 degrees, ..)
      */
     public void insertTile(FloorTile tile, Boolean row, int positionNum, int rotation) {
+        //from Jimmy and Surinder
+
+// int x;
+		// int y;
+		// if row == True {
+		// 	y = positionNum;
+		// 	x = 0;
+		// } else {
+		// 	x = positionNum;
+		// 	y = 0;
+		// }
+		// insertPosition[0] = x;
+		// insertPosition[1] = y;
+		//
+		// Board.placeTile(tile, insertPosition);
+		// int xSize = Board.getSizex();
+		// int ySize = Board.getSizey();
+		// if (row == True && positionNum == ySize) {
+		// 	SilkBag.addTile(Board.getTile(0, positionNum));
+		// }
+		// SilkBag.addTile(tile);
+                
+                
+                
         ;
     }
 
