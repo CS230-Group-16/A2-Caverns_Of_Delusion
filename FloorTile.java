@@ -67,4 +67,14 @@ abstract class FloorTile extends Tile {
     public boolean isOccupied() {
         return this.occupied;
     }
+    
+    /**
+     * Method to print FloorTile to string for testing
+     */
+    public void toStr(){
+        super.toStr();
+        System.out.println("Frozen: " + this.frozen);
+        System.out.println("Engulfed: " + this.engulfed);
+        System.out.println("Occupied: " + this.occupied);
+    }
 }

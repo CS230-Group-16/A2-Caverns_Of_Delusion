@@ -41,4 +41,12 @@ abstract class ActionTile extends Tile {
     public void setTurnDrawn(Integer turnDrawn){
         this.turnDrawn = turnDrawn;
     }
+    
+    /**
+     * Method to print ActionTile to string for testing
+     */
+    public void toStr(){
+        super.toStr();
+        System.out.println("Turn Drawn: " + this.turnDrawn);
+    }
 }
