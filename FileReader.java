@@ -71,19 +71,19 @@ public class FileReader {
             temp = in.nextLine();
             if (temp.contains("CORNER")) {
                 tempArr = temp.split(",");
-                tiles[i] = new CornerTile(Integer.parseInt(tempArr[2]));
+                tiles[i] = new CornerTile(Integer.parseInt(tempArr[3]));
                 //tiles[i] = tempArr[2];
                 tileLocations[i][0] = Integer.parseInt(tempArr[0]);
                 tileLocations[i][1] = Integer.parseInt(tempArr[1]);
             } else if (temp.contains("TSHAPE")) {
                 tempArr = temp.split(",");
-                tiles[i] = new TShapeTile(Integer.parseInt(tempArr[2]));
+                tiles[i] = new TShapeTile(Integer.parseInt(tempArr[3]));
                 //tiles[i] = tempArr[2];
                 tileLocations[i][0] = Integer.parseInt(tempArr[0]);
                 tileLocations[i][1] = Integer.parseInt(tempArr[1]);
             } else if (temp.contains("STRAIGHT")) {
                 tempArr = temp.split(",");
-                tiles[i] = new StraightTile(Integer.parseInt(tempArr[2]));
+                tiles[i] = new StraightTile(Integer.parseInt(tempArr[3]));
                 //tiles[i] = tempArr[2];
                 tileLocations[i][0] = Integer.parseInt(tempArr[0]);
                 tileLocations[i][1] = Integer.parseInt(tempArr[1]);
@@ -122,7 +122,7 @@ public class FileReader {
             }
         }
         
-        System.out.println(Arrays.toString(player1Location) + " " + Arrays.toString(player2Location) + " " + Arrays.toString(player3Location) + " " + Arrays.toString(player4Location) + " " + width + " " + height + " " + Arrays.toString(tiles));
+        //System.out.println(Arrays.toString(player1Location) + " " + Arrays.toString(player2Location) + " " + Arrays.toString(player3Location) + " " + Arrays.toString(player4Location) + " " + width + " " + height + " " + Arrays.toString(tiles));
         Board board = new Board(player1Location, player2Location, player3Location, player4Location, width, height, tiles, tileLocations);
         return board;
     }
