@@ -11,18 +11,21 @@ public class RoundTable {
 
 	private int numOfPlayers;
 	private int turnCounter;
-	private int currentPlayer;
+	private Player currentPlayer;
+        private Player nextPlayer;
 
 	/**
 	 *
 	 * @param numOfPlayers The number of players
 	 * @param turnCounter  The number of turns that have been taken
 	 * @param currentPlayer The current player
+         * @param nextPlayer The player after the current player
 	 */
-	public RoundTable(int numOfPlayers, int turnCounter, Player currentPlayer) {
+	public RoundTable(int numOfPlayers, int turnCounter, Player currentPlayer, Player nextPlayer) {
 		this.numOfPlayers = numOfPlayers;
 		this.turnCounter = turnCounter;
 		this.currentPlayer = currentPlayer;
+                this.nextPlayer = nextPlayer;
 	}
 
 	/**
@@ -58,6 +61,7 @@ public class RoundTable {
 	/**
 	 * calls the movePlayer
 	 */
+        /*
 	public void movement(KeyEvent e) {
 		movePlayer(currentPlayer);
 		//calls the movePlayer
@@ -78,6 +82,7 @@ public class RoundTable {
 			System.out.println("Please press arrow keys");
 		}
 	}
+        */
 
 	/**
 	 * end the turn of current player and move it to next player
@@ -87,6 +92,7 @@ public class RoundTable {
 	 */
 	public boolean endTurn() {
 		nextPlayer(PlayerArray(counter + 1));
+                //return back to game to increment player
 	}
 
 	/**
@@ -96,6 +102,10 @@ public class RoundTable {
 	 * @return the next player
 	 */
 	public Player nextPlayer(Player player) {
+            
+            //setNextPlayer
+            
+            
 		setCurrentPlayer(player);
 		nextPlayer = playerArray(counter + 2);
 		//an ArrayList of players. cycle through the index to change players
@@ -113,8 +123,7 @@ public class RoundTable {
 	 *
 	 */
 	public void drawTile() {
-		Random tile = new Random():
-		Random.SilkBag.drawTile();
+		return ;
 		//An array of tiles
 		//use Random to draw out tiles
 	}
