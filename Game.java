@@ -209,6 +209,14 @@ public class Game {
             this.players[i].setPlayerNum(i+1);
         }
     }
+    
+    /**
+     * Get method for players
+     * @return players array
+     */
+    public Player[] getPlayers(){
+        return this.players;
+    }
 
     /**
      * Deletes a player profile
