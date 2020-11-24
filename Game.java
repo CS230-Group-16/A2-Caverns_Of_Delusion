@@ -74,6 +74,14 @@ public class Game {
     private void createBoard(String boardFileLocation) {
         this.board = FileReader.readBoardFile(boardFileLocation);
     }
+    
+    /**
+     * Get method to get the board
+     * @return current board
+     */
+    public Board getBoard(){
+        return this.board;
+    }
 
     /**
      * Displays daily message

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TestGameController">
    <children>
       <BorderPane prefHeight="800.0" prefWidth="800.0">
          <top>
@@ -40,7 +40,7 @@
             </VBox>
          </left>
          <center>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <Pane fx:id="central" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
    </children>

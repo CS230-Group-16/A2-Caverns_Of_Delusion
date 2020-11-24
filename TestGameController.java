@@ -1,4 +1,6 @@
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -13,6 +15,8 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 /**
@@ -33,6 +37,8 @@ public class TestGameController {
     Label p3;
     @FXML
     Label p4;
+    @FXML
+    Pane central;
 
     private Game game;
 
@@ -41,10 +47,10 @@ public class TestGameController {
      */
     public void initialize() {
         this.game = createGame();
-        
+
         change.setOnAction(e -> {
-			change();
-		});
+            change();
+        });
 
     }
 
@@ -54,8 +60,46 @@ public class TestGameController {
 
         //get name of file
         Game g = new Game("board1.txt", strArr);
-        p1.setText(strArr[0]);
-        p2.setText(strArr[1]);
+        Player[] players = g.getPlayers();
+        for (int i = 0; i < players.length; i++) {
+            switch (i) {
+                case 0:
+                    p1.setText(players[i].getUsername());
+                    break;
+                case 1:
+                    p2.setText(players[i].getUsername());
+                    break;
+                case 2:
+                    p3.setText(players[i].getUsername());
+                    break;
+                case 3:
+                    p4.setText(players[i].getUsername());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        int h = g.getBoard().getHeight();
+        int w = g.getBoard().getWidth();
+        int x = 0;
+        int y = 0;
+        try {
+            Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/GOAL.png"));
+            for (int i = 0; i < h; i++) {
+                for (int j = 0; j < w; j++) {
+                    ImageView imageView = new ImageView(image1);
+                    imageView.setX(x);
+                    imageView.setY(y);
+                    central.getChildren().add(imageView);
+                    x = x + 70;
+                }
+                x = 0;
+                y = y + 70;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         return g;
     }
@@ -79,12 +123,12 @@ public class TestGameController {
         Button b = new Button("button");
         root2.getChildren().add(b);
         Stage primaryStage = new Stage();
-        
-        
+
         Scene scene2 = new Scene(root2, 800, 800);
         primaryStage.setScene(scene2);
         primaryStage.show();
-        
+        Stage stage = (Stage) change.getScene().getWindow();
+        stage.close();
 
     }
 

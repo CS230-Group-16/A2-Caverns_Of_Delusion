@@ -173,7 +173,7 @@ public class Board {
     public Boolean checkPathway(Tile tile) { // ** needs to return boolean
     	int rotation = 0;
     	int[] pathways;
-    	StraightTile t = new StraightTile("Straight", rotation);
+    	StraightTile t = new StraightTile(rotation);
     	
     	t.generatePathways(rotation);
     	pathways = t.getPathways();
@@ -235,5 +235,13 @@ public class Board {
      */
     public void placeTile(FloorTile tile, int[] location) {
         ;
+    }
+    
+    public int getWidth(){
+        return Board.width;
+    }
+    
+    public int getHeight(){
+        return Board.height;
     }
 }
