@@ -1,9 +1,13 @@
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 
 /**
@@ -18,6 +22,26 @@ public class Main extends Application {
             Scene scene = new Scene(root, 800,800);
             primaryStage.setScene(scene);
             primaryStage.show();
+            
+            
+            //For moving between panes/scenes:
+            /*
+            Pane root2 = new Pane();
+            Label l = new Label("Hello");
+            root2.getChildren().add(l);
+            Button b = new Button("button");
+            b.setOnAction((ActionEventevent) -> {
+                Scene scene = new Scene(root, 800,800);
+                primaryStage.setScene(scene);
+                primaryStage.show();
+            });
+            
+            root2.getChildren().add(b);
+            Scene scene2 = new Scene(root2, 800,800);
+            primaryStage.setScene(scene2);
+            primaryStage.show();
+            */
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -26,6 +50,7 @@ public class Main extends Application {
     public static void main(String [] args){
         Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000"});
         //g.toStr();
+        //g.displayMessage();
         
         launch(args);
         /*
