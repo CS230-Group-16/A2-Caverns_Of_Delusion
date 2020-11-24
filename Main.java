@@ -20,15 +20,12 @@ public class Main extends Application {
     
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000"});
-            loader.setController(new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000"}));
-            Pane root = (Pane) loader.load(getClass().getResource("testBoard.fxml"));
+            Pane root = (Pane) FXMLLoader.load(getClass().getResource("testBoard.fxml"));
             
             
             
             //For moving between panes/scenes:
-            
+            /*
             Pane root2 = new Pane();
             Label l = new Label("Hello");
             root2.getChildren().add(l);
@@ -40,7 +37,7 @@ public class Main extends Application {
                 primaryStage.setScene(scene2);
                 primaryStage.show();
             });
-            
+            */
             Scene scene = new Scene(root, 800,800);
             primaryStage.setScene(scene);
             primaryStage.show();
