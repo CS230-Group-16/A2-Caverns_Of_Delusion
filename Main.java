@@ -16,31 +16,35 @@ import javafx.scene.control.Label;
  */
 public class Main extends Application {
     
+    //private static Game g;
+    
     public void start(Stage primaryStage) {
         try {
-            Pane root = (Pane) FXMLLoader.load(getClass().getResource("testBoard.fxml"));
-            Scene scene = new Scene(root, 800,800);
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            FXMLLoader loader = new FXMLLoader();
+            Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000"});
+            loader.setController(new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000"}));
+            Pane root = (Pane) loader.load(getClass().getResource("testBoard.fxml"));
+            
             
             
             //For moving between panes/scenes:
-            /*
+            
             Pane root2 = new Pane();
             Label l = new Label("Hello");
             root2.getChildren().add(l);
             Button b = new Button("button");
+            root2.getChildren().add(b);
+            
             b.setOnAction((ActionEventevent) -> {
-                Scene scene = new Scene(root, 800,800);
-                primaryStage.setScene(scene);
+                Scene scene2 = new Scene(root2, 800,800);
+                primaryStage.setScene(scene2);
                 primaryStage.show();
             });
             
-            root2.getChildren().add(b);
-            Scene scene2 = new Scene(root2, 800,800);
-            primaryStage.setScene(scene2);
+            Scene scene = new Scene(root, 800,800);
+            primaryStage.setScene(scene);
             primaryStage.show();
-            */
+            
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,7 +52,7 @@ public class Main extends Application {
     }
     
     public static void main(String [] args){
-        Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000"});
+        //this.g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000"});
         //g.toStr();
         //g.displayMessage();
         
