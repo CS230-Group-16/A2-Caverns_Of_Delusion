@@ -14,6 +14,10 @@ public class RoundTable {
 	private Player currentPlayer;
 	private Player nextPlayer;
 	private Player[] players;
+	private int counter = 0;
+	private int moveCounter = 0;
+	private Board board;
+	private SilkBag silkBag;
 
 
 	/**
@@ -23,13 +27,16 @@ public class RoundTable {
 	 * @param currentPlayer The current player
 	 * @param nextPlayer The player after the current player
 	 */
-	public RoundTable(int numOfPlayers, int turnCounter, Player currentPlayer, Player nextPlayer, Player[] players) {
+	public RoundTable(int numOfPlayers, int turnCounter, Player currentPlayer, Player nextPlayer, Player[] players, Board board, SilkBag silkBag) {
 		this.numOfPlayers = numOfPlayers;
 		this.turnCounter = turnCounter;
 		this.players = players;
 		this.currentPlayer = currentPlayer;
 		this.nextPlayer = nextPlayer;
+		this.board = board;
+		this.silkBag = silkBag;
 	}
+
 
 	/**
 	 * Compare name of tile class to tileType
@@ -52,12 +59,14 @@ public class RoundTable {
 		}
 	}
 
-	public void turnStart(); {
+	public void turnStart() {
+
 		drawTile();
+		//left blank for now. player selects the tile they want to play with JavaFX
 		playActionTile();
 		movement();
 		endTurn();
-		if (Board.reachedGoal == True) {
+		if (board.reachedGoal() == true) {
 			return;
 		}
 	}
@@ -71,49 +80,12 @@ public class RoundTable {
 	}
 
 	/**
-	 * calls the movePlayer
+	 * calls the move method from Board
 	 */
 	public void movement () {
-		//move will check if the user has a valid pathway
-		boolean move = False;
-		int counter = 0;
-		while move == False {
-			int[] location = Board.getPlayerLocation(currentPlayer);
-			int x = location[0];
-			int y = location[1];
-			Tile currentTile = Board.getTile(x, y);
-			//find way to turn coords into a Tile
-			move = Board.checkPathway(currentTile);
-		}
-		if move == True {
-			Board.move(currentPlayer);
-		} else {
-			System.out.println("You cannot move this turn");
-		}
-		//calls board class to move player
+		board.move(currentPlayer.getPlayerNum());
 	}
-        /*
-	public void movement(KeyEvent e) {
-		movePlayer(currentPlayer);
-		//calls the movePlayer
-		int keyCode = e.getKeyCode();
-		if(keyCode == KeyEvent.VK_UP) {
-			System.out.println("Going up");
-		}
-		else if(keyCode == KeyEvent.VK_DOWN) {
-			System.out.println("Going down");
-		}
-		else if(keyCode == KeyEvent.VK_LEFT) {
-			System.out.println("Going left");
-		}
-		else if(keyCode == KeyEvent.VK_RIGHT) {
-			System.out.println("Going right");
-		}
-		else {
-			System.out.println("Please press arrow keys");
-		}
-	}
-        */
+
 
 	/**
 	 * end the turn of current player and move it to next player
@@ -121,9 +93,16 @@ public class RoundTable {
 	 * when it gets to the end
 	 *
 	 */
-	public boolean endTurn() {
-		nextPlayer(PlayerArray(counter + 1));
-		roundStart();
+	public void endTurn() {
+		nextPlayer(players[counter + 1]);
+		counter++;
+
+		//resets the counter after it loops through all players
+		if (counter > players.length) {
+			counter = 0;
+		}
+		turnStart();
+
 		//return back to game to increment player
 	}
 
@@ -135,19 +114,11 @@ public class RoundTable {
 	 */
 	public Player nextPlayer(Player player) {
 
-		//setNextPlayer
-
-
+		//setNextPlayer to current player
 		setCurrentPlayer(player);
-		nextPlayer = playerArray(counter + 2);
-		//an ArrayList of players. cycle through the index to change players
-		// .... depends on how the Player class is implemented
-		List<Player> players = Arrays.asList(new Player(....), new Player(....), new Player(....), new Player(....));
-		Player currentPlayer = players.get(0);
-		if (endTurn()){
-			//This will assign the currentPlayer to the nextPlayer and also put the previous currentPlayer at the end of the list.
-			currentPlayer = players.get((players.indexOf(currentPlayer)+1)%players.size());
-		}
+		//set next player
+		nextPlayer = players[counter + 2];
+		return nextPlayer;
 	}
 
 	/**
@@ -155,8 +126,8 @@ public class RoundTable {
 	 *
 	 */
 	public void drawTile() {
-		SilkBag.drawtile();
-		if tile == actionTile {
+		Tile tile = silkBag.drawTile();
+		if (tile.getType().equals("ActionTile")) {
 			sendToPlayer(tile);
 		} else {
 			insertTile(tile);
@@ -167,33 +138,9 @@ public class RoundTable {
 	 * Adds a tile to the board
 	 *
 	 * @param tile The floorTile to be added on the board
-	 * @param row DISCUSS
-	 * @param positionNum
 	 */
-	public void insertTile(FloorTile tile, boolean row, int positionNum) {
-		Board.insertTile(tile, row, positionNum);
-		// int x;
-		// int y;
-		// if row == True {
-		// 	y = positionNum;
-		// 	x = 0;
-		// } else {
-		// 	x = positionNum;
-		// 	y = 0;
-		// }
-		// insertPosition[0] = x;
-		// insertPosition[1] = y;
-		//
-		// Board.placeTile(tile, insertPosition);
-		// int xSize = Board.getSizex();
-		// int ySize = Board.getSizey();
-		// if (row == True && positionNum == ySize) {
-		// 	SilkBag.addTile(Board.getTile(0, positionNum));
-		// }
-		// SilkBag.addTile(tile);
-
-
-		//check ouput type
+	public void insertTile(Tile tile) {
+		board.insertTile(tile);
 	}
 
 	/**
@@ -201,9 +148,8 @@ public class RoundTable {
 	 *
 	 * @param tile The action tile sent to the player's spellbook
 	 */
-	public void sendToPlayer(ActionTile tile) {
-		Player player = new Player();
-		player.spellBook.add(tile);
+	public void sendToPlayer(Tile tile) {
+		currentPlayer.getSpellBook().add(tile);
 	}
 
 	/**
@@ -211,31 +157,32 @@ public class RoundTable {
 	 *
 	 */
 	public void playActionTile(ActionTile t) {
-		String type = checkTileType(t);
-		int coords[] = Board.getTile(t);
+		String type = checkTileType(t.getType());
 		if (type == "backtrack") {
 			System.out.println("Who would you like to backtrack?");
 			//allow the player to click on another player to backtrack
 			//check if the player selected has been backtracked before
-
-			if(PlayerSelected.getBackTracked()) {
+			//PlayerSelected needs to wait for JavaFX to be implemented
+			if(playerSelected.getBackTracked()) {
 				System.out.println("This person has already been backtracked");
 				playActionTile(t);
 			}
 			else {
-				PlayerSelected.backtrack();
-				PlayerSelected.setBackTracked();
+				backtrack(playerSelected);
+				playerSelected.setBacktracked(true);
 			}
 		}
 		else if(type == "doublemove") {
 			movement();
 		}
 		else if(type == "fire"){
-			//ask user for central tile
+			//coords needs to wait for JavaFX to be implemented
+			//the user will click on a tile and then it will turn the location of the tile into an array
+			//with coords[0] as x and coords[1] as y.
 			engulfTiles(getSurroundingTile(coords[]));
 		}
 		else {
-			//ask user for central tile
+			//coords needs to wait for JavaFX to be implemented
 			freezeTiles(getSurroundingTile(coords[]));
 		}
 
@@ -247,55 +194,49 @@ public class RoundTable {
 	 * @param centralTile is the center of the 9x9 square of tiles
 	 * @return an array of the surrounding tiles
 	 */
-	private FloorTile[][] getSurroundingTile(int[] centralTile) {
-		//provides an array of the surrounding tiles.
-		//index 0 will be array to the north, 1 is east...
-		Board addingTiles = new Board();
-		centralTile = new int[2];
+	private FloorTile[] getSurroundingTile(int[] centralTile) {
+		//takes the chosen tiles array and splits them into an x and a y variable
 		int chosenx = centralTile[0];
 		int choseny = centralTile[1];
 		int x = 0;
 		int y = 0;
-		FloorTile[][] selectedTiles = new FloorTile[];
+		FloorTile[] selectedTiles = new FloorTile[8];
 		//This loops through all the tiles on the board
 		for(int i = x-1; i <= x+1; i++) {
 			for(int j = y-1; j <= y+1; j++) {
-				if (i = chosenx && j == choseny) {
-					//centre
-					selectedTiles[0][0].add(x);
-					selectedTiles[0][1].add(y);
-					//To the right
-					selectedTiles[1][0].add(x+1);
-					selectedTiles[1][1].add(y);
-					//to the left
-					selectedTiles[2][0].add(x-1);
-					selectedTiles[2][1].add(y);
-					//top
-					selectedTiles[3][0].add(x);
-					selectedTiles[3][1].add(y-1);
-					//bottom
-					selectedTiles[4][0].add(x);
-					selectedTiles[4][1].add(y+1);
+				if (i == chosenx && j == choseny) {
 					//top left corner
-					selectedTiles[5][0].add(x-1);
-					selectedTiles[5][1].add(y-1);
+					selectedTiles[0] = (board.getTileAt(x - 1, y - 1));
+
+					//top middle
+					selectedTiles[1] = (board.getTileAt(x, y - 1));
+
 					//top right corner
-					selectedTiles[6][0].add(x+1);
-					selectedTiles[6][1].add(y-1);
+					selectedTiles[2] = (board.getTileAt(x + 1, y - 1));
+
+					//left
+					selectedTiles[3] = (board.getTileAt(x - 1, y));
+
+					//centre
+					selectedTiles[4] = (board.getTileAt(x, y));
+
+					//right
+					selectedTiles[5] = (board.getTileAt(x + 1, y));
+
 					//bottom left corner
-					selectedTiles[7][0].add(x-1);
-					selectedTiles[7][1].add(y+1);
+					selectedTiles[6] = (board.getTileAt(x - 1, y + 1));
+
+					//bottom
+					selectedTiles[7] = (board.getTileAt(x, y + 1));
+
 					//bottom right corner
-					selectedTiles[8][0].add(x+1);
-					selectedTiles[8][1].add(y+1);
+					selectedTiles[8] = (board.getTileAt(x + 1, y + 1));
 				}
-
-
 			}
 		}
-		for (int i = 0; i < selectedTiles.size(); i++) {
-			addingTiles.getTile(selectedTiles[i][0]); //getTile() to be made in board
-			addingTiles.getTile(selectedTiles[i][1]);
+
+		for (int i = 0; i < selectedTiles.length; i++) {
+			board.getTileAt(selectedTiles[i]);
 		}
 		return selectedTiles;
 	}
@@ -306,36 +247,25 @@ public class RoundTable {
 	 * @param tile The tiles to be engulfed
 	 */
 	private void engulfTiles(int[] tile) {
-		Tile[] tiles = getSurroundingTile(tile);
+		FloorTile[] tiles = getSurroundingTile(tile);
 		for (int i = 0; i < tiles.length; i++) {
-			tiles[i].engulf;
+			tiles[i].setEngulfed(true);
 		}
-
-		// 	blockingPlayer = False;
-		// 	for (int i = 1; i <= 4; i++) {
-		// 		if (Board.getPlayerLocation(i) == tile) {
-		// 			blockingPlayer = True;
-		// 		}
-		// 	}
-		// 	if (blockingPlayer == False) {
-		// 		tile = EffectTile.engulf();
-		// } else {
-		// 	System.out.println("you cannot engulf a tile with a player on it");
 
 	}
 	//take a central tile and engulf all tiles touching it.
 	//needs to check that there are no players on the fire tiles
-}
+
 
 	/**
 	 * Freezes all the tiles passed in as arguments
 	 *
-	 * @param Tile[] The tiles to be frozen
+	 * @param int[] The tiles to be frozen
 	 */
 	private void freezeTiles(int[] tile) {
-		Tile[] tiles = getSurroundingTile(tile);
+		FloorTile[] tiles = getSurroundingTile(tile);
 		for (int i = 0; i < tiles.length; i++) {
-			tiles[i].freeze;
+			tiles[i].setFrozen(true);
 		}
 		//freezes all tiles passes in as arguments
 		//take a central tile and freeze all tiles touching it.
