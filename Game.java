@@ -74,6 +74,14 @@ public class Game {
     private void createBoard(String boardFileLocation) {
         this.board = FileReader.readBoardFile(boardFileLocation);
     }
+    
+    /**
+     * Get method to get the board
+     * @return current board
+     */
+    public Board getBoard(){
+        return this.board;
+    }
 
     /**
      * Displays daily message
@@ -208,6 +216,14 @@ public class Game {
             this.players[i] = playerProfile(playerNames[i]);
             this.players[i].setPlayerNum(i+1);
         }
+    }
+    
+    /**
+     * Get method for players
+     * @return players array
+     */
+    public Player[] getPlayers(){
+        return this.players;
     }
 
     /**
