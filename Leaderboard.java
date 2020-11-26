@@ -1,19 +1,25 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.ArrayList;
+
 /**
  * The Leaderboard class creates a leaderboard for the players
  * @author Michelle Bhaskaran & Chloe Thomas
- * @version 0.2
+ * @version 0.3
  */
 
 public class Leaderboard {
+
+
+    private ArrayList<Player> player = new ArrayList<>();
 
     private String leaderboardFile;
 
     /**
      * Constructor used to make leaderboard
-     * @param leaderboardFile the leaderboard file
      */
     public Leaderboard(String leaderboardFile) {
-        this.leaderboardFile = leaderboardFile;
     }
 
     /**
@@ -21,7 +27,7 @@ public class Leaderboard {
      * @param player the player's profile
      * @param score the player's score
      */
-    public void insertScore(Player player, int score) {
+    public void insertScore(Player player, int score) { 
 
     }
 
@@ -29,7 +35,12 @@ public class Leaderboard {
      * Sorts the leaderboard from highest to lowest score
      */
     private void sort() {
-
+        Collections.sort(player, new Comparator<Player>() {
+            @Override
+            public int compare(Player p1, Player p2) {
+                return p1.getWon() > p2.getWon() ? -1 : 1;
+            }
+        });
     }
 
 

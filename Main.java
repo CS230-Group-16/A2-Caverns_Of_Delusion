@@ -63,5 +63,16 @@ public class Main extends Application {
 	    p1.updateUsername ("Blah");
 	    p1.saveProfile();
 */
+        //List<Player> players = new ArrayList<>();
+
+        //players.add(new Player("L", 98, 78));
+        //players.add(new Player("M", 88, 56));
+        //players.add(new Player("N", 90, 67));
+
+        //System.out.println("before " + players);
+
+
+
+
     }
 }
