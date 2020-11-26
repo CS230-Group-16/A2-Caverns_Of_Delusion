@@ -1,4 +1,5 @@
-
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /*
  * class represents the template of the gameboard
@@ -166,7 +167,12 @@ public class Board {
 	 * @return whether the tile is frozen or not
      */
     private Boolean isFrozen(int positionNum) {
-        return false;
+    	for(FloorTile t : Board.this.tiles) {
+    		if(t.isFrozen()) {
+    			return true;
+    		}
+    	}
+    	return false;
     }
 
     /*
@@ -176,7 +182,25 @@ public class Board {
 	 * @return whether the tiles are engulfed or not  					    
      */
     private Boolean isEngulfed() {
-        return false;
+        //define 3x3 area
+    	int xLeft;
+    	int yTop;
+    	int[][] tilePos = new int[this.height][this.width]; 
+    	
+    	for(Tile t : tiles) {
+    		tilePos = Board.this.getTileLocation();
+    		tilePos = Arrays.copyOf(tilePos, tilePos.length + 1);
+    		tilePos[tilePos.length - 1] = Board.this.getTileLocation()[tiles.length];
+    	}
+    	
+    	for(int i = 0; i < Board.this.tileLocation.length; i++) {
+    		for(int j = 0; j < Board.this.tileLocation[i].length; j++) {
+    			xLeft = (i - (i % 3));
+    			yTop = (j - (j % 3));
+    		}
+    	}
+    	
+    	
     }
 
     /*
