@@ -3,7 +3,7 @@
 /*
  * class represents the template of the gameboard
  * @author Bartosz Kubica&Marius Antemir
- * @version 1.0
+ * @version 1.2
  */
 public class Board {
     private static int[] player1Location;
@@ -12,6 +12,8 @@ public class Board {
     private static int[] player4Location;
     private static int width;
     private static int height;
+    private FloorTile[] tiles;
+    private int[][] tileLocation;
 
     /*
 	 * Create a gameboard with every players' location, 
@@ -34,6 +36,8 @@ public class Board {
         this.player4Location = player4Location;
         this.width = width;
         this.height = height;
+        this.tiles = tiles;
+        this.tileLocation = tileLocation;
     }
 
     /*
@@ -41,7 +45,7 @@ public class Board {
 	 * @param player identification of player by number
 	 * @return player's location with in [x,y] format
      */
-    int[] getPlayerLocation(int player) {
+    public int[] getPlayerLocation(int player) {
         if (player == 1) {
             return player1Location;
         }
@@ -57,13 +61,22 @@ public class Board {
 
         return null;
     }
+    
+    /*
+     * gives position of tile on board
+     * @return 2d int array of tile location
+     */
+    public int[][] getTileLocation(){
+    	return this.tileLocation;
+    }
+    
 
     /*
 	 * updates/sets a new location for the player on the gameboard
 	 * @param player identification of player by number
 	 * @param newLocation the new [x,y] location of player
      */
-    void updatePlayerLocation(int player, int[] newLocation) {
+    public void updatePlayerLocation(int player, int[] newLocation) {
         if (player == 1) {
             player1Location = newLocation;
         }
@@ -76,6 +89,12 @@ public class Board {
         if (player == 4) {
             player4Location = newLocation;
         }
+    }
+    
+    public void updateTileLocation(int[][] newLocation, Tile t) {
+    	if(t != null) {
+    		this.tileLocation = newLocation;
+    	}
     }
 
     /*
@@ -120,7 +139,7 @@ public class Board {
 	 * @return FloorTile tile
      */
     private FloorTile createTile(String type, int rotation) {
-        return null;
+        ;
     }
 
     /*
@@ -133,7 +152,9 @@ public class Board {
         int x = playerPos[0];
         int y = playerPos[1];
         
-        
+        if(x > getWidth() || y > getHeight()) {
+        	System.out.println("player outside of board");
+        }
         
     }
 
@@ -149,7 +170,7 @@ public class Board {
     }
 
     /*
-	 * checks if a tile is 'engulfed'(fire on
+	 * checks if a group of tiles are 'engulfed'(fire on
 	 * 						surrounding tiles, cannot
 	 * 						be moved onto if on fire) 
 	 * @return whether the tiles are engulfed or not  					    
@@ -160,9 +181,31 @@ public class Board {
 
     /*
 	 * checks if player has reached finish
+	 * @param playerNum player's number
 	 * @return whether player is finished or not
      */
-    public Boolean reachedGoal() {
+    public Boolean reachedGoal(int playerNum) {
+        int[] playerLocation = getPlayerLocation(playerNum);
+        int x = playerLocation[0];
+        int y = playerLocation[1];
+        int[][] goalLocation = {};
+        
+        
+        
+        for(int i = 0; i < Board.this.tiles.length; i++) {
+        	if(this.tiles[i].getType().equals("Goal")) {
+        		goalLocation = this.getTileLocation();
+        	}
+        	
+        }
+        
+        for(int i = 0; i < Board.this.tileLocation.length; i++) {
+        	for(int j = 0; j < Board.this.tileLocation[i].length; j++) {
+        		if(goalLocation[i][j] == goalLocation[x][y]) {
+        			return true;
+        		}
+        	}
+        }
         return false;
     }
 
@@ -171,12 +214,10 @@ public class Board {
 	 * @param tile the tile to be checked
      */
     public Boolean checkPathway(Tile tile) { // ** needs to return boolean
-    	int rotation = 0;
+    	//int rotation = 0;
     	int[] pathways;
-    	StraightTile t = new StraightTile(rotation);
-    	
-    	t.generatePathways(rotation);
-    	pathways = t.getPathways();
+    	((StraightTile) tile).generatePathways(((StraightTile) tile).getRotation());
+    	pathways = ((StraightTile) tile).getPathways();
     	
     	int i = 0;
     	do {
