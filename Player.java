@@ -6,7 +6,7 @@ import java.util.Arrays;
 /**
  * The Player class creates profile for user
  * @author Michelle Bhaskaran & Chloe Thomas
- * @version 0.6
+ * @version 0.7
  */
 
 public class Player {
@@ -116,6 +116,10 @@ public class Player {
      */
     public void saveProfile() {
         try {
+            //this adds the players username to a separate file to make it easier when creating leaderboard
+            FileWriter leaderboard = new FileWriter ("player.txt", true);
+            leaderboard.write(username);
+            leaderboard.close();
             FileWriter playerFile = new FileWriter(username + ".txt", false);
             playerFile.write(username + " " + gamesWon + " " + gamesLost + "\n");
             playerFile.close();
@@ -162,19 +166,20 @@ public class Player {
     /**
      * Method to string to print player to screen
      */
-    public void toStr(){
-        System.out.println("---Player---");
-        System.out.println("Username: " + this.username);
-        System.out.println("Games Lost: " + this.gamesLost + " Games Won: " + this.gamesWon);
-        System.out.println("Backtrack: " + this.backtrackUsed);
-        System.out.println("Player Num: " + this.playerNum);
-        System.out.println("Path History: " + Arrays.toString(this.pathHistory));
-        System.out.println("Spell Book: ");
+    public String toString() {
+        String result = "";
+        result += "Username: " + username + "\n";
+        result += "Games Won: " + gamesWon + "\n";
+        result += "Games Lost: " + gamesLost + "\n";
+        result += "Games Played: " + (gamesWon + gamesLost) + "\n";
+        result += "Backtrack: " + backtrackUsed + "\n";
+        result += "Player Num: " + playerNum + "\n";
+        result += "Path History: " + Arrays.toString(this.pathHistory);
+        result += "Spell Book: ";
         for (int i = 0; i < this.spellBook.size(); i++) {
-            this.spellBook.get(i).toStr();
-            
+            result += spellBook.get(i) + ", ";
         }
-        System.out.println("------------");
-        
+        result += "\n";
+        return result;
     }
 }
