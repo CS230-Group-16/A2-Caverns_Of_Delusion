@@ -1,12 +1,11 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * The Player class creates profile for user
  * @author Michelle Bhaskaran & Chloe Thomas
- * @version 0.7
+ * @version 0.8
  */
 
 public class Player {
@@ -15,7 +14,7 @@ public class Player {
     private int gamesWon;
     private int gamesLost;
     private int playerNum;
-    private int[][] pathHistory = {{0,0},{0,0}};
+    private ArrayList<Integer[]> path = new ArrayList<Integer[]>();
     private boolean backtrackUsed;
     private ArrayList<ActionTile> spellBook = new ArrayList<>();
 
@@ -141,8 +140,8 @@ public class Player {
      * Gets path history of player
      * @return pathHistory
      */
-    public int[][] getPathHistory() {
-        return this.pathHistory;
+    public ArrayList<Integer[]> getPathHistory() {
+        return this.path;
     }
 
     /**
@@ -157,10 +156,8 @@ public class Player {
      * Updates path history
      * @param lastLocation The last location of player
      */
-    public void updatePathHistory(int[] lastLocation) {
-        this.pathHistory[1] = this.pathHistory[0];
-        this.pathHistory[0][0] = lastLocation[0];
-        this.pathHistory[0][1] = lastLocation[1];
+    public void updatePathHistory(Integer[] lastLocation) {
+        this.path.add(lastLocation);
     }
     
     /**
@@ -174,7 +171,11 @@ public class Player {
         result += "Games Played: " + (gamesWon + gamesLost) + "\n";
         result += "Backtrack: " + backtrackUsed + "\n";
         result += "Player Num: " + playerNum + "\n";
-        result += "Path History: " + Arrays.toString(this.pathHistory);
+        result += "Path History: ";
+        for (int i = 0; i < this.path.size(); i++){
+            result += path.get(i) + ", ";
+        }
+        result += "\n";
         result += "Spell Book: ";
         for (int i = 0; i < this.spellBook.size(); i++) {
             result += spellBook.get(i) + ", ";

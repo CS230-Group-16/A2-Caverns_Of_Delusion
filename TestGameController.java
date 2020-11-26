@@ -3,6 +3,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,10 +85,15 @@ public class TestGameController {
         int w = g.getBoard().getWidth();
         int x = 0;
         int y = 0;
+        
+        Random rand = new Random();
+        String [] images = new String[]{"Corner_1","Corner_2","Corner_3","Corner_4","Straight_1","Straight_1","Straight_2","Goal","TShape_1","TShape_2","TShape_3","TShape_4"};
+        
         try {
-            Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/GOAL.png"));
+            
             for (int i = 0; i < h; i++) {
                 for (int j = 0; j < w; j++) {
+                    Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/Final/" + images[rand.nextInt(images.length)] + ".png"));
                     ImageView imageView = new ImageView(image1);
                     imageView.setX(x);
                     imageView.setY(y);
