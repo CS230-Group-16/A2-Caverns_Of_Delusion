@@ -1,12 +1,11 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * The Player class creates profile for user
  * @author Michelle Bhaskaran & Chloe Thomas
- * @version 0.7
+ * @version 0.8
  */
 
 public class Player {

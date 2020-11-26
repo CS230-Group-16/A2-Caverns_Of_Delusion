@@ -1,25 +1,22 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.ArrayList;
 
 /**
  * The Leaderboard class creates a leaderboard for the players
  * @author Michelle Bhaskaran & Chloe Thomas
- * @version 0.3
+ * @version 0.4
  */
 
 public class Leaderboard {
 
-
     private ArrayList<Player> player = new ArrayList<>();
-
-    private String leaderboardFile;
 
     /**
      * Constructor used to make leaderboard
      */
     public Leaderboard(String leaderboardFile) {
+
     }
 
     /**
@@ -48,6 +45,6 @@ public class Leaderboard {
      * Updates the file
      */
     public void updateFile() {
-        this.leaderboardFile = leaderboardFile;
+
     }
 }
