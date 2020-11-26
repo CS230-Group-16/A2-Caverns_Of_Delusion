@@ -6,7 +6,7 @@ import java.util.Arrays;
 /**
  * The Player class creates profile for user
  * @author Michelle Bhaskaran & Chloe Thomas
- * @version 0.6
+ * @version 0.7
  */
 
 public class Player {
@@ -116,6 +116,10 @@ public class Player {
      */
     public void saveProfile() {
         try {
+            //this adds the players username to a separate file to make it easier when creating leaderboard
+            FileWriter leaderboard = new FileWriter ("player.txt", true);
+            leaderboard.write(username);
+            leaderboard.close();
             FileWriter playerFile = new FileWriter(username + ".txt", false);
             playerFile.write(username + " " + gamesWon + " " + gamesLost + "\n");
             playerFile.close();
