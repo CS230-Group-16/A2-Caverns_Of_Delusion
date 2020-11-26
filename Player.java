@@ -166,19 +166,20 @@ public class Player {
     /**
      * Method to string to print player to screen
      */
-    public void toStr(){
-        System.out.println("---Player---");
-        System.out.println("Username: " + this.username);
-        System.out.println("Games Lost: " + this.gamesLost + " Games Won: " + this.gamesWon);
-        System.out.println("Backtrack: " + this.backtrackUsed);
-        System.out.println("Player Num: " + this.playerNum);
-        System.out.println("Path History: " + Arrays.toString(this.pathHistory));
-        System.out.println("Spell Book: ");
+    public String toString() {
+        String result = "";
+        result += "Username: " + username + "\n";
+        result += "Games Won: " + gamesWon + "\n";
+        result += "Games Lost: " + gamesLost + "\n";
+        result += "Games Played: " + (gamesWon + gamesLost) + "\n";
+        result += "Backtrack: " + backtrackUsed + "\n";
+        result += "Player Num: " + playerNum + "\n";
+        result += "Path History: " + Arrays.toString(this.pathHistory);
+        result += "Spell Book: ";
         for (int i = 0; i < this.spellBook.size(); i++) {
-            this.spellBook.get(i).toStr();
-            
+            result += spellBook.get(i) + ", ";
         }
-        System.out.println("------------");
-        
+        result += "\n";
+        return result;
     }
 }
