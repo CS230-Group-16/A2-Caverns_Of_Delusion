@@ -22,7 +22,7 @@ public class Main extends Application {
         try {
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("testBoard.fxml"));
             
-            
+            //test
             
             //For moving between panes/scenes:
             /*
