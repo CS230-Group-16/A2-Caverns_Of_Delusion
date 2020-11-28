@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -59,11 +60,11 @@ public class FileReader {
         height = Integer.parseInt(temp.split(",")[1]);
 
         //dont need next 2 lines from file as they are for the SilkBag
-        in.nextLine();
-        in.nextLine();
+        String line1 = in.nextLine();
+        String line2 = in.nextLine();        
         
         numOfFixedTiles = Integer.parseInt(in.nextLine()) + 1;
-        FloorTile[] tiles = new FloorTile[numOfFixedTiles];
+        FloorTile[] fixedTiles = new FloorTile[numOfFixedTiles];
         //String[] tiles = new String[numOfFixedTiles];
         int[][] tileLocations = new int[numOfFixedTiles][2];
         
@@ -71,30 +72,44 @@ public class FileReader {
             temp = in.nextLine();
             if (temp.contains("CORNER")) {
                 tempArr = temp.split(",");
-                tiles[i] = new CornerTile(Integer.parseInt(tempArr[3]));
+                fixedTiles[i] = new CornerTile(Integer.parseInt(tempArr[3]));
                 //tiles[i] = tempArr[2];
                 tileLocations[i][0] = Integer.parseInt(tempArr[0]);
                 tileLocations[i][1] = Integer.parseInt(tempArr[1]);
             } else if (temp.contains("TSHAPE")) {
                 tempArr = temp.split(",");
-                tiles[i] = new TShapeTile(Integer.parseInt(tempArr[3]));
+                fixedTiles[i] = new TShapeTile(Integer.parseInt(tempArr[3]));
                 //tiles[i] = tempArr[2];
                 tileLocations[i][0] = Integer.parseInt(tempArr[0]);
                 tileLocations[i][1] = Integer.parseInt(tempArr[1]);
             } else if (temp.contains("STRAIGHT")) {
                 tempArr = temp.split(",");
-                tiles[i] = new StraightTile(Integer.parseInt(tempArr[3]));
+                fixedTiles[i] = new StraightTile(Integer.parseInt(tempArr[3]));
                 //tiles[i] = tempArr[2];
                 tileLocations[i][0] = Integer.parseInt(tempArr[0]);
                 tileLocations[i][1] = Integer.parseInt(tempArr[1]);
             }
         }
         
-        tiles[0] = new GoalTile();
+        fixedTiles[0] = new GoalTile();
         //tiles[0] = "GOAL";
         tempArr = in.nextLine().split(",");
         tileLocations[0][0] = Integer.parseInt(tempArr[0]);
         tileLocations[0][1] = Integer.parseInt(tempArr[1]);
+        
+        FloorTile [] floorTiles = readFloorTile(line2);
+        int numOfRandTiles = (width*height) - fixedTiles.length;
+        Random rand = new Random();
+        int randInt;
+        FloorTile [] randTiles = new FloorTile[numOfRandTiles];
+        for (int i = 0; i < randTiles.length; i++) {
+            randInt = rand.nextInt(floorTiles.length);
+            while (floorTiles[randInt] == null) {
+                randInt = rand.nextInt(floorTiles.length);
+            }
+            randTiles[i] = floorTiles[randInt];
+            floorTiles[randInt] = null;
+        }
         
         numOfPlayers = Integer.parseInt(in.nextLine());
         
@@ -122,8 +137,22 @@ public class FileReader {
             }
         }
         
+        ActionTile [] actionTiles = readActionTile(line1);
+        Tile [] tiles = new Tile[actionTiles.length + floorTiles.length];
+        int pos = 0;
+        for (int i = 0; i < actionTiles.length; i++) {
+            tiles[pos] = actionTiles[i];
+            pos++;
+        }
+        for (int i = 0; i < floorTiles.length; i++) {
+            tiles[pos] = floorTiles[i];
+            pos++;
+        }
+        
+        SilkBag silkBag = new SilkBag(tiles);
+        
         //System.out.println(Arrays.toString(player1Location) + " " + Arrays.toString(player2Location) + " " + Arrays.toString(player3Location) + " " + Arrays.toString(player4Location) + " " + width + " " + height + " " + Arrays.toString(tiles));
-        Board board = new Board(player1Location, player2Location, player3Location, player4Location, width, height, tiles, tileLocations);
+        Board board = new Board(player1Location, player2Location, player3Location, player4Location, width, height, fixedTiles, tileLocations, randTiles, silkBag);
         return board;
     }
     
@@ -158,32 +187,24 @@ public class FileReader {
         f.delete();
     }
 
-    public static SilkBag readSilkFile(String filename) {
-        Scanner in = readFile(filename);
-
-        String stringTemp = in.nextLine();
+    /**
+     * Reads board file and gets the tiles to place into silkbag
+     * @param line1 line of number of action tiles
+     * @return tiles to add to silkbag
+     */
+    public static ActionTile[] readActionTile(String line1) {
         String[] stringTempArr;
         int totalTiles = 0;
         int[] actionTiles = null;
-        int[] floorTiles = null;
-        
 
-        stringTemp = in.nextLine();
-        stringTempArr = stringTemp.split(",");
+        stringTempArr = line1.split(",");
         actionTiles = new int[stringTempArr.length];
         for (int i = 0; i < stringTempArr.length; i++) {
             actionTiles[i] = Integer.parseInt(stringTempArr[i]);
             totalTiles += actionTiles[i];
         }
-        stringTemp = in.nextLine();
-        stringTempArr = stringTemp.split(",");
-        floorTiles = new int[stringTempArr.length];
-        for (int i = 0; i < stringTempArr.length; i++) {
-            floorTiles[i] = Integer.parseInt(stringTempArr[i]);
-            totalTiles += floorTiles[i];
-        }
         
-        Tile[] tiles = new Tile[totalTiles];
+        ActionTile[] tiles = new ActionTile[totalTiles];
         int pos = 0;
         
         for (int i = 0; i < actionTiles.length; i++){
@@ -211,6 +232,30 @@ public class FileReader {
                 }
             }
         }
+
+        return tiles;
+    }
+    
+    /**
+     * Reads board file and gets the tiles to place into silkbag
+     * @param line2 line of number of floor tiles
+     * @return tiles to add to silkbag
+     */
+    public static FloorTile[] readFloorTile(String line2) {
+        String[] stringTempArr;
+        int totalTiles = 0;
+        int[] floorTiles = null;
+        
+
+        stringTempArr = line2.split(",");
+        floorTiles = new int[stringTempArr.length];
+        for (int i = 0; i < stringTempArr.length; i++) {
+            floorTiles[i] = Integer.parseInt(stringTempArr[i]);
+            totalTiles += floorTiles[i];
+        }
+        
+        FloorTile[] tiles = new FloorTile[totalTiles];
+        int pos = 0;
         
         for (int i = 0; i < floorTiles.length; i++){
             for (int y = 0; y < floorTiles[i]; y++){
@@ -234,7 +279,7 @@ public class FileReader {
             }
         }
 
-        return new SilkBag(tiles);
+        return tiles;
     }
     
     /**
