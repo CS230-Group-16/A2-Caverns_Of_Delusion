@@ -10,6 +10,6 @@ public class GoalTile extends FloorTile  {
 	 * Constructor used to make the Goal tile
 	 */
 	public GoalTile () {
-			super("Goal");
+			super("GOAL");
 	}
 }
