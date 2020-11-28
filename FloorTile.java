@@ -10,6 +10,7 @@ abstract class FloorTile extends Tile {
     private boolean engulfed;
     private boolean occupied;
     private String tileType;
+    private int rotation;
 
     /**
      * Constructor used to make for the FloorTile class
@@ -66,6 +67,22 @@ abstract class FloorTile extends Tile {
      */
     public boolean isOccupied() {
         return this.occupied;
+    }
+    
+    /**
+     * setting rotation of floor tile
+     * @param rotation rotation to set to
+     */
+    public void setRotation(int rotation){
+        this.rotation = rotation;
+    }
+    
+    /**
+     * get rotation of floor tile
+     * @return rotation of floor tile
+     */
+    public int getRotation(){
+        return this.rotation;
     }
     
     /**
