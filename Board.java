@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 import java.util.Arrays;
 
 /*
@@ -7,6 +7,7 @@ import java.util.Arrays;
  * @version 1.2
  */
 public class Board {
+
     private static int[] player1Location;
     private static int[] player2Location;
     private static int[] player3Location;
@@ -15,6 +16,7 @@ public class Board {
     private static int height;
     private FloorTile[][] tileMap;
     private int[][] tileLocation;
+    private SilkBag silkBag;
 
     /*
 	 * Create a gameboard with every players' location, 
@@ -30,7 +32,7 @@ public class Board {
 	 * @param tileLocation location of tile 
      */
     Board(int[] player1Location, int[] player2Location, int[] player3Location, int[] player4Location,
-            int width, int height, FloorTile[] tiles, int[][] tileLocation) {
+            int width, int height, FloorTile[] fixedTiles, int[][] tileLocation, FloorTile[] randTiles, SilkBag silkBag) {
         this.player1Location = player1Location;
         this.player2Location = player2Location;
         this.player3Location = player3Location;
@@ -39,6 +41,11 @@ public class Board {
         this.height = height;
         this.tileMap = new FloorTile[width][height];
         this.tileLocation = tileLocation;
+        for (int i = 0; i < fixedTiles.length; i++) {
+            placeTile(fixedTiles[i],tileLocation[i]);
+        }
+        this.silkBag = silkBag;
+        fillBoard(randTiles);
     }
 
     /*
@@ -62,15 +69,23 @@ public class Board {
 
         return null;
     }
-    
+
     /*
      * gives position of tile on board
      * @return 2d int array of tile location
      */
-    public int[][] getTileLocation(){
-    	return this.tileLocation;
+    public int[][] getTileLocation() {
+        return this.tileLocation;
     }
     
+    /*
+     * gives the tile at a certain position
+     * @return tile at position
+     */
+    public FloorTile getTileAt(int x, int y) {
+        return this.tileMap[x][y];
+    }
+
 
     /*
 	 * updates/sets a new location for the player on the gameboard
@@ -91,11 +106,11 @@ public class Board {
             player4Location = newLocation;
         }
     }
-    
+
     public void updateTileLocation(int[][] newLocation, Tile t) {
-    	if(t != null) {
-    		this.tileLocation = newLocation;
-    	}
+        if (t != null) {
+            this.tileLocation = newLocation;
+        }
     }
 
     /*
@@ -108,28 +123,26 @@ public class Board {
     public void insertTile(FloorTile tile, Boolean row, int positionNum, int rotation) {
         //from Jimmy and Surinder
 
-// int x;
-		// int y;
-		// if row == True {
-		// 	y = positionNum;
-		// 	x = 0;
-		// } else {
-		// 	x = positionNum;
-		// 	y = 0;
-		// }
-		// insertPosition[0] = x;
-		// insertPosition[1] = y;
-		//
-		// Board.placeTile(tile, insertPosition);
-		// int xSize = Board.getSizex();
-		// int ySize = Board.getSizey();
-		// if (row == True && positionNum == ySize) {
-		// 	SilkBag.addTile(Board.getTile(0, positionNum));
-		// }
-		// SilkBag.addTile(tile);
-                
-                
-                
+        // int x;
+        // int y;
+        // if row == True {
+        // 	y = positionNum;
+        // 	x = 0;
+        // } else {
+        // 	x = positionNum;
+        // 	y = 0;
+        // }
+        // insertPosition[0] = x;
+        // insertPosition[1] = y;
+        //
+        // Board.placeTile(tile, insertPosition);
+        // int xSize = Board.getSizex();
+        // int ySize = Board.getSizey();
+        // if (row == True && positionNum == ySize) {
+        // 	SilkBag.addTile(Board.getTile(0, positionNum));
+        // }
+        // SilkBag.addTile(tile);
+
         ;
     }
 
@@ -140,7 +153,7 @@ public class Board {
 	 * @return FloorTile tile
      */
     private FloorTile createTile(String type, int rotation) {
-        ;
+        return null;
     }
 
     /*
@@ -149,14 +162,14 @@ public class Board {
      */
     public void pushedOut(int playerNum) {
         int[] playerPos = getPlayerLocation(playerNum);
-        
+
         int x = playerPos[0];
         int y = playerPos[1];
-        
-        if(x > getWidth() || y > getHeight()) {
-        	System.out.println("player outside of board");
+
+        if (x > getWidth() || y > getHeight()) {
+            System.out.println("player outside of board");
         }
-        
+
     }
 
     /*
@@ -167,12 +180,12 @@ public class Board {
 	 * @return whether the tile is frozen or not
      */
     private Boolean isFrozen(int positionNum) {
-    	for(FloorTile t : Board.this.tileMap) {
-    		if(t.isFrozen()) {
-    			return true;
-    		}
-    	}
-    	return false;
+        for (FloorTile t : Board.this.tileMap) {
+            if (t.isFrozen()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /*
@@ -183,24 +196,23 @@ public class Board {
      */
     private Boolean isEngulfed() {
         //define 3x3 area
-    	int xLeft;
-    	int yTop;
-    	int[][] tilePos = new int[this.height][this.width]; 
-    	
-    	for(Tile t : tileMap) {
-    		tilePos = Board.this.getTileLocation();
-    		tilePos = Arrays.copyOf(tilePos, tilePos.length + 1);
-    		tilePos[tilePos.length - 1] = Board.this.getTileLocation()[tileMap.length];
-    	}
-    	
-    	for(int i = 0; i < Board.this.tileLocation.length; i++) {
-    		for(int j = 0; j < Board.this.tileLocation[i].length; j++) {
-    			xLeft = (i - (i % 3));
-    			yTop = (j - (j % 3));
-    		}
-    	}
-    	
-    	
+        int xLeft;
+        int yTop;
+        int[][] tilePos = new int[this.height][this.width];
+
+        for (Tile t : tileMap) {
+            tilePos = Board.this.getTileLocation();
+            tilePos = Arrays.copyOf(tilePos, tilePos.length + 1);
+            tilePos[tilePos.length - 1] = Board.this.getTileLocation()[tileMap.length];
+        }
+
+        for (int i = 0; i < Board.this.tileLocation.length; i++) {
+            for (int j = 0; j < Board.this.tileLocation[i].length; j++) {
+                xLeft = (i - (i % 3));
+                yTop = (j - (j % 3));
+            }
+        }
+
     }
 
     /*
@@ -213,22 +225,20 @@ public class Board {
         int x = playerLocation[0];
         int y = playerLocation[1];
         int[][] goalLocation = {};
-        
-        
-        
-        for(int i = 0; i < Board.this.tileMap.length; i++) {
-        	if(this.tileMap[i].getType().equals("Goal")) {
-        		goalLocation = this.getTileLocation();
-        	}
-        	
+
+        for (int i = 0; i < Board.this.tileMap.length; i++) {
+            if (this.tileMap[i].getType().equals("Goal")) {
+                goalLocation = this.getTileLocation();
+            }
+
         }
-        
-        for(int i = 0; i < Board.this.tileLocation.length; i++) {
-        	for(int j = 0; j < Board.this.tileLocation[i].length; j++) {
-        		if(goalLocation[i][j] == goalLocation[x][y]) {
-        			return true;
-        		}
-        	}
+
+        for (int i = 0; i < Board.this.tileLocation.length; i++) {
+            for (int j = 0; j < Board.this.tileLocation[i].length; j++) {
+                if (goalLocation[i][j] == goalLocation[x][y]) {
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -238,21 +248,21 @@ public class Board {
 	 * @param tile the tile to be checked
      */
     public Boolean checkPathway(Tile tile) { // ** needs to return boolean
-    	//int rotation = 0;
-    	int[] pathways;
-    	((StraightTile) tile).generatePathways(((StraightTile) tile).getRotation());
-    	pathways = ((StraightTile) tile).getPathways();
-    	
-    	int i = 0;
-    	do {
-    		if(pathways[i] == 1) {
-    			System.out.println("found path");
-    			return true;
-    		}
-    		i += 1;
-    	}while(i < pathways.length);
-    	
-    	return false;
+        //int rotation = 0;
+        int[] pathways;
+        ((StraightTile) tile).generatePathways(((StraightTile) tile).getRotation());
+        pathways = ((StraightTile) tile).getPathways();
+
+        int i = 0;
+        do {
+            if (pathways[i] == 1) {
+                System.out.println("found path");
+                return true;
+            }
+            i += 1;
+        } while (i < pathways.length);
+
+        return false;
     }
 
     /*
@@ -270,20 +280,20 @@ public class Board {
 	 * @param finalLocation player's goal location
      */
     public void movePlayer(Boolean move, int playerNum, int[] finalLocation) {
-    	int[] playerPos = getPlayerLocation(playerNum);
-    	
-    	try {
-    		for(int i = 0; i < finalLocation[i]; i++) {
-    			if(move == true) {
-    				playerPos[0] = playerPos[0] + 1;
-    			}else {
-    				playerPos[0] = playerPos[0] - 1;
-    			}
-    		}
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    	}
-    	
+        int[] playerPos = getPlayerLocation(playerNum);
+
+        try {
+            for (int i = 0; i < finalLocation[i]; i++) {
+                if (move == true) {
+                    playerPos[0] = playerPos[0] + 1;
+                } else {
+                    playerPos[0] = playerPos[0] - 1;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /*
@@ -298,15 +308,65 @@ public class Board {
 	 * @param tile tile to be placed
 	 * @param location where the tile should be placed
      */
-    public void placeTile(FloorTile tile, int[] location) {
-        tileMap
+    private void placeTile(FloorTile tile, int[] location) {
+        this.tileMap[location[0]][location[1]] = tile;
     }
     
-    public int getWidth(){
+    /**
+     * Fill rest of board with random tiles
+     */
+    private void fillBoard(FloorTile [] tiles){
+        int nextTile = 0;
+        for (int x = 0; x < this.width; x++) {
+            for (int y = 0; y < this.height; y++) {
+                if (this.tileMap[x][y] == null) {
+                    this.tileMap[x][y] = tiles[nextTile];
+                    nextTile++;
+                }
+            }
+        }
+    }
+
+    /**
+     * get width of board
+     * @return width integer
+     */
+    public int getWidth() {
         return Board.width;
     }
-    
-    public int getHeight(){
+
+    /**
+     * get height of board
+     * @return height integer
+     */
+    public int getHeight() {
         return Board.height;
+    }
+    
+    public SilkBag getSilkBag(){
+        return this.silkBag;
+    }
+    
+    /**
+     * to string method for testing
+     */
+    public void toStr() {
+        System.out.println("---Board---");
+        System.out.println("Player 1 location: " + Arrays.toString(Board.player1Location));
+        System.out.println("Player 2 location: " + Arrays.toString(Board.player2Location));
+        System.out.println("Player 3 location: " + Arrays.toString(Board.player3Location));
+        System.out.println("Player 4 location: " + Arrays.toString(Board.player4Location));
+        System.out.println("Width: " + Board.width);
+        System.out.println("Height: " + Board.height);
+        System.out.println();
+        System.out.println("Tile Map:");
+        for (int x = 0; x < this.width; x++) {
+            for (int y = 0; y < this.height; y++) {
+                System.out.println("X: " + x + " Y: " + y);
+                this.tileMap[x][y].toStr();
+            }
+        }
+        System.out.println("-----------");
+        System.out.println();
     }
 }
