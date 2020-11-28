@@ -66,8 +66,12 @@ public class TShapeTile extends FloorTile  {
 				return this.pathways;
 		}
 
-		public static void main(String[] args) {
-			TShapeTile t1 = new TShapeTile(0);
-			System.out.println(t1.getType());
-		}
+                /**
+                 * change rotation by user when inserted
+                 * @param rotation new rotation of tile
+                 */
+                public void setRotation(int rotation){
+                    this.rotation = rotation;
+                    this.generatePathways(rotation);
+                }
 }

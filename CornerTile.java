@@ -65,4 +65,13 @@ public class CornerTile extends FloorTile  {
 		public int[] getPathways() {
 				return this.pathways;
 		}
+                
+                /**
+                 * change rotation by user when inserted
+                 * @param rotation new rotation of tile
+                 */
+                public void setRotation(int rotation){
+                    this.rotation = rotation;
+                    this.generatePathways(rotation);
+                }
 }
