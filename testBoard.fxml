@@ -13,28 +13,28 @@
          <top>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="p2" text="Player 2" />
+                  <Label fx:id="p2" />
                </children>
             </HBox>
          </top>
          <bottom>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="p4" text="Player 4" />
+                  <Label fx:id="p4" />
                </children>
             </HBox>
          </bottom>
          <right>
             <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="p3" text="Player 3" />
+                  <Label fx:id="p3" />
                </children>
             </VBox>
          </right>
          <left>
             <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="p1" text="Player 1" />
+                  <Label fx:id="p1" />
                   <Button fx:id="change" mnemonicParsing="false" text="Button" />
                </children>
             </VBox>

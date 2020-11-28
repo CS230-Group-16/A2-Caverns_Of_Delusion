@@ -28,6 +28,8 @@ import javafx.scene.layout.Pane;
  */
 public class TestGameController {
 
+    private final int WIDTH_OF_TILE_IMAGE = 70;
+    private final int WIDTH_OF_PLAYER_IMAGE = 25;    
     @FXML
     Button change;
     @FXML
@@ -48,9 +50,14 @@ public class TestGameController {
      */
     public void initialize() {
         this.game = createGame();
+        setPlayerNames();
+        refreshBoard();
+        refreshPlayers();
 
         change.setOnAction(e -> {
-            change();
+            GoalTile t = new GoalTile();
+            this.game.getBoard().insertTile(t, true, 2, false, 1);
+            refreshBoard();
         });
 
     }
@@ -61,7 +68,11 @@ public class TestGameController {
 
         //get name of file
         Game g = new Game("board1.txt", strArr);
-        Player[] players = g.getPlayers();
+        return g;
+    }
+    
+    private void setPlayerNames(){
+        Player[] players = this.game.getPlayers();
         for (int i = 0; i < players.length; i++) {
             switch (i) {
                 case 0:
@@ -80,63 +91,65 @@ public class TestGameController {
                     break;
             }
         }
+    }
 
-        int h = g.getBoard().getHeight();
-        int w = g.getBoard().getWidth();
+    private void refreshPlayers(){
+        Player[] players = this.game.getPlayers();
+        for (int i = 1; i <= players.length; i++) {
+            changeLocation(i,this.game.getBoard().getPlayerLocation(i));
+        }
+    }
+    
+    private void changeLocation(int player, int[] location){
+        int x = WIDTH_OF_PLAYER_IMAGE + (WIDTH_OF_TILE_IMAGE * (location[0]+1));
+        int y = WIDTH_OF_PLAYER_IMAGE + (WIDTH_OF_TILE_IMAGE * (location[1]+1));
+
+        try {
+            Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/PLAYER" + player + ".png"));
+            ImageView imageView = new ImageView(image1);
+            imageView.setX(x);
+            imageView.setY(y);
+            central.getChildren().add(imageView);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        
+    }
+    /**
+     * Refresh the displayed tiles.
+     */
+    private void refreshBoard() {
+        int h = this.game.getBoard().getHeight();
+        int w = this.game.getBoard().getWidth();
         int x = 0;
         int y = 0;
+        String tile;
         
-        Random rand = new Random();
-        String [] images = new String[]{"Corner_1","Corner_2","Corner_3","Corner_4","Straight_1","Straight_1","Straight_2","Goal","TShape_1","TShape_2","TShape_3","TShape_4"};
-        
+        FloorTile[][] tileMap = this.game.getBoard().getTileMap();
         try {
-            
             for (int i = 0; i < h; i++) {
                 for (int j = 0; j < w; j++) {
-                    Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/Final/" + images[rand.nextInt(images.length)] + ".png"));
+                    if ("GOAL".equals(tileMap[j][i].getType())) {
+                        tile = "GOAL";
+                    } else {
+                        tile = tileMap[j][i].getType() + "_" + (tileMap[j][i].getRotation()+1);
+                    }
+                    Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/Final/" + tile + ".png"));
                     ImageView imageView = new ImageView(image1);
                     imageView.setX(x);
                     imageView.setY(y);
                     central.getChildren().add(imageView);
-                    x = x + 70;
+                    x = x + WIDTH_OF_TILE_IMAGE;
                 }
                 x = 0;
-                y = y + 70;
+                y = y + WIDTH_OF_TILE_IMAGE;
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        return g;
     }
 
-    /**
-     * Refresh the displayed countries.
-     */
-    private void refreshCountryList() {
-        // Clear the displayed list
-
-    }
-
-    /**
-     * Handle the behavior of the delete button. This will delete the selected country and refresh the displayed list.
-     */
-    private void change() {
-
-        Pane root2 = new Pane();
-        Label l = new Label("Hello");
-        root2.getChildren().add(l);
-        Button b = new Button("button");
-        root2.getChildren().add(b);
-        Stage primaryStage = new Stage();
-
-        Scene scene2 = new Scene(root2, 800, 800);
-        primaryStage.setScene(scene2);
-        primaryStage.show();
-        Stage stage = (Stage) change.getScene().getWindow();
-        stage.close();
-
-    }
 
     /**
      * Handle the edit button. This will display a window allowing the user to edit the selected country. After the edit is complete, the displayed list will be updated.

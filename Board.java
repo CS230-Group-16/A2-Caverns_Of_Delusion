@@ -122,7 +122,7 @@ public class Board {
 	 * @param rotation orientation of the tile(0 degrees, 90 degrees, ..)
      */
     public void insertTile(FloorTile tile, Boolean row, int positionNum, boolean flip, int rotation) {
-        //tile.setRotation(rotation);
+        tile.setRotation(rotation);
         
         if (!flip) {
             if (row) {
