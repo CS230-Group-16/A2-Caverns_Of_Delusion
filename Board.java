@@ -5,7 +5,7 @@ import java.util.Random;
 /*
  * class represents the template of the gameboard
  * @author Bartosz Kubica&Marius Antemir
- * @version 1.2
+ * @version 1.6
  */
 public class Board {
 
@@ -16,7 +16,6 @@ public class Board {
     private static int width;
     private static int height;
     private FloorTile[][] tileMap;
-    private int[][] tileLocation;
     private SilkBag silkBag;
 
     /*
@@ -41,7 +40,6 @@ public class Board {
         this.width = width;
         this.height = height;
         this.tileMap = new FloorTile[width][height];
-        this.tileLocation = tileLocation;
         for (int i = 0; i < fixedTiles.length; i++) {
             placeTile(fixedTiles[i],tileLocation[i]);
         }
@@ -55,29 +53,22 @@ public class Board {
 	 * @return player's location with in [x,y] format
      */
     public int[] getPlayerLocation(int player) {
+        int [] location = {-1,-1};
         if (player == 1) {
-            return player1Location;
+            location = this.player1Location;
         }
         if (player == 2) {
-            return player2Location;
+            location = this.player2Location;
         }
         if (player == 3) {
-            return player3Location;
+            location = this.player3Location;
         }
         if (player == 4) {
-            return player4Location;
+            location = this.player4Location;
         }
-
-        return null;
+        return location;
     }
 
-    /*
-     * gives position of tile on board
-     * @return 2d int array of tile location
-     */
-    public int[][] getTileLocation() {
-        return this.tileLocation;
-    }
     
     /*
      * gives the tile at a certain position
@@ -95,23 +86,26 @@ public class Board {
      */
     public void updatePlayerLocation(int player, int[] newLocation) {
         if (player == 1) {
-            player1Location = newLocation;
+            this.player1Location = newLocation;
         }
         if (player == 2) {
-            player2Location = newLocation;
+            this.player2Location = newLocation;
         }
         if (player == 3) {
-            player3Location = newLocation;
+            this.player3Location = newLocation;
         }
         if (player == 4) {
-            player4Location = newLocation;
+            this.player4Location = newLocation;
         }
     }
 
-    public void updateTileLocation(int[][] newLocation, Tile t) {
-        if (t != null) {
-            this.tileLocation = newLocation;
-        }
+    /**
+     * Update the tile at specific location
+     * @param newLocation new location of tile
+     * @param t tile to be placed in that location
+     */
+    public void updateTileLocation(int[] newLocation, FloorTile t) {
+        this.tileMap[newLocation[0]][newLocation[1]] = t;
     }
 
     /*
@@ -188,13 +182,8 @@ public class Board {
 	 * @param positionNum the position of the tile
 	 * @return whether the tile is frozen or not
      */
-    private Boolean isFrozen(int positionNum) {
-        for (FloorTile t : Board.this.tileMap) {
-            if (t.isFrozen()) {
-                return true;
-            }
-        }
-        return false;
+    private Boolean isFrozen(int x, int y) {
+        return this.tileMap[x][y].isEngulfed();
     }
 
     /*
@@ -203,25 +192,8 @@ public class Board {
 	 * 						be moved onto if on fire) 
 	 * @return whether the tileMap are engulfed or not  					    
      */
-    private Boolean isEngulfed() {
-        //define 3x3 area
-        int xLeft;
-        int yTop;
-        int[][] tilePos = new int[this.height][this.width];
-
-        for (Tile t : tileMap) {
-            tilePos = Board.this.getTileLocation();
-            tilePos = Arrays.copyOf(tilePos, tilePos.length + 1);
-            tilePos[tilePos.length - 1] = Board.this.getTileLocation()[tileMap.length];
-        }
-
-        for (int i = 0; i < Board.this.tileLocation.length; i++) {
-            for (int j = 0; j < Board.this.tileLocation[i].length; j++) {
-                xLeft = (i - (i % 3));
-                yTop = (j - (j % 3));
-            }
-        }
-
+    private Boolean isEngulfed(int x, int y) {
+        return this.tileMap[x][y].isEngulfed();
     }
 
     /*
@@ -230,6 +202,7 @@ public class Board {
 	 * @return whether player is finished or not
      */
     public Boolean reachedGoal(int playerNum) {
+        /*
         int[] playerLocation = getPlayerLocation(playerNum);
         int x = playerLocation[0];
         int y = playerLocation[1];
@@ -249,6 +222,7 @@ public class Board {
                 }
             }
         }
+        */
         return false;
     }
 
@@ -256,22 +230,30 @@ public class Board {
 	 * checks if tile can be used to make a path
 	 * @param tile the tile to be checked
      */
-    public Boolean checkPathway(Tile tile) { // ** needs to return boolean
-        //int rotation = 0;
-        int[] pathways;
-        ((StraightTile) tile).generatePathways(((StraightTile) tile).getRotation());
-        pathways = ((StraightTile) tile).getPathways();
-
-        int i = 0;
-        do {
-            if (pathways[i] == 1) {
-                System.out.println("found path");
-                return true;
-            }
-            i += 1;
-        } while (i < pathways.length);
-
-        return false;
+    public boolean[] checkPathway(int player) { // ** needs to return boolean
+        boolean[] pathway = {false,false,false,false};
+        int [] playerLocation = getPlayerLocation(player);
+        
+        int [] northPath = getTileAt(playerLocation[0],(playerLocation[1]-1)).getPathways();
+        int [] eastPath = getTileAt((playerLocation[0]+1),playerLocation[1]).getPathways();
+        int [] southPath = getTileAt(playerLocation[0],(playerLocation[1]+1)).getPathways();
+        int [] westPath = getTileAt((playerLocation[0]-1),playerLocation[1]).getPathways();
+        int [] currentPath = getTileAt(playerLocation[0],playerLocation[1]).getPathways();
+        
+        //need to change magic numbers
+        if (currentPath[0] == northPath[2]) {
+            pathway[0] = true;
+        }
+        if (currentPath[1] == eastPath[3]) {
+            pathway[1] = true;
+        }
+        if (currentPath[2] == southPath[0]) {
+            pathway[2] = true;
+        }
+        if (currentPath[3] == westPath[1]) {
+            pathway[3] = true;
+        }
+        return pathway;
     }
 
     /*
@@ -279,7 +261,9 @@ public class Board {
 	 * @param playerNum
      */
     public void move(int playerNum) {
-        ;
+        boolean[] paths = checkPathway(playerNum);
+        //show where they can go
+        
     }
 
     /*
@@ -289,18 +273,10 @@ public class Board {
 	 * @param finalLocation player's goal location
      */
     public void movePlayer(Boolean move, int playerNum, int[] finalLocation) {
-        int[] playerPos = getPlayerLocation(playerNum);
-
-        try {
-            for (int i = 0; i < finalLocation[i]; i++) {
-                if (move == true) {
-                    playerPos[0] = playerPos[0] + 1;
-                } else {
-                    playerPos[0] = playerPos[0] - 1;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (move) {
+            updatePlayerLocation(playerNum, finalLocation);
+        } else {
+            //do we need an else??
         }
 
     }
@@ -337,6 +313,11 @@ public class Board {
         }
     }
     
+    /**
+     * randomly rotate tiles
+     * @param x x coordinate of tile to rotate
+     * @param y y coordinate of tile to rotate
+     */
     private void rotateTile(int x, int y){
         Random rand = new Random();
         if ("STRAIGHT".equals(this.tileMap[x][y].getType())) {
@@ -370,6 +351,10 @@ public class Board {
         return this.silkBag;
     }
     
+    /**
+     * returns mapping of tiles on board
+     * @return tile map of floor tiles
+     */
     public FloorTile[][] getTileMap(){
         return this.tileMap;
     }
