@@ -49,8 +49,9 @@ public class Main extends Application {
     }
     
     public static void main(String [] args){
-        //this.g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000"});
-        //g.toStr();
+        Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000"});
+        
+        g.toStr();
         //g.displayMessage();
         
         launch(args);
