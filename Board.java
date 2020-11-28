@@ -343,8 +343,16 @@ public class Board {
         return Board.height;
     }
     
+    /**
+     * get created silk bag
+     * @return silk bag
+     */
     public SilkBag getSilkBag(){
         return this.silkBag;
+    }
+    
+    public FloorTile[][] getTileMap(){
+        return this.tileMap;
     }
     
     /**
