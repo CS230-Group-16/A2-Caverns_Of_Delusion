@@ -71,7 +71,7 @@ public class CornerTile extends FloorTile  {
                  * @param rotation new rotation of tile
                  */
                 public void setRotation(int rotation){
-                    this.rotation = rotation;
+                    super.setRotation(rotation);
                     this.generatePathways(rotation);
                 }
 }
