@@ -20,8 +20,11 @@ public class SilkBag {
      */
     public SilkBag (Tile tiles[]) {
         for (Tile tile : tiles) {
-            this.addTile(tile);
+            if  (tile != null) {
+                this.tileList.add(tile);
+            }
         }
+        this.numOfTiles = this.tileList.size();
     }
     
     /**
