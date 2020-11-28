@@ -3,8 +3,8 @@
  * @author Cameron McDonagh & Maciej Buczkowski
  * @version 1.6
  */
-public class StraightTile extends FloorTile  {
-    private int[] pathways = {0,0,0,0};
+public class StraightTile extends FloorTile {
+
     private int rotation;
 
     /**
@@ -12,72 +12,71 @@ public class StraightTile extends FloorTile  {
      *
      * @param rotation/orientation of the tile
      */
-    public StraightTile (int rotation) {
-      super("STRAIGHT");
-      this.generatePathways(rotation);
+    public StraightTile(int rotation) {
+        super("STRAIGHT");
+        this.generatePathways(rotation);
     }
 
     /**
-		 * Generates an int array (of length 4) that represents
-		 * the pathways of the tile, the array represents the following
-		 * [North, East, South, West]. '1' represents a path in that direction
-		 * whereas '0' is a lack of a path.
-		 *
-		 * @param rotation - generates the pathways based on the rotation (orientation) of the tile
-		 */
+     * Generates an int array (of length 4) that represents the pathways of the tile, the array represents the following [North, East, South, West]. '1' represents a path in that direction whereas '0' is a lack of a path.
+     *
+     * @param rotation - generates the pathways based on the rotation (orientation) of the tile
+     */
     public void generatePathways(int rotation) {
-				int[] defaultPathway = new int[4];
+        int[] defaultPathway = new int[4];
         switch (rotation) {
-  					case 0:
-    						defaultPathway[0] = 1;
-    						defaultPathway[1] = 0;
-    						defaultPathway[2] = 1;
-    						defaultPathway[3] = 0;
-    						break;
+            case 0:
+                defaultPathway[0] = 1;
+                defaultPathway[1] = 0;
+                defaultPathway[2] = 1;
+                defaultPathway[3] = 0;
+                break;
             case 1:
-    						defaultPathway[0] = 0;
-    						defaultPathway[1] = 1;
-    						defaultPathway[2] = 0;
-    						defaultPathway[3] = 1;
-    						break;
+                defaultPathway[0] = 0;
+                defaultPathway[1] = 1;
+                defaultPathway[2] = 0;
+                defaultPathway[3] = 1;
+                break;
             case 2:
-    						defaultPathway[0] = 1;
-    						defaultPathway[1] = 0;
-    						defaultPathway[2] = 1;
-    						defaultPathway[3] = 0;
-    						break;
+                defaultPathway[0] = 1;
+                defaultPathway[1] = 0;
+                defaultPathway[2] = 1;
+                defaultPathway[3] = 0;
+                break;
             case 3:
-    						defaultPathway[0] = 0;
-    						defaultPathway[1] = 1;
-    						defaultPathway[2] = 0;
-    						defaultPathway[3] = 1;
-    						break;
-				}
-				this.pathways = defaultPathway;
+                defaultPathway[0] = 0;
+                defaultPathway[1] = 1;
+                defaultPathway[2] = 0;
+                defaultPathway[3] = 1;
+                break;
+        }
+        super.setPathways(defaultPathway);
     }
 
     /**
      * returns the pathways array of the current tile, showing valid and invalid paths
+     *
      * @return pathways - the pathways array of the tile
      */
-		public int[] getPathways() {
-		    return this.pathways;
-		}
-		
-		/*
+    public int[] getPathways() {
+        return super.getPathways();
+    }
+
+    /*
 		 * gets rotation of tile
 		 * @return rotation rotation of tile - integer form
-		 */
-		public int getRotation() {
-			return this.rotation;
-		}
-                
-                /**
-                 * change rotation by user when inserted
-                 * @param rotation new rotation of tile
-                 */
-                public void setRotation(int rotation){
-                    super.setRotation(rotation);
-                    this.generatePathways(rotation);
-                }
+     */
+    public int getRotation() {
+        return this.rotation;
+    }
+
+    /**
+     * change rotation by user when inserted
+     *
+     * @param rotation new rotation of tile
+     */
+    public void setRotation(int rotation) {
+        super.setRotation(rotation);
+        this.generatePathways(rotation);
+    }
 }

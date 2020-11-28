@@ -11,6 +11,7 @@ abstract class FloorTile extends Tile {
     private boolean occupied;
     private String tileType;
     private int rotation;
+    private int [] pathways;
 
     /**
      * Constructor used to make for the FloorTile class
@@ -85,6 +86,21 @@ abstract class FloorTile extends Tile {
         return this.rotation;
     }
     
+    /**
+     * get pathways of tile
+     * @return pathway of tile
+     */
+    public int[] getPathways(){
+        return this.pathways;
+    }
+    
+    /**
+     * set pathways of tile
+     * @param path pathway of tile
+     */
+    public void setPathways(int [] path){
+        this.pathways = path;
+    }
     /**
      * Method to print FloorTile to string for testing
      */

@@ -4,12 +4,22 @@
  * @version 1.3
  */
 
-public class GoalTile extends FloorTile  {
+public class GoalTile extends FloorTile {
 
-	/**
-	 * Constructor used to make the Goal tile
-	 */
-	public GoalTile () {
-			super("GOAL");
-	}
+    /**
+     * Constructor used to make the Goal tile
+     */
+    public GoalTile() {
+        super("GOAL");
+        super.setPathways(new int[]{1,1,1,1});
+    }
+
+    /**
+     * get pathways of goal tile
+     *
+     * @return pathway (1 being true and 0 being false)
+     */
+    public int[] getPathways() {
+        return super.getPathways();
+    }
 }
