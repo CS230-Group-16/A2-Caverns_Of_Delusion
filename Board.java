@@ -121,30 +121,38 @@ public class Board {
 	 * @param positionNum where the tile should be inserted(column)
 	 * @param rotation orientation of the tile(0 degrees, 90 degrees, ..)
      */
-    public void insertTile(FloorTile tile, Boolean row, int positionNum, int rotation) {
-        //from Jimmy and Surinder
-
-        // int x;
-        // int y;
-        // if row == True {
-        // 	y = positionNum;
-        // 	x = 0;
-        // } else {
-        // 	x = positionNum;
-        // 	y = 0;
-        // }
-        // insertPosition[0] = x;
-        // insertPosition[1] = y;
-        //
-        // Board.placeTile(tile, insertPosition);
-        // int xSize = Board.getSizex();
-        // int ySize = Board.getSizey();
-        // if (row == True && positionNum == ySize) {
-        // 	SilkBag.addTile(Board.getTile(0, positionNum));
-        // }
-        // SilkBag.addTile(tile);
-
-        ;
+    public void insertTile(FloorTile tile, Boolean row, int positionNum, boolean flip, int rotation) {
+        //tile.setRotation(rotation);
+        
+        if (!flip) {
+            if (row) {
+                this.silkBag.addTile(this.tileMap[width-1][positionNum]);
+                for (int i = (width-1); i > 0; i--) {
+                    this.tileMap[i][positionNum] = this.tileMap[i-1][positionNum];
+                }
+                this.tileMap[0][positionNum] = tile;
+            } else {
+                this.silkBag.addTile(this.tileMap[positionNum][height-1]);
+                for (int i = (height-1); i > 0; i--) {
+                    this.tileMap[positionNum][i] = this.tileMap[positionNum][i-1];
+                }
+                this.tileMap[positionNum][0] = tile;
+            }
+        } else if (flip) {
+            if (row) {
+                this.silkBag.addTile(this.tileMap[0][positionNum]);
+                for (int i = 0; i < (width-1); i++) {
+                    this.tileMap[i][positionNum] = this.tileMap[i+1][positionNum];
+                }
+                this.tileMap[width-1][positionNum] = tile;
+            } else {
+                this.silkBag.addTile(this.tileMap[positionNum][0]);
+                for (int i = 0; i < (height-1); i++) {
+                    this.tileMap[positionNum][i] = this.tileMap[positionNum][i+1];
+                }
+                this.tileMap[positionNum][height-1] = tile;
+            }
+        }
     }
 
     /* creates a floor tile(tile with no special actions, only 
