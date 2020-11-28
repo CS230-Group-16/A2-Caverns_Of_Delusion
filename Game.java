@@ -192,7 +192,7 @@ public class Game {
      * @param filename level file to create tiles and place in to silk bag
      */
     public void createSilkBag(String filename) {
-        this.silkBag = FileReader.readSilkFile(filename);
+        this.silkBag = this.board.getSilkBag();
     }
 
     /**
@@ -241,7 +241,7 @@ public class Game {
     public void toStr(){
         System.out.println("Current Game state: " + this.gameInProgress);
         System.out.println();
-        //this.board.toStr();
+        this.board.toStr();
         //this.leaderboard.toStr();
         //this.round.toStr();
         this.silkBag.toStr();
