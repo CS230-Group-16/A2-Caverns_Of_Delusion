@@ -18,7 +18,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 
 /**
  * Test Controller for the main game.
@@ -29,6 +33,7 @@ import javafx.scene.layout.Pane;
 public class TestGameController {
 
     private final int WIDTH_OF_TILE_IMAGE = 70;
+    private final int HEIGHT_OF_TILE_IMAGE = 70;
     private final int WIDTH_OF_PLAYER_IMAGE = 25;    
     @FXML
     Button change;
@@ -41,15 +46,30 @@ public class TestGameController {
     @FXML
     Label p4;
     @FXML
-    Pane central;
+    GridPane central;
+    @FXML
+    HBox spells;
 
     private Game game;
 
     /**
-     * Initialize the controller. This method is called automatically. The following happen in this order: 1) First an instance of the controller is created (the constructor is called), 2) Next the @FXML variables are bound to the GUI components. 3) Finally, this initialize method is called. This means we cannot bind actions to buttons in the constructor, but we can in this method.
+     * Initialize the controller. This method is called automatically. The following happen in this order: 
+     * 1) First an instance of the controller is created (the constructor is called), 
+     * 2) Next the @FXML variables are bound to the GUI components. 
+     * 3) Finally, this initialize method is called. This means we cannot bind actions to buttons in the constructor, but we can in this method.
      */
     public void initialize() {
+        central.setGridLinesVisible(true);
+        
         this.game = createGame();
+        for (int i = 0; i < this.game.getBoard().getWidth(); i++) {
+            ColumnConstraints column = new ColumnConstraints(WIDTH_OF_TILE_IMAGE);
+            central.getColumnConstraints().add(column);
+        }
+        for (int i = 0; i < this.game.getBoard().getHeight(); i++) {
+            RowConstraints row = new RowConstraints(HEIGHT_OF_TILE_IMAGE);
+            central.getRowConstraints().add(row);
+        }
         setPlayerNames();
         refreshBoard();
         refreshPlayers();
@@ -58,13 +78,14 @@ public class TestGameController {
             GoalTile t = new GoalTile();
             this.game.getBoard().insertTile(t, true, 2, false, 1);
             refreshBoard();
+            
         });
 
     }
 
     private Game createGame() {
         //get names from screen
-        String[] strArr = new String[]{"Super_Cool_Name", "grapeLord5000"};
+        String[] strArr = new String[]{"Super_Cool_Name", "grapeLord5000", "awesomeGuy", "CasualGamerGuy"};
 
         //get name of file
         Game g = new Game("board1.txt", strArr);
@@ -101,15 +122,15 @@ public class TestGameController {
     }
     
     private void changeLocation(int player, int[] location){
-        int x = WIDTH_OF_PLAYER_IMAGE + (WIDTH_OF_TILE_IMAGE * (location[0]+1));
-        int y = WIDTH_OF_PLAYER_IMAGE + (WIDTH_OF_TILE_IMAGE * (location[1]+1));
+        int x = WIDTH_OF_PLAYER_IMAGE + (WIDTH_OF_TILE_IMAGE * (location[0]));
+        int y = WIDTH_OF_PLAYER_IMAGE + (WIDTH_OF_TILE_IMAGE * (location[1]));
 
         try {
             Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/PLAYER" + player + ".png"));
             ImageView imageView = new ImageView(image1);
             imageView.setX(x);
             imageView.setY(y);
-            central.getChildren().add(imageView);
+            //central.getChildren().add(imageView);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -136,9 +157,11 @@ public class TestGameController {
                     }
                     Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/Final/" + tile + ".png"));
                     ImageView imageView = new ImageView(image1);
-                    imageView.setX(x);
-                    imageView.setY(y);
-                    central.getChildren().add(imageView);
+                    //imageView.setX(x);
+                    //imageView.setY(y);
+                    //central.getChildren().add(imageView);
+                    central.add(imageView,j,i);
+                    //central.getChildren().add(imageView);
                     x = x + WIDTH_OF_TILE_IMAGE;
                 }
                 x = 0;
