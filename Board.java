@@ -13,20 +13,20 @@ public class Board {
     private static int[] player4Location;
     private static int width;
     private static int height;
-    private FloorTile[] tiles;
+    private FloorTile[][] tileMap;
     private int[][] tileLocation;
 
     /*
 	 * Create a gameboard with every players' location, 
-	 * gameboard height&width and all non-moving tiles, orientation
-	 * of tiles and their locations
+	 * gameboard height&width and all non-moving tileMap, orientation
+	 * of tileMap and their locations
 	 * @param player1Location first player's location
 	 * @param player2Location second player's location
 	 * @param player3Location third player's location
 	 * @param player4Location fourth player's location
 	 * @param width the width of the gameboard
 	 * @param height the height of the gameboard
-	 * @param tiles all fixed tiles to place on to board
+	 * @param tileMap all fixed tileMap to place on to board
 	 * @param tileLocation location of tile 
      */
     Board(int[] player1Location, int[] player2Location, int[] player3Location, int[] player4Location,
@@ -37,7 +37,7 @@ public class Board {
         this.player4Location = player4Location;
         this.width = width;
         this.height = height;
-        this.tiles = tiles;
+        this.tileMap = new FloorTile[width][height];
         this.tileLocation = tileLocation;
     }
 
@@ -99,7 +99,7 @@ public class Board {
     }
 
     /*
-	 * inserts tile on gameboard&pushes all tiles along 
+	 * inserts tile on gameboard&pushes all tileMap along 
 	 * @param tile FloorTile to be inserted
 	 * @param row can only be inserted if true
 	 * @param positionNum where the tile should be inserted(column)
@@ -160,14 +160,14 @@ public class Board {
     }
 
     /*
-	 * checks if a tile is 'frozen'(frozen tiles
-	 * 						act as FloorTile[fixed tiles]
+	 * checks if a tile is 'frozen'(frozen tileMap
+	 * 						act as FloorTile[fixed tileMap]
 	 * 						until ice melts)
 	 * @param positionNum the position of the tile
 	 * @return whether the tile is frozen or not
      */
     private Boolean isFrozen(int positionNum) {
-    	for(FloorTile t : Board.this.tiles) {
+    	for(FloorTile t : Board.this.tileMap) {
     		if(t.isFrozen()) {
     			return true;
     		}
@@ -176,10 +176,10 @@ public class Board {
     }
 
     /*
-	 * checks if a group of tiles are 'engulfed'(fire on
-	 * 						surrounding tiles, cannot
+	 * checks if a group of tileMap are 'engulfed'(fire on
+	 * 						surrounding tileMap, cannot
 	 * 						be moved onto if on fire) 
-	 * @return whether the tiles are engulfed or not  					    
+	 * @return whether the tileMap are engulfed or not  					    
      */
     private Boolean isEngulfed() {
         //define 3x3 area
@@ -187,10 +187,10 @@ public class Board {
     	int yTop;
     	int[][] tilePos = new int[this.height][this.width]; 
     	
-    	for(Tile t : tiles) {
+    	for(Tile t : tileMap) {
     		tilePos = Board.this.getTileLocation();
     		tilePos = Arrays.copyOf(tilePos, tilePos.length + 1);
-    		tilePos[tilePos.length - 1] = Board.this.getTileLocation()[tiles.length];
+    		tilePos[tilePos.length - 1] = Board.this.getTileLocation()[tileMap.length];
     	}
     	
     	for(int i = 0; i < Board.this.tileLocation.length; i++) {
@@ -216,8 +216,8 @@ public class Board {
         
         
         
-        for(int i = 0; i < Board.this.tiles.length; i++) {
-        	if(this.tiles[i].getType().equals("Goal")) {
+        for(int i = 0; i < Board.this.tileMap.length; i++) {
+        	if(this.tileMap[i].getType().equals("Goal")) {
         		goalLocation = this.getTileLocation();
         	}
         	
@@ -299,7 +299,7 @@ public class Board {
 	 * @param location where the tile should be placed
      */
     public void placeTile(FloorTile tile, int[] location) {
-        ;
+        tileMap
     }
     
     public int getWidth(){
