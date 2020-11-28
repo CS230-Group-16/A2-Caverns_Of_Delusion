@@ -1,5 +1,6 @@
 
 import java.util.Arrays;
+import java.util.Random;
 
 /*
  * class represents the template of the gameboard
@@ -321,9 +322,19 @@ public class Board {
             for (int y = 0; y < this.height; y++) {
                 if (this.tileMap[x][y] == null) {
                     this.tileMap[x][y] = tiles[nextTile];
+                    rotateTile(x,y);
                     nextTile++;
                 }
             }
+        }
+    }
+    
+    private void rotateTile(int x, int y){
+        Random rand = new Random();
+        if ("STRAIGHT".equals(this.tileMap[x][y].getType())) {
+            this.tileMap[x][y].setRotation(rand.nextInt(2));
+        } else {
+            this.tileMap[x][y].setRotation(rand.nextInt(4));
         }
     }
 
