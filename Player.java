@@ -163,7 +163,7 @@ public class Player {
     /**
      * Method to string to print player to screen
      */
-    public String toString() {
+    public void toStr() {
         String result = "";
         result += "Username: " + username + "\n";
         result += "Games Won: " + gamesWon + "\n";
@@ -181,6 +181,6 @@ public class Player {
             result += spellBook.get(i) + ", ";
         }
         result += "\n";
-        return result;
+        System.out.println(result);
     }
 }
