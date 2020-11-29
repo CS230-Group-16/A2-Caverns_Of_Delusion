@@ -1,5 +1,6 @@
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /*
@@ -17,6 +18,8 @@ public class Board {
     private static int height;
     private FloorTile[][] tileMap;
     private SilkBag silkBag;
+    private boolean[] blockedRow;
+    private boolean[] blockedColumn;
 
     /*
 	 * Create a gameboard with every players' location, 
@@ -39,6 +42,15 @@ public class Board {
         this.player4Location = player4Location;
         this.width = width;
         this.height = height;
+        this.blockedRow = new boolean[height];
+        this.blockedColumn = new boolean[width];
+        for (int i = 0; i < height; i++) {
+            this.blockedRow[i] = false;
+        }
+        for (int i = 0; i < width; i++) {
+            this.blockedColumn[i] = false;
+        }
+        blockRowColumn(tileLocation);
         this.tileMap = new FloorTile[width][height];
         for (int i = 0; i < fixedTiles.length; i++) {
             placeTile(fixedTiles[i],tileLocation[i]);
@@ -68,6 +80,20 @@ public class Board {
         }
         return location;
     }
+    
+    public void blockRowColumn(int[][] tileLocations){     
+        for (int[] tileLocation : tileLocations) {
+            this.blockedColumn[tileLocation[0]] = true;
+            this.blockedRow[tileLocation[1]] = true;
+        }
+    }
+    
+    public boolean[] getBlockedRow(){
+        return this.blockedRow;
+    }
+    public boolean[] getBlockedColumn(){
+        return this.blockedColumn;
+    }
 
     
     /*
@@ -77,6 +103,7 @@ public class Board {
     public FloorTile getTileAt(int x, int y) {
         return this.tileMap[x][y];
     }
+
 
 
     /*
@@ -147,6 +174,8 @@ public class Board {
                 this.tileMap[positionNum][height-1] = tile;
             }
         }
+        
+        //send to silkbag
     }
 
     /* creates a floor tile(tile with no special actions, only 
@@ -233,12 +262,29 @@ public class Board {
     public boolean[] checkPathway(int player) { // ** needs to return boolean
         boolean[] pathway = {false,false,false,false};
         int [] playerLocation = getPlayerLocation(player);
-        
-        int [] northPath = getTileAt(playerLocation[0],(playerLocation[1]-1)).getPathways();
-        int [] eastPath = getTileAt((playerLocation[0]+1),playerLocation[1]).getPathways();
-        int [] southPath = getTileAt(playerLocation[0],(playerLocation[1]+1)).getPathways();
-        int [] westPath = getTileAt((playerLocation[0]-1),playerLocation[1]).getPathways();
+        int [] northPath = {0,0,0,0};
+        int [] eastPath = {0,0,0,0};
+        int [] southPath = {0,0,0,0};
+        int [] westPath = {0,0,0,0};
         int [] currentPath = getTileAt(playerLocation[0],playerLocation[1]).getPathways();
+        
+        if (playerLocation[1] <= 0) {
+            southPath = getTileAt(playerLocation[0],(playerLocation[1]+1)).getPathways();
+        } else if (playerLocation[1] >= (getHeight()-1)) {
+            northPath = getTileAt(playerLocation[0],(playerLocation[1]-1)).getPathways();
+        } else {
+            northPath = getTileAt(playerLocation[0],(playerLocation[1]-1)).getPathways();
+            southPath = getTileAt(playerLocation[0],(playerLocation[1]+1)).getPathways();
+        }
+        
+        if (playerLocation[0] <= 0) {
+            eastPath = getTileAt((playerLocation[0]+1),playerLocation[1]).getPathways();
+        } else if (playerLocation[1] >= (getWidth()-1)) {
+            westPath = getTileAt((playerLocation[0]-1),playerLocation[1]).getPathways();
+        } else {
+            eastPath = getTileAt((playerLocation[0]+1),playerLocation[1]).getPathways();
+            westPath = getTileAt((playerLocation[0]-1),playerLocation[1]).getPathways();
+        }
         
         //need to change magic numbers
         if (currentPath[0] == northPath[2]) {
@@ -261,9 +307,9 @@ public class Board {
 	 * @param playerNum
      */
     public void move(int playerNum) {
-        boolean[] paths = checkPathway(playerNum);
+        //boolean[] paths = checkPathway(playerNum);
         //show where they can go
-        
+        //updatePlayerLocation(playerNum,);
     }
 
     /*
