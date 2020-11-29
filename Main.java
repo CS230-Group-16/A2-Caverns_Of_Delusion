@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
  */
 public class Main extends Application {
     
+    private static final String GAME_NAME = "Caverns Of Delusion";
     //private static Game g;
     
     public void start(Stage primaryStage) {
@@ -38,6 +39,7 @@ public class Main extends Application {
                 primaryStage.show();
             });
             */
+            primaryStage.setTitle(GAME_NAME);
             Scene scene = new Scene(root, 800,800);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -51,7 +53,10 @@ public class Main extends Application {
     public static void main(String [] args){
         Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000"});
         
-        //g.toStr();
+        g.gameStart();
+        g.getRound().endTurn();
+        g.getRound().turnStart();
+        g.toStr();
         //g.displayMessage();
         
         launch(args);
