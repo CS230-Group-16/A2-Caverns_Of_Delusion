@@ -111,27 +111,41 @@ public class TestGameController {
         change.setOnAction(e -> {
             this.game.getRound().turnStart();
             Tile tile = this.game.getRound().getDrawnTile();
+            
             if (tile.getType().equals("BACKTRACK") || tile.getType().equals("DOUBLEMOVE") || tile.getType().equals("FIRE") || tile.getType().equals("ICE")) {
-                //showDrawnTile(tile);
                 refreshSpellBook();
             } else {
-                showDrawnTile(tile);
+                this.tile = (FloorTile) tile;
+                showDrawnTile();
             }
+            //insert into board
+            //ask to play action
+            //move
+            this.game.getRound().endTurn();
+            //players not working
+            changePlayers();
+            refreshSpellBook();
         });
 
     }
 
     private void startGame() {
         this.game.gameStart();
-        Tile tile = this.game.getRound().getDrawnTile();
-        if (tile.getType().equals("BACKTRACK") || tile.getType().equals("DOUBLEMOVE") || tile.getType().equals("FIRE") || tile.getType().equals("ICE")) {
-            //this.game.getRound().sendToPlayer((ActionTile) tile);
-            refreshSpellBook();
-        } else {
-            showDrawnTile(tile);
-            this.tile = (FloorTile) tile;
-        }
 
+    }
+    
+    private void changePlayers(){
+        /*
+        Player [] players = this.game.getPlayers();
+        currentPlayer.setText(this.game.getRound().getCurrentPlayer().getUsername());
+        nextPlayer.setText(this.game.getRound().getNextPlayer().getUsername());
+        nextPlayer1.setText(players[this.game.getRound().getCounter()+1].getUsername());
+        nextPlayer2.setText(players[this.game.getRound().getCounter()+2].getUsername());
+        */
+        nextPlayer.setText(nextPlayer1.getText());
+        nextPlayer1.setText(nextPlayer2.getText());
+        nextPlayer2.setText(currentPlayer.getText());
+        currentPlayer.setText(this.game.getRound().getCurrentPlayer().getUsername());
     }
 
     private void refreshSpellBook() {
@@ -160,7 +174,7 @@ public class TestGameController {
             });
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            System.out.println("File not found with type: " + t.getType());
+            System.out.println("File not found with type: " + this.tile.getType());
         }
     }
 
@@ -245,12 +259,7 @@ public class TestGameController {
             if (!row[i]) {
                 Button b = new Button();
                 b.setText(">");
-                b.setOnAction(e -> {
-                    this.game.getBoard().insertTile(this.tile, true, i, false, 0);
-                    refreshBoard();
-                    refreshPlayers();
-                });
-                Button b2 = left;
+                Button b2 = new Button();
                 b2.setText("<");
                 central.add(b, 0, (i + 1));
                 central.add(b2, (width + 1), (i + 1));
@@ -261,9 +270,9 @@ public class TestGameController {
 
         for (int i = 0; i < column.length; i++) {
             if (!column[i]) {
-                Button b = down;
+                Button b = new Button();
                 b.setText("V");
-                Button b2 = up;
+                Button b2 = new Button();
                 b2.setText("^");
                 central.add(b, (i + 1), 0);
                 central.add(b2, (i + 1), (height + 1));

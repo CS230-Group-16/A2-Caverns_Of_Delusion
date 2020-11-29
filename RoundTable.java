@@ -64,10 +64,10 @@ public class RoundTable {
         drawTile();
         //left blank for now. player selects the tile they want to play with JavaFX
         //playActionTile();
-        movement();
+        //movement();
         //endTurn();
         if (board.reachedGoal(1) == true) {
-            return;
+            
         }
     }
 
@@ -107,13 +107,21 @@ public class RoundTable {
         //setNextPlayer to current player
         setCurrentPlayer(this.nextPlayer);
         //set next player
-        if ((counter+1) > (players.length-1)) {
+        counter++;
+        if ((counter) > (players.length-1)) {
             counter = 0;
+            this.nextPlayer = players[counter];
         } else {
-            counter++;
+            this.nextPlayer = players[counter];
         }
-        this.nextPlayer = players[counter];
+        
+        System.out.println(this.currentPlayer.getUsername());
+        System.out.println(this.nextPlayer.getUsername());
         return nextPlayer;
+    }
+    
+    public int getCounter(){
+        return this.counter;
     }
 
     /**
@@ -294,6 +302,10 @@ public class RoundTable {
      */
     public Player getCurrentPlayer() {
         return currentPlayer;
+    }
+    
+    public Player getNextPlayer(){
+        return this.nextPlayer;
     }
 
     /**

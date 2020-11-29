@@ -35,7 +35,7 @@
             </VBox>
             <GridPane fx:id="central" prefHeight="551.0" prefWidth="629.0" GridPane.rowIndex="1">
             </GridPane>
-            <HBox prefHeight="71.0" prefWidth="629.0">
+            <HBox prefHeight="71.0" prefWidth="629.0" spacing="50.0">
                <children>
                   <Label fx:id="nextPlayer" />
                   <Label fx:id="nextPlayer1" />
