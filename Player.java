@@ -160,6 +160,10 @@ public class Player {
         this.path.add(lastLocation);
     }
     
+    public ArrayList<ActionTile> getSpellBook(){
+        return this.spellBook;
+    }
+    
     /**
      * Method to string to print player to screen
      */
@@ -178,7 +182,7 @@ public class Player {
         result += "\n";
         result += "Spell Book: ";
         for (int i = 0; i < this.spellBook.size(); i++) {
-            result += spellBook.get(i) + ", ";
+            result += spellBook.get(i).getEffect() + ", ";
         }
         result += "\n";
         System.out.println(result);
