@@ -33,7 +33,7 @@ public class Game {
         createPlayerArray(playerUsername, playerUsername.length);
         createSilkBag(boardFileLocation);
         createLeaderboard(LEADERBOARD_FILE);
-        //this.round = new RoundTable(playerUsername.length);
+        this.round = new RoundTable(playerUsername.length,0,this.players,this.board,this.silkBag);
     }
 
     /**
@@ -47,7 +47,7 @@ public class Game {
         this.players = FileReader.readSavedGameFile(saveGameFileLocation);
         createSilkBag(saveBoardFileLocation);
         createLeaderboard(LEADERBOARD_FILE);
-        //this.round = new RoundTable(this.players.length);
+        //this.round = new RoundTable(this.players.length,turnCounter,this.players,this.board,this.silkBag);
     }
 
     /**
@@ -81,6 +81,10 @@ public class Game {
      */
     public Board getBoard(){
         return this.board;
+    }
+    
+    public RoundTable getRound(){
+        return this.round;
     }
 
     /**
@@ -176,7 +180,7 @@ public class Game {
      * Starts the game by calling function in RoundTable
      */
     public void gameStart() {
-        //round.gameStart();
+        round.turnStart();
     }
 
     /**
@@ -215,6 +219,9 @@ public class Game {
         for (int i = 0; i < numOfPlayers; i++) {
             this.players[i] = playerProfile(playerNames[i]);
             this.players[i].setPlayerNum(i+1);
+        }
+        for (int i = 4; i > numOfPlayers; i--) {
+            this.board.updatePlayerLocation(i, new int[]{-1,-1});
         }
     }
     
