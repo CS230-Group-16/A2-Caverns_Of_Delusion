@@ -1,4 +1,3 @@
-
 /**
  * Each players turn. Draw a tile, insert tile, play an action tile and move along the board
  *
@@ -21,7 +20,7 @@ public class RoundTable {
     private int moveCounter = 0;
     private Board board;
     private SilkBag silkBag;
-    
+
     private Tile drawnTile;
 
     /**
@@ -67,7 +66,7 @@ public class RoundTable {
         //movement();
         //endTurn();
         if (board.reachedGoal(1) == true) {
-            
+
         }
     }
 
@@ -114,12 +113,12 @@ public class RoundTable {
         } else {
             this.nextPlayer = players[counter];
         }
-        
+
         System.out.println(this.currentPlayer.getUsername());
         System.out.println(this.nextPlayer.getUsername());
         return nextPlayer;
     }
-    
+
     public int getCounter(){
         return this.counter;
     }
@@ -137,7 +136,7 @@ public class RoundTable {
         }
         this.drawnTile = tile;
     }
-    
+
     public Tile getDrawnTile(){
         return this.drawnTile;
     }
@@ -303,7 +302,7 @@ public class RoundTable {
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
-    
+
     public Player getNextPlayer(){
         return this.nextPlayer;
     }
