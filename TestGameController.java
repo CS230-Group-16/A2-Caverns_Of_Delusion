@@ -3,10 +3,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -34,53 +39,129 @@ public class TestGameController {
 
     private final int WIDTH_OF_TILE_IMAGE = 70;
     private final int HEIGHT_OF_TILE_IMAGE = 70;
-    private final int WIDTH_OF_PLAYER_IMAGE = 25;    
+    private final int WIDTH_OF_PLAYER_IMAGE = 25;
     @FXML
     Button change;
     @FXML
-    Label p1;
+    Button rotate;
     @FXML
-    Label p2;
+    Button left, right, up, down;
     @FXML
-    Label p3;
+    Label currentPlayer;
     @FXML
-    Label p4;
+    Label nextPlayer;
+    @FXML
+    Label nextPlayer1;
+    @FXML
+    Label nextPlayer2;
     @FXML
     GridPane central;
+    @FXML
+    Pane drawnTile;
     @FXML
     HBox spells;
 
     private Game game;
+    private FloorTile tile;
+    private int width;
+    private int height;
 
     /**
-     * Initialize the controller. This method is called automatically. The following happen in this order: 
-     * 1) First an instance of the controller is created (the constructor is called), 
-     * 2) Next the @FXML variables are bound to the GUI components. 
-     * 3) Finally, this initialize method is called. This means we cannot bind actions to buttons in the constructor, but we can in this method.
+     * Initialize the controller. This method is called automatically. The following happen in this order: 1) First an instance of the controller is created (the constructor is called), 2) Next the @FXML variables are bound to the GUI components. 3) Finally, this initialize method is called. This means we cannot bind actions to buttons in the constructor, but we can in this method.
      */
     public void initialize() {
         central.setGridLinesVisible(true);
-        
+        central.setAlignment(Pos.CENTER);
+        left = new Button();
+        left.setVisible(false);
+        right = new Button();
+        right.setVisible(false);
+        up = new Button();
+        up.setVisible(false);
+        down = new Button();
+        down.setVisible(false);
+
         this.game = createGame();
-        for (int i = 0; i < this.game.getBoard().getWidth(); i++) {
+        width = this.game.getBoard().getWidth();
+        height = this.game.getBoard().getHeight();
+        for (int i = 0; i <= (width + 1); i++) {
             ColumnConstraints column = new ColumnConstraints(WIDTH_OF_TILE_IMAGE);
             central.getColumnConstraints().add(column);
         }
-        for (int i = 0; i < this.game.getBoard().getHeight(); i++) {
+        for (int i = 0; i <= (height + 1); i++) {
             RowConstraints row = new RowConstraints(HEIGHT_OF_TILE_IMAGE);
             central.getRowConstraints().add(row);
         }
+
         setPlayerNames();
         refreshBoard();
         refreshPlayers();
-
+        refreshSpellBook();
+        setButtons();
+        startGame();
+        /*
         change.setOnAction(e -> {
             GoalTile t = new GoalTile();
-            this.game.getBoard().insertTile(t, true, 2, false, 1);
+            this.game.getBoard().insertTile(t, true, 2, false, 0);
             refreshBoard();
-            
+            refreshPlayers();
+        });
+         */
+
+        change.setOnAction(e -> {
+            this.game.getRound().turnStart();
+            Tile tile = this.game.getRound().getDrawnTile();
+            if (tile.getType().equals("BACKTRACK") || tile.getType().equals("DOUBLEMOVE") || tile.getType().equals("FIRE") || tile.getType().equals("ICE")) {
+                //showDrawnTile(tile);
+                refreshSpellBook();
+            } else {
+                showDrawnTile(tile);
+            }
         });
 
+    }
+
+    private void startGame() {
+        this.game.gameStart();
+        Tile tile = this.game.getRound().getDrawnTile();
+        if (tile.getType().equals("BACKTRACK") || tile.getType().equals("DOUBLEMOVE") || tile.getType().equals("FIRE") || tile.getType().equals("ICE")) {
+            //this.game.getRound().sendToPlayer((ActionTile) tile);
+            refreshSpellBook();
+        } else {
+            showDrawnTile(tile);
+            this.tile = (FloorTile) tile;
+        }
+
+    }
+
+    private void refreshSpellBook() {
+        spells.getChildren().clear();
+        ArrayList<ActionTile> tiles = this.game.getRound().getCurrentPlayer().getSpellBook();
+        for (int i = 0; i < tiles.size(); i++) {
+            try {
+                Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/Final/" + tiles.get(i).getEffect() + ".png"));
+                ImageView imageView = new ImageView(image1);
+                spells.getChildren().add(imageView);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                System.out.println("File not found with type: " + tiles.get(i).getType());
+            }
+        }
+    }
+
+    private void showDrawnTile() {
+        try {
+            Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/Final/" + this.tile.getType() + ".png"));
+            ImageView imageView = new ImageView(image1);
+            drawnTile.getChildren().add(imageView);
+            rotate.setOnAction(e -> {
+                imageView.setRotate(imageView.getRotate() + 90);
+                this.tile.setRotation(this.tile.getRotation() + 1);
+            });
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("File not found with type: " + t.getType());
+        }
     }
 
     private Game createGame() {
@@ -91,22 +172,22 @@ public class TestGameController {
         Game g = new Game("board1.txt", strArr);
         return g;
     }
-    
-    private void setPlayerNames(){
+
+    private void setPlayerNames() {
         Player[] players = this.game.getPlayers();
         for (int i = 0; i < players.length; i++) {
             switch (i) {
                 case 0:
-                    p1.setText(players[i].getUsername());
+                    currentPlayer.setText(players[i].getUsername());
                     break;
                 case 1:
-                    p2.setText(players[i].getUsername());
+                    nextPlayer.setText(players[i].getUsername());
                     break;
                 case 2:
-                    p3.setText(players[i].getUsername());
+                    nextPlayer1.setText(players[i].getUsername());
                     break;
                 case 3:
-                    p4.setText(players[i].getUsername());
+                    nextPlayer2.setText(players[i].getUsername());
                     break;
                 default:
                     break;
@@ -114,58 +195,41 @@ public class TestGameController {
         }
     }
 
-    private void refreshPlayers(){
+    private void refreshPlayers() {
         Player[] players = this.game.getPlayers();
         for (int i = 1; i <= players.length; i++) {
-            changeLocation(i,this.game.getBoard().getPlayerLocation(i));
+            changeLocation(i, this.game.getBoard().getPlayerLocation(i));
         }
     }
-    
-    private void changeLocation(int player, int[] location){
-        int x = WIDTH_OF_PLAYER_IMAGE + (WIDTH_OF_TILE_IMAGE * (location[0]));
-        int y = WIDTH_OF_PLAYER_IMAGE + (WIDTH_OF_TILE_IMAGE * (location[1]));
 
+    private void changeLocation(int player, int[] location) {
         try {
             Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/PLAYER" + player + ".png"));
             ImageView imageView = new ImageView(image1);
-            imageView.setX(x);
-            imageView.setY(y);
+            //imageView.setX(WIDTH_OF_PLAYER_IMAGE);
+            //imageView.setAlignment(Pos.CENTER);
             //central.getChildren().add(imageView);
+            central.add(imageView, (location[0] + 1), (location[1] + 1));
+            GridPane.setHalignment(imageView, HPos.CENTER);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        
+
     }
+
     /**
      * Refresh the displayed tiles.
      */
     private void refreshBoard() {
-        int h = this.game.getBoard().getHeight();
-        int w = this.game.getBoard().getWidth();
-        int x = 0;
-        int y = 0;
-        String tile;
-        
         FloorTile[][] tileMap = this.game.getBoard().getTileMap();
         try {
-            for (int i = 0; i < h; i++) {
-                for (int j = 0; j < w; j++) {
-                    if ("GOAL".equals(tileMap[j][i].getType())) {
-                        tile = "GOAL";
-                    } else {
-                        tile = tileMap[j][i].getType() + "_" + (tileMap[j][i].getRotation()+1);
-                    }
-                    Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/Final/" + tile + ".png"));
+            for (int i = 0; i < height; i++) {
+                for (int j = 0; j < width; j++) {
+                    Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/Final/" + tileMap[j][i].getType() + ".png"));
                     ImageView imageView = new ImageView(image1);
-                    //imageView.setX(x);
-                    //imageView.setY(y);
-                    //central.getChildren().add(imageView);
-                    central.add(imageView,j,i);
-                    //central.getChildren().add(imageView);
-                    x = x + WIDTH_OF_TILE_IMAGE;
+                    imageView.setRotate(90 * tileMap[j][i].getRotation());
+                    central.add(imageView, (j + 1), (i + 1));
                 }
-                x = 0;
-                y = y + WIDTH_OF_TILE_IMAGE;
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -173,6 +237,41 @@ public class TestGameController {
 
     }
 
+    private void setButtons() {
+        boolean[] row = this.game.getBoard().getBlockedRow();
+        boolean[] column = this.game.getBoard().getBlockedColumn();
+
+        for (int i = 0; i < row.length; i++) {
+            if (!row[i]) {
+                Button b = new Button();
+                b.setText(">");
+                b.setOnAction(e -> {
+                    this.game.getBoard().insertTile(this.tile, true, i, false, 0);
+                    refreshBoard();
+                    refreshPlayers();
+                });
+                Button b2 = left;
+                b2.setText("<");
+                central.add(b, 0, (i + 1));
+                central.add(b2, (width + 1), (i + 1));
+                GridPane.setHalignment(b, HPos.CENTER);
+                GridPane.setHalignment(b2, HPos.CENTER);
+            }
+        }
+
+        for (int i = 0; i < column.length; i++) {
+            if (!column[i]) {
+                Button b = down;
+                b.setText("V");
+                Button b2 = up;
+                b2.setText("^");
+                central.add(b, (i + 1), 0);
+                central.add(b2, (i + 1), (height + 1));
+                GridPane.setHalignment(b, HPos.CENTER);
+                GridPane.setHalignment(b2, HPos.CENTER);
+            }
+        }
+    }
 
     /**
      * Handle the edit button. This will display a window allowing the user to edit the selected country. After the edit is complete, the displayed list will be updated.
