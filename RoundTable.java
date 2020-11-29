@@ -99,7 +99,6 @@ public class RoundTable {
     /**
      * set the next player
      *
-     * @param player is the next player
      * @return the next player
      */
     public Player nextPlayer() {
@@ -172,8 +171,8 @@ public class RoundTable {
             //playActionTile(t);
             //}
             //else {
-            //backtrack(playerSelected);
-            //playerSelected.setBacktracked(true);
+            //backtrackPlayer(playerSelected);
+            //
             //}
         } else if (type == "DOUBLEMOVE") {
             movement();
@@ -257,7 +256,7 @@ public class RoundTable {
     /**
      * Freezes all the tiles passed in as arguments
      *
-     * @param int[] The tiles to be frozen
+     * @param tile The tiles to be frozen
      */
     private void freezeTiles(int[] tile) {
         FloorTile[] tiles = getSurroundingTile(tile);
@@ -272,10 +271,14 @@ public class RoundTable {
     /**
      * Moves the player
      *
-     * @param player is the player that will move.
+     * @param playerToBacktrack is the player that will move.
      */
-    private void backtrackPlayer(Player currentPlayer) {
-
+    private void backtrackPlayer(Player playerToBacktrack) {
+        playerToBacktrack.setBackTracked(true);
+        ArrayList<Integer[]> pathHistory = playerToBacktrack.getPathHistory();
+        //depends on how path history is implemented.
+        //How much will it store and is it forwards or backwards in time?
+        //e.g. is pathHistory[0] the turn just executed or is it the oldest turn they did?
     }
 
     /**
@@ -302,6 +305,6 @@ public class RoundTable {
      * @param player is the next player
      */
     public void setCurrentPlayer(Player player) {
-        currentPlayer = nextPlayer;
+        currentPlayer = player;
     }
 }
