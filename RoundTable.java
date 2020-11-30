@@ -169,6 +169,7 @@ public class RoundTable {
     /**
      * Allows an action tile to be played
      *
+     * @param t is the action tile to be played
      */
     public void playActionTile(ActionTile t) {
         String type = checkTileType(t.getType());
@@ -177,26 +178,25 @@ public class RoundTable {
             //allow the player to click on another player to backtrack
             //check if the player selected has been backtracked before
             //PlayerSelected needs to wait for JavaFX to be implemented
-            //if(playerSelected.getBackTracked()) {
-            //System.out.println("This person has already been backtracked");
-            //playActionTile(t);
-            //}
-            //else {
-            //backtrack(playerSelected);
-            //playerSelected.setBacktracked(true);
-            //}
+            if(playerSelected.getBackTracked()) {
+                System.out.println("This person has already been backtracked");
+                playActionTile(t);
+            }
+            else {
+                backtrack(playerSelected);
+                playerSelected.setBacktracked(true);
+            }
         } else if (type == "DOUBLEMOVE") {
             movement();
         } else if (type == "FIRE") {
             //coords needs to wait for JavaFX to be implemented
             //the user will click on a tile and then it will turn the location of the tile into an array
             //with coords[0] as x and coords[1] as y.
-            //engulfTiles(getSurroundingTile(coords[]));
+            engulfTiles(getSurroundingTile(coords[]));
         } else {
             //coords needs to wait for JavaFX to be implemented
-            //freezeTiles(getSurroundingTile(coords[]));
+            freezeTiles(getSurroundingTile(coords[]));
         }
-
     }
 
     /**
@@ -284,8 +284,14 @@ public class RoundTable {
      *
      * @param player is the player that will move.
      */
-    private void backtrackPlayer(Player currentPlayer) {
-        
+    private void backtrackPlayer(Player player) {
+        ArrayList<Integer[]> pathHistory;
+        pathHistory = player.getPathHistory();
+        for (int i = 1; i < turnCounter; i++) {
+            if (pathHistory.get(i) != board.isFrozen() && pathHistory.get(i) != board.isEngulfed()) {
+                board.updatePlayerLocation(player.getPlayerNum(), pathHistory.get(i));
+            }
+        }
     }
 
     /**
