@@ -41,6 +41,8 @@ public class TestGameController {
     private final int WIDTH_OF_TILE_IMAGE = 70;
     private final int HEIGHT_OF_TILE_IMAGE = 70;
     private final int WIDTH_OF_PLAYER_IMAGE = 25;
+    private final String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/";
+    
     @FXML
     Button draw;
     @FXML
@@ -78,7 +80,7 @@ public class TestGameController {
         central.setGridLinesVisible(false);
         central.setAlignment(Pos.CENTER);
         endTurn.setVisible(false);
-        
+
         this.game = createGame();
         width = this.game.getBoard().getWidth();
         height = this.game.getBoard().getHeight();
@@ -109,20 +111,21 @@ public class TestGameController {
         draw.setOnAction(e -> {
             Tile tile = this.game.getRound().getDrawnTile();
             drawnType.setText(tile.getType());
-            
+
             if (tile.getType().equals("BACKTRACK") || tile.getType().equals("DOUBLEMOVE") || tile.getType().equals("FIRE") || tile.getType().equals("ICE")) {
                 refreshSpellBook();
             } else {
                 this.tile = (FloorTile) tile;
                 showDrawnTile();
             }
-            
+
             //ask to play action
             //move
+            //end appears after the person has moved
             endTurn.setVisible(true);
             draw.setVisible(false);
         });
-        
+
         endTurn.setOnAction(e -> {
             this.game.getRound().endTurn();
             changePlayers();
@@ -141,15 +144,15 @@ public class TestGameController {
         this.game.gameStart();
         turn.setText(String.valueOf(this.game.getRound().getTurnCounter()));
     }
-    
-    private void changePlayers(){
+
+    private void changePlayers() {
         /*
         Player [] players = this.game.getPlayers();
         currentPlayer.setText(this.game.getRound().getCurrentPlayer().getUsername());
         nextPlayer.setText(this.game.getRound().getNextPlayer().getUsername());
         nextPlayer1.setText(players[this.game.getRound().getCounter()+1].getUsername());
         nextPlayer2.setText(players[this.game.getRound().getCounter()+2].getUsername());
-        */
+         */
         nextPlayer.setText(nextPlayer1.getText());
         nextPlayer1.setText(nextPlayer2.getText());
         nextPlayer2.setText(currentPlayer.getText());
@@ -161,7 +164,7 @@ public class TestGameController {
         ArrayList<ActionTile> tiles = this.game.getRound().getCurrentPlayer().getSpellBook();
         for (int i = 0; i < tiles.size(); i++) {
             try {
-                Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/Final/" + tiles.get(i).getEffect() + ".png"));
+                Image image1 = new Image(new FileInputStream(DIRECTORY + "Final/" + tiles.get(i).getEffect() + ".png"));
                 ImageView imageView = new ImageView(image1);
                 spells.getChildren().add(imageView);
             } catch (FileNotFoundException e) {
@@ -173,7 +176,7 @@ public class TestGameController {
 
     private void showDrawnTile() {
         try {
-            Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/Final/" + this.tile.getType() + ".png"));
+            Image image1 = new Image(new FileInputStream(DIRECTORY + "Final/" + this.tile.getType() + ".png"));
             ImageView imageView = new ImageView(image1);
             drawnTile.getChildren().add(imageView);
             rotate.setOnAction(e -> {
@@ -196,7 +199,7 @@ public class TestGameController {
         String[] strArr2 = new String[]{"Super_Cool_Name", "grapeLord5000", "awesomeGuy"};
 
         //get name of file
-        Game g = new Game("board2.txt", strArr2);
+        Game g = new Game("board1.txt", strArr);
         return g;
     }
 
@@ -231,7 +234,7 @@ public class TestGameController {
 
     private void changeLocation(int player, int[] location) {
         try {
-            Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/PLAYER" + player + ".png"));
+            Image image1 = new Image(new FileInputStream(DIRECTORY + "PLAYER" + player + ".png"));
             ImageView imageView = new ImageView(image1);
             //imageView.setX(WIDTH_OF_PLAYER_IMAGE);
             //imageView.setAlignment(Pos.CENTER);
@@ -252,7 +255,7 @@ public class TestGameController {
         try {
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
-                    Image image1 = new Image(new FileInputStream("D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/Final/" + tileMap[j][i].getType() + ".png"));
+                    Image image1 = new Image(new FileInputStream(DIRECTORY + "Final/" + tileMap[j][i].getType() + ".png"));
                     ImageView imageView = new ImageView(image1);
                     imageView.setRotate(90 * tileMap[j][i].getRotation());
                     central.add(imageView, (j + 1), (i + 1));
@@ -268,7 +271,7 @@ public class TestGameController {
         boolean[] row = this.game.getBoard().getBlockedRow();
         boolean[] column = this.game.getBoard().getBlockedColumn();
 
-        int [] iArr = new int[1];
+        int[] iArr = new int[1];
         for (int i = 0; i < row.length; i++) {
             AtomicInteger ordinal = new AtomicInteger(i);
             if (!row[i]) {
@@ -276,24 +279,14 @@ public class TestGameController {
                 bRow.setText(">");
                 bRow.setOnAction(e -> {
                     if (this.tile != null) {
-                        this.game.getBoard().insertTile(this.tile, true, ordinal.get(), false, this.tile.getRotation());
-                        drawnTile.getChildren().clear();
-                        drawnType.setText("");
-                        refreshBoard();
-                        refreshPlayers();
-                        this.tile = null;
+                        insertTile(this.tile, true, ordinal.get(), false, this.tile.getRotation());
                     }
                 });
                 Button bRow2 = new Button();
                 bRow2.setText("<");
                 bRow2.setOnAction(e -> {
                     if (this.tile != null) {
-                        this.game.getBoard().insertTile(this.tile, true, ordinal.get(), true, this.tile.getRotation());
-                        drawnTile.getChildren().clear();
-                        drawnType.setText("");
-                        refreshBoard();
-                        refreshPlayers();
-                        this.tile = null;
+                        insertTile(this.tile, true, ordinal.get(), true, this.tile.getRotation());
                     }
                 });
                 central.add(bRow, 0, (i + 1));
@@ -310,24 +303,14 @@ public class TestGameController {
                 bCol.setText("V");
                 bCol.setOnAction(e -> {
                     if (this.tile != null) {
-                        this.game.getBoard().insertTile(this.tile, false, ordinal.get(), false, this.tile.getRotation());
-                        drawnTile.getChildren().clear();
-                        drawnType.setText("");
-                        refreshBoard();
-                        refreshPlayers();
-                        this.tile = null;
+                        insertTile(this.tile, false, ordinal.get(), false, this.tile.getRotation());
                     }
                 });
                 Button bCol2 = new Button();
                 bCol2.setText("^");
                 bCol2.setOnAction(e -> {
                     if (this.tile != null) {
-                        this.game.getBoard().insertTile(this.tile, false, ordinal.get(), true, this.tile.getRotation());
-                        drawnTile.getChildren().clear();
-                        drawnType.setText("");
-                        refreshBoard();
-                        refreshPlayers();
-                        this.tile = null;
+                        insertTile(this.tile, false, ordinal.get(), true, this.tile.getRotation());
                     }
                 });
                 central.add(bCol, (i + 1), 0);
@@ -336,6 +319,15 @@ public class TestGameController {
                 GridPane.setHalignment(bCol2, HPos.CENTER);
             }
         }
+    }
+
+    private void insertTile(FloorTile t, boolean row, int posNum, boolean flip, int rotate) {
+        this.game.getBoard().insertTile(t, row, posNum, flip, rotate);
+        drawnTile.getChildren().clear();
+        drawnType.setText("");
+        refreshBoard();
+        refreshPlayers();
+        this.tile = null;
     }
 
     /**
