@@ -142,9 +142,7 @@ public class Board {
 	 * @param positionNum where the tile should be inserted(column)
 	 * @param rotation orientation of the tile(0 degrees, 90 degrees, ..)
      */
-    public void insertTile(FloorTile tile, Boolean row, int positionNum, boolean flip, int rotation) {
-        tile.setRotation(rotation);
-        
+    public void insertTile(FloorTile tile, Boolean row, int positionNum, boolean flip) {
         if (!flip) {
             if (row) {
                 this.silkBag.addTile(this.tileMap[width-1][positionNum]);
