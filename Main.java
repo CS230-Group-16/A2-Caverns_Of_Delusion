@@ -1,4 +1,5 @@
 
+import java.io.FileInputStream;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,6 +9,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 
 /**
@@ -39,10 +43,22 @@ public class Main extends Application {
                 primaryStage.show();
             });
             */
+            /*
+            VBox root2 = new VBox();
+            Image i = new Image(new FileInputStream("STRAIGHT.png"));
+            ImageView imageView = new ImageView(i);
+            root2.getChildren().add(imageView);
+            Image i2 = new Image(new FileInputStream("STRAIGHT.png"));
+            ImageView imageView2 = new ImageView(i2);
+            imageView.setRotate(90);
+            root2.getChildren().add(imageView2);
+            */
+            
             primaryStage.setTitle(GAME_NAME);
             Scene scene = new Scene(root, 800,800);
             primaryStage.setScene(scene);
             primaryStage.show();
+            
             
             
         } catch (Exception e) {
@@ -52,16 +68,15 @@ public class Main extends Application {
     
     public static void main(String [] args){
         Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000","awesomeGuy"});
-        
-        g.gameStart();
-        g.getRound().endTurn();
-        g.getRound().turnStart();
-        g.getRound().endTurn();
-        
         //g.toStr();
         //g.displayMessage();
         
-        launch(args);
+        
+        
+        //g.getBoard().toStr();
+        //g.getBoard().insertTile(new StraightTile(1), false, 1, false);
+        //g.getBoard().toStr();
+        
         /*
         Player p1 = new Player("Michelle", 2, 1);
 		Player p2 = new Player("Chloe", 5, 3);
@@ -81,6 +96,6 @@ public class Main extends Application {
 
 
 
-
+        launch(args);
     }
 }

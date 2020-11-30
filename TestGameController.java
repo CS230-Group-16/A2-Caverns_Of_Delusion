@@ -42,7 +42,7 @@ public class TestGameController {
     private final int HEIGHT_OF_TILE_IMAGE = 70;
     private final int WIDTH_OF_PLAYER_IMAGE = 25;
     private final String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/";
-    
+
     @FXML
     Button draw;
     @FXML
@@ -162,15 +162,32 @@ public class TestGameController {
     private void refreshSpellBook() {
         spells.getChildren().clear();
         ArrayList<ActionTile> tiles = this.game.getRound().getCurrentPlayer().getSpellBook();
+        ActionTile[] tileArr = new ActionTile[1];
+        
         for (int i = 0; i < tiles.size(); i++) {
+            tileArr[0] = tiles.get(i);
             try {
                 Image image1 = new Image(new FileInputStream(DIRECTORY + "Final/" + tiles.get(i).getEffect() + ".png"));
                 ImageView imageView = new ImageView(image1);
+                imageView.setPickOnBounds(true);
+                imageView.setOnMouseClicked(e -> {
+                    handleSpell(tileArr[0]);
+                });
                 spells.getChildren().add(imageView);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 System.out.println("File not found with type: " + tiles.get(i).getType());
             }
+        }
+    }
+    
+    private void handleSpell(ActionTile t){
+        if (t.getTurnDrawn() >= this.game.getRound().getTurnCounter()) {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setContentText("You cannot cast this spell just yet");
+            a.showAndWait();
+        } else {
+            this.game.getRound().playActionTile(t);
         }
     }
 
@@ -181,7 +198,7 @@ public class TestGameController {
             drawnTile.getChildren().add(imageView);
             rotate.setOnAction(e -> {
                 imageView.setRotate(imageView.getRotate() + 90);
-                if (this.tile.getRotation() > 3) {
+                if (this.tile.getRotation() >= 4) {
                     this.tile.setRotation(0);
                 } else {
                     this.tile.setRotation(this.tile.getRotation() + 1);
@@ -252,6 +269,7 @@ public class TestGameController {
      */
     private void refreshBoard() {
         FloorTile[][] tileMap = this.game.getBoard().getTileMap();
+
         try {
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
@@ -279,14 +297,14 @@ public class TestGameController {
                 bRow.setText(">");
                 bRow.setOnAction(e -> {
                     if (this.tile != null) {
-                        insertTile(this.tile, true, ordinal.get(), false, this.tile.getRotation());
+                        insertTile(this.tile, true, ordinal.get(), false);
                     }
                 });
                 Button bRow2 = new Button();
                 bRow2.setText("<");
                 bRow2.setOnAction(e -> {
                     if (this.tile != null) {
-                        insertTile(this.tile, true, ordinal.get(), true, this.tile.getRotation());
+                        insertTile(this.tile, true, ordinal.get(), true);
                     }
                 });
                 central.add(bRow, 0, (i + 1));
@@ -303,14 +321,14 @@ public class TestGameController {
                 bCol.setText("V");
                 bCol.setOnAction(e -> {
                     if (this.tile != null) {
-                        insertTile(this.tile, false, ordinal.get(), false, this.tile.getRotation());
+                        insertTile(this.tile, false, ordinal.get(), false);
                     }
                 });
                 Button bCol2 = new Button();
                 bCol2.setText("^");
                 bCol2.setOnAction(e -> {
                     if (this.tile != null) {
-                        insertTile(this.tile, false, ordinal.get(), true, this.tile.getRotation());
+                        insertTile(this.tile, false, ordinal.get(), true);
                     }
                 });
                 central.add(bCol, (i + 1), 0);
@@ -321,8 +339,8 @@ public class TestGameController {
         }
     }
 
-    private void insertTile(FloorTile t, boolean row, int posNum, boolean flip, int rotate) {
-        this.game.getBoard().insertTile(t, row, posNum, flip, rotate);
+    private void insertTile(FloorTile t, boolean row, int posNum, boolean flip) {
+        this.game.getBoard().insertTile(t, row, posNum, flip);
         drawnTile.getChildren().clear();
         drawnType.setText("");
         refreshBoard();
