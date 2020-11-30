@@ -364,11 +364,7 @@ public class Board {
      */
     private void rotateTile(int x, int y){
         Random rand = new Random();
-        if ("STRAIGHT".equals(this.tileMap[x][y].getType())) {
-            this.tileMap[x][y].setRotation(rand.nextInt(2));
-        } else {
-            this.tileMap[x][y].setRotation(rand.nextInt(4));
-        }
+        this.tileMap[x][y].setRotation(rand.nextInt(4));
     }
 
     /**
