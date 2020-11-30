@@ -15,6 +15,7 @@ public class TShapeTile extends FloorTile {
      */
     public TShapeTile(int rotation) {
         super("TSHAPE");
+        super.setRotation(rotation);
         this.generatePathways(rotation);
     }
 

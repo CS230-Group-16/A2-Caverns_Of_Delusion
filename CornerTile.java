@@ -15,6 +15,7 @@ public class CornerTile extends FloorTile {
      */
     public CornerTile(int rotation) {
         super("CORNER");
+        super.setRotation(rotation);
         this.generatePathways(rotation);
     }
 

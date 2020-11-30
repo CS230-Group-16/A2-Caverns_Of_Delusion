@@ -14,6 +14,7 @@ public class StraightTile extends FloorTile {
      */
     public StraightTile(int rotation) {
         super("STRAIGHT");
+        super.setRotation(rotation);
         this.generatePathways(rotation);
     }
 
