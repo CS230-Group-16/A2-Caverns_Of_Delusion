@@ -17,6 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.w3c.dom.ls.LSOutput;
+
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -55,7 +56,7 @@ public class ProfileEdit extends Application {
         int gamesWon = 0;
 
         try {
-        Scanner in = readFile(username);
+            Scanner in = readFile(username);
             gamesWon = in.nextInt();
             in.close();
         }catch(Exception e){
@@ -79,6 +80,7 @@ public class ProfileEdit extends Application {
 
         return gamesLost;
     }
+
 
     List<String> textFiles(String directory) {
         List<String> textFiles = new ArrayList<String>();
@@ -147,16 +149,30 @@ public class ProfileEdit extends Application {
                 String user = fileNames.get(finalI);
                 readFile(user).close();
                 File fileToDelete = new File(user);
+                //Not working at the moment. Maybe a file reader is open somewhere?
                 if(fileToDelete.delete())
                 {
                     System.out.println("File deleted successfully");
                 }
-                else {
+                else
+                {
                     System.out.println("Failed to delete the file");
                 }
                 refresh();
             });
 
+            updateUserBtn.setOnAction(e -> {
+                String user = fileNames.get(finalI);
+                readFile(user).close();
+                File file = new File(user);
+                File newName = new File(file.getAbsolutePath() + usernameTxtbox.getText());
+                //Not working at the moment. Probably same reason for delete file not working
+                if (file.renameTo(newName)) {
+                    System.out.println("Username updated successfully");
+                } else {
+                    System.out.println("Failed to rename user");
+                }
+            });
             menuButton.getItems().add(item1);
         }
         return menuButton;
