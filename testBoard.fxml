@@ -27,7 +27,8 @@
                   <HBox prefHeight="34.0" prefWidth="629.0">
                      <children>
                         <Label fx:id="currentPlayer" />
-                        <Button fx:id="change" mnemonicParsing="false" text="Button" />
+                        <Button fx:id="draw" mnemonicParsing="false" text="Draw" />
+                        <Button fx:id="endTurn" mnemonicParsing="false" text="End Turn" />
                      </children>
                   </HBox>
                   <HBox fx:id="spells" prefHeight="100.0" prefWidth="200.0" />
@@ -47,11 +48,13 @@
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Button fx:id="rotate" mnemonicParsing="false" text="Rotate" />
+                        <Label fx:id="drawnType" />
                      </children>
                   </HBox>
                   <Pane fx:id="drawnTile" prefHeight="200.0" prefWidth="200.0" />
                </children>
             </VBox>
+            <Label fx:id="turn" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>

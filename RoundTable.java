@@ -16,7 +16,7 @@ public class RoundTable {
     private Player currentPlayer;
     private Player nextPlayer;
     private Player[] players;
-    private int counter = 0;
+    private int counter = 1;
     private int moveCounter = 0;
     private Board board;
     private SilkBag silkBag;
@@ -92,6 +92,7 @@ public class RoundTable {
      */
     public void endTurn() {
         nextPlayer();
+        this.turnCounter++;
         //return back to game to increment player
     }
 
@@ -114,8 +115,6 @@ public class RoundTable {
             this.nextPlayer = players[counter];
         }
 
-        System.out.println(this.currentPlayer.getUsername());
-        System.out.println(this.nextPlayer.getUsername());
         return nextPlayer;
     }
 
@@ -130,7 +129,9 @@ public class RoundTable {
     public void drawTile() {
         Tile tile = silkBag.drawTile();
         if (tile.getType().equals("BACKTRACK") || tile.getType().equals("DOUBLEMOVE") || tile.getType().equals("FIRE") || tile.getType().equals("ICE")) {
-            sendToPlayer((ActionTile) tile);
+            ActionTile t = (ActionTile) tile;
+            t.setTurnDrawn(turnCounter);
+            sendToPlayer((ActionTile) t);
         } else {
             insertTile((FloorTile) tile);
         }
@@ -147,11 +148,13 @@ public class RoundTable {
      * @param tile The floorTile to be added on the board
      */
     public void insertTile(FloorTile tile) {
+        /*
         boolean row = true;
         int posNum = 2;
         boolean flip = false;
         int rotation = 0;
         board.insertTile(tile, row, posNum, flip, rotation);
+        */
     }
 
     /**
@@ -282,7 +285,7 @@ public class RoundTable {
      * @param player is the player that will move.
      */
     private void backtrackPlayer(Player currentPlayer) {
-
+        
     }
 
     /**

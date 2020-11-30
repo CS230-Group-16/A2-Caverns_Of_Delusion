@@ -51,12 +51,14 @@ public class Main extends Application {
     }
     
     public static void main(String [] args){
-        Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000"});
+        Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000","awesomeGuy"});
         
         g.gameStart();
         g.getRound().endTurn();
         g.getRound().turnStart();
-        g.toStr();
+        g.getRound().endTurn();
+        
+        //g.toStr();
         //g.displayMessage();
         
         launch(args);

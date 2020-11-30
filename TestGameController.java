@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,11 +42,15 @@ public class TestGameController {
     private final int HEIGHT_OF_TILE_IMAGE = 70;
     private final int WIDTH_OF_PLAYER_IMAGE = 25;
     @FXML
-    Button change;
+    Button draw;
+    @FXML
+    Button endTurn;
     @FXML
     Button rotate;
     @FXML
-    Button left, right, up, down;
+    Label drawnType;
+    @FXML
+    Label turn;
     @FXML
     Label currentPlayer;
     @FXML
@@ -70,17 +75,10 @@ public class TestGameController {
      * Initialize the controller. This method is called automatically. The following happen in this order: 1) First an instance of the controller is created (the constructor is called), 2) Next the @FXML variables are bound to the GUI components. 3) Finally, this initialize method is called. This means we cannot bind actions to buttons in the constructor, but we can in this method.
      */
     public void initialize() {
-        central.setGridLinesVisible(true);
+        central.setGridLinesVisible(false);
         central.setAlignment(Pos.CENTER);
-        left = new Button();
-        left.setVisible(false);
-        right = new Button();
-        right.setVisible(false);
-        up = new Button();
-        up.setVisible(false);
-        down = new Button();
-        down.setVisible(false);
-
+        endTurn.setVisible(false);
+        
         this.game = createGame();
         width = this.game.getBoard().getWidth();
         height = this.game.getBoard().getHeight();
@@ -108,9 +106,9 @@ public class TestGameController {
         });
          */
 
-        change.setOnAction(e -> {
-            this.game.getRound().turnStart();
+        draw.setOnAction(e -> {
             Tile tile = this.game.getRound().getDrawnTile();
+            drawnType.setText(tile.getType());
             
             if (tile.getType().equals("BACKTRACK") || tile.getType().equals("DOUBLEMOVE") || tile.getType().equals("FIRE") || tile.getType().equals("ICE")) {
                 refreshSpellBook();
@@ -118,20 +116,30 @@ public class TestGameController {
                 this.tile = (FloorTile) tile;
                 showDrawnTile();
             }
-            //insert into board
+            
             //ask to play action
             //move
+            endTurn.setVisible(true);
+            draw.setVisible(false);
+        });
+        
+        endTurn.setOnAction(e -> {
             this.game.getRound().endTurn();
-            //players not working
             changePlayers();
             refreshSpellBook();
+            drawnTile.getChildren().clear();
+            drawnType.setText("");
+            this.game.getRound().turnStart();
+            turn.setText(String.valueOf(this.game.getRound().getTurnCounter()));
+            draw.setVisible(true);
+            endTurn.setVisible(false);
         });
 
     }
 
     private void startGame() {
         this.game.gameStart();
-
+        turn.setText(String.valueOf(this.game.getRound().getTurnCounter()));
     }
     
     private void changePlayers(){
@@ -170,7 +178,11 @@ public class TestGameController {
             drawnTile.getChildren().add(imageView);
             rotate.setOnAction(e -> {
                 imageView.setRotate(imageView.getRotate() + 90);
-                this.tile.setRotation(this.tile.getRotation() + 1);
+                if (this.tile.getRotation() > 3) {
+                    this.tile.setRotation(0);
+                } else {
+                    this.tile.setRotation(this.tile.getRotation() + 1);
+                }
             });
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -181,9 +193,10 @@ public class TestGameController {
     private Game createGame() {
         //get names from screen
         String[] strArr = new String[]{"Super_Cool_Name", "grapeLord5000", "awesomeGuy", "CasualGamerGuy"};
+        String[] strArr2 = new String[]{"Super_Cool_Name", "grapeLord5000", "awesomeGuy"};
 
         //get name of file
-        Game g = new Game("board1.txt", strArr);
+        Game g = new Game("board2.txt", strArr2);
         return g;
     }
 
@@ -255,29 +268,72 @@ public class TestGameController {
         boolean[] row = this.game.getBoard().getBlockedRow();
         boolean[] column = this.game.getBoard().getBlockedColumn();
 
+        int [] iArr = new int[1];
         for (int i = 0; i < row.length; i++) {
+            AtomicInteger ordinal = new AtomicInteger(i);
             if (!row[i]) {
-                Button b = new Button();
-                b.setText(">");
-                Button b2 = new Button();
-                b2.setText("<");
-                central.add(b, 0, (i + 1));
-                central.add(b2, (width + 1), (i + 1));
-                GridPane.setHalignment(b, HPos.CENTER);
-                GridPane.setHalignment(b2, HPos.CENTER);
+                Button bRow = new Button();
+                bRow.setText(">");
+                bRow.setOnAction(e -> {
+                    if (this.tile != null) {
+                        this.game.getBoard().insertTile(this.tile, true, ordinal.get(), false, this.tile.getRotation());
+                        drawnTile.getChildren().clear();
+                        drawnType.setText("");
+                        refreshBoard();
+                        refreshPlayers();
+                        this.tile = null;
+                    }
+                });
+                Button bRow2 = new Button();
+                bRow2.setText("<");
+                bRow2.setOnAction(e -> {
+                    if (this.tile != null) {
+                        this.game.getBoard().insertTile(this.tile, true, ordinal.get(), true, this.tile.getRotation());
+                        drawnTile.getChildren().clear();
+                        drawnType.setText("");
+                        refreshBoard();
+                        refreshPlayers();
+                        this.tile = null;
+                    }
+                });
+                central.add(bRow, 0, (i + 1));
+                central.add(bRow2, (width + 1), (i + 1));
+                GridPane.setHalignment(bRow, HPos.CENTER);
+                GridPane.setHalignment(bRow2, HPos.CENTER);
             }
         }
 
         for (int i = 0; i < column.length; i++) {
+            AtomicInteger ordinal = new AtomicInteger(i);
             if (!column[i]) {
-                Button b = new Button();
-                b.setText("V");
-                Button b2 = new Button();
-                b2.setText("^");
-                central.add(b, (i + 1), 0);
-                central.add(b2, (i + 1), (height + 1));
-                GridPane.setHalignment(b, HPos.CENTER);
-                GridPane.setHalignment(b2, HPos.CENTER);
+                Button bCol = new Button();
+                bCol.setText("V");
+                bCol.setOnAction(e -> {
+                    if (this.tile != null) {
+                        this.game.getBoard().insertTile(this.tile, false, ordinal.get(), false, this.tile.getRotation());
+                        drawnTile.getChildren().clear();
+                        drawnType.setText("");
+                        refreshBoard();
+                        refreshPlayers();
+                        this.tile = null;
+                    }
+                });
+                Button bCol2 = new Button();
+                bCol2.setText("^");
+                bCol2.setOnAction(e -> {
+                    if (this.tile != null) {
+                        this.game.getBoard().insertTile(this.tile, false, ordinal.get(), true, this.tile.getRotation());
+                        drawnTile.getChildren().clear();
+                        drawnType.setText("");
+                        refreshBoard();
+                        refreshPlayers();
+                        this.tile = null;
+                    }
+                });
+                central.add(bCol, (i + 1), 0);
+                central.add(bCol2, (i + 1), (height + 1));
+                GridPane.setHalignment(bCol, HPos.CENTER);
+                GridPane.setHalignment(bCol2, HPos.CENTER);
             }
         }
     }
