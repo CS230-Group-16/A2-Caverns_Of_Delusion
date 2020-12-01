@@ -73,11 +73,10 @@ public class ProfileEdit extends Application {
             Scanner in = readFile(username);
             int gamesWon = in.nextInt();
             gamesLost = in.nextInt();
+            in.close();
         }catch(Exception e){
             System.err.println("Player not Found");
-            in.close();
         }
-
         return gamesLost;
     }
 
@@ -165,7 +164,7 @@ public class ProfileEdit extends Application {
                 String user = fileNames.get(finalI);
                 readFile(user).close();
                 File file = new File(user);
-                File newName = new File(file.getAbsolutePath() + usernameTxtbox.getText());
+                File newName = new File(usernameTxtbox.getText());
                 //Not working at the moment. Probably same reason for delete file not working
                 if (file.renameTo(newName)) {
                     System.out.println("Username updated successfully");
