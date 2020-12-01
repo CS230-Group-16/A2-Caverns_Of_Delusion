@@ -28,28 +28,28 @@ public class CornerTile extends FloorTile {
         int[] defaultPathway = new int[4];
         switch (rotation) {
             case 0:
-                defaultPathway[0] = 1;
+                defaultPathway[0] = 0;
                 defaultPathway[1] = 1;
-                defaultPathway[2] = 0;
+                defaultPathway[2] = 1;
                 defaultPathway[3] = 0;
                 break;
             case 1:
                 defaultPathway[0] = 0;
-                defaultPathway[1] = 1;
-                defaultPathway[2] = 1;
-                defaultPathway[3] = 0;
-                break;
-            case 2:
-                defaultPathway[0] = 0;
                 defaultPathway[1] = 0;
                 defaultPathway[2] = 1;
                 defaultPathway[3] = 1;
                 break;
-            case 3:
+            case 2:
                 defaultPathway[0] = 1;
                 defaultPathway[1] = 0;
                 defaultPathway[2] = 0;
                 defaultPathway[3] = 1;
+                break;
+            case 3:
+                defaultPathway[0] = 1;
+                defaultPathway[1] = 1;
+                defaultPathway[2] = 0;
+                defaultPathway[3] = 0;
                 break;
         }
         super.setPathways(defaultPathway);

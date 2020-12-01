@@ -6,6 +6,7 @@
 
 public class GoalTile extends FloorTile {
 
+    private final int[] PATHWAYS = {1,1,1,1};
     /**
      * Constructor used to make the Goal tile
      */

@@ -283,20 +283,28 @@ public class Board {
             eastPath = getTileAt((playerLocation[0]+1),playerLocation[1]).getPathways();
             westPath = getTileAt((playerLocation[0]-1),playerLocation[1]).getPathways();
         }
+        /*
+        System.out.println(Arrays.toString(northPath));
+        System.out.println(Arrays.toString(eastPath));
+        System.out.println(Arrays.toString(southPath));
+        System.out.println(Arrays.toString(westPath));
+        System.out.println(Arrays.toString(currentPath));
+        */
         
         //need to change magic numbers
-        if (currentPath[0] == northPath[2]) {
+        if (currentPath[0] == 1 && northPath[2] == 1) {
             pathway[0] = true;
         }
-        if (currentPath[1] == eastPath[3]) {
+        if (currentPath[1] == 1 && eastPath[3] == 1) {
             pathway[1] = true;
         }
-        if (currentPath[2] == southPath[0]) {
+        if (currentPath[2] == 1 && southPath[0] == 1) {
             pathway[2] = true;
         }
-        if (currentPath[3] == westPath[1]) {
+        if (currentPath[3] == 1 && westPath[1] == 1) {
             pathway[3] = true;
         }
+        //System.out.println(Arrays.toString(pathway));
         return pathway;
     }
 
@@ -304,10 +312,14 @@ public class Board {
 	 * when a player's turn, signifies their action/'move'
 	 * @param playerNum
      */
-    public void move(int playerNum) {
+    public void move(int playerNum,int[]newLocation) {
         //boolean[] paths = checkPathway(playerNum);
         //show where they can go
-        //updatePlayerLocation(playerNum,);
+        if (newLocation[0] > 0 && newLocation[1] > 0) {
+            if (newLocation[0] <= this.getWidth() && newLocation[1] <= this.getHeight()) {
+                updatePlayerLocation(playerNum,newLocation);
+            }
+        }
     }
 
     /*
