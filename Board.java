@@ -210,7 +210,7 @@ public class Board {
 	 * @return whether the tile is frozen or not
      */
     private Boolean isFrozen(int x, int y) {
-        return this.tileMap[x][y].isEngulfed();
+        return this.tileMap[x][y].isFrozen();
     }
 
     /*
@@ -283,13 +283,13 @@ public class Board {
             eastPath = getTileAt((playerLocation[0]+1),playerLocation[1]).getPathways();
             westPath = getTileAt((playerLocation[0]-1),playerLocation[1]).getPathways();
         }
-        /*
-        System.out.println(Arrays.toString(northPath));
-        System.out.println(Arrays.toString(eastPath));
-        System.out.println(Arrays.toString(southPath));
-        System.out.println(Arrays.toString(westPath));
-        System.out.println(Arrays.toString(currentPath));
-        */
+        
+        System.out.println("North: " + Arrays.toString(northPath));
+        System.out.println("East: " + Arrays.toString(eastPath));
+        System.out.println("South: " + Arrays.toString(southPath));
+        System.out.println("West: " + Arrays.toString(westPath));
+        System.out.println("Current: " + Arrays.toString(currentPath));
+        
         
         //need to change magic numbers
         if (currentPath[0] == 1 && northPath[2] == 1) {
@@ -304,7 +304,7 @@ public class Board {
         if (currentPath[3] == 1 && westPath[1] == 1) {
             pathway[3] = true;
         }
-        //System.out.println(Arrays.toString(pathway));
+        System.out.println("Pathway: " + Arrays.toString(pathway));
         return pathway;
     }
 
