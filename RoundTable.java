@@ -171,31 +171,26 @@ public class RoundTable {
      *
      * @param t is the action tile to be played
      */
-    public void playActionTile(ActionTile t) {
+    public void playMoveTile(ActionTile t, Player player) {
         String type = checkTileType(t.getType());
         if (type == "BACKTRACK") {
-            System.out.println("Who would you like to backtrack?");
-            //allow the player to click on another player to backtrack
-            //check if the player selected has been backtracked before
-            //PlayerSelected needs to wait for JavaFX to be implemented
-            if(playerSelected.getBackTracked()) {
-                System.out.println("This person has already been backtracked");
-                playActionTile(t);
-            }
-            else {
-                backtrack(playerSelected);
-                playerSelected.setBacktracked(true);
-            }
+            backtrackPlayer(player);
+            player.setBackTracked(true);
         } else if (type == "DOUBLEMOVE") {
             movement();
-        } else if (type == "FIRE") {
+        }
+    }
+
+    public void playEffectTile(ActionTile t, int[] coords) {
+
+        if (type == "FIRE") {
             //coords needs to wait for JavaFX to be implemented
             //the user will click on a tile and then it will turn the location of the tile into an array
             //with coords[0] as x and coords[1] as y.
-            engulfTiles(getSurroundingTile(coords[]));
+            engulfTiles(coords);
         } else {
             //coords needs to wait for JavaFX to be implemented
-            freezeTiles(getSurroundingTile(coords[]));
+            freezeTiles(coords);
         }
     }
 
@@ -285,11 +280,11 @@ public class RoundTable {
      * @param player is the player that will move.
      */
     private void backtrackPlayer(Player player) {
-        ArrayList<Integer[]> pathHistory;
+        int[][] pathHistory;
         pathHistory = player.getPathHistory();
-        for (int i = 1; i < turnCounter; i++) {
-            if (pathHistory.get(i) != board.isFrozen() && pathHistory.get(i) != board.isEngulfed()) {
-                board.updatePlayerLocation(player.getPlayerNum(), pathHistory.get(i));
+        for (int i = pathHistory.length; i >= 0; i--) {
+            if (!board.getTileAt(pathHistory[i][0], pathHistory[i][1]).isEngulfed()) {
+                board.updatePlayerLocation(player.getPlayerNum(), pathHistory[i]);
             }
         }
     }
