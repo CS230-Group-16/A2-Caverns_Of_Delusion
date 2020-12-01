@@ -1,30 +1,17 @@
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Group;
+
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.w3c.dom.ls.LSOutput;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProfileEdit extends Application {
     //Change directory to personal one
@@ -36,11 +23,10 @@ public class ProfileEdit extends Application {
     Button updateUserBtn = new Button();
     TextField usernameTxtbox = new TextField();
     Scanner in = new Scanner(System.in);
+    int location = 0;
 
     public Scanner readFile(String filename) {
-        //Scanner in = new Scanner(System.in);
         File file = new File(filename);
-
         try {
             in = new Scanner(file);
         } catch (FileNotFoundException e) {
@@ -49,7 +35,6 @@ public class ProfileEdit extends Application {
             System.exit(0);
         }
         return in;
-
     }
 
     public int readGamesWon(String username) {
@@ -85,7 +70,7 @@ public class ProfileEdit extends Application {
         List<String> textFiles = new ArrayList<String>();
         File dir = new File(directory);
         for (File file : dir.listFiles()) {
-            if (file.getName().endsWith((".txt"))) {
+            if (file.getName().endsWith((".txt")) && file.getName().startsWith("board") == false) {
                 textFiles.add(file.getName());
             }
         }
@@ -114,7 +99,7 @@ public class ProfileEdit extends Application {
             refresh();
         });
 
-        root.getChildren().addAll(menuButton, gamesPlayedLbl,gamesWonLbl, gamesLostLbl, usernameTxtbox,
+        root.getChildren().addAll(menuButton, gamesPlayedLbl, gamesWonLbl, gamesLostLbl, usernameTxtbox,
                 updateUserBtn, deleteBtn);
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -129,48 +114,54 @@ public class ProfileEdit extends Application {
         MenuButton menuButton = new MenuButton("PlayerEdit");
 
         for (int i = 0; i < fileNames.size(); i++) {
-            MenuItem item1 = new MenuItem(fileNames.get(i));
+            MenuItem item1 = new MenuItem(fileNames.get(i).substring(0, fileNames.get(i).length() - 4));
             int finalI = i;
-
             item1.setOnAction(e -> {
-                String user = fileNames.get(finalI);
+                String user = item1.getText() + ".txt";
+                location = fileNames.indexOf(user);
+                System.out.println(fileNames);
+                System.out.println(menuButton.getItems());
                 int gamesPlayed = readGamesLost(user) + readGamesWon(user);
                 gamesPlayedLbl.setText("games played: " + gamesPlayed);
                 gamesWonLbl.setText("games won: " + readGamesWon(user));
                 gamesLostLbl.setText("games lost: " + readGamesLost(user));
-                usernameTxtbox.setText(fileNames.get(finalI));
+                usernameTxtbox.setText(fileNames.get(location).substring(0, fileNames.get(location).length() - 4));
                 deleteBtn.setVisible(true);
                 updateUserBtn.setVisible(true);
             });
 
             deleteBtn.setOnAction(e -> {
                 in.close();
-                String user = fileNames.get(finalI);
+                String user = fileNames.get(location);
                 readFile(user).close();
                 File fileToDelete = new File(user);
-                //Not working at the moment. Maybe a file reader is open somewhere?
-                if(fileToDelete.delete())
-                {
+                if (fileToDelete.delete()) {
                     System.out.println("File deleted successfully");
-                }
-                else
-                {
+                } else {
                     System.out.println("Failed to delete the file");
                 }
+                MenuItem item2 = new MenuItem("deleted value");
+                fileNames.remove(location);
+                menuButton.getItems().remove(location);
+                //menuButton.getItems().set(location, item2);
                 refresh();
             });
 
             updateUserBtn.setOnAction(e -> {
-                String user = fileNames.get(finalI);
+                String user = fileNames.get(location);
                 readFile(user).close();
                 File file = new File(user);
-                File newName = new File(usernameTxtbox.getText());
-                //Not working at the moment. Probably same reason for delete file not working
+                Player player = new Player(user, readGamesWon(fileNames.get(location)), readGamesLost(fileNames.get(location)));
+                player.updateUsername(usernameTxtbox.getText());
+                File newName = new File(usernameTxtbox.getText() + ".txt");
+                MenuItem item2 = new MenuItem(usernameTxtbox.getText() + ".txt");
                 if (file.renameTo(newName)) {
                     System.out.println("Username updated successfully");
                 } else {
                     System.out.println("Failed to rename user");
                 }
+                menuButton.getItems().set(location, item2);
+                refresh();
             });
             menuButton.getItems().add(item1);
         }
