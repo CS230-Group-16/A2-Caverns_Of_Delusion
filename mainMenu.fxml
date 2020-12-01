@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.TextFlow?>
+
+
+<?import javafx.scene.control.Label?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.271" xmlns:fx="http://javafx.com/fxml/1" fx:controller ="mainMenu">
+   <children>
+      <Button fx:id="Play" layoutX="281.0" layoutY="160.0" mnemonicParsing="false" onAction="#handlePlayAction" prefHeight="25.0" prefWidth="38.0" text="Play" />
+      <Button fx:id="EditPlayer" layoutX="264.0" layoutY="194.0" mnemonicParsing="false" onAction="#handleEditPlayerAction" text="Edit Player" />
+      <Button fx:id="Leaderboard" layoutX="259.0" layoutY="225.0" mnemonicParsing="false" onAction="#handleLeaderboardAction" text="Leaderboard" />
+      <Label fx:id="msgOfTheDay" layoutX="130.0" layoutY="337.0" prefHeight="40.0" prefWidth="341.0" />
+   </children>
+</AnchorPane>
