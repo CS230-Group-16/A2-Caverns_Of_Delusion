@@ -30,7 +30,7 @@ public class Leaderboard {
             }
         } catch (FileNotFoundException e) {
             System.out.println("Cannot open " + locationFile);
-            System.exit(0);
+            //System.exit(0);
         }
 
 
@@ -64,6 +64,7 @@ public class Leaderboard {
     public void updateFile() {
 
     }
+    /*
     public static void main (String[] args){
         Player p1 = new Player ("Sam", 6, 3);
         Player p2 = new Player ("Tom", 8,1);
@@ -74,4 +75,5 @@ public class Leaderboard {
 
 
     }
+*/
 }

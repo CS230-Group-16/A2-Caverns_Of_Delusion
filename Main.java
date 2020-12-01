@@ -67,7 +67,7 @@ public class Main extends Application {
     }
     
     public static void main(String [] args){
-        Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000","awesomeGuy"});
+        //Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000","awesomeGuy"});
         //g.toStr();
         //g.displayMessage();
         
