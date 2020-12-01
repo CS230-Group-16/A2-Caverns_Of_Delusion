@@ -116,9 +116,9 @@ public class Player {
     public void saveProfile() {
         try {
             //this adds the players username to a separate file to make it easier when creating leaderboard
-            FileWriter leaderboard = new FileWriter ("player.txt", true);
-            leaderboard.write(username);
-            leaderboard.close();
+            //FileWriter leaderboard = new FileWriter ("player.txt", true);
+            //leaderboard.write(username);
+            //leaderboard.close();
             FileWriter playerFile = new FileWriter(username + ".txt", false);
             playerFile.write(username + " " + gamesWon + " " + gamesLost + "\n");
             playerFile.close();

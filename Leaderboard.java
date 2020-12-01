@@ -1,6 +1,9 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Scanner;
 
 /**
  * The Leaderboard class creates a leaderboard for the players
@@ -10,12 +13,26 @@ import java.util.Comparator;
 
 public class Leaderboard {
 
-    private ArrayList<Player> player = new ArrayList<>();
+    ArrayList<Player> player = new ArrayList<>();
 
     /**
      * Constructor used to make leaderboard
      */
-    public Leaderboard(String leaderboardFile) {
+    public Leaderboard(String locationFile) {
+
+
+        File inputFile = new File(locationFile);
+        try {
+            Scanner inp = new Scanner(inputFile);
+            while (inp.hasNext()) {
+                player.add(new Player(inp.next(), inp.nextInt(), inp.nextInt()));
+                System.out.print(player.toString());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot open " + locationFile);
+            System.exit(0);
+        }
+
 
     }
 
@@ -45,6 +62,16 @@ public class Leaderboard {
      * Updates the file
      */
     public void updateFile() {
+
+    }
+    public static void main (String[] args){
+        Player p1 = new Player ("Sam", 6, 3);
+        Player p2 = new Player ("Tom", 8,1);
+        p1.saveProfile();
+        p2.saveProfile();
+        Leaderboard l1 = new Leaderboard ("Sam.txt");
+        Leaderboard l2 = new Leaderboard ("Tom.txt");
+
 
     }
 }
