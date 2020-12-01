@@ -26,11 +26,13 @@ public class Leaderboard {
             Scanner inp = new Scanner(inputFile);
             while (inp.hasNext()) {
                 player.add(new Player(inp.next(), inp.nextInt(), inp.nextInt()));
-                System.out.print(player.toString());
+                //testing
+                /*for (int i= 0; i < player.size(); i++) {
+                System.out.println(player.get(i).getUsername() + ", " + player.get(i).getWon() + ", " + player.get(i).getLost());
+                } */
             }
         } catch (FileNotFoundException e) {
             System.out.println("Cannot open " + locationFile);
-            //System.exit(0);
         }
 
 
@@ -64,7 +66,7 @@ public class Leaderboard {
     public void updateFile() {
 
     }
-    /*
+/*
     public static void main (String[] args){
         Player p1 = new Player ("Sam", 6, 3);
         Player p2 = new Player ("Tom", 8,1);
@@ -72,7 +74,6 @@ public class Leaderboard {
         p2.saveProfile();
         Leaderboard l1 = new Leaderboard ("Sam.txt");
         Leaderboard l2 = new Leaderboard ("Tom.txt");
-
 
     }
 */
