@@ -83,7 +83,7 @@ public class RoundTable {
      * calls the move method from Board
      */
     public void movement() {
-        board.move(currentPlayer.getPlayerNum());
+        //board.move(currentPlayer.getPlayerNum());
     }
 
     /**
