@@ -166,6 +166,10 @@ public class Player {
         return this.spellBook;
     }
     
+    public void useSpell(ActionTile t){
+        this.spellBook.remove(t);
+    }
+    
     /**
      * Method to string to print player to screen
      */
