@@ -21,28 +21,28 @@ public class Leaderboard {
      */
     public Leaderboard(String locationFile) {
 
-        File inputFile = new File(locationFile);
+        File playerMain = new File(locationFile);
         try {
-            Scanner inp = new Scanner(inputFile);
-            while (inp.hasNext()) {
+            Scanner input = new Scanner(playerMain);
+            while (input.hasNext()) {
+            	File playerName = new File(input.next() + ".txt");
+            	try {
+            		Scanner profile = new Scanner(playerName);
+            		while (profile.hasNext()) {
+            			player.add(new Player(profile.next(), profile.nextInt(), profile.nextInt()));
+            			//testing
+        	       	 	for (int i= 0; i < player.size(); i++) {
+        	       	 	System.out.println(player.get(i).getUsername() + ", " + player.get(i).getWon() + ", " + player.get(i).getLost());
+        	       	 	}
+            		}
+				} catch (Exception e) {
+					System.out.println("Cannot open " + input.next() + ".txt");
+				}
             	
-            	t.add(inp.next());
-            	
-            	}
-            for (int i= 0; i < t.size(); i++) {
-            	System.out.println(t.get(i));
-            	
-                //player.add(new Player(inp.next(), inp.nextInt(), inp.nextInt()));
-                //testing
-                /*for (int i= 0; i < player.size(); i++) {
-                System.out.println(player.get(i).getUsername() + ", " + player.get(i).getWon() + ", " + player.get(i).getLost());
-                } */
             }
         } catch (FileNotFoundException e) {
             System.out.println("Cannot open " + locationFile);
         }
-
-
     }
 
     /**
