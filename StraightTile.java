@@ -67,9 +67,7 @@ public class StraightTile extends FloorTile {
 		 * gets rotation of tile
 		 * @return rotation rotation of tile - integer form
      */
-    public int getRotation() {
-        return this.rotation;
-    }
+    
 
     /**
      * change rotation by user when inserted
