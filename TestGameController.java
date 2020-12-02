@@ -82,6 +82,7 @@ public class TestGameController {
     private FloorTile tile;
     private int width;
     private int height;
+    private int[] centreCoord = null;
 
     /**
      * Initialize the controller. This method is called automatically. The following happen in this order: 1) First an instance of the controller is created (the constructor is called), 2) Next the @FXML variables are bound to the GUI components. 3) Finally, this initialize method is called. This means we cannot bind actions to buttons in the constructor, but we can in this method.
@@ -103,9 +104,9 @@ public class TestGameController {
             RowConstraints row = new RowConstraints(HEIGHT_OF_TILE_IMAGE);
             central.getRowConstraints().add(row);
         }
-        
-        this.game.getPlayers()[0].insertTile(new MovementTile("BACKTRACK",-1));
-        
+
+        this.game.getPlayers()[0].insertTile(new EffectTile("ICE",-1));
+
         setPlayerNames();
         refreshBoard();
         refreshPlayers();
@@ -133,9 +134,8 @@ public class TestGameController {
                 showDrawnTile();
             }
 
-            //move
-            //end appears after the person has moved
             draw.setVisible(false);
+            checkMovement();
         });
 
         endTurn.setOnAction(e -> {
@@ -160,10 +160,10 @@ public class TestGameController {
                 this.game.getRound().movement(playerNum, currentLoc);
                 setMoveButtons(false);
                 endTurn.setVisible(true);
-                clearCentral();
+                refreshCentral();
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
-                a.setHeaderText("You can't move through that!"); 
+                a.setHeaderText("You can't move through that!");
                 a.setContentText("You cannot move this way");
                 a.showAndWait();
             }
@@ -178,10 +178,10 @@ public class TestGameController {
                 this.game.getRound().movement(playerNum, currentLoc);
                 setMoveButtons(false);
                 endTurn.setVisible(true);
-                clearCentral();
+                refreshCentral();
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
-                a.setHeaderText("You can't move through that!");  
+                a.setHeaderText("You can't move through that!");
                 a.setContentText("You cannot move this way");
                 a.showAndWait();
             }
@@ -196,10 +196,10 @@ public class TestGameController {
                 this.game.getRound().movement(playerNum, currentLoc);
                 setMoveButtons(false);
                 endTurn.setVisible(true);
-                clearCentral();
+                refreshCentral();
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
-                a.setHeaderText("You can't move through that!");  
+                a.setHeaderText("You can't move through that!");
                 a.setContentText("You cannot move this way");
                 a.showAndWait();
             }
@@ -214,10 +214,10 @@ public class TestGameController {
                 this.game.getRound().movement(playerNum, currentLoc);
                 setMoveButtons(false);
                 endTurn.setVisible(true);
-                clearCentral();
+                refreshCentral();
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
-                a.setHeaderText("You can't move through that!"); 
+                a.setHeaderText("You can't move through that!");
                 a.setContentText("You cannot move this way");
                 a.showAndWait();
             }
@@ -242,10 +242,11 @@ public class TestGameController {
         boolean[] paths = this.game.getBoard().checkPathway(this.game.getRound().getCurrentPlayer().getPlayerNum());
         if (!paths[0] && !paths[1] && !paths[2] && !paths[3]) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
-            a.setHeaderText("You're Trapped!"); 
+            a.setHeaderText("You're Trapped!");
             a.setContentText("There is no where for you to go!");
             a.showAndWait();
             endTurn.setVisible(true);
+            setMoveButtons(false);
         } else {
             setMoveButtons(true);
         }
@@ -277,7 +278,7 @@ public class TestGameController {
                 ImageView imageView = new ImageView(image1);
                 imageView.setPickOnBounds(true);
                 imageView.setOnMouseClicked(e -> {
-                    handleSpell(tileArr[0], imageView);
+                    handleSpell(tileArr[0]);
                 });
                 spells.getChildren().add(imageView);
             } catch (FileNotFoundException e) {
@@ -287,22 +288,22 @@ public class TestGameController {
         }
     }
 
-    private void handleSpell(ActionTile t, ImageView imageView) {
+    private void handleSpell(ActionTile t) {
         if (t.getTurnDrawn() >= this.game.getRound().getTurnCounter()) {
             Alert a = new Alert(Alert.AlertType.WARNING);
-            a.setHeaderText("Spell Cast!"); 
+            a.setHeaderText("Spell Cast!");
             a.setContentText("You cannot cast this spell just yet");
             a.showAndWait();
         } else {
-            if ("BACKTRACK".equals(t.getEffect()) || "DOUBLEMOVE".equals(t.getEffect())) {
-                String [] players = new String[this.game.getPlayers().length];
-                Player p = new Player("",0,0);
+            if ("BACKTRACK".equals(t.getEffect())) {
+                String[] players = new String[this.game.getPlayers().length];
+                Player p = new Player("", 0, 0);
                 for (int i = 0; i < this.game.getPlayers().length; i++) {
                     players[i] = this.game.getPlayers()[i].getUsername();
                 }
-                ChoiceDialog cd = new ChoiceDialog(players[0],players);
-                cd.setHeaderText("Pick a player!"); 
-                cd.setContentText("Pick a player to cast you");
+                ChoiceDialog cd = new ChoiceDialog(players[0], players);
+                cd.setHeaderText("Pick a player!");
+                cd.setContentText("Pick a player to cast your spell");
                 cd.showAndWait();
                 for (int i = 0; i < players.length; i++) {
                     if (players[i] == cd.getSelectedItem()) {
@@ -310,10 +311,23 @@ public class TestGameController {
                     }
                 }
                 this.game.getRound().playMoveTile(t, p);
+            } else if ("DOUBLEMOVE".equals(t.getEffect())) {
+                //need to allow player to move twice
+                //show buttons twice?
             } else if ("FIRE".equals(t.getEffect()) || "ICE".equals(t.getEffect())) {
-                
+                if ( centreCoord == null) {
+                    Alert a = new Alert(Alert.AlertType.WARNING);
+                    a.setHeaderText("Pick the center tile");
+                    a.setContentText("You cannot cast this spell without\npicking a tile");
+                    a.showAndWait();
+                } else {
+                    this.game.getRound().playEffectTile(t, centreCoord);
+                    centreCoord = null;
+                }
             }
         }
+        refreshSpellBook();
+        refreshCentral();
     }
 
     private void showDrawnTile() {
@@ -415,6 +429,10 @@ public class TestGameController {
                         colorAdjust.setHue(0.5);
                         imageView.setEffect(colorAdjust);
                     }
+                    int [] arr = {j,i};
+                    imageView.setOnMouseClicked(e -> {
+                        centreCoord = arr;
+                    });
                     central.add(imageView, (j + 1), (i + 1));
                 }
             }
@@ -487,13 +505,11 @@ public class TestGameController {
         this.game.getBoard().insertTile(t, row, posNum, flip);
         drawnTile.getChildren().clear();
         drawnType.setText("");
-        refreshBoard();
-        refreshPlayers();
-        clearCentral();
+        refreshCentral();
         this.tile = null;
     }
 
-    private void clearCentral() {
+    private void refreshCentral() {
         central.getChildren().clear();
         refreshBoard();
         setButtons();
