@@ -1,6 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * The Player class creates profile for user
@@ -14,7 +15,7 @@ public class Player {
     private int gamesWon;
     private int gamesLost;
     private int playerNum;
-    private ArrayList<Integer[]> path = new ArrayList<Integer[]>();
+    private int[][] path = {{-1,-1},{-1,-1}};
     private boolean backtrackUsed;
     private ArrayList<ActionTile> spellBook = new ArrayList<>();
 
@@ -140,7 +141,7 @@ public class Player {
      * Gets path history of player
      * @return pathHistory
      */
-    public ArrayList<Integer[]> getPathHistory() {
+    public int[][] getPathHistory() {
         return this.path;
     }
 
@@ -156,8 +157,9 @@ public class Player {
      * Updates path history
      * @param lastLocation The last location of player
      */
-    public void updatePathHistory(Integer[] lastLocation) {
-        this.path.add(lastLocation);
+    public void updatePathHistory(int[] lastLocation) {
+        this.path[1] = this.path[0];
+        this.path[0] = lastLocation;
     }
     
     public ArrayList<ActionTile> getSpellBook(){
@@ -176,8 +178,8 @@ public class Player {
         result += "Backtrack: " + backtrackUsed + "\n";
         result += "Player Num: " + playerNum + "\n";
         result += "Path History: ";
-        for (int i = 0; i < this.path.size(); i++){
-            result += path.get(i) + ", ";
+        for (int i = 0; i < this.path.length; i++){
+            result += Arrays.toString(path[i]) + ", ";
         }
         result += "\n";
         result += "Spell Book: ";
