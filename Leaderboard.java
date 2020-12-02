@@ -14,18 +14,25 @@ import java.util.Scanner;
 public class Leaderboard {
 
     ArrayList<Player> player = new ArrayList<>();
+    ArrayList<String> t = new ArrayList<>();
 
     /**
      * Constructor used to make leaderboard
      */
     public Leaderboard(String locationFile) {
 
-
         File inputFile = new File(locationFile);
         try {
             Scanner inp = new Scanner(inputFile);
             while (inp.hasNext()) {
-                player.add(new Player(inp.next(), inp.nextInt(), inp.nextInt()));
+            	
+            	t.add(inp.next());
+            	
+            	}
+            for (int i= 0; i < t.size(); i++) {
+            	System.out.println(t.get(i) + ", ");
+            	
+                //player.add(new Player(inp.next(), inp.nextInt(), inp.nextInt()));
                 //testing
                 /*for (int i= 0; i < player.size(); i++) {
                 System.out.println(player.get(i).getUsername() + ", " + player.get(i).getWon() + ", " + player.get(i).getLost());
@@ -66,15 +73,22 @@ public class Leaderboard {
     public void updateFile() {
 
     }
-/*
+
     public static void main (String[] args){
         Player p1 = new Player ("Sam", 6, 3);
         Player p2 = new Player ("Tom", 8,1);
+        Player p3 = new Player ("May", 8,1);
+        Player p4 = new Player ("Laura", 8,1);
         p1.saveProfile();
         p2.saveProfile();
-        Leaderboard l1 = new Leaderboard ("Sam.txt");
-        Leaderboard l2 = new Leaderboard ("Tom.txt");
+        p3.saveProfile();
+        p4.saveProfile();
+        
+        Leaderboard l = new Leaderboard("player.txt");
+        
+        //Leaderboard l1 = new Leaderboard ("Sam.txt");
+        //Leaderboard l2 = new Leaderboard ("Tom.txt");
 
     }
-*/
+
 }
