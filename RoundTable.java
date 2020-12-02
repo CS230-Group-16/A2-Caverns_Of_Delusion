@@ -170,25 +170,25 @@ public class RoundTable {
      * Allows an action tile to be played
      *
      * @param t is the action tile to be played
+     * @param player
      */
     public void playMoveTile(ActionTile t, Player player) {
-        String type = checkTileType(t.getType());
-        if (type == "BACKTRACK") {
+        if ("BACKTRACK".equals(t.getType())) {
             backtrackPlayer(player);
             player.setBackTracked(true);
-        } else if (type == "DOUBLEMOVE") {
+        } else if ("DOUBLEMOVE".equals(t.getType())) {
             movement();
         }
     }
 
     public void playEffectTile(ActionTile t, int[] coords) {
 
-        if (type == "FIRE") {
+        if ("FIRE".equals(t.getType())) {
             //coords needs to wait for JavaFX to be implemented
             //the user will click on a tile and then it will turn the location of the tile into an array
             //with coords[0] as x and coords[1] as y.
             engulfTiles(coords);
-        } else {
+        } else if ("ICE".equals(t.getType())) {
             //coords needs to wait for JavaFX to be implemented
             freezeTiles(coords);
         }
