@@ -22,6 +22,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.effect.Blend;
@@ -102,7 +103,9 @@ public class TestGameController {
             RowConstraints row = new RowConstraints(HEIGHT_OF_TILE_IMAGE);
             central.getRowConstraints().add(row);
         }
-
+        
+        this.game.getPlayers()[0].insertTile(new MovementTile("BACKTRACK",-1));
+        
         setPlayerNames();
         refreshBoard();
         refreshPlayers();
@@ -160,6 +163,7 @@ public class TestGameController {
                 clearCentral();
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
+                a.setHeaderText("You can't move through that!"); 
                 a.setContentText("You cannot move this way");
                 a.showAndWait();
             }
@@ -177,6 +181,7 @@ public class TestGameController {
                 clearCentral();
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
+                a.setHeaderText("You can't move through that!");  
                 a.setContentText("You cannot move this way");
                 a.showAndWait();
             }
@@ -194,6 +199,7 @@ public class TestGameController {
                 clearCentral();
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
+                a.setHeaderText("You can't move through that!");  
                 a.setContentText("You cannot move this way");
                 a.showAndWait();
             }
@@ -211,6 +217,7 @@ public class TestGameController {
                 clearCentral();
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
+                a.setHeaderText("You can't move through that!"); 
                 a.setContentText("You cannot move this way");
                 a.showAndWait();
             }
@@ -235,6 +242,7 @@ public class TestGameController {
         boolean[] paths = this.game.getBoard().checkPathway(this.game.getRound().getCurrentPlayer().getPlayerNum());
         if (!paths[0] && !paths[1] && !paths[2] && !paths[3]) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setHeaderText("You're Trapped!"); 
             a.setContentText("There is no where for you to go!");
             a.showAndWait();
             endTurn.setVisible(true);
@@ -282,13 +290,29 @@ public class TestGameController {
     private void handleSpell(ActionTile t, ImageView imageView) {
         if (t.getTurnDrawn() >= this.game.getRound().getTurnCounter()) {
             Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setHeaderText("Spell Cast!"); 
             a.setContentText("You cannot cast this spell just yet");
             a.showAndWait();
         } else {
-            this.game.getRound().playActionTile(t);
-            ColorAdjust colorAdjust = new ColorAdjust();
-            colorAdjust.setHue(120);
-            imageView.setEffect(colorAdjust);
+            if ("BACKTRACK".equals(t.getEffect()) || "DOUBLEMOVE".equals(t.getEffect())) {
+                String [] players = new String[this.game.getPlayers().length];
+                Player p = new Player("",0,0);
+                for (int i = 0; i < this.game.getPlayers().length; i++) {
+                    players[i] = this.game.getPlayers()[i].getUsername();
+                }
+                ChoiceDialog cd = new ChoiceDialog(players[0],players);
+                cd.setHeaderText("Pick a player!"); 
+                cd.setContentText("Pick a player to cast you");
+                cd.showAndWait();
+                for (int i = 0; i < players.length; i++) {
+                    if (players[i] == cd.getSelectedItem()) {
+                        p = this.game.getPlayers()[i];
+                    }
+                }
+                this.game.getRound().playMoveTile(t, p);
+            } else if ("FIRE".equals(t.getEffect()) || "ICE".equals(t.getEffect())) {
+                
+            }
         }
     }
 
