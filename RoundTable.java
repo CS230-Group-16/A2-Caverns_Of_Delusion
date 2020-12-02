@@ -1,3 +1,4 @@
+
 /**
  * Each players turn. Draw a tile, insert tile, play an action tile and move along the board
  *
@@ -84,7 +85,7 @@ public class RoundTable {
      */
     public void movement(int playerNum, int[] newLocation) {
         this.currentPlayer.updatePathHistory(newLocation);
-        board.move(playerNum,newLocation);
+        board.move(playerNum, newLocation);
     }
 
     /**
@@ -109,7 +110,7 @@ public class RoundTable {
         setCurrentPlayer(this.nextPlayer);
         //set next player
         counter++;
-        if ((counter) > (players.length-1)) {
+        if ((counter) > (players.length - 1)) {
             counter = 0;
             this.nextPlayer = players[counter];
         } else {
@@ -119,7 +120,7 @@ public class RoundTable {
         return nextPlayer;
     }
 
-    public int getCounter(){
+    public int getCounter() {
         return this.counter;
     }
 
@@ -139,7 +140,7 @@ public class RoundTable {
         this.drawnTile = tile;
     }
 
-    public Tile getDrawnTile(){
+    public Tile getDrawnTile() {
         return this.drawnTile;
     }
 
@@ -155,7 +156,7 @@ public class RoundTable {
         boolean flip = false;
         int rotation = 0;
         board.insertTile(tile, row, posNum, flip, rotation);
-        */
+         */
     }
 
     /**
@@ -178,7 +179,7 @@ public class RoundTable {
             backtrackPlayer(player);
             player.setBackTracked(true);
         } else if ("DOUBLEMOVE".equals(t.getType())) {
-            movement();
+            //movement();
         }
     }
 
@@ -283,9 +284,11 @@ public class RoundTable {
     private void backtrackPlayer(Player player) {
         int[][] pathHistory;
         pathHistory = player.getPathHistory();
-        for (int i = pathHistory.length; i >= 0; i--) {
-            if (!board.getTileAt(pathHistory[i][0], pathHistory[i][1]).isEngulfed()) {
-                board.updatePlayerLocation(player.getPlayerNum(), pathHistory[i]);
+        for (int i = (pathHistory.length-1); i >= 0; i--) {
+            if (pathHistory[i][0] != -1 || pathHistory[i][1] != -1) {
+                if (!board.getTileAt(pathHistory[i][0], pathHistory[i][1]).isEngulfed()) {
+                    board.updatePlayerLocation(player.getPlayerNum(), pathHistory[i]);
+                }
             }
         }
     }
@@ -308,7 +311,7 @@ public class RoundTable {
         return currentPlayer;
     }
 
-    public Player getNextPlayer(){
+    public Player getNextPlayer() {
         return this.nextPlayer;
     }
 
