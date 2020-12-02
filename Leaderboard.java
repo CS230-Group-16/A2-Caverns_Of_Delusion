@@ -30,7 +30,7 @@ public class Leaderboard {
             	
             	}
             for (int i= 0; i < t.size(); i++) {
-            	System.out.println(t.get(i) + ", ");
+            	System.out.println(t.get(i));
             	
                 //player.add(new Player(inp.next(), inp.nextInt(), inp.nextInt()));
                 //testing
