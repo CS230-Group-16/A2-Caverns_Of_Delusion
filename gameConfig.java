@@ -18,7 +18,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class gameConfig extends Application {
+public class gameConfig{
+
+    //change to personal repo
+    private final String DIRECTORY = "F:\\Stuff\\230CW-TilesClasses\\src";
+
+    private List<String> names = textFiles(DIRECTORY);
 
     @FXML
     private MenuButton playerOne = new MenuButton();
@@ -33,21 +38,49 @@ public class gameConfig extends Application {
     private MenuButton playerFour = new MenuButton();
 
 
-    public void start(Stage stage) {
-        try {
-            Parent root = (Parent) FXMLLoader.load(getClass().getResource("gameConfig.fxml"));
-            
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
 
+    public void initialize(){
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        for (int i = 0; i<names.size();i++) {
+            MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
+            menuItem.setOnAction(a->{
+                System.out.println(menuItem.getText());
+                for (int j = 0; j < names.size(); j++) {
+                    if (names.get(j).equals(menuItem.getText())) {
+                        names.remove(j);
+                    }
+                }
+            });
+            playerOne.getItems().add(menuItem);
+        }
+
+        for (int i = 0; i<names.size();i++) {
+            MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
+            playerTwo.getItems().add(menuItem);
+        }
+
+        for (int i = 0; i<names.size();i++) {
+            MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
+            playerThree.getItems().add(menuItem);
+        }
+
+        for (int i = 0; i<names.size();i++) {
+            MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
+            playerFour.getItems().add(menuItem);
         }
 
     }
 
+    private List<String> textFiles(String directory) {
+        List<String> textFiles = new ArrayList<String>();
+        File dir = new File(directory);
+        for (File file : dir.listFiles()) {
+            if (file.getName().endsWith((".txt")) && !file.getName().startsWith("board")) {
+                textFiles.add(file.getName());
+            }
+        }
+        return textFiles;
+    }
 
 
     @FXML
