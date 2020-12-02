@@ -154,7 +154,7 @@ public class TestGameController {
             boolean[] paths = this.game.getBoard().checkPathway(playerNum);
             if (paths[0]) {
                 currentLoc[1] = currentLoc[1] - 1;
-                this.game.getBoard().move(playerNum, currentLoc);
+                this.game.getRound().movement(playerNum, currentLoc);
                 setMoveButtons(false);
                 endTurn.setVisible(true);
                 clearCentral();
@@ -171,7 +171,7 @@ public class TestGameController {
             boolean[] paths = this.game.getBoard().checkPathway(playerNum);
             if (paths[2]) {
                 currentLoc[1] = currentLoc[1] + 1;
-                this.game.getBoard().move(playerNum, currentLoc);
+                this.game.getRound().movement(playerNum, currentLoc);
                 setMoveButtons(false);
                 endTurn.setVisible(true);
                 clearCentral();
@@ -188,7 +188,7 @@ public class TestGameController {
             boolean[] paths = this.game.getBoard().checkPathway(playerNum);
             if (paths[1]) {
                 currentLoc[0] = currentLoc[0] + 1;
-                this.game.getBoard().move(playerNum, currentLoc);
+                this.game.getRound().movement(playerNum, currentLoc);
                 setMoveButtons(false);
                 endTurn.setVisible(true);
                 clearCentral();
@@ -205,7 +205,7 @@ public class TestGameController {
             boolean[] paths = this.game.getBoard().checkPathway(playerNum);
             if (paths[3]) {
                 currentLoc[0] = currentLoc[0] - 1;
-                this.game.getBoard().move(playerNum, currentLoc);
+                this.game.getRound().movement(playerNum, currentLoc);
                 setMoveButtons(false);
                 endTurn.setVisible(true);
                 clearCentral();

@@ -82,8 +82,9 @@ public class RoundTable {
     /**
      * calls the move method from Board
      */
-    public void movement() {
-        //board.move(currentPlayer.getPlayerNum());
+    public void movement(int playerNum, int[] newLocation) {
+        this.currentPlayer.updatePathHistory(newLocation);
+        board.move(playerNum,newLocation);
     }
 
     /**
