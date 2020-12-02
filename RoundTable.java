@@ -5,7 +5,6 @@
  * @author Jimmy Kells and Surinder Singh
  * @version 1.0
  */
-
 import javafx.scene.input.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
@@ -181,6 +180,7 @@ public class RoundTable {
         } else if ("DOUBLEMOVE".equals(t.getType())) {
             //movement();
         }
+        this.currentPlayer.useSpell(t);
     }
 
     public void playEffectTile(ActionTile t, int[] coords) {
@@ -194,6 +194,7 @@ public class RoundTable {
             //coords needs to wait for JavaFX to be implemented
             freezeTiles(coords);
         }
+        this.currentPlayer.useSpell(t);
     }
 
     /**
@@ -208,8 +209,9 @@ public class RoundTable {
         int choseny = centralTile[1];
         int x = 0;
         int y = 0;
-        FloorTile[] selectedTiles = new FloorTile[8];
+        FloorTile[] selectedTiles = new FloorTile[9];
         //This loops through all the tiles on the board
+        /*
         for (int i = x - 1; i <= x + 1; i++) {
             for (int j = y - 1; j <= y + 1; j++) {
                 if (i == chosenx && j == choseny) {
@@ -242,6 +244,33 @@ public class RoundTable {
                 }
             }
         }
+
+         */
+        selectedTiles[0] = (board.getTileAt(chosenx - 1, choseny - 1));
+
+        //top middle
+        selectedTiles[1] = (board.getTileAt(chosenx, choseny - 1));
+
+        //top right corner
+        selectedTiles[2] = (board.getTileAt(chosenx + 1, choseny - 1));
+
+        //left
+        selectedTiles[3] = (board.getTileAt(chosenx - 1, choseny));
+
+        //centre
+        selectedTiles[4] = (board.getTileAt(chosenx, choseny));
+
+        //right
+        selectedTiles[5] = (board.getTileAt(chosenx + 1, choseny));
+
+        //bottom left corner
+        selectedTiles[6] = (board.getTileAt(chosenx - 1, choseny + 1));
+
+        //bottom
+        selectedTiles[7] = (board.getTileAt(chosenx, choseny + 1));
+
+        //bottom right corner
+        selectedTiles[8] = (board.getTileAt(chosenx + 1, choseny + 1));
 
         return selectedTiles;
     }
@@ -288,7 +317,7 @@ public class RoundTable {
     private void backtrackPlayer(Player player) {
         int[][] pathHistory;
         pathHistory = player.getPathHistory();
-        for (int i = (pathHistory.length-1); i >= 0; i--) {
+        for (int i = (pathHistory.length - 1); i >= 0; i--) {
             if (pathHistory[i][0] != -1 || pathHistory[i][1] != -1) {
                 if (!board.getTileAt(pathHistory[i][0], pathHistory[i][1]).isEngulfed()) {
                     board.updatePlayerLocation(player.getPlayerNum(), pathHistory[i]);
