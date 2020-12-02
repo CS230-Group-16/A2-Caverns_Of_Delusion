@@ -46,7 +46,8 @@ public class Leaderboard {
      * @param score the player's score
      */
     public void insertScore(Player player, int score) { 
-    	
+    	//update file
+        //sort
     }
 
     /**
@@ -65,7 +66,8 @@ public class Leaderboard {
      * Updates the file
      */
     public void updateFile() {
-    	
+    	//delete current leaderboard file
+        //rewrite it with current arraylist
     }
 
 }
