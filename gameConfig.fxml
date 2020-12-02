@@ -31,20 +31,17 @@
       </MenuButton>
       <MenuButton fx:id="playerTwo" layoutX="171.0" layoutY="214.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Player 2">
          <items>
-            <MenuItem mnemonicParsing="false" text="Action 1" />
-            <MenuItem mnemonicParsing="false" text="Action 2" />
+
          </items>
       </MenuButton>
       <MenuButton fx:id="playerThree" layoutX="315.0" layoutY="214.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Player 3">
          <items>
-            <MenuItem mnemonicParsing="false" text="Action 1" />
-            <MenuItem mnemonicParsing="false" text="Action 2" />
+
          </items>
       </MenuButton>
       <MenuButton fx:id="playerFour" layoutX="454.0" layoutY="214.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Player 4">
          <items>
-            <MenuItem mnemonicParsing="false" text="Action 1" />
-            <MenuItem mnemonicParsing="false" text="Action 2" />
+
          </items>
       </MenuButton>
    </children>
