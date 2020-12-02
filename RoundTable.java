@@ -254,7 +254,9 @@ public class RoundTable {
     private void engulfTiles(int[] tile) {
         FloorTile[] tiles = getSurroundingTile(tile);
         for (int i = 0; i < tiles.length; i++) {
-            tiles[i].setEngulfed(true);
+            if (tiles[i] != null) {
+                tiles[i].setEngulfed(true);
+            }
         }
 
     }
@@ -269,7 +271,9 @@ public class RoundTable {
     private void freezeTiles(int[] tile) {
         FloorTile[] tiles = getSurroundingTile(tile);
         for (int i = 0; i < tiles.length; i++) {
-            tiles[i].setFrozen(true);
+            if (tiles[i] != null) {
+                tiles[i].setFrozen(true);
+            }
         }
         //freezes all tiles passes in as arguments
         //take a central tile and freeze all tiles touching it.
