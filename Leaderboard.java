@@ -30,19 +30,21 @@ public class Leaderboard {
             		Scanner profile = new Scanner(playerName);
             		while (profile.hasNext()) {
             			player.add(new Player(profile.next(), profile.nextInt(), profile.nextInt()));
-            			//testing
-        	       	 	for (int i= 0; i < player.size(); i++) {
-        	       	 	System.out.println(player.get(i).getUsername() + ", " + player.get(i).getWon() + ", " + player.get(i).getLost());
-        	       	 	}
             		}
+    	       	 	profile.close();
 				} catch (Exception e) {
 					System.out.println("Cannot open " + input.next() + ".txt");
 				}
-            	
+            	input.close();
             }
         } catch (FileNotFoundException e) {
             System.out.println("Cannot open " + locationFile);
         }
+        
+        for (int i= 0; i < player.size(); i++) {
+       	 	System.out.println(player.get(i).getUsername() + ", " + player.get(i).getWon() + ", " + player.get(i).getLost());
+       	 	}
+        
     }
 
     /**
@@ -85,6 +87,7 @@ public class Leaderboard {
         p4.saveProfile();
         
         Leaderboard l = new Leaderboard("player.txt");
+        
         
         //Leaderboard l1 = new Leaderboard ("Sam.txt");
         //Leaderboard l2 = new Leaderboard ("Tom.txt");
