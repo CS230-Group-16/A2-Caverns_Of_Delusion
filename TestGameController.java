@@ -139,7 +139,7 @@ public class TestGameController {
                 this.tile = (FloorTile) tile;
                 showDrawnTile();
             }
-            
+
             draw.setVisible(false);
         });
 
@@ -249,31 +249,37 @@ public class TestGameController {
             cd.showAndWait();
             for (int i = 0; i < spells.size(); i++) {
                 if (spellStrings[i] == cd.getSelectedItem()) {
-                    if ("BACKTRACK".equals(spellStrings[i])) {
-                        String[] players = new String[this.game.getPlayers().length];
-                        Player p;
-                        for (int x = 0; x < this.game.getPlayers().length; x++) {
-                            players[x] = this.game.getPlayers()[x].getUsername();
-                        }
-                        ChoiceDialog cd2 = new ChoiceDialog(players[0], players);
-                        cd2.getDialogPane().lookupButton(ButtonType.CANCEL).setVisible(false);
-                        cd2.setHeaderText("Pick a player!");
-                        cd2.setContentText("Pick a player to cast your spell");
-                        cd2.showAndWait();
-                        for (int y = 0; y < players.length; y++) {
-                            if (players[y] == cd.getSelectedItem()) {
-                                p = this.game.getPlayers()[y];
-                                this.game.getRound().playMoveTile(spells.get(i), p);
-                            }
-                        }
-                    } else if ("DOUBLEMOVE".equals(spellStrings[i])) {
-                        //do something
-                    } else if ("ICE".equals(spellStrings[i]) || "FIRE".equals(spellStrings[i])) {
+                    if (spells.get(i).getTurnDrawn() >= this.game.getRound().getTurnCounter()) {
                         Alert a3 = new Alert(Alert.AlertType.WARNING);
-                        a3.setHeaderText("Pick the center tile");
-                        a3.setContentText("Select the center tile to cast your spell");
+                        a3.setHeaderText("Spell Cast!");
+                        a3.setContentText("You cannot cast this spell just yet");
                         a3.showAndWait();
-                        /*
+                    } else {
+                        if ("BACKTRACK".equals(spellStrings[i])) {
+                            String[] players = new String[this.game.getPlayers().length];
+                            Player p;
+                            for (int x = 0; x < this.game.getPlayers().length; x++) {
+                                players[x] = this.game.getPlayers()[x].getUsername();
+                            }
+                            ChoiceDialog cd2 = new ChoiceDialog(players[0], players);
+                            cd2.getDialogPane().lookupButton(ButtonType.CANCEL).setVisible(false);
+                            cd2.setHeaderText("Pick a player!");
+                            cd2.setContentText("Pick a player to cast your spell");
+                            cd2.showAndWait();
+                            for (int y = 0; y < players.length; y++) {
+                                if (players[y] == cd.getSelectedItem()) {
+                                    p = this.game.getPlayers()[y];
+                                    this.game.getRound().playMoveTile(spells.get(i), p);
+                                }
+                            }
+                        } else if ("DOUBLEMOVE".equals(spellStrings[i])) {
+                            //do something
+                        } else if ("ICE".equals(spellStrings[i]) || "FIRE".equals(spellStrings[i])) {
+                            Alert a3 = new Alert(Alert.AlertType.WARNING);
+                            a3.setHeaderText("Pick the center tile");
+                            a3.setContentText("Select the center tile to cast your spell");
+                            a3.showAndWait();
+                            /*
                         boolean selected = false;
                         while (!selected) {
                             if (centreCoord == null) {
@@ -287,8 +293,9 @@ public class TestGameController {
                                 selected = true;
                             }
                         }
-                         */
-                        this.selectedTile = spells.get(i);
+                             */
+                            this.selectedTile = spells.get(i);
+                        }
                     }
                 }
             }
@@ -531,7 +538,7 @@ public class TestGameController {
                         image = new Image(new FileInputStream(DIRECTORY + "Final/FloorTiles/" + tileMap[j][i].getType() + ".png"));
                         imageView = new ImageView(image);
                     }
-                    
+
                     imageView.setRotate(90 * tileMap[j][i].getRotation());
                     int[] arr = {j, i};
                     imageView.setOnMouseClicked(e -> {
@@ -617,6 +624,7 @@ public class TestGameController {
         drawnTile.getChildren().clear();
         drawnType.setText("");
         refreshCentral();
+        checkSpellBook();
         this.tile = null;
     }
 
