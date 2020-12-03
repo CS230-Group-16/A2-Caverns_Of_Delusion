@@ -521,13 +521,12 @@ public class TestGameController {
                     if (tileMap[j][i].isFrozen() && tileMap[j][i].isFixed()) {
                         image = new Image(new FileInputStream(DIRECTORY + "Final/IceTiles/" + tileMap[j][i].getType() + "_FIXED.png"));
                         imageView = new ImageView(image);
-                    } else if (tileMap[j][i].isEngulfed()) {
-                        //image = new Image(new FileInputStream(DIRECTORY + "Final/FireTiles/" + tileMap[j][i].getType() + ".png"));
-                        image = new Image(new FileInputStream(DIRECTORY + "Final/FloorTiles/" + tileMap[j][i].getType() + ".png"));
+                    } else if (tileMap[j][i].isEngulfed() && tileMap[j][i].isFixed()) {
+                        image = new Image(new FileInputStream(DIRECTORY + "Final/FireTiles/" + tileMap[j][i].getType() + "_FIXED.png"));
                         imageView = new ImageView(image);
-                        ColorAdjust ca = new ColorAdjust();
-                        ca.setHue(-0.5);
-                        imageView.setEffect(ca);
+                    } else if (tileMap[j][i].isEngulfed()) {
+                        image = new Image(new FileInputStream(DIRECTORY + "Final/FireTiles/" + tileMap[j][i].getType() + ".png"));
+                        imageView = new ImageView(image);
                     } else if (tileMap[j][i].isFrozen()) {
                         image = new Image(new FileInputStream(DIRECTORY + "Final/IceTiles/" + tileMap[j][i].getType() + ".png"));
                         imageView = new ImageView(image);
