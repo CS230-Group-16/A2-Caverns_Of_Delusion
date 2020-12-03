@@ -28,6 +28,7 @@
                      <children>
                         <Label fx:id="currentPlayer" />
                         <Button fx:id="draw" mnemonicParsing="false" text="Draw" />
+                        <Button fx:id="playAction" mnemonicParsing="false" text="Play Action Tile" />
                         <Button fx:id="endTurn" mnemonicParsing="false" text="End Turn" />
                      </children>
                   </HBox>

@@ -22,6 +22,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -46,9 +47,9 @@ import javafx.scene.paint.Color;
  */
 public class TestGameController {
 
-    private final int WIDTH_OF_TILE_IMAGE = 70;
-    private final int HEIGHT_OF_TILE_IMAGE = 70;
-    private final int WIDTH_OF_PLAYER_IMAGE = 25;
+    private final int WIDTH_OF_TILE_IMAGE = 80;
+    private final int HEIGHT_OF_TILE_IMAGE = 80;
+    private final int WIDTH_OF_PLAYER_IMAGE = 35;
     private final String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/";
 
     @FXML
@@ -57,6 +58,8 @@ public class TestGameController {
     Button endTurn;
     @FXML
     Button rotate;
+    @FXML
+    Button playAction;
     @FXML
     Button up, down, left, right;
     @FXML
@@ -82,6 +85,7 @@ public class TestGameController {
     private FloorTile tile;
     private int width;
     private int height;
+    private ActionTile selectedTile;
     private int[] centreCoord = null;
 
     /**
@@ -91,6 +95,7 @@ public class TestGameController {
         central.setGridLinesVisible(false);
         central.setAlignment(Pos.CENTER);
         endTurn.setVisible(false);
+        playAction.setVisible(false);
         setMoveButtons(false);
 
         this.game = createGame();
@@ -105,12 +110,14 @@ public class TestGameController {
             central.getRowConstraints().add(row);
         }
 
-        this.game.getPlayers()[0].insertTile(new EffectTile("ICE",-1));
+        this.game.getPlayers()[0].insertTile(new EffectTile("ICE", -1));
+        this.game.getPlayers()[0].insertTile(new EffectTile("FIRE", -1));
+        this.game.getPlayers()[0].insertTile(new MovementTile("DOUBLEMOVE", -1));
+        this.game.getPlayers()[0].insertTile(new MovementTile("BACKTRACK", -1));
 
         setPlayerNames();
         refreshBoard();
         refreshPlayers();
-        refreshSpellBook();
         setButtons();
         startGame();
         /*
@@ -127,21 +134,18 @@ public class TestGameController {
             drawnType.setText(tile.getType());
 
             if (tile.getType().equals("BACKTRACK") || tile.getType().equals("DOUBLEMOVE") || tile.getType().equals("FIRE") || tile.getType().equals("ICE")) {
-                refreshSpellBook();
-                setMoveButtons(true);
+                checkSpellBook();
             } else {
                 this.tile = (FloorTile) tile;
                 showDrawnTile();
             }
-
+            
             draw.setVisible(false);
-            checkMovement();
         });
 
         endTurn.setOnAction(e -> {
             this.game.getRound().endTurn();
             changePlayers();
-            refreshSpellBook();
             drawnTile.getChildren().clear();
             drawnType.setText("");
             this.game.getRound().turnStart();
@@ -224,6 +228,120 @@ public class TestGameController {
 
         });
 
+        playAction.setOnAction(e -> {
+            //warning to other players looking
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setHeaderText("All players look away!");
+            a.setContentText(this.game.getRound().getCurrentPlayer().getUsername() + " wants to cast a spell");
+            a.showAndWait();
+
+            //pick spell from spell book
+            ArrayList<ActionTile> spells = this.game.getRound().getCurrentPlayer().getSpellBook();
+            String[] spellStrings = new String[spells.size()];
+            for (int i = 0; i < spells.size(); i++) {
+                spellStrings[i] = spells.get(i).getEffect();
+            }
+            ChoiceDialog cd = new ChoiceDialog(spellStrings[0], spellStrings);
+            cd.getDialogPane().lookupButton(ButtonType.CANCEL).setVisible(false);
+            refreshSpellBook();
+            cd.setHeaderText("Pick a spell!");
+            cd.setContentText("Pick spell to cast");
+            cd.showAndWait();
+            for (int i = 0; i < spells.size(); i++) {
+                if (spellStrings[i] == cd.getSelectedItem()) {
+                    if ("BACKTRACK".equals(spellStrings[i])) {
+                        String[] players = new String[this.game.getPlayers().length];
+                        Player p;
+                        for (int x = 0; x < this.game.getPlayers().length; x++) {
+                            players[x] = this.game.getPlayers()[x].getUsername();
+                        }
+                        ChoiceDialog cd2 = new ChoiceDialog(players[0], players);
+                        cd2.getDialogPane().lookupButton(ButtonType.CANCEL).setVisible(false);
+                        cd2.setHeaderText("Pick a player!");
+                        cd2.setContentText("Pick a player to cast your spell");
+                        cd2.showAndWait();
+                        for (int y = 0; y < players.length; y++) {
+                            if (players[y] == cd.getSelectedItem()) {
+                                p = this.game.getPlayers()[y];
+                                this.game.getRound().playMoveTile(spells.get(i), p);
+                            }
+                        }
+                    } else if ("DOUBLEMOVE".equals(spellStrings[i])) {
+                        //do something
+                    } else if ("ICE".equals(spellStrings[i]) || "FIRE".equals(spellStrings[i])) {
+                        Alert a3 = new Alert(Alert.AlertType.WARNING);
+                        a3.setHeaderText("Pick the center tile");
+                        a3.setContentText("Select the center tile to cast your spell");
+                        a3.showAndWait();
+                        /*
+                        boolean selected = false;
+                        while (!selected) {
+                            if (centreCoord == null) {
+                                Alert a2 = new Alert(Alert.AlertType.WARNING);
+                                a2.setHeaderText("Pick the center tile");
+                                a2.setContentText("You cannot cast this spell without\npicking a tile");
+                                a2.showAndWait();
+                            } else {
+                                this.game.getRound().playEffectTile(spells.get(i), centreCoord);
+                                centreCoord = null;
+                                selected = true;
+                            }
+                        }
+                         */
+                        this.selectedTile = spells.get(i);
+                    }
+                }
+            }
+
+            //either pick tile or pick player depending on tile type
+            //playActionTile
+            //clear spellbook
+            checkMovement();
+        });
+
+    }
+
+    private void handleSpell(ActionTile t) {
+        if (t.getTurnDrawn() >= this.game.getRound().getTurnCounter()) {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setHeaderText("Spell Cast!");
+            a.setContentText("You cannot cast this spell just yet");
+            a.showAndWait();
+        } else {
+            if ("BACKTRACK".equals(t.getEffect())) {
+                String[] players = new String[this.game.getPlayers().length];
+                Player p = new Player("", 0, 0);
+                for (int i = 0; i < this.game.getPlayers().length; i++) {
+                    players[i] = this.game.getPlayers()[i].getUsername();
+                }
+                ChoiceDialog cd = new ChoiceDialog(players[0], players);
+                cd.getDialogPane().lookupButton(ButtonType.CANCEL).setVisible(false);
+                cd.setHeaderText("Pick a player!");
+                cd.setContentText("Pick a player to cast your spell");
+                cd.showAndWait();
+                for (int i = 0; i < players.length; i++) {
+                    if (players[i] == cd.getSelectedItem()) {
+                        p = this.game.getPlayers()[i];
+                        this.game.getRound().playMoveTile(t, p);
+                    }
+                }
+
+            } else if ("DOUBLEMOVE".equals(t.getEffect())) {
+                //need to allow player to move twice
+                //show buttons twice?
+            } else if ("FIRE".equals(t.getEffect()) || "ICE".equals(t.getEffect())) {
+                if (centreCoord == null) {
+                    Alert a = new Alert(Alert.AlertType.WARNING);
+                    a.setHeaderText("Pick the center tile");
+                    a.setContentText("You cannot cast this spell without\npicking a tile");
+                    a.showAndWait();
+                } else {
+                    this.game.getRound().playEffectTile(t, centreCoord);
+                    centreCoord = null;
+                }
+            }
+        }
+        refreshCentral();
     }
 
     private void startGame() {
@@ -252,6 +370,19 @@ public class TestGameController {
         }
     }
 
+    private void checkSpellBook() {
+        if (this.game.getRound().getCurrentPlayer().getSpellBook().size() <= 0) {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setHeaderText("You have no spells in your spell book!");
+            a.setContentText("You dont have any spells to play");
+            a.showAndWait();
+            checkMovement();
+        } else {
+            playAction.setVisible(true);
+        }
+        checkMovement();
+    }
+
     private void changePlayers() {
         /*
         Player [] players = this.game.getPlayers();
@@ -274,8 +405,10 @@ public class TestGameController {
         for (int i = 0; i < tiles.size(); i++) {
             tileArr[0] = tiles.get(i);
             try {
-                Image image1 = new Image(new FileInputStream(DIRECTORY + "Final/" + tiles.get(i).getEffect() + ".png"));
+                Image image1 = new Image(new FileInputStream(DIRECTORY + "Final/ActionCards/" + tiles.get(i).getEffect() + ".png"));
                 ImageView imageView = new ImageView(image1);
+                imageView.setFitHeight(WIDTH_OF_TILE_IMAGE);
+                imageView.setFitWidth(WIDTH_OF_TILE_IMAGE);
                 imageView.setPickOnBounds(true);
                 imageView.setOnMouseClicked(e -> {
                     handleSpell(tileArr[0]);
@@ -288,51 +421,9 @@ public class TestGameController {
         }
     }
 
-    private void handleSpell(ActionTile t) {
-        if (t.getTurnDrawn() >= this.game.getRound().getTurnCounter()) {
-            Alert a = new Alert(Alert.AlertType.WARNING);
-            a.setHeaderText("Spell Cast!");
-            a.setContentText("You cannot cast this spell just yet");
-            a.showAndWait();
-        } else {
-            if ("BACKTRACK".equals(t.getEffect())) {
-                String[] players = new String[this.game.getPlayers().length];
-                Player p = new Player("", 0, 0);
-                for (int i = 0; i < this.game.getPlayers().length; i++) {
-                    players[i] = this.game.getPlayers()[i].getUsername();
-                }
-                ChoiceDialog cd = new ChoiceDialog(players[0], players);
-                cd.setHeaderText("Pick a player!");
-                cd.setContentText("Pick a player to cast your spell");
-                cd.showAndWait();
-                for (int i = 0; i < players.length; i++) {
-                    if (players[i] == cd.getSelectedItem()) {
-                        p = this.game.getPlayers()[i];
-                    }
-                }
-                this.game.getRound().playMoveTile(t, p);
-            } else if ("DOUBLEMOVE".equals(t.getEffect())) {
-                //need to allow player to move twice
-                //show buttons twice?
-            } else if ("FIRE".equals(t.getEffect()) || "ICE".equals(t.getEffect())) {
-                if ( centreCoord == null) {
-                    Alert a = new Alert(Alert.AlertType.WARNING);
-                    a.setHeaderText("Pick the center tile");
-                    a.setContentText("You cannot cast this spell without\npicking a tile");
-                    a.showAndWait();
-                } else {
-                    this.game.getRound().playEffectTile(t, centreCoord);
-                    centreCoord = null;
-                }
-            }
-        }
-        refreshSpellBook();
-        refreshCentral();
-    }
-
     private void showDrawnTile() {
         try {
-            Image image1 = new Image(new FileInputStream(DIRECTORY + "Final/" + this.tile.getType() + ".png"));
+            Image image1 = new Image(new FileInputStream(DIRECTORY + "Final/FloorTiles/" + this.tile.getType() + ".png"));
             ImageView imageView = new ImageView(image1);
             drawnTile.getChildren().add(imageView);
             rotate.setOnAction(e -> {
@@ -393,8 +484,10 @@ public class TestGameController {
 
     private void changeLocation(int player, int[] location) {
         try {
-            Image image1 = new Image(new FileInputStream(DIRECTORY + "PLAYER" + player + ".png"));
+            Image image1 = new Image(new FileInputStream(DIRECTORY + "Final/PlaceHolders/Player_" + player + ".png"));
             ImageView imageView = new ImageView(image1);
+            imageView.setFitHeight(WIDTH_OF_PLAYER_IMAGE);
+            imageView.setFitWidth(WIDTH_OF_PLAYER_IMAGE);
             //imageView.setX(WIDTH_OF_PLAYER_IMAGE);
             //imageView.setAlignment(Pos.CENTER);
             //central.getChildren().add(imageView);
@@ -412,26 +505,44 @@ public class TestGameController {
     private void refreshBoard() {
         central.getChildren().clear();
         FloorTile[][] tileMap = this.game.getBoard().getTileMap();
+        Image image = null;
+        ImageView imageView;
 
         try {
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
-                    Image image1 = new Image(new FileInputStream(DIRECTORY + "Final/" + tileMap[j][i].getType() + ".png"));
-                    ImageView imageView = new ImageView(image1);
+                    if (tileMap[j][i].isFrozen() && tileMap[j][i].isFixed()) {
+                        image = new Image(new FileInputStream(DIRECTORY + "Final/IceTiles/" + tileMap[j][i].getType() + "_FIXED.png"));
+                        imageView = new ImageView(image);
+                    } else if (tileMap[j][i].isEngulfed()) {
+                        //image = new Image(new FileInputStream(DIRECTORY + "Final/FireTiles/" + tileMap[j][i].getType() + ".png"));
+                        image = new Image(new FileInputStream(DIRECTORY + "Final/FloorTiles/" + tileMap[j][i].getType() + ".png"));
+                        imageView = new ImageView(image);
+                        ColorAdjust ca = new ColorAdjust();
+                        ca.setHue(-0.5);
+                        imageView.setEffect(ca);
+                    } else if (tileMap[j][i].isFrozen()) {
+                        image = new Image(new FileInputStream(DIRECTORY + "Final/IceTiles/" + tileMap[j][i].getType() + ".png"));
+                        imageView = new ImageView(image);
+                    } else if (tileMap[j][i].isFixed()) {
+                        image = new Image(new FileInputStream(DIRECTORY + "Final/FixedTiles/" + tileMap[j][i].getType() + ".png"));
+                        imageView = new ImageView(image);
+                    } else {
+                        image = new Image(new FileInputStream(DIRECTORY + "Final/FloorTiles/" + tileMap[j][i].getType() + ".png"));
+                        imageView = new ImageView(image);
+                    }
+                    
                     imageView.setRotate(90 * tileMap[j][i].getRotation());
-                    if (tileMap[j][i].isEngulfed()) {
-                        ColorAdjust colorAdjust = new ColorAdjust();
-                        colorAdjust.setHue(-0.5);
-                        imageView.setEffect(colorAdjust);
-                    }
-                    if (tileMap[j][i].isFrozen()) {
-                        ColorAdjust colorAdjust = new ColorAdjust();
-                        colorAdjust.setHue(0.5);
-                        imageView.setEffect(colorAdjust);
-                    }
-                    int [] arr = {j,i};
+                    int[] arr = {j, i};
                     imageView.setOnMouseClicked(e -> {
                         centreCoord = arr;
+                        if (selectedTile != null) {
+                            this.game.getRound().playEffectTile(selectedTile, arr);
+                            this.selectedTile = null;
+                            this.spells.getChildren().clear();
+                            refreshCentral();
+                            playAction.setVisible(false);
+                        }
                     });
                     central.add(imageView, (j + 1), (i + 1));
                 }
@@ -457,7 +568,7 @@ public class TestGameController {
                     if (this.tile != null) {
                         insertTile(this.tile, true, ordinal.get(), false);
                     }
-                    checkMovement();
+                    checkSpellBook();
                 });
                 Button bRow2 = new Button();
                 bRow2.setText("<");
@@ -465,7 +576,7 @@ public class TestGameController {
                     if (this.tile != null) {
                         insertTile(this.tile, true, ordinal.get(), true);
                     }
-                    checkMovement();
+                    checkSpellBook();
                 });
                 central.add(bRow, 0, (i + 1));
                 central.add(bRow2, (width + 1), (i + 1));
@@ -483,7 +594,7 @@ public class TestGameController {
                     if (this.tile != null) {
                         insertTile(this.tile, false, ordinal.get(), false);
                     }
-                    checkMovement();
+                    checkSpellBook();
                 });
                 Button bCol2 = new Button();
                 bCol2.setText("^");
@@ -491,7 +602,7 @@ public class TestGameController {
                     if (this.tile != null) {
                         insertTile(this.tile, false, ordinal.get(), true);
                     }
-                    checkMovement();
+                    checkSpellBook();
                 });
                 central.add(bCol, (i + 1), 0);
                 central.add(bCol2, (i + 1), (height + 1));
