@@ -62,7 +62,7 @@ public class Player {
      * Gets how many games won
      * @return gamesWon
      */
-    public int getWon() {
+    public int getGamesWon() {
         return gamesWon;
     }
 
@@ -77,7 +77,7 @@ public class Player {
      * Gets how many games lost
      * @return gamesLost
      */
-    public int getLost() {
+    public int getGamesLost() {
         return gamesLost;
     }
 

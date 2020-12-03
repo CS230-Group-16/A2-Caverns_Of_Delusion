@@ -53,7 +53,7 @@ public class Leaderboard {
     	try {
     		FileWriter LeaderboardFile = new FileWriter("LeaderboardFile.txt", true);
 			for (int i = 0; i < player.size(); i++) {
-				LeaderboardFile.write(player.get(i).getUsername() + " " + player.get(i).getWon() + " " + player.get(i).getGamesPlayed()+ "\n");
+				LeaderboardFile.write(player.get(i).getUsername() + " " + player.get(i).getGamesWon() + " " + player.get(i).getGamesPlayed()+ "\n");
 				LeaderboardFile.close();
 		        System.out.println("Player added to the leaderboard");
 			}
@@ -69,7 +69,7 @@ public class Leaderboard {
         Collections.sort(player, new Comparator<Player>() {
             @Override
             public int compare(Player p1, Player p2) {
-                return p1.getWon() > p2.getWon() ? -1 : 1;
+                return p1.getGamesWon() > p2.getGamesWon() ? -1 : 1;
             }
         });
     }
