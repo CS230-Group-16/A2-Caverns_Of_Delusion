@@ -33,7 +33,9 @@ public class mainMenu extends Application{
         }
     }
 
-
+    public static void main(String [] args) {
+        launch(args);
+    }
 
     @FXML
     private Label msgOfTheDay;
