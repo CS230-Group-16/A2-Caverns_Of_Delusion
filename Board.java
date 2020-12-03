@@ -54,6 +54,7 @@ public class Board {
         this.tileMap = new FloorTile[width][height];
         for (int i = 0; i < fixedTiles.length; i++) {
             placeTile(fixedTiles[i],tileLocation[i]);
+            fixedTiles[i].setFixed(true);
         }
         this.silkBag = silkBag;
         fillBoard(randTiles);
