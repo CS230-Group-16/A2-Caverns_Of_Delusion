@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -34,6 +36,7 @@ public class Leaderboard {
 				} catch (Exception e) {
 					System.out.println("Cannot open " + input.next() + ".txt");
 				}
+            input.close();
             }
         } catch (FileNotFoundException e) {
             System.out.println("Cannot open " + locationFile);
@@ -66,8 +69,16 @@ public class Leaderboard {
      * Updates the file
      */
     public void updateFile() {
-    	//delete current leaderboard file
-        //rewrite it with current arraylist
+    	FileReader.deleteFile("LeaderboardFile.txt");   	
+    	try {
+    		FileWriter LeaderboardFile = new FileWriter("LeaderboardFile.txt", true);
+			for (int i = 0; i < player.size(); i++) {
+				LeaderboardFile.write(player.get(i).getUsername() + " " + player.get(i).getWon() + " " + player.get(i).getGamesPlayed()+ "\n");
+				LeaderboardFile.close();
+		        System.out.println("File successfully updated");
+			}
+		} catch (IOException e) {
+			System.out.println("The file was unable to upated");
+		}    	
     }
-
 }

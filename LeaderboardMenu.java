@@ -44,9 +44,9 @@ public class LeaderboardMenu extends Application {
         score.setMinWidth(100);
         score.setCellValueFactory(new PropertyValueFactory<Player, String>("gamesWon"));
 
-        TableColumn gamesLost = new TableColumn("Games Lost");
-        gamesLost.setMinWidth(200);
-        gamesLost.setCellValueFactory(new PropertyValueFactory<Player, String>("gamesLost"));
+        TableColumn gamesPlayed = new TableColumn("Games Played");
+        gamesPlayed.setMinWidth(200);
+        gamesPlayed.setCellValueFactory(new PropertyValueFactory<Player, String>("gamesPlayed"));
 
         table.setItems(data);
         table.getColumns().addAll(username, score, gamesLost);

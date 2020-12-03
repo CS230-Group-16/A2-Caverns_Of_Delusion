@@ -14,6 +14,7 @@ public class Player {
     private String username;
     private int gamesWon;
     private int gamesLost;
+    private int gamesPlayed;
     private int playerNum;
     private int[][] path = {{-1,-1},{-1,-1}};
     private boolean backtrackUsed;
@@ -30,6 +31,7 @@ public class Player {
         this.username = username;
         this.gamesWon = gamesWon;
         this.gamesLost = gamesLost;
+        this.gamesPlayed = gamesPlayed;
     }
 
     /**
