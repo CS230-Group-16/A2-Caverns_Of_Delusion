@@ -36,7 +36,7 @@ public class Leaderboard {
 				} catch (Exception e) {
 					System.out.println("Cannot open " + input.next() + ".txt");
 				}
-            input.close();
+           input.close();
             }
         } catch (FileNotFoundException e) {
             System.out.println("Cannot open " + locationFile);
@@ -48,9 +48,18 @@ public class Leaderboard {
      * @param player the player's profile
      * @param score the player's score
      */
-    public void insertScore(Player player, int score) { 
-    	//insert to arraylist
-        //sort
+    public void insertScore() { 
+    	sort();
+    	try {
+    		FileWriter LeaderboardFile = new FileWriter("LeaderboardFile.txt", true);
+			for (int i = 0; i < player.size(); i++) {
+				LeaderboardFile.write(player.get(i).getUsername() + " " + player.get(i).getWon() + " " + player.get(i).getGamesPlayed()+ "\n");
+				LeaderboardFile.close();
+		        System.out.println("Player added to the leaderboard");
+			}
+		} catch (IOException e) {
+			System.out.println("Player could not be added to the leaderboard");
+		}
     }
 
     /**
@@ -69,16 +78,7 @@ public class Leaderboard {
      * Updates the file
      */
     public void updateFile() {
-    	FileReader.deleteFile("LeaderboardFile.txt");   	
-    	try {
-    		FileWriter LeaderboardFile = new FileWriter("LeaderboardFile.txt", true);
-			for (int i = 0; i < player.size(); i++) {
-				LeaderboardFile.write(player.get(i).getUsername() + " " + player.get(i).getWon() + " " + player.get(i).getGamesPlayed()+ "\n");
-				LeaderboardFile.close();
-		        System.out.println("File successfully updated");
-			}
-		} catch (IOException e) {
-			System.out.println("The file was unable to upated");
-		}    	
+    	FileReader.deleteFile("LeaderboardFile.txt");
+    	insertScore();
     }
 }
