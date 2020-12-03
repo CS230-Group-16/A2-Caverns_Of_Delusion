@@ -9,6 +9,7 @@ abstract class FloorTile extends Tile {
     private boolean frozen;
     private boolean engulfed;
     private boolean occupied;
+    private boolean fixed;
     private String tileType;
     private int rotation;
     private int [] pathways;
@@ -100,6 +101,13 @@ abstract class FloorTile extends Tile {
      */
     public void setPathways(int [] path){
         this.pathways = path;
+    }
+    
+    public void setFixed(boolean set){
+        this.fixed = set;
+    }
+    public boolean isFixed(){
+        return this.fixed;
     }
     /**
      * Method to print FloorTile to string for testing
