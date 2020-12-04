@@ -3,6 +3,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 /**
@@ -13,6 +15,8 @@ import java.util.Arrays;
  */
 public class Game {
 
+    private static final SimpleDateFormat sdfH = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
     private boolean gameInProgress;
     private final String LEADERBOARD_FILE = "leaderboard.txt";
 
@@ -274,6 +278,8 @@ public class Game {
      * save game to text file
      */
     public void saveGame(){
-        
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String filename = "SavedGame" + sdf.format(timestamp) + ".txt";
+        FileReader.writeFile(filename, this.toText());
     }
 }

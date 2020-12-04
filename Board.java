@@ -1,4 +1,6 @@
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -10,6 +12,9 @@ import java.util.Random;
  */
 public class Board {
 
+    private static final SimpleDateFormat sdfH = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+    
     private static int[] player1Location;
     private static int[] player2Location;
     private static int[] player3Location;
@@ -458,5 +463,11 @@ public class Board {
 
         
         return result;
+    }
+    
+    public void saveBoard(){
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String filename = "SavedBoard" + sdf.format(timestamp) + ".txt";
+        FileReader.writeFile(filename, this.toText());
     }
 }
