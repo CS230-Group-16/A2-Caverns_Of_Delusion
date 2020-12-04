@@ -19,8 +19,8 @@ public class CornerTile extends FloorTile {
         this.generatePathways(rotation);
     }
 
-    public CornerTile(String type, boolean frozen, boolean engulfed, boolean fixed, boolean occupied,int rotation){
-        super(type,frozen,engulfed,fixed,occupied,rotation);
+    public CornerTile(boolean frozen, boolean engulfed, boolean fixed, boolean occupied,int rotation){
+        super("CORNER",frozen,engulfed,fixed,occupied,rotation);
         this.rotation = rotation;
     }
     /**

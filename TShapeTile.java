@@ -18,8 +18,8 @@ public class TShapeTile extends FloorTile {
         this.generatePathways(rotation);
     }
 
-    public TShapeTile(String type, boolean frozen, boolean engulfed, boolean fixed, boolean occupied,int rotation){
-        super(type,frozen,engulfed,fixed,occupied,rotation);
+    public TShapeTile(boolean frozen, boolean engulfed, boolean fixed, boolean occupied,int rotation){
+        super("TSHAPE",frozen,engulfed,fixed,occupied,rotation);
         this.rotation = rotation;
     }
     /**

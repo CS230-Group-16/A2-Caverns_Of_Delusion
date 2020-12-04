@@ -17,8 +17,8 @@ public class StraightTile extends FloorTile {
         this.generatePathways(rotation);
     }
 
-    public StraightTile(String type, boolean frozen, boolean engulfed, boolean fixed, boolean occupied,int rotation){
-        super(type,frozen,engulfed,fixed,occupied,rotation);
+    public StraightTile(boolean frozen, boolean engulfed, boolean fixed, boolean occupied,int rotation){
+        super("STRAIGHT",frozen,engulfed,fixed,occupied,rotation);
         this.rotation = rotation;
     }
     /**
