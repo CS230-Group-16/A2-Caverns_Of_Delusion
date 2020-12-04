@@ -311,7 +311,7 @@ public class Board {
         
         if (playerLocation[0] <= 0) {
             eastPath = getTileAt((playerLocation[0]+1),playerLocation[1]).getPathways();
-        } else if (playerLocation[1] >= (this.width-1)) {
+        } else if (playerLocation[0] >= (this.width-1)) {
             westPath = getTileAt((playerLocation[0]-1),playerLocation[1]).getPathways();
         } else {
             eastPath = getTileAt((playerLocation[0]+1),playerLocation[1]).getPathways();
