@@ -166,8 +166,6 @@ public class ProfileEdit extends Application {
                 //fills the GUI with information for the profile selected
                 String user = item1.getText() + ".txt";
                 location = fileNames.indexOf(user);
-                System.out.println(fileNames);
-                System.out.println(menuButton.getItems());
                 int gamesPlayed = readGamesLost(user) + readGamesWon(user);
                 gamesPlayedLbl.setText("games played: " + gamesPlayed);
                 gamesWonLbl.setText("games won: " + readGamesWon(user));
@@ -176,6 +174,7 @@ public class ProfileEdit extends Application {
                 deleteBtn.setVisible(true);
                 updateUserBtn.setVisible(true);
             });
+            menuButton.getItems().add(item1);
 
             //when the delete button is clicked, the profile currently selected will be deleted
             deleteBtn.setOnAction(e -> {
@@ -199,7 +198,7 @@ public class ProfileEdit extends Application {
                 //creates a new player from the profile file and then updates it with the new name
                 Player player = new Player(user, readGamesWon(fileNames.get(location)), readGamesLost(fileNames.get(location)));
                 player.updateUsername(usernameTxtbox.getText());
-                //makes a new File object from the new name and it replaces the old one
+                //makes a new File object from the new name and renames the old file to the new one
                 File newName = new File(usernameTxtbox.getText() + ".txt");
                 MenuItem item2 = new MenuItem(usernameTxtbox.getText());
                 //tells the user if the username updated or failed
@@ -209,12 +208,19 @@ public class ProfileEdit extends Application {
                     System.out.println("Failed to rename user");
                 }
                 //updates the menubutton and filenames list
-                menuButton.getItems().set(location, item2 );
+                menuButton.getItems().set(location, item2);
                 fileNames.set(location, usernameTxtbox.getText() + ".txt");
-                refresh();
+
+                //fixes bug where user couldnt click go back on the profile after updating username
+                item2.setOnAction(event -> {
+                    String updatedUser = item2.getText() + ".txt";
+                    int gamesPlayed = readGamesLost(updatedUser) + readGamesWon(updatedUser);
+                    gamesPlayedLbl.setText("games played: " + gamesPlayed);
+                    gamesWonLbl.setText("games won: " + readGamesWon(updatedUser));
+                    gamesLostLbl.setText("games lost: " + readGamesLost(updatedUser));
+                    usernameTxtbox.setText(updatedUser.substring(0, updatedUser.length() - 4));
+                });
             });
-            //adds the item to the menubutton
-            menuButton.getItems().add(item1);
         }
         return menuButton;
     }
