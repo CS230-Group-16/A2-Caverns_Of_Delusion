@@ -88,6 +88,10 @@ public class Board {
     public void setSilkBag(SilkBag silkBag){
         this.silkBag = silkBag;
     }
+    
+    public int[] getGoalLocation() {
+        return this.goal;
+    }
 
     /*
 	 * gets the player's location on gameboard

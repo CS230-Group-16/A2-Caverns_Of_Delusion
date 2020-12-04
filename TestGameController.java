@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
@@ -50,7 +51,7 @@ public class TestGameController {
     private final int WIDTH_OF_TILE_IMAGE = 80;
     private final int HEIGHT_OF_TILE_IMAGE = 80;
     private final int WIDTH_OF_PLAYER_IMAGE = 35;
-    private final String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/images/";
+    private final String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/images/";
 
     @FXML
     Button draw;
@@ -168,6 +169,7 @@ public class TestGameController {
                 endTurn.setVisible(true);
                 refreshCentral();
                 playAction.setVisible(false);
+                reachedGoal(this.game.getRound().getCurrentPlayer());
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setHeaderText("You can't move through that!");
@@ -187,6 +189,7 @@ public class TestGameController {
                 endTurn.setVisible(true);
                 refreshCentral();
                 playAction.setVisible(false);
+                reachedGoal(this.game.getRound().getCurrentPlayer());
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setHeaderText("You can't move through that!");
@@ -206,6 +209,7 @@ public class TestGameController {
                 endTurn.setVisible(true);
                 refreshCentral();
                 playAction.setVisible(false);
+                reachedGoal(this.game.getRound().getCurrentPlayer());
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setHeaderText("You can't move through that!");
@@ -225,6 +229,7 @@ public class TestGameController {
                 endTurn.setVisible(true);
                 refreshCentral();
                 playAction.setVisible(false);
+                reachedGoal(this.game.getRound().getCurrentPlayer());
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setHeaderText("You can't move through that!");
@@ -319,6 +324,27 @@ public class TestGameController {
         turn.setText(String.valueOf(this.game.getRound().getTurnCounter()));
     }
 
+    private void reachedGoal(Player current) {
+        int[] location = this.game.getBoard().getPlayerLocation(current.getPlayerNum());
+        int[] goal = this.game.getBoard().getGoalLocation();
+        System.out.println(Arrays.toString(location));
+        System.out.println(Arrays.toString(goal));
+        if (location[0] == goal[0] && location[1] == goal[1]) {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setHeaderText("A Player Has Reached The Goal!");
+            a.setContentText(current.getUsername() + " has won the game");
+            a.showAndWait();
+            draw.setVisible(false);
+            endTurn.setVisible(false);
+            rotate.setVisible(false);
+            playAction.setVisible(false);
+            setMoveButtons(false);
+            drawnType.setText("");
+            drawnTile.getChildren().clear();
+            spells.getChildren().clear();
+            //go to main menu
+        }
+    }
     private void setMoveButtons(boolean set) {
         up.setVisible(set);
         down.setVisible(set);
