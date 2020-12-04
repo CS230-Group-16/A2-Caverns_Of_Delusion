@@ -153,6 +153,8 @@ public class TestGameController {
             this.tile = null;
             draw.setVisible(true);
             endTurn.setVisible(false);
+            spells.getChildren().clear();
+            playAction.setVisible(false);
         });
 
         up.setOnAction(e -> {
@@ -165,6 +167,7 @@ public class TestGameController {
                 setMoveButtons(false);
                 endTurn.setVisible(true);
                 refreshCentral();
+                playAction.setVisible(false);
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setHeaderText("You can't move through that!");
@@ -183,6 +186,7 @@ public class TestGameController {
                 setMoveButtons(false);
                 endTurn.setVisible(true);
                 refreshCentral();
+                playAction.setVisible(false);
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setHeaderText("You can't move through that!");
@@ -201,6 +205,7 @@ public class TestGameController {
                 setMoveButtons(false);
                 endTurn.setVisible(true);
                 refreshCentral();
+                playAction.setVisible(false);
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setHeaderText("You can't move through that!");
@@ -219,6 +224,7 @@ public class TestGameController {
                 setMoveButtons(false);
                 endTurn.setVisible(true);
                 refreshCentral();
+                playAction.setVisible(false);
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setHeaderText("You can't move through that!");
@@ -302,53 +308,10 @@ public class TestGameController {
 
             //either pick tile or pick player depending on tile type
             //playActionTile
-            //clear spellbook
+            this.spells.getChildren().clear();
             checkMovement();
         });
 
-    }
-
-    private void handleSpell(ActionTile t) {
-        if (t.getTurnDrawn() >= this.game.getRound().getTurnCounter()) {
-            Alert a = new Alert(Alert.AlertType.WARNING);
-            a.setHeaderText("Spell Cast!");
-            a.setContentText("You cannot cast this spell just yet");
-            a.showAndWait();
-        } else {
-            if ("BACKTRACK".equals(t.getEffect())) {
-                String[] players = new String[this.game.getPlayers().length];
-                Player p = new Player("", 0, 0);
-                for (int i = 0; i < this.game.getPlayers().length; i++) {
-                    players[i] = this.game.getPlayers()[i].getUsername();
-                }
-                ChoiceDialog cd = new ChoiceDialog(players[0], players);
-                cd.getDialogPane().lookupButton(ButtonType.CANCEL).setVisible(false);
-                cd.setHeaderText("Pick a player!");
-                cd.setContentText("Pick a player to cast your spell");
-                cd.showAndWait();
-                for (int i = 0; i < players.length; i++) {
-                    if (players[i] == cd.getSelectedItem()) {
-                        p = this.game.getPlayers()[i];
-                        this.game.getRound().playMoveTile(t, p);
-                    }
-                }
-
-            } else if ("DOUBLEMOVE".equals(t.getEffect())) {
-                //need to allow player to move twice
-                //show buttons twice?
-            } else if ("FIRE".equals(t.getEffect()) || "ICE".equals(t.getEffect())) {
-                if (centreCoord == null) {
-                    Alert a = new Alert(Alert.AlertType.WARNING);
-                    a.setHeaderText("Pick the center tile");
-                    a.setContentText("You cannot cast this spell without\npicking a tile");
-                    a.showAndWait();
-                } else {
-                    this.game.getRound().playEffectTile(t, centreCoord);
-                    centreCoord = null;
-                }
-            }
-        }
-        refreshCentral();
     }
 
     private void startGame() {
@@ -383,7 +346,6 @@ public class TestGameController {
             a.setHeaderText("You have no spells in your spell book!");
             a.setContentText("You dont have any spells to play");
             a.showAndWait();
-            checkMovement();
         } else {
             playAction.setVisible(true);
         }
@@ -416,10 +378,6 @@ public class TestGameController {
                 ImageView imageView = new ImageView(image1);
                 imageView.setFitHeight(WIDTH_OF_TILE_IMAGE);
                 imageView.setFitWidth(WIDTH_OF_TILE_IMAGE);
-                imageView.setPickOnBounds(true);
-                imageView.setOnMouseClicked(e -> {
-                    handleSpell(tileArr[0]);
-                });
                 spells.getChildren().add(imageView);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -573,16 +531,17 @@ public class TestGameController {
                 bRow.setOnAction(e -> {
                     if (this.tile != null) {
                         insertTile(this.tile, true, ordinal.get(), false);
+                        checkSpellBook();
                     }
-                    checkSpellBook();
                 });
                 Button bRow2 = new Button();
                 bRow2.setText("<");
                 bRow2.setOnAction(e -> {
                     if (this.tile != null) {
                         insertTile(this.tile, true, ordinal.get(), true);
+                        checkSpellBook();
                     }
-                    checkSpellBook();
+                    
                 });
                 central.add(bRow, 0, (i + 1));
                 central.add(bRow2, (width + 1), (i + 1));
@@ -599,16 +558,18 @@ public class TestGameController {
                 bCol.setOnAction(e -> {
                     if (this.tile != null) {
                         insertTile(this.tile, false, ordinal.get(), false);
+                        checkSpellBook();
                     }
-                    checkSpellBook();
+                    
                 });
                 Button bCol2 = new Button();
                 bCol2.setText("^");
                 bCol2.setOnAction(e -> {
                     if (this.tile != null) {
                         insertTile(this.tile, false, ordinal.get(), true);
+                        checkSpellBook();
                     }
-                    checkSpellBook();
+                    
                 });
                 central.add(bCol, (i + 1), 0);
                 central.add(bCol2, (i + 1), (height + 1));
@@ -623,7 +584,6 @@ public class TestGameController {
         drawnTile.getChildren().clear();
         drawnType.setText("");
         refreshCentral();
-        checkSpellBook();
         this.tile = null;
     }
 

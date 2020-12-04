@@ -75,12 +75,12 @@ public class Main extends Application {
         
         g.saveGame();
         
-        System.out.println(g.toText());
-        System.out.println(g.getBoard().toText());
+        //System.out.println(g.toText());
+        //System.out.println(g.getBoard().toText());
         
         Game g2 = new Game("SavedBoard2020.12.04.txt","SavedGame2020.12.04.txt");
-        System.out.println(g2.toText());
-        System.out.println(g2.getBoard().toText());
+        //System.out.println(g2.toText());
+        //System.out.println(g2.getBoard().toText());
         //g2.getBoard().toStr();
         //g.getBoard().toStr();
         //g.getBoard().insertTile(new StraightTile(1), false, 1, false);
@@ -105,6 +105,6 @@ public class Main extends Application {
 
 
 
-        //launch(args);
+        launch(args);
     }
 }
