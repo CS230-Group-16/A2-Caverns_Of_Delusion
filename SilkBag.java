@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -25,6 +26,7 @@ public class SilkBag {
             }
         }
         this.numOfTiles = this.tileList.size();
+        Collections.shuffle(tileList); 
     }
     
     public SilkBag (ArrayList<Tile> bag){
