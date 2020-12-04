@@ -1,22 +1,19 @@
-/*
+/**
  * class represents the abstract class of tile, cannot be
  * instantiated.
  * @author Cameron McDonagh & Maciej Buczkowski
  * @version 1.2
  */
 
-abstract class Tile {
-    /* The 'type; attribute is protected, meaning that it
-     * can only be access within the package, or by any
-     * subclasses */
-    protected final String type;
+public abstract class Tile {
+    
+    protected final String type; // type of tile
 
     /**
      * Constructor used to the Tile class
-     *
      * @param type the type of the current tile.
      */
-    public Tile (String type){
+    public Tile(String type){
         this.type = type;
     }
 
@@ -31,7 +28,7 @@ abstract class Tile {
     /**
      * Prints the tile to screen
      */
-    public void toStr(){
+    public void toStr() {
         System.out.println("Type:" + this.type);
     }
 }

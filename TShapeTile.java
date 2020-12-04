@@ -1,4 +1,4 @@
-/*
+/**
  * class represents the floor tile of type 'T-Shape'
  * @author Cameron McDonagh & Maciej Buczkowski
  * @version 1.2
@@ -10,7 +10,6 @@ public class TShapeTile extends FloorTile {
 
     /**
      * Constructor used to make a T-Shape tile
-     *
      * @param rotation the rotation/orientation of the tile
      */
     public TShapeTile(int rotation) {
@@ -21,7 +20,6 @@ public class TShapeTile extends FloorTile {
 
     /**
      * Generates an int array (of length 4) that represents the pathways of the tile, the array represents the following [North, East, South, West]. '1' represents a path in that direction whereas '0' is a lack of a path.
-     *
      * @param rotation - generates the pathways based on the rotation (orientation) of the tile
      */
     public void generatePathways(int rotation) {
@@ -57,7 +55,6 @@ public class TShapeTile extends FloorTile {
 
     /**
      * returns the pathways array of the current tile, showing valid and invalid paths
-     *
      * @return pathways - the pathways array of the tile
      */
     public int[] getPathways() {
@@ -66,7 +63,6 @@ public class TShapeTile extends FloorTile {
 
     /**
      * change rotation by user when inserted
-     *
      * @param rotation new rotation of tile
      */
     public void setRotation(int rotation) {

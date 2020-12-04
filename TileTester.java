@@ -1,4 +1,4 @@
-/*
+/**
 Added this file to easily test tiles without needing a main
 method in each class to test
 */

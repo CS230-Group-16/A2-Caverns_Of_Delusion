@@ -1,4 +1,4 @@
-/*
+/**
  * class represents the floor tile of type Corner
  * @author Cameron McDonagh & Maciej Buczkowski
  * @version 1.6
@@ -9,7 +9,6 @@ public class StraightTile extends FloorTile {
 
     /**
      * Constructor used to make a straight tile
-     *
      * @param rotation/orientation of the tile
      */
     public StraightTile(int rotation) {
@@ -20,7 +19,6 @@ public class StraightTile extends FloorTile {
 
     /**
      * Generates an int array (of length 4) that represents the pathways of the tile, the array represents the following [North, East, South, West]. '1' represents a path in that direction whereas '0' is a lack of a path.
-     *
      * @param rotation - generates the pathways based on the rotation (orientation) of the tile
      */
     public void generatePathways(int rotation) {
@@ -56,27 +54,19 @@ public class StraightTile extends FloorTile {
 
     /**
      * returns the pathways array of the current tile, showing valid and invalid paths
-     *
      * @return pathways - the pathways array of the tile
      */
     public int[] getPathways() {
         return super.getPathways();
     }
 
-    /*
-		 * gets rotation of tile
-		 * @return rotation rotation of tile - integer form
-     */
-    
-
-    /**
+   /**
      * change rotation by user when inserted
-     *
      * @param rotation new rotation of tile
      */
     public void setRotation(int rotation) {
-        super.setRotation(rotation);
-        this.rotation = rotation;
-        this.generatePathways(rotation);
+    	super.setRotation(rotation);
+    	this.rotation = rotation;
+    	this.generatePathways(rotation);
     }
 }
