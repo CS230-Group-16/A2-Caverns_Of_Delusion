@@ -327,8 +327,6 @@ public class TestGameController {
     private void reachedGoal(Player current) {
         int[] location = this.game.getBoard().getPlayerLocation(current.getPlayerNum());
         int[] goal = this.game.getBoard().getGoalLocation();
-        System.out.println(Arrays.toString(location));
-        System.out.println(Arrays.toString(goal));
         if (location[0] == goal[0] && location[1] == goal[1]) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setHeaderText("A Player Has Reached The Goal!");
