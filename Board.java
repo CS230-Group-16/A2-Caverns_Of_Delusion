@@ -25,6 +25,7 @@ public class Board {
     private SilkBag silkBag;
     private boolean[] blockedRow;
     private boolean[] blockedColumn;
+    private int [] goal;
 
     /*
 	 * Create a gameboard with every players' location, 
@@ -58,15 +59,16 @@ public class Board {
         blockRowColumn(tileLocation);
         this.tileMap = new FloorTile[width][height];
         for (int i = 0; i < fixedTiles.length; i++) {
-            placeTile(fixedTiles[i],tileLocation[i]);
             fixedTiles[i].setFixed(true);
+            placeTile(fixedTiles[i],tileLocation[i]);
         }
         this.silkBag = silkBag;
         fillBoard(randTiles);
+        this.goal = tileLocation[0];
     }
     
     public Board(int[]p1Loc,int[]p2Loc,int[]p3Loc,int[]p4Loc,int width, int height, FloorTile[][] tileMap,
-            boolean [] blockRow, boolean [] blockColumn){
+            boolean [] blockRow, boolean [] blockColumn, int [] goal){
         this.player1Location = p1Loc;
         this.player2Location = p2Loc;
         this.player3Location = p3Loc;
@@ -76,6 +78,7 @@ public class Board {
         this.tileMap = tileMap;
         this.blockedRow = blockRow;
         this.blockedColumn = blockColumn;
+        this.goal = goal;
     }
     
     /**

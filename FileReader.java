@@ -515,6 +515,7 @@ public class FileReader {
         boolean fixed;
         boolean occupied;
         int rotation;
+        int [] goal = new int[2];
 
         //remove magic numbers
         tileMap = new FloorTile[width][height];
@@ -560,8 +561,10 @@ public class FileReader {
                 occupied = !"false".equals(tempArr[6]);
                 rotation = Integer.parseInt(tempArr[7]);
                 tileMap[x][y] = new GoalTile(frozen, engulfed, fixed, occupied, rotation);
+                goal[0] = x;
+                goal[1] = y;
             }
         }
-        return new Board(p1Loc, p2Loc, p3Loc, p4Loc, width, height, tileMap, blockRow, blockColumn);
+        return new Board(p1Loc, p2Loc, p3Loc, p4Loc, width, height, tileMap, blockRow, blockColumn,goal);
     }
 }
