@@ -76,8 +76,6 @@ public class Main extends Application {
         System.out.println(g.toText());
         System.out.println(g.getBoard().toText());
         
-        g.saveGame();
-        g.getBoard().saveBoard();
         //g.getBoard().toStr();
         //g.getBoard().insertTile(new StraightTile(1), false, 1, false);
         //g.getBoard().toStr();

@@ -447,11 +447,19 @@ public class Board {
                 + String.valueOf(this.player4Location[0]) + "," + String.valueOf(this.player4Location[1]) + "\n";
         
         for (int i = 0; i < this.blockedRow.length; i++) {
-            result += this.blockedRow[i] + ",";
+            if (i == 0) {
+                result += this.blockedRow[i];
+            } else {
+                result += "," + this.blockedRow[i];
+            }
         }
         result += "\n";
         for (int i = 0; i < this.blockedColumn.length; i++) {
-            result += this.blockedColumn[i] + ",";
+            if (i == 0) {
+                result += this.blockedColumn[i];
+            } else {
+                result += "," + this.blockedColumn[i];
+            }
         }
         result += "\n";
         

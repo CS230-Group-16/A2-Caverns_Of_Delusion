@@ -337,4 +337,63 @@ public class FileReader {
             e.printStackTrace();
         }
     }
+    
+    public void readSavedBoardFile(String filename){
+        Scanner in = readFile(filename);
+        String temp;
+        String [] tempArr;
+        int width;
+        int height;
+        int [] p1Loc = {-1,-1};
+        int [] p2Loc = {-1,-1};
+        int [] p3Loc = {-1,-1};
+        int [] p4Loc = {-1,-1};
+        boolean [] blockRow;
+        boolean [] blockColumn;
+        
+        temp = in.nextLine();
+        tempArr = temp.split(",");
+        width = Integer.parseInt(tempArr[0]);
+        height = Integer.parseInt(tempArr[1]);
+        
+        temp = in.nextLine();
+        tempArr = temp.split(",");
+        p1Loc[0] = Integer.parseInt(tempArr[0]);
+        p1Loc[1] = Integer.parseInt(tempArr[1]);
+        temp = in.nextLine();
+        tempArr = temp.split(",");
+        p2Loc[0] = Integer.parseInt(tempArr[0]);
+        p2Loc[1] = Integer.parseInt(tempArr[1]);
+        temp = in.nextLine();
+        tempArr = temp.split(",");
+        p3Loc[0] = Integer.parseInt(tempArr[0]);
+        p3Loc[1] = Integer.parseInt(tempArr[1]);
+        temp = in.nextLine();
+        tempArr = temp.split(",");
+        p4Loc[0] = Integer.parseInt(tempArr[0]);
+        p4Loc[1] = Integer.parseInt(tempArr[1]);
+        
+        temp = in.nextLine();
+        tempArr = temp.split(",");
+        blockRow = new boolean[tempArr.length];
+        for (int i = 0; i < tempArr.length; i++) {
+            if ("false".equals(tempArr[i])) {
+                blockRow[i] = false;
+            } else {
+                blockRow[i] = true;
+            }
+        }
+        temp = in.nextLine();
+        tempArr = temp.split(",");
+        blockColumn = new boolean[tempArr.length];
+        for (int i = 0; i < tempArr.length; i++) {
+            if ("false".equals(tempArr[i])) {
+                blockColumn[i] = false;
+            } else {
+                blockColumn[i] = true;
+            }
+        }
+        
+        //read tiles
+    }
 }
