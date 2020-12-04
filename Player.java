@@ -44,14 +44,14 @@ public class Player {
      * @param backtrack
      * @param spells 
      */
-    public Player (String username,int gamesWon, int gamesLost, int playerNum, int[][]path, boolean backtrack, ArrayList<ActionTile> spells) {
+    public Player (String username,int gamesWon, int gamesLost, int playerNum, int[][]path, boolean backtrack, ActionTile[] spells) {
         this.username = username;
         this.gamesWon = gamesWon;
         this.gamesLost = gamesLost;
         this.playerNum = playerNum;
         this.path = path;
         this.backtrackUsed = backtrack;
-        this.spellBook = spells;
+        this.spellBook.addAll(Arrays.asList(spells));
     }
 
     /**

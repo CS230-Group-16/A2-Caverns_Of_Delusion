@@ -350,7 +350,7 @@ public class FileReader {
         int[][] path = new int[2][2];
         boolean backtrack;
         int numSpells;
-        ArrayList<ActionTile> spells = new ArrayList<ActionTile>();
+        ActionTile [] spells;
         for (int i = 0; i < numPlayers; i++) {
             temp = in.nextLine();
             tempArr = temp.split(",");
@@ -364,20 +364,21 @@ public class FileReader {
             path[1][1] = Integer.parseInt(tempArr[7].replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\\s+", ""));
             backtrack = "true".equals(tempArr[8]);
             numSpells = Integer.parseInt(tempArr[9]);
+            spells = new ActionTile[numSpells];
             for (int j = 0; j < numSpells; j++) {
                 temp = in.nextLine();
                 if (temp.contains("FIRE")) {
                     tempArr = temp.split(",");
-                    spells.add(new EffectTile("FIRE", Integer.parseInt(tempArr[1])));
+                    spells[j] = new EffectTile("FIRE", Integer.parseInt(tempArr[1]));
                 } else if (temp.contains("ICE")) {
                     tempArr = temp.split(",");
-                    spells.add(new EffectTile("ICE", Integer.parseInt(tempArr[1])));
+                    spells[j] = new EffectTile("ICE", Integer.parseInt(tempArr[1]));
                 } else if (temp.contains("BACKTRACK")) {
                     tempArr = temp.split(",");
-                    spells.add(new MovementTile("BACKTRACK", Integer.parseInt(tempArr[1])));
+                    spells[j] = new MovementTile("BACKTRACK", Integer.parseInt(tempArr[1]));
                 } else if (temp.contains("DOUBLEMOVE")) {
                     tempArr = temp.split(",");
-                    spells.add(new MovementTile("DOUBLEMOVE", Integer.parseInt(tempArr[1])));
+                    spells[j] = new MovementTile("DOUBLEMOVE", Integer.parseInt(tempArr[1]));
                 }
             }
             players[i] = new Player(username, gamesWon, gamesLost, playerNum, path, backtrack, spells);

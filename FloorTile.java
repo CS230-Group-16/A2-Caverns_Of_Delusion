@@ -152,7 +152,7 @@ abstract class FloorTile extends Tile {
      */
     public String toText() {
         String result = "";
-        result += this.tileType + ","
+        result += super.type + ","
                 + this.frozen + ","
                 + this.engulfed + ","
                 + this.fixed + ","
