@@ -64,6 +64,27 @@ public class Board {
         this.silkBag = silkBag;
         fillBoard(randTiles);
     }
+    
+    public Board(int[]p1Loc,int[]p2Loc,int[]p3Loc,int[]p4Loc,int width, int height, FloorTile[][] tileMap,
+            boolean [] blockRow, boolean [] blockColumn){
+        this.player1Location = p1Loc;
+        this.player2Location = p2Loc;
+        this.player3Location = p3Loc;
+        this.player4Location = p4Loc;
+        this.width = width;
+        this.height = height;
+        this.tileMap = tileMap;
+        this.blockedRow = blockRow;
+        this.blockedColumn = blockColumn;
+    }
+    
+    /**
+     * Set the silk bag to board reference
+     * @param silkBag silk bag instance
+     */
+    public void setSilkBag(SilkBag silkBag){
+        this.silkBag = silkBag;
+    }
 
     /*
 	 * gets the player's location on gameboard
@@ -463,8 +484,8 @@ public class Board {
         }
         result += "\n";
         
-        for (int x = 0; x < this.tileMap.length; x++) {
-            for (int y = 0 ; y < this.tileMap[x].length; y++) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0 ; y < height; y++) {
                 result += String.valueOf(x) + "," + String.valueOf(y) + "," + this.tileMap[x][y].toText();
             }
         }
