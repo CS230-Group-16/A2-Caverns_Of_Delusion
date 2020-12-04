@@ -40,6 +40,15 @@ public class RoundTable {
         this.board = board;
         this.silkBag = silkBag;
     }
+    
+    public RoundTable (int numOfPlayers,int turnCounter,Player[] players,int counter) {
+        this.numOfPlayers = numOfPlayers;
+        this.turnCounter = turnCounter;
+        this.players = players;
+        this.counter = counter;
+        this.currentPlayer = players[counter];
+        this.nextPlayer = players[counter+1];
+    }
 
     /**
      * Compare name of tile class to tileType
@@ -365,14 +374,12 @@ public class RoundTable {
         String result = "";
         result += String.valueOf(this.numOfPlayers) + ","
                 + String.valueOf(this.turnCounter) + ","
-                + String.valueOf(this.counter) + ",";
+                + String.valueOf(this.counter) + "\n";
         if (this.drawnTile == null) {
-            result += "null";
+            result += "null\n";
         } else {
             result += this.drawnTile.toText();
         }
-        
-        result += "\n";
         
         for (int i = 0; i < this.players.length; i++) {
             result += this.players[i].toText();
