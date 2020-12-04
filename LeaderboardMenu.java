@@ -24,7 +24,10 @@ public class LeaderboardMenu extends Application {
     private final TableView<Player> table = new TableView<Player>();
     private final ArrayList<Player> player = new ArrayList<Player>();
     
+    private Leaderboard leaderboard;
+    
     private void readLeaderboard() {
+        /*
         File leaderboardFile = new File("LeaderboardFile.txt");
         try {
             Scanner profile = new Scanner(leaderboardFile);
@@ -34,7 +37,8 @@ public class LeaderboardMenu extends Application {
 	} catch (FileNotFoundException e) {
 		System.out.println("Cannot open " + "LeaderboardFile.txt");
 	}
-        
+        */
+        this.leaderboard = new Leaderboard("Leaderboard.txt");
          /*for (int i = 0; i < player.size(); i++) {
                 new Player(player.get(i).getUsername(), player.get(i).getGamesWon(), player.get(i).getGamesPlayed());
             }*/
@@ -42,6 +46,7 @@ public class LeaderboardMenu extends Application {
     
     private ObservableList<Player> data = FXCollections.observableArrayList(
        //new Player(player.get(0).getUsername(), player.get(0).getGamesWon(), player.get(0).getGamesPlayed())
+            
     );
 
     public static void main(String[] args) {
