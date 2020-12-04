@@ -50,10 +50,7 @@ public class LeaderboardMenu extends Application {
 
     @Override
     public void start(Stage stage) {
-        StackPane root = new StackPane();
         Scene scene = new Scene(new Group());
-        root.setId("pane");
-        scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
         stage.setTitle("Leaderboard");
         stage.setWidth(450);
         stage.setHeight(500);
