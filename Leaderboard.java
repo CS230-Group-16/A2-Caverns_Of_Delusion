@@ -81,4 +81,8 @@ public class Leaderboard {
     	FileReader.deleteFile("LeaderboardFile.txt");
     	insertScore();
     }
+    
+    public ArrayList<Player> getPlayers(){
+        return this.player;
+    }
 }
