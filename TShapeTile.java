@@ -18,6 +18,10 @@ public class TShapeTile extends FloorTile {
         this.generatePathways(rotation);
     }
 
+    public TShapeTile(String type, boolean frozen, boolean engulfed, boolean fixed, boolean occupied,int rotation){
+        super(type,frozen,engulfed,fixed,occupied,rotation);
+        this.rotation = rotation;
+    }
     /**
      * Generates an int array (of length 4) that represents the pathways of the tile, the array represents the following [North, East, South, West]. '1' represents a path in that direction whereas '0' is a lack of a path.
      * @param rotation - generates the pathways based on the rotation (orientation) of the tile
