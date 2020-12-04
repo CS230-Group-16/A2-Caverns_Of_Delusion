@@ -27,6 +27,11 @@ public class SilkBag {
         this.numOfTiles = this.tileList.size();
     }
     
+    public SilkBag (ArrayList<Tile> bag){
+        this.tileList = bag;
+        this.numOfTiles = this.tileList.size();
+    }
+    
     /**
      * Method to take a tile from the bag at random.
      * @return randomly selected tile from bag.
