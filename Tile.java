@@ -31,4 +31,6 @@ public abstract class Tile {
     public void toStr() {
         System.out.println("Type:" + this.type);
     }
+
+    abstract public String toText();
 }

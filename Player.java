@@ -177,13 +177,13 @@ public class Player {
      */
     public void toStr() {
         String result = "";
-        result += "Username: " + username + "\n";
-        result += "Games Won: " + gamesWon + "\n";
-        result += "Games Lost: " + gamesLost + "\n";
-        result += "Games Played: " + (gamesWon + gamesLost) + "\n";
-        result += "Backtrack: " + backtrackUsed + "\n";
-        result += "Player Num: " + playerNum + "\n";
-        result += "Path History: ";
+        result += "Username: " + username + "\n"
+                + "Games Won: " + gamesWon + "\n"
+                + "Games Lost: " + gamesLost + "\n"
+                + "Games Played: " + (gamesWon + gamesLost) + "\n"
+                + "Backtrack: " + backtrackUsed + "\n"
+                + "Player Num: " + playerNum + "\n"
+                + "Path History: ";
         for (int i = 0; i < this.path.length; i++){
             result += Arrays.toString(path[i]) + ", ";
         }
@@ -194,5 +194,26 @@ public class Player {
         }
         result += "\n";
         System.out.println(result);
+    }
+    
+        /**
+     * convert to text to put into file
+     * @return string version of the game
+     */
+    public String toText(){
+        String result = "";
+        result += this.username + ","
+                + String.valueOf(this.gamesWon) + ","
+                + String.valueOf(this.gamesLost) + ","
+                + String.valueOf(this.playerNum) + ","
+                + Arrays.toString(this.path[0]) + ","
+                + Arrays.toString(this.path[1]) + ","
+                + this.backtrackUsed + ","
+                + String.valueOf(this.spellBook.size()) + "\n";;
+        
+        for (int i = 0; i < this.spellBook.size(); i++) {
+            result += this.spellBook.get(i).toText();
+        }
+        return result;
     }
 }

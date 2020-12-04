@@ -58,4 +58,18 @@ public class SilkBag {
         }
         System.out.println("-------------");
     }
+    
+    /**
+     * convert to text to put into file
+     * @return string version of the game
+     */
+    public String toText(){
+        String result = "";
+        result += String.valueOf(this.numOfTiles) + "\n";
+        for (int i = 0; i < this.tileList.size(); i++) {
+            result += this.tileList.get(i).toText();
+        }
+        
+        return result;
+    }
 }

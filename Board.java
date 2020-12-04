@@ -339,13 +339,6 @@ public class Board {
     }
 
     /*
-	 * saves board constructor to a .txt file
-     */
-    public void saveBoardToFile() {
-        ;
-    }
-
-    /*
 	 * places tile on gameboard(used when constructing board)
 	 * @param tile tile to be placed
 	 * @param location where the tile should be placed
@@ -433,5 +426,37 @@ public class Board {
         }
         System.out.println("-----------");
         System.out.println();
+    }
+    
+    /**
+     * convert to text to put into file
+     * @return string version of the game
+     */
+    public String toText(){
+        String result = "";
+        result += String.valueOf(this.width) + ","
+                + String.valueOf(this.height) + "\n"
+                + String.valueOf(this.player1Location[0]) + "," + String.valueOf(this.player1Location[1]) + "\n"
+                + String.valueOf(this.player2Location[0]) + "," + String.valueOf(this.player2Location[1]) + "\n"
+                + String.valueOf(this.player3Location[0]) + "," + String.valueOf(this.player3Location[1]) + "\n"
+                + String.valueOf(this.player4Location[0]) + "," + String.valueOf(this.player4Location[1]) + "\n";
+        
+        for (int i = 0; i < this.blockedRow.length; i++) {
+            result += this.blockedRow[i] + ",";
+        }
+        result += "\n";
+        for (int i = 0; i < this.blockedColumn.length; i++) {
+            result += this.blockedColumn[i] + ",";
+        }
+        result += "\n";
+        
+        for (int x = 0; x < this.tileMap.length; x++) {
+            for (int y = 0 ; y < this.tileMap[x].length; y++) {
+                result += String.valueOf(x) + "," + String.valueOf(y) + "," + this.tileMap[x][y].toText();
+            }
+        }
+
+        
+        return result;
     }
 }

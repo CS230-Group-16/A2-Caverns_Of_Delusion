@@ -1,6 +1,8 @@
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -55,19 +57,19 @@ public class FileReader {
 
         String temp = in.nextLine();
         String[] tempArr;
-        
+
         width = Integer.parseInt(temp.split(",")[0]);
         height = Integer.parseInt(temp.split(",")[1]);
 
         //dont need next 2 lines from file as they are for the SilkBag
         String line1 = in.nextLine();
-        String line2 = in.nextLine();        
-        
+        String line2 = in.nextLine();
+
         numOfFixedTiles = Integer.parseInt(in.nextLine()) + 1;
         FloorTile[] fixedTiles = new FloorTile[numOfFixedTiles];
         //String[] tiles = new String[numOfFixedTiles];
         int[][] tileLocations = new int[numOfFixedTiles][2];
-        
+
         for (int i = 1; i < numOfFixedTiles; i++) {
             temp = in.nextLine();
             if (temp.contains("CORNER")) {
@@ -90,18 +92,18 @@ public class FileReader {
                 tileLocations[i][1] = Integer.parseInt(tempArr[1]);
             }
         }
-        
+
         fixedTiles[0] = new GoalTile();
         //tiles[0] = "GOAL";
         tempArr = in.nextLine().split(",");
         tileLocations[0][0] = Integer.parseInt(tempArr[0]);
         tileLocations[0][1] = Integer.parseInt(tempArr[1]);
-        
-        FloorTile [] floorTiles = readFloorTile(line2);
-        int numOfRandTiles = (width*height) - fixedTiles.length;
+
+        FloorTile[] floorTiles = readFloorTile(line2);
+        int numOfRandTiles = (width * height) - fixedTiles.length;
         Random rand = new Random();
         int randInt;
-        FloorTile [] randTiles = new FloorTile[numOfRandTiles];
+        FloorTile[] randTiles = new FloorTile[numOfRandTiles];
         for (int i = 0; i < randTiles.length; i++) {
             randInt = rand.nextInt(floorTiles.length);
             while (floorTiles[randInt] == null) {
@@ -110,11 +112,11 @@ public class FileReader {
             randTiles[i] = floorTiles[randInt];
             floorTiles[randInt] = null;
         }
-        
+
         numOfPlayers = Integer.parseInt(in.nextLine());
-        
+
         for (int i = 0; i < numOfPlayers; i++) {
-            tempArr = in.nextLine().split(","); 
+            tempArr = in.nextLine().split(",");
             switch (i) {
                 case 0:
                     player1Location[0] = Integer.parseInt(tempArr[0]);
@@ -136,9 +138,9 @@ public class FileReader {
                     break;
             }
         }
-        
-        ActionTile [] actionTiles = readActionTile(line1);
-        Tile [] tiles = new Tile[actionTiles.length + floorTiles.length];
+
+        ActionTile[] actionTiles = readActionTile(line1);
+        Tile[] tiles = new Tile[actionTiles.length + floorTiles.length];
         int pos = 0;
         for (int i = 0; i < actionTiles.length; i++) {
             tiles[pos] = actionTiles[i];
@@ -148,14 +150,14 @@ public class FileReader {
             tiles[pos] = floorTiles[i];
             pos++;
         }
-        
+
         SilkBag silkBag = new SilkBag(tiles);
-        
+
         //System.out.println(Arrays.toString(player1Location) + " " + Arrays.toString(player2Location) + " " + Arrays.toString(player3Location) + " " + Arrays.toString(player4Location) + " " + width + " " + height + " " + Arrays.toString(tiles));
         Board board = new Board(player1Location, player2Location, player3Location, player4Location, width, height, fixedTiles, tileLocations, randTiles, silkBag);
         return board;
     }
-    
+
     /**
      * Read Player profile
      *
@@ -165,16 +167,16 @@ public class FileReader {
     public static Player readPlayerFile(String username) {
         int gamesWon = 0;
         int gamesLost = 0;
-        
+
         try {
-            Scanner in = readFile(username+".txt");
+            Scanner in = readFile(username + ".txt");
             gamesWon = in.nextInt();
             gamesLost = in.nextInt();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.err.println("Player not Found");
         }
-        
-        return new Player(username,gamesWon,gamesLost);
+
+        return new Player(username, gamesWon, gamesLost);
     }
 
     /**
@@ -189,6 +191,7 @@ public class FileReader {
 
     /**
      * Reads board file and gets the tiles to place into silkbag
+     *
      * @param line1 line of number of action tiles
      * @return tiles to add to silkbag
      */
@@ -203,28 +206,28 @@ public class FileReader {
             actionTiles[i] = Integer.parseInt(stringTempArr[i]);
             totalTiles += actionTiles[i];
         }
-        
+
         ActionTile[] tiles = new ActionTile[totalTiles];
         int pos = 0;
-        
-        for (int i = 0; i < actionTiles.length; i++){
-            for (int y = 0; y < actionTiles[i]; y++){
+
+        for (int i = 0; i < actionTiles.length; i++) {
+            for (int y = 0; y < actionTiles[i]; y++) {
                 //tile[pos] = new ActionTile("fire");
                 switch (i) {
                     case 0:
-                        tiles[pos] = new EffectTile("FIRE",-1);
+                        tiles[pos] = new EffectTile("FIRE", -1);
                         pos++;
                         break;
                     case 1:
-                        tiles[pos] = new EffectTile("ICE",-1);
+                        tiles[pos] = new EffectTile("ICE", -1);
                         pos++;
                         break;
                     case 2:
-                        tiles[pos] = new MovementTile("DOUBLEMOVE",-1);
+                        tiles[pos] = new MovementTile("DOUBLEMOVE", -1);
                         pos++;
                         break;
                     case 3:
-                        tiles[pos] = new MovementTile("BACKTRACK",-1);
+                        tiles[pos] = new MovementTile("BACKTRACK", -1);
                         pos++;
                         break;
                     default:
@@ -235,9 +238,10 @@ public class FileReader {
 
         return tiles;
     }
-    
+
     /**
      * Reads board file and gets the tiles to place into silkbag
+     *
      * @param line2 line of number of floor tiles
      * @return tiles to add to silkbag
      */
@@ -245,7 +249,6 @@ public class FileReader {
         String[] stringTempArr;
         int totalTiles = 0;
         int[] floorTiles = null;
-        
 
         stringTempArr = line2.split(",");
         floorTiles = new int[stringTempArr.length];
@@ -253,12 +256,12 @@ public class FileReader {
             floorTiles[i] = Integer.parseInt(stringTempArr[i]);
             totalTiles += floorTiles[i];
         }
-        
+
         FloorTile[] tiles = new FloorTile[totalTiles];
         int pos = 0;
-        
-        for (int i = 0; i < floorTiles.length; i++){
-            for (int y = 0; y < floorTiles[i]; y++){
+
+        for (int i = 0; i < floorTiles.length; i++) {
+            for (int y = 0; y < floorTiles[i]; y++) {
                 //tile[pos] = new ActionTile("fire");
                 switch (i) {
                     case 0:
@@ -281,37 +284,38 @@ public class FileReader {
 
         return tiles;
     }
-    
+
     /**
      * Read saved game file storing player info
+     *
      * @param filename name of file to open
      * @return array of player profiles
      */
-    public static Player [] readSavedGameFile(String filename){
-        Scanner in  = readFile(filename);
+    public static Player[] readSavedGameFile(String filename) {
+        Scanner in = readFile(filename);
         ArrayList<Player> players = new ArrayList<>();
         String temp = "";
-        String [] tempArr;
-        
+        String[] tempArr;
+
         while (in.hasNextLine()) {
             temp = in.nextLine();
             Player p = readPlayerFile(temp);
             temp = in.nextLine();
             tempArr = temp.split(",");
-            
+
             for (String tempArr1 : tempArr) {
                 switch (tempArr1) {
                     case "fire":
-                        p.insertTile(new EffectTile("FIRE",-1));
+                        p.insertTile(new EffectTile("FIRE", -1));
                         break;
                     case "ice":
-                        p.insertTile(new EffectTile("ICE",-1));
+                        p.insertTile(new EffectTile("ICE", -1));
                         break;
                     case "double":
-                        p.insertTile(new MovementTile("DOUBLEMOVE",-1));
+                        p.insertTile(new MovementTile("DOUBLEMOVE", -1));
                         break;
                     case "backtrack":
-                        p.insertTile(new MovementTile("DOUBLEMOVE",-1));
+                        p.insertTile(new MovementTile("DOUBLEMOVE", -1));
                         break;
                     default:
                         break;
@@ -320,5 +324,17 @@ public class FileReader {
             players.add(p);
         }
         return (Player[]) players.toArray();
+    }
+
+    public static void writeFile(String filename, String text) {
+        try {
+            FileWriter myWriter = new FileWriter(filename);
+            myWriter.write(text);
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 }

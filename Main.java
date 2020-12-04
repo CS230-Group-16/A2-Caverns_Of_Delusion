@@ -67,11 +67,14 @@ public class Main extends Application {
     }
     
     public static void main(String [] args){
-        //Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000","awesomeGuy"});
+        Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000","awesomeGuy"});
         //g.toStr();
         //g.displayMessage();
         
+        g.getPlayers()[0].insertTile(new EffectTile("FIRE",3));
         
+        System.out.println(g.toText());
+        System.out.println(g.getBoard().toText());
         
         //g.getBoard().toStr();
         //g.getBoard().insertTile(new StraightTile(1), false, 1, false);
@@ -96,6 +99,6 @@ public class Main extends Application {
 
 
 
-        launch(args);
+        //launch(args);
     }
 }

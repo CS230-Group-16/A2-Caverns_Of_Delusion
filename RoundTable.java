@@ -356,4 +356,29 @@ public class RoundTable {
     public void setCurrentPlayer(Player player) {
         currentPlayer = nextPlayer;
     }
+    
+    /**
+     * convert to text to put into file
+     * @return string version of the game
+     */
+    public String toText(){
+        String result = "";
+        result += String.valueOf(this.numOfPlayers) + ","
+                + String.valueOf(this.turnCounter) + ","
+                + String.valueOf(this.counter) + ",";
+        if (this.drawnTile == null) {
+            result += "null";
+        } else {
+            result += this.drawnTile.toText();
+        }
+        
+        result += "\n";
+        
+        for (int i = 0; i < this.players.length; i++) {
+            result += this.players[i].toText();
+        }
+        
+        
+        return result;
+    }
 }

@@ -59,12 +59,6 @@ public class Game {
         return this.gameInProgress;
     }
 
-    /**
-     * Saves the current game to a file
-     */
-    public void saveGame() {
-
-    }
 
     /**
      * Creates a board using file
@@ -258,6 +252,28 @@ public class Game {
             this.players[i].toStr();
         }
         System.out.println();
+        
+    }
+    
+    /**
+     * convert to text to put into file
+     * @return string version of the game
+     */
+    public String toText(){
+        String result = "";
+        result += this.silkBag.toText()
+                + this.round.toText();
+        
+        
+        //leaderboard;
+        
+        return result;
+    }
+    
+    /**
+     * save game to text file
+     */
+    public void saveGame(){
         
     }
 }
