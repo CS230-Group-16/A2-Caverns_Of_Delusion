@@ -216,7 +216,7 @@ public class Player {
         System.out.println(result);
     }
     
-        /**
+    /**
      * convert to text to put into file
      * @return string version of the game
      */
