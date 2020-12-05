@@ -21,15 +21,6 @@ public class Leaderboard {
      * Constructor used to make leaderboard
      */
     public Leaderboard() {
-        getPlayers();
-        insertScore();
-    }
-    
-    /**
-     * gets the players playing the game,
-     * reads a file which is named after the name of the player
-     */
-    public void getPlayers() {
         File playerMain = new File("player.txt");
         try {
             Scanner input = new Scanner(playerMain);
