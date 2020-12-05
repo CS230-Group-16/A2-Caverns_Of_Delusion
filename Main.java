@@ -22,6 +22,10 @@ public class Main extends Application {
     private static final String GAME_NAME = "Caverns Of Delusion";
     //private static Game g;
     
+    /**
+     * Creates a scene for the game to played on
+     * @param primaryStage The stage
+     */
     public void start(Stage primaryStage) {
         try {
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("testBoard.fxml"));
@@ -54,7 +58,7 @@ public class Main extends Application {
             */
             
             primaryStage.setTitle(GAME_NAME);
-            Scene scene = new Scene(root, 800,800);
+            Scene scene = new Scene(root, 800, 800);
             primaryStage.setScene(scene);
             primaryStage.show();
             
