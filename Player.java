@@ -1,7 +1,10 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * The Player class creates profile for user
@@ -61,6 +64,7 @@ public class Player {
     public void updateUsername(String username) {
     	FileReader.deleteFile(this.username + ".txt");
         this.username = username;
+        saveProfile();
     }
 
     /**
@@ -136,6 +140,11 @@ public class Player {
     /**
      * Saves the player profile
      */
+    
+    public void deletePlayerFromFile(String username) {
+       
+    }
+    
     public void saveProfile() {
         try {
             //this adds the players username to a separate file to make it easier when creating leaderboard

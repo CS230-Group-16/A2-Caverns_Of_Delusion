@@ -21,11 +21,6 @@ public class Leaderboard {
      * Constructor used to make leaderboard
      */
     public Leaderboard() {
-        getPlayers();
-        insertScore();
-    }
-
-    public void getPlayers() {
         File playerMain = new File("player.txt");
         try {
             Scanner input = new Scanner(playerMain);
@@ -46,6 +41,7 @@ public class Leaderboard {
             System.out.println("Cannot open player.txt");
         }
     }
+    
     /**
      * Inserts score to the player
      */
