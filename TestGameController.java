@@ -51,7 +51,7 @@ public class TestGameController {
     private final int WIDTH_OF_TILE_IMAGE = 80;
     private final int HEIGHT_OF_TILE_IMAGE = 80;
     private final int WIDTH_OF_PLAYER_IMAGE = 35;
-    private final String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/images/";
+    private final String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/";
 
     @FXML
     Button draw;
@@ -398,7 +398,7 @@ public class TestGameController {
         for (int i = 0; i < tiles.size(); i++) {
             tileArr[0] = tiles.get(i);
             try {
-                Image image1 = new Image(new FileInputStream(DIRECTORY + "Final/ActionCards/" + tiles.get(i).getEffect() + ".png"));
+                Image image1 = new Image(new FileInputStream(DIRECTORY + "images/Final/ActionCards/" + tiles.get(i).getEffect() + ".png"));
                 ImageView imageView = new ImageView(image1);
                 imageView.setFitHeight(WIDTH_OF_TILE_IMAGE);
                 imageView.setFitWidth(WIDTH_OF_TILE_IMAGE);
@@ -412,7 +412,7 @@ public class TestGameController {
 
     private void showDrawnTile() {
         try {
-            Image image1 = new Image(new FileInputStream(DIRECTORY + "Final/FloorTiles/" + this.tile.getType() + ".png"));
+            Image image1 = new Image(new FileInputStream(DIRECTORY + "images/Final/FloorTiles/" + this.tile.getType() + ".png"));
             ImageView imageView = new ImageView(image1);
             drawnTile.getChildren().add(imageView);
             rotate.setOnAction(e -> {
@@ -437,7 +437,7 @@ public class TestGameController {
         String[] strArr2 = new String[]{"Super_Cool_Name", "grapeLord5000", "awesomeGuy"};
 
         //get name of file
-        Game g = new Game("board1.txt", strArr);
+        Game g = new Game(DIRECTORY + "boards/board1.txt", strArr);
         return g;
     }
 
@@ -473,7 +473,7 @@ public class TestGameController {
 
     private void changeLocation(int player, int[] location) {
         try {
-            Image image1 = new Image(new FileInputStream(DIRECTORY + "Final/PlaceHolders/Player_" + player + ".png"));
+            Image image1 = new Image(new FileInputStream(DIRECTORY + "images/Final/PlaceHolders/Player_" + player + ".png"));
             ImageView imageView = new ImageView(image1);
             imageView.setFitHeight(WIDTH_OF_PLAYER_IMAGE);
             imageView.setFitWidth(WIDTH_OF_PLAYER_IMAGE);
@@ -501,22 +501,22 @@ public class TestGameController {
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
                     if (tileMap[j][i].isFrozen() && tileMap[j][i].isFixed()) {
-                        image = new Image(new FileInputStream(DIRECTORY + "Final/IceTiles/" + tileMap[j][i].getType() + "_FIXED.png"));
+                        image = new Image(new FileInputStream(DIRECTORY + "images/Final/IceTiles/" + tileMap[j][i].getType() + "_FIXED.png"));
                         imageView = new ImageView(image);
                     } else if (tileMap[j][i].isEngulfed() && tileMap[j][i].isFixed()) {
-                        image = new Image(new FileInputStream(DIRECTORY + "Final/FireTiles/" + tileMap[j][i].getType() + "_FIXED.png"));
+                        image = new Image(new FileInputStream(DIRECTORY + "images/Final/FireTiles/" + tileMap[j][i].getType() + "_FIXED.png"));
                         imageView = new ImageView(image);
                     } else if (tileMap[j][i].isEngulfed()) {
-                        image = new Image(new FileInputStream(DIRECTORY + "Final/FireTiles/" + tileMap[j][i].getType() + ".png"));
+                        image = new Image(new FileInputStream(DIRECTORY + "images/Final/FireTiles/" + tileMap[j][i].getType() + ".png"));
                         imageView = new ImageView(image);
                     } else if (tileMap[j][i].isFrozen()) {
-                        image = new Image(new FileInputStream(DIRECTORY + "Final/IceTiles/" + tileMap[j][i].getType() + ".png"));
+                        image = new Image(new FileInputStream(DIRECTORY + "images/Final/IceTiles/" + tileMap[j][i].getType() + ".png"));
                         imageView = new ImageView(image);
                     } else if (tileMap[j][i].isFixed()) {
-                        image = new Image(new FileInputStream(DIRECTORY + "Final/FixedTiles/" + tileMap[j][i].getType() + ".png"));
+                        image = new Image(new FileInputStream(DIRECTORY + "images/Final/FixedTiles/" + tileMap[j][i].getType() + ".png"));
                         imageView = new ImageView(image);
                     } else {
-                        image = new Image(new FileInputStream(DIRECTORY + "Final/FloorTiles/" + tileMap[j][i].getType() + ".png"));
+                        image = new Image(new FileInputStream(DIRECTORY + "images/Final/FloorTiles/" + tileMap[j][i].getType() + ".png"));
                         imageView = new ImageView(image);
                     }
 
@@ -619,67 +619,4 @@ public class TestGameController {
         setButtons();
         refreshPlayers();
     }
-
-    /**
-     * Handle the edit button. This will display a window allowing the user to edit the selected country. After the edit is complete, the displayed list will be updated.
-     */
-    /*
-	private void handleEditButtonAction() {
-
-			// Show a message
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error: Cannot edit country");
-			alert.setHeaderText(null);
-			alert.setContentText("Cannot edit country as no country is selected. Please select a country first.");
-			alert.showAndWait();
-			
-		
-
-		// We need to use a try-catch block as the loading of the FXML file can fail.
-		try {
-			// Create a FXML loader for loading the Edit Country FXML file.
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditCountry.fxml"));     
-
-			// Run the loader
-			BorderPane editRoot = (BorderPane)fxmlLoader.load();          
-			// Access the controller that was created by the FXML loader
-			//EditCountryController editController = fxmlLoader.<EditCountryController>getController();
-			
-			//*************
-			//* Important *
-			//*************
-			// Tell the controller which country we are editing.
-			// Remember we are passing arrows (i.e., references) around.
-			// This means that the edit controller's changes to the country will be reflected here (in our list).
-			//editController.setCountryForEditing(selectedCountry);
-			
-			// Create a scene based on the loaded FXML scene graph
-			//Scene editScene = new Scene(editRoot, Main2.EDIT_WINDOW_WIDTH, Main2.EDIT_WINDOW_HEIGHT);
-		    
-			// Create a new stage (i.e., window) based on the edit scene
-			Stage editStage = new Stage();
-			//editStage.setScene(editScene);
-			//editStage.setTitle(Main2.EDIT_WINDOW_TITLE);
-			
-			// Make the stage a modal window.
-			// This means that it must be closed before you can interact with any other window from this application.
-			editStage.initModality(Modality.APPLICATION_MODAL);
-			
-			// Show the edit scene and wait for it to be closed
-			editStage.showAndWait();
-			
-			// The above method only returns when the window is closed.
-			
-			// Any changes that the edit scene made to the country will have taken place to the country object.
-			// This object is part of our country list.
-			// So we just need to refresh the JavaFX ListView.
-			refreshCountryList();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-			// Quit the program (with an error code)
-			System.exit(-1);
-		}
-	}
-     */
 }
