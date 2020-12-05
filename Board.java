@@ -299,40 +299,72 @@ public class Board {
             if (player1Location[1] == positionNum) {
                 intArr = player1Location;
                 if (!flip) {
-                    intArr[0] = intArr[0] + 1;
+                    if ((intArr[0] + 1) >= width) {
+                        intArr[0] = 0;
+                    } else {
+                        intArr[0] = intArr[0] + 1;
+                    }
                     updatePlayerLocation(1, intArr);
                 } else {
-                    intArr[0] = intArr[0] - 1;
+                    if ((intArr[0] - 1) < 0) {
+                        intArr[0] = (width-1);
+                    } else {
+                        intArr[0] = intArr[0] - 1;
+                    }
                     updatePlayerLocation(1, intArr);
                 }
             }
             if (player2Location[1] == positionNum) {
                 intArr = player2Location;
                 if (!flip) {
-                    intArr[0] = intArr[0] + 1;
+                    if ((intArr[0] + 1) >= width) {
+                        intArr[0] = 0;
+                    } else {
+                        intArr[0] = intArr[0] + 1;
+                    }
                     updatePlayerLocation(2, intArr);
                 } else {
-                    intArr[0] = intArr[0] - 1;
+                    if ((intArr[0] - 1) < 0) {
+                        intArr[0] = (width-1);
+                    } else {
+                        intArr[0] = intArr[0] - 1;
+                    }
                     updatePlayerLocation(2, intArr);
                 }
             }
             if (player3Location[1] == positionNum) {
                 intArr = player3Location;
                 if (!flip) {
-                    intArr[0] = intArr[0] + 1;
+                    if ((intArr[0] + 1) >= width) {
+                        intArr[0] = 0;
+                    } else {
+                        intArr[0] = intArr[0] + 1;
+                    }
                     updatePlayerLocation(3, intArr);
                 } else {
-                    intArr[0] = intArr[0] - 1;
+                    if ((intArr[0] - 1) < 0) {
+                        intArr[0] = (width-1);
+                    } else {
+                        intArr[0] = intArr[0] - 1;
+                    }
                     updatePlayerLocation(3, intArr);
                 }
             }
             if (player4Location[1] == positionNum) {
                 intArr = player4Location;
                 if (!flip) {
-                    intArr[0] = intArr[0] + 1;
+                    if ((intArr[0] + 1) >= width) {
+                        intArr[0] = 0;
+                    } else {
+                        intArr[0] = intArr[0] + 1;
+                    }
                     updatePlayerLocation(4, intArr);
                 } else {
-                    intArr[0] = intArr[0] - 1;
+                    if ((intArr[0] - 1) < 0) {
+                        intArr[0] = (width-1);
+                    } else {
+                        intArr[0] = intArr[0] - 1;
+                    }
                     updatePlayerLocation(4, intArr);
                 }
             }
@@ -340,40 +372,72 @@ public class Board {
             if (player1Location[0] == positionNum) {
                 intArr = player1Location;
                 if (!flip) {
-                    intArr[1] = intArr[1] + 1;
+                    if ((intArr[1] + 1) >= height) {
+                        intArr[1] = 0;
+                    } else {
+                        intArr[1] = intArr[1] + 1;
+                    }
                     updatePlayerLocation(1, intArr);
                 } else {
-                    intArr[1] = intArr[1] - 1;
+                    if ((intArr[1] - 1) < 0) {
+                        intArr[1] = (height-1);
+                    } else {
+                        intArr[1] = intArr[1] - 1;
+                    }
                     updatePlayerLocation(1, intArr);
                 }
             }
             if (player2Location[0] == positionNum) {
                 intArr = player2Location;
                 if (!flip) {
-                    intArr[1] = intArr[1] + 1;
+                    if ((intArr[1] + 1) >= height) {
+                        intArr[1] = 0;
+                    } else {
+                        intArr[1] = intArr[1] + 1;
+                    }
                     updatePlayerLocation(2, intArr);
                 } else {
-                    intArr[1] = intArr[1] - 1;
+                    if ((intArr[1] - 1) < 0) {
+                        intArr[1] = (height-1);
+                    } else {
+                        intArr[1] = intArr[1] - 1;
+                    }
                     updatePlayerLocation(2, intArr);
                 }
             }
             if (player3Location[0] == positionNum) {
-                intArr = player2Location;
+                intArr = player3Location;
                 if (!flip) {
-                    intArr[1] = intArr[1] + 1;
+                    if ((intArr[1] + 1) >= height) {
+                        intArr[1] = 0;
+                    } else {
+                        intArr[1] = intArr[1] + 1;
+                    }
                     updatePlayerLocation(3, intArr);
                 } else {
-                    intArr[1] = intArr[1] - 1;
+                    if ((intArr[1] - 1) < 0) {
+                        intArr[1] = (height-1);
+                    } else {
+                        intArr[1] = intArr[1] - 1;
+                    }
                     updatePlayerLocation(3, intArr);
                 }
             }
             if (player4Location[0] == positionNum) {
-                intArr = player2Location;
+                intArr = player4Location;
                 if (!flip) {
-                    intArr[1] = intArr[1] + 1;
+                    if ((intArr[1] + 1) >= height) {
+                        intArr[1] = 0;
+                    } else {
+                        intArr[1] = intArr[1] + 1;
+                    }
                     updatePlayerLocation(4, intArr);
                 } else {
-                    intArr[1] = intArr[1] - 1;
+                    if ((intArr[1] - 1) < 0) {
+                        intArr[1] = (height-1);
+                    } else {
+                        intArr[1] = intArr[1] - 1;
+                    }
                     updatePlayerLocation(4, intArr);
                 }
             }
