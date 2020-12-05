@@ -186,25 +186,29 @@ public class Board {
                     this.tileMap[this.player1Location[0]][this.player1Location[1]].setOccupied(false);
                     this.player1Location = newLocation;
                     this.tileMap[newLocation[0]][newLocation[1]].setOccupied(true);
-                }   break;
+                }
+                break;
             case 2:
                 if (newLocation[0] != -1 && newLocation[1] != -1) {
                     this.tileMap[this.player2Location[0]][this.player2Location[1]].setOccupied(false);
                     this.player2Location = newLocation;
                     this.tileMap[newLocation[0]][newLocation[1]].setOccupied(true);
-                }   break;
+                }
+                break;
             case 3:
                 if (newLocation[0] != -1 && newLocation[1] != -1) {
                     this.tileMap[this.player3Location[0]][this.player3Location[1]].setOccupied(false);
                     this.player3Location = newLocation;
                     this.tileMap[newLocation[0]][newLocation[1]].setOccupied(true);
-                }   break;
+                }
+                break;
             case 4:
                 if (newLocation[0] != -1 && newLocation[1] != -1) {
                     this.tileMap[this.player4Location[0]][this.player4Location[1]].setOccupied(false);
                     this.player4Location = newLocation;
                     this.tileMap[newLocation[0]][newLocation[1]].setOccupied(true);
-                }   break;
+                }
+                break;
             default:
                 break;
         }
@@ -243,6 +247,7 @@ public class Board {
                 }
             }
         }
+        pushedPlayer(row,positionNum,flip);
         if (!flip) {
             if (row) {
                 //insert a tile into the default side of the row
@@ -287,21 +292,90 @@ public class Board {
      * @param flip True if opposite edges are used, false otherwise.
      */
     public void pushedPlayer(boolean row, int positionNum, boolean flip) {
+        int[] intArr;
+
         if (row) {
-
             if (player1Location[1] == positionNum) {
+                intArr = player1Location;
                 if (!flip) {
-
-                    //updatePlayerLocation(1, player1Location[]);
+                    intArr[0] = intArr[0] + 1;
+                    updatePlayerLocation(1, intArr);
+                } else {
+                    intArr[0] = intArr[0] - 1;
+                    updatePlayerLocation(1, intArr);
                 }
-            } else if (player2Location[1] == positionNum) {
-
-            } else if (player3Location[1] == positionNum) {
-
-            } else if (player4Location[1] == positionNum) {
-
             }
-
+            if (player2Location[1] == positionNum) {
+                intArr = player2Location;
+                if (!flip) {
+                    intArr[0] = intArr[0] + 1;
+                    updatePlayerLocation(2, intArr);
+                } else {
+                    intArr[0] = intArr[0] - 1;
+                    updatePlayerLocation(2, intArr);
+                }
+            }
+            if (player3Location[1] == positionNum) {
+                intArr = player2Location;
+                if (!flip) {
+                    intArr[0] = intArr[0] + 1;
+                    updatePlayerLocation(3, intArr);
+                } else {
+                    intArr[0] = intArr[0] - 1;
+                    updatePlayerLocation(3, intArr);
+                }
+            }
+            if (player4Location[1] == positionNum) {
+                intArr = player2Location;
+                if (!flip) {
+                    intArr[0] = intArr[0] + 1;
+                    updatePlayerLocation(4, intArr);
+                } else {
+                    intArr[0] = intArr[0] - 1;
+                    updatePlayerLocation(4, intArr);
+                }
+            }
+        } else {
+            if (player1Location[0] == positionNum) {
+                intArr = player1Location;
+                if (!flip) {
+                    intArr[1] = intArr[1] + 1;
+                    updatePlayerLocation(1, intArr);
+                } else {
+                    intArr[1] = intArr[1] - 1;
+                    updatePlayerLocation(1, intArr);
+                }
+            }
+            if (player2Location[0] == positionNum) {
+                intArr = player2Location;
+                if (!flip) {
+                    intArr[1] = intArr[1] + 1;
+                    updatePlayerLocation(2, intArr);
+                } else {
+                    intArr[1] = intArr[1] - 1;
+                    updatePlayerLocation(2, intArr);
+                }
+            }
+            if (player3Location[0] == positionNum) {
+                intArr = player2Location;
+                if (!flip) {
+                    intArr[1] = intArr[1] + 1;
+                    updatePlayerLocation(3, intArr);
+                } else {
+                    intArr[1] = intArr[1] - 1;
+                    updatePlayerLocation(3, intArr);
+                }
+            }
+            if (player4Location[0] == positionNum) {
+                intArr = player2Location;
+                if (!flip) {
+                    intArr[1] = intArr[1] + 1;
+                    updatePlayerLocation(4, intArr);
+                } else {
+                    intArr[1] = intArr[1] - 1;
+                    updatePlayerLocation(4, intArr);
+                }
+            }
         }
     }
 
