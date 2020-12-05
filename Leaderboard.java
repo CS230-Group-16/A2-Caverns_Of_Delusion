@@ -24,7 +24,11 @@ public class Leaderboard {
         getPlayers();
         insertScore();
     }
-
+    
+    /**
+     * gets the players playing the game,
+     * reads a file which is named after the name of the player
+     */
     public void getPlayers() {
         File playerMain = new File("player.txt");
         try {
@@ -46,6 +50,7 @@ public class Leaderboard {
             System.out.println("Cannot open player.txt");
         }
     }
+    
     /**
      * Inserts score to the player
      */
@@ -57,9 +62,9 @@ public class Leaderboard {
                 LeaderboardFile.write(player.get(i).getUsername() + " " + player.get(i).getGamesWon() + " " + player.get(i).getGamesPlayed()+ "\n");
                 System.out.println("Player added to the leaderboard");
             }
-	} catch (IOException e) {
+    	} catch (IOException e) {
             System.out.println("Player could not be added to the leaderboard");
-	}
+    	  }
     }
 
     /**
