@@ -16,9 +16,18 @@ import javafx.scene.control.Label;
 
 import java.io.IOException;
 
+/**
+ * class represents main menu
+ * @author Cameron McDonagh & Maciej Buczkowski
+ * @version 1.0
+ */
+
 public class mainMenu extends Application{
 
-
+	/**
+	 * creates the main menu scene
+	 * @param stage To create the stage
+	 */
     public void start(Stage stage) {
         try {
             Parent root = (Parent) FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
@@ -32,14 +41,19 @@ public class mainMenu extends Application{
             e.printStackTrace();
         }
     }
-
+    
     public static void main(String [] args) {
         launch(args);
     }
 
     @FXML
     private Label msgOfTheDay;
-
+    
+    /**
+     * handles the playing
+     * @param an event to handle the playing
+     * @throws an IOException
+     */
     @FXML
     private void handlePlayAction(ActionEvent event) throws IOException {
         System.out.println("Play button clicked");
@@ -49,9 +63,13 @@ public class mainMenu extends Application{
         gameStage.setScene(gameScene);
         gameStage.show();
     }
-
+    
+    /**
+     * handles the leaderboard actions
+     * @param event An event to handle the leaderboard action
+     */
     @FXML
-    private void handleLeaderboardAction(ActionEvent event){
+    private void handleLeaderboardAction(ActionEvent event) {
         System.out.println("Leaderboard button clicked");
         Stage gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         try {
@@ -60,7 +78,11 @@ public class mainMenu extends Application{
             e.printStackTrace();
         }
     }
-
+    
+    /**
+     * Handles editing palyer's action
+     * @param event An event to edit the player's action
+     */
     @FXML
     private void handleEditPlayerAction(ActionEvent event) {
         System.out.println("Edit Player button clicked");
@@ -71,6 +93,18 @@ public class mainMenu extends Application{
             e.printStackTrace();
         }
     }
-
-
+    
+    /**
+     * This allows the exit of the game
+     * @param event An event to exit the game
+     */
+    @FXML
+    private void handleExitApplication(ActionEvent event) {
+        System.out.println("Exit Program");
+        try {
+            System.exit(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

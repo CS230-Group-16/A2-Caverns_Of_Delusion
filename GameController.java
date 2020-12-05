@@ -1,4 +1,3 @@
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -42,16 +41,15 @@ import javafx.scene.paint.Color;
 
 /**
  * Test Controller for the main game.
- *
  * @author Bartosz Kubica
- *
+ * @version 1.0
  */
-public class TestGameController {
+public class GameController {
 
     private final int WIDTH_OF_TILE_IMAGE = 80;
     private final int HEIGHT_OF_TILE_IMAGE = 80;
     private final int WIDTH_OF_PLAYER_IMAGE = 35;
-    private final String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/images/";
+    private final String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/";
 
     @FXML
     Button draw;
@@ -88,9 +86,14 @@ public class TestGameController {
     private int height;
     private ActionTile selectedTile;
     private int[] centreCoord = null;
+    private boolean doublemove = false;
 
     /**
-     * Initialize the controller. This method is called automatically. The following happen in this order: 1) First an instance of the controller is created (the constructor is called), 2) Next the @FXML variables are bound to the GUI components. 3) Finally, this initialize method is called. This means we cannot bind actions to buttons in the constructor, but we can in this method.
+     * Initialize the controller. This method is called automatically. The following happen in this order: 
+     * 1) First an instance of the controller is created (the constructor is called), 
+     * 2) Next the @FXML variables are bound to the GUI components. 
+     * 3) Finally, this initialize method is called. 
+     * This means we cannot bind actions to buttons in the constructor, but we can in this method.
      */
     public void initialize() {
         central.setGridLinesVisible(false);
@@ -115,6 +118,8 @@ public class TestGameController {
         this.game.getPlayers()[0].insertTile(new EffectTile("FIRE", -1));
         this.game.getPlayers()[0].insertTile(new MovementTile("DOUBLEMOVE", -1));
         this.game.getPlayers()[0].insertTile(new MovementTile("BACKTRACK", -1));
+        this.game.getPlayers()[2].updatePathHistory(new int[]{1, 1});
+        this.game.getPlayers()[2].updatePathHistory(new int[]{0, 0});
 
         setPlayerNames();
         refreshBoard();
@@ -163,13 +168,27 @@ public class TestGameController {
             int[] currentLoc = this.game.getBoard().getPlayerLocation(playerNum);
             boolean[] paths = this.game.getBoard().checkPathway(playerNum);
             if (paths[0]) {
-                currentLoc[1] = currentLoc[1] - 1;
-                this.game.getRound().movement(playerNum, currentLoc);
-                setMoveButtons(false);
-                endTurn.setVisible(true);
-                refreshCentral();
-                playAction.setVisible(false);
-                reachedGoal(this.game.getRound().getCurrentPlayer());
+                if (this.game.getBoard().getTileAt(currentLoc[0], currentLoc[1] - 1).isEngulfed()) {
+                    Alert a = new Alert(Alert.AlertType.WARNING);
+                    a.setHeaderText("That tile is on fire!");
+                    a.setContentText("Pick a different tile");
+                    a.showAndWait();
+                } else {
+                    currentLoc[1] = currentLoc[1] - 1;
+                    this.game.getRound().movement(playerNum, currentLoc);
+                    reachedGoal(this.game.getRound().getCurrentPlayer());
+                    if (!doublemove) {
+                        setMoveButtons(false);
+                        endTurn.setVisible(true);
+                        refreshCentral();
+                        playAction.setVisible(false);
+                        reachedGoal(this.game.getRound().getCurrentPlayer());
+                    } else {
+                        setMoveButtons(true);
+                        refreshCentral();
+                        doublemove = false;
+                    }
+                }
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setHeaderText("You can't move through that!");
@@ -183,13 +202,27 @@ public class TestGameController {
             int[] currentLoc = this.game.getBoard().getPlayerLocation(playerNum);
             boolean[] paths = this.game.getBoard().checkPathway(playerNum);
             if (paths[2]) {
-                currentLoc[1] = currentLoc[1] + 1;
-                this.game.getRound().movement(playerNum, currentLoc);
-                setMoveButtons(false);
-                endTurn.setVisible(true);
-                refreshCentral();
-                playAction.setVisible(false);
-                reachedGoal(this.game.getRound().getCurrentPlayer());
+                if (this.game.getBoard().getTileAt(currentLoc[0], currentLoc[1] + 1).isEngulfed()) {
+                    Alert a = new Alert(Alert.AlertType.WARNING);
+                    a.setHeaderText("That tile is on fire!");
+                    a.setContentText("Pick a different tile");
+                    a.showAndWait();
+                } else {
+                    currentLoc[1] = currentLoc[1] + 1;
+                    this.game.getRound().movement(playerNum, currentLoc);
+                    reachedGoal(this.game.getRound().getCurrentPlayer());
+                    if (!doublemove) {
+                        setMoveButtons(false);
+                        endTurn.setVisible(true);
+                        refreshCentral();
+                        playAction.setVisible(false);
+                        reachedGoal(this.game.getRound().getCurrentPlayer());
+                    } else {
+                        setMoveButtons(true);
+                        refreshCentral();
+                        doublemove = false;
+                    }
+                }
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setHeaderText("You can't move through that!");
@@ -203,13 +236,27 @@ public class TestGameController {
             int[] currentLoc = this.game.getBoard().getPlayerLocation(playerNum);
             boolean[] paths = this.game.getBoard().checkPathway(playerNum);
             if (paths[1]) {
-                currentLoc[0] = currentLoc[0] + 1;
-                this.game.getRound().movement(playerNum, currentLoc);
-                setMoveButtons(false);
-                endTurn.setVisible(true);
-                refreshCentral();
-                playAction.setVisible(false);
-                reachedGoal(this.game.getRound().getCurrentPlayer());
+                if (this.game.getBoard().getTileAt(currentLoc[0] + 1, currentLoc[1]).isEngulfed()) {
+                    Alert a = new Alert(Alert.AlertType.WARNING);
+                    a.setHeaderText("That tile is on fire!");
+                    a.setContentText("Pick a different tile");
+                    a.showAndWait();
+                } else {
+                    currentLoc[0] = currentLoc[0] + 1;
+                    this.game.getRound().movement(playerNum, currentLoc);
+                    reachedGoal(this.game.getRound().getCurrentPlayer());
+                    if (!doublemove) {
+                        setMoveButtons(false);
+                        endTurn.setVisible(true);
+                        refreshCentral();
+                        playAction.setVisible(false);
+                        reachedGoal(this.game.getRound().getCurrentPlayer());
+                    } else {
+                        setMoveButtons(true);
+                        refreshCentral();
+                        doublemove = false;
+                    }
+                }
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setHeaderText("You can't move through that!");
@@ -223,13 +270,27 @@ public class TestGameController {
             int[] currentLoc = this.game.getBoard().getPlayerLocation(playerNum);
             boolean[] paths = this.game.getBoard().checkPathway(playerNum);
             if (paths[3]) {
-                currentLoc[0] = currentLoc[0] - 1;
-                this.game.getRound().movement(playerNum, currentLoc);
-                setMoveButtons(false);
-                endTurn.setVisible(true);
-                refreshCentral();
-                playAction.setVisible(false);
-                reachedGoal(this.game.getRound().getCurrentPlayer());
+                if (this.game.getBoard().getTileAt(currentLoc[0] - 1, currentLoc[1]).isEngulfed()) {
+                    Alert a = new Alert(Alert.AlertType.WARNING);
+                    a.setHeaderText("That tile is on fire!");
+                    a.setContentText("Pick a different tile");
+                    a.showAndWait();
+                } else {
+                    currentLoc[0] = currentLoc[0] - 1;
+                    this.game.getRound().movement(playerNum, currentLoc);
+                    reachedGoal(this.game.getRound().getCurrentPlayer());
+                    if (!doublemove) {
+                        setMoveButtons(false);
+                        endTurn.setVisible(true);
+                        refreshCentral();
+                        playAction.setVisible(false);
+                        reachedGoal(this.game.getRound().getCurrentPlayer());
+                    } else {
+                        setMoveButtons(true);
+                        refreshCentral();
+                        doublemove = false;
+                    }
+                }
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setHeaderText("You can't move through that!");
@@ -252,7 +313,7 @@ public class TestGameController {
             for (int i = 0; i < spells.size(); i++) {
                 spellStrings[i] = spells.get(i).getEffect();
             }
-            ChoiceDialog cd = new ChoiceDialog(spellStrings[0], spellStrings);
+            ChoiceDialog cd = new ChoiceDialog("", spellStrings);
             cd.getDialogPane().lookupButton(ButtonType.CANCEL).setVisible(false);
             refreshSpellBook();
             cd.setHeaderText("Pick a spell!");
@@ -278,33 +339,26 @@ public class TestGameController {
                             cd2.setContentText("Pick a player to cast your spell");
                             cd2.showAndWait();
                             for (int y = 0; y < players.length; y++) {
-                                if (players[y] == cd.getSelectedItem()) {
+                                if (players[y] == cd2.getSelectedItem()) {
                                     p = this.game.getPlayers()[y];
-                                    this.game.getRound().playMoveTile(spells.get(i), p);
+                                    boolean moved = this.game.getRound().playMoveTile(spells.get(i), p);
+                                    if (!moved) {
+                                        Alert a3 = new Alert(Alert.AlertType.WARNING);
+                                        a3.setHeaderText("You cannot move that player");
+                                        a3.setContentText("Select a different player");
+                                        a3.showAndWait();
+                                    } else {
+                                        refreshCentral();
+                                    }
                                 }
                             }
                         } else if ("DOUBLEMOVE".equals(spellStrings[i])) {
-                            //do something
+                            doublemove = true;
                         } else if ("ICE".equals(spellStrings[i]) || "FIRE".equals(spellStrings[i])) {
                             Alert a3 = new Alert(Alert.AlertType.WARNING);
                             a3.setHeaderText("Pick the center tile");
                             a3.setContentText("Select the center tile to cast your spell");
                             a3.showAndWait();
-                            /*
-                        boolean selected = false;
-                        while (!selected) {
-                            if (centreCoord == null) {
-                                Alert a2 = new Alert(Alert.AlertType.WARNING);
-                                a2.setHeaderText("Pick the center tile");
-                                a2.setContentText("You cannot cast this spell without\npicking a tile");
-                                a2.showAndWait();
-                            } else {
-                                this.game.getRound().playEffectTile(spells.get(i), centreCoord);
-                                centreCoord = null;
-                                selected = true;
-                            }
-                        }
-                             */
                             this.selectedTile = spells.get(i);
                         }
                     }
@@ -318,12 +372,19 @@ public class TestGameController {
         });
 
     }
-
+    
+    /**
+     * This starts the game
+     */
     private void startGame() {
         this.game.gameStart();
         turn.setText(String.valueOf(this.game.getRound().getTurnCounter()));
     }
-
+    
+    /**
+     * To see if a player has reached the goal and won the game
+     * @param current The current player
+     */
     private void reachedGoal(Player current) {
         int[] location = this.game.getBoard().getPlayerLocation(current.getPlayerNum());
         int[] goal = this.game.getBoard().getGoalLocation();
@@ -343,13 +404,21 @@ public class TestGameController {
             //go to main menu
         }
     }
+    
+    /**
+     * To set the move buttons
+     * @param set Sets the buttons to true or false
+     */
     private void setMoveButtons(boolean set) {
         up.setVisible(set);
         down.setVisible(set);
         right.setVisible(set);
         left.setVisible(set);
     }
-
+    
+    /**
+     * to see if the player can move or not
+     */
     private void checkMovement() {
         boolean[] paths = this.game.getBoard().checkPathway(this.game.getRound().getCurrentPlayer().getPlayerNum());
         if (!paths[0] && !paths[1] && !paths[2] && !paths[3]) {
@@ -363,7 +432,10 @@ public class TestGameController {
             setMoveButtons(true);
         }
     }
-
+    
+    /**
+     * To see if the spell book has any spells in it
+     */
     private void checkSpellBook() {
         if (this.game.getRound().getCurrentPlayer().getSpellBook().size() <= 0) {
             Alert a = new Alert(Alert.AlertType.WARNING);
@@ -375,7 +447,10 @@ public class TestGameController {
         }
         checkMovement();
     }
-
+    
+    /**
+     * To change the current player to the next player
+     */
     private void changePlayers() {
         /*
         Player [] players = this.game.getPlayers();
@@ -389,7 +464,10 @@ public class TestGameController {
         nextPlayer2.setText(currentPlayer.getText());
         currentPlayer.setText(this.game.getRound().getCurrentPlayer().getUsername());
     }
-
+    
+    /**
+     * This clears the spell book
+     */
     private void refreshSpellBook() {
         spells.getChildren().clear();
         ArrayList<ActionTile> tiles = this.game.getRound().getCurrentPlayer().getSpellBook();
@@ -398,7 +476,7 @@ public class TestGameController {
         for (int i = 0; i < tiles.size(); i++) {
             tileArr[0] = tiles.get(i);
             try {
-                Image image1 = new Image(new FileInputStream(DIRECTORY + "Final/ActionCards/" + tiles.get(i).getEffect() + ".png"));
+                Image image1 = new Image(new FileInputStream(DIRECTORY + "images/Final/ActionCards/" + tiles.get(i).getEffect() + ".png"));
                 ImageView imageView = new ImageView(image1);
                 imageView.setFitHeight(WIDTH_OF_TILE_IMAGE);
                 imageView.setFitWidth(WIDTH_OF_TILE_IMAGE);
@@ -409,10 +487,13 @@ public class TestGameController {
             }
         }
     }
-
+    
+   /**
+    * to show the drawn tile
+    */
     private void showDrawnTile() {
         try {
-            Image image1 = new Image(new FileInputStream(DIRECTORY + "Final/FloorTiles/" + this.tile.getType() + ".png"));
+            Image image1 = new Image(new FileInputStream(DIRECTORY + "images/Final/FloorTiles/" + this.tile.getType() + ".png"));
             ImageView imageView = new ImageView(image1);
             drawnTile.getChildren().add(imageView);
             rotate.setOnAction(e -> {
@@ -430,17 +511,24 @@ public class TestGameController {
             System.out.println("File not found with type: " + this.tile.getType());
         }
     }
-
+    
+    /**
+     * This creates a new game and returns it
+     * @return the new game
+     */
     private Game createGame() {
         //get names from screen
-        String[] strArr = new String[]{"Super_Cool_Name", "grapeLord5000", "awesomeGuy", "CasualGamerGuy"};
-        String[] strArr2 = new String[]{"Super_Cool_Name", "grapeLord5000", "awesomeGuy"};
+        String[] strArr = new String[] {"Super_Cool_Name", "grapeLord5000", "awesomeGuy", "CasualGamerGuy"};
+        String[] strArr2 = new String[] {"Super_Cool_Name", "grapeLord5000", "awesomeGuy"};
 
         //get name of file
-        Game g = new Game("board1.txt", strArr);
+        Game g = new Game(DIRECTORY + "boards/board1.txt", strArr);
         return g;
     }
-
+    
+    /**
+     * sets the players name
+     */
     private void setPlayerNames() {
         Player[] players = this.game.getPlayers();
         for (int i = 0; i < players.length; i++) {
@@ -463,6 +551,9 @@ public class TestGameController {
         }
     }
 
+    /**
+     * This refreshes the players
+     */
     private void refreshPlayers() {
         //central.getChildren().remove(imageView);
         Player[] players = this.game.getPlayers();
@@ -470,10 +561,13 @@ public class TestGameController {
             changeLocation(i, this.game.getBoard().getPlayerLocation(i));
         }
     }
-
+    
+    /**
+     * changes the players location
+     */
     private void changeLocation(int player, int[] location) {
         try {
-            Image image1 = new Image(new FileInputStream(DIRECTORY + "Final/PlaceHolders/Player_" + player + ".png"));
+            Image image1 = new Image(new FileInputStream(DIRECTORY + "images/Final/PlaceHolders/Player_" + player + ".png"));
             ImageView imageView = new ImageView(image1);
             imageView.setFitHeight(WIDTH_OF_PLAYER_IMAGE);
             imageView.setFitWidth(WIDTH_OF_PLAYER_IMAGE);
@@ -501,22 +595,22 @@ public class TestGameController {
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
                     if (tileMap[j][i].isFrozen() && tileMap[j][i].isFixed()) {
-                        image = new Image(new FileInputStream(DIRECTORY + "Final/IceTiles/" + tileMap[j][i].getType() + "_FIXED.png"));
+                        image = new Image(new FileInputStream(DIRECTORY + "images/Final/IceTiles/" + tileMap[j][i].getType() + "_FIXED.png"));
                         imageView = new ImageView(image);
                     } else if (tileMap[j][i].isEngulfed() && tileMap[j][i].isFixed()) {
-                        image = new Image(new FileInputStream(DIRECTORY + "Final/FireTiles/" + tileMap[j][i].getType() + "_FIXED.png"));
+                        image = new Image(new FileInputStream(DIRECTORY + "images/Final/FireTiles/" + tileMap[j][i].getType() + "_FIXED.png"));
                         imageView = new ImageView(image);
                     } else if (tileMap[j][i].isEngulfed()) {
-                        image = new Image(new FileInputStream(DIRECTORY + "Final/FireTiles/" + tileMap[j][i].getType() + ".png"));
+                        image = new Image(new FileInputStream(DIRECTORY + "images/Final/FireTiles/" + tileMap[j][i].getType() + ".png"));
                         imageView = new ImageView(image);
                     } else if (tileMap[j][i].isFrozen()) {
-                        image = new Image(new FileInputStream(DIRECTORY + "Final/IceTiles/" + tileMap[j][i].getType() + ".png"));
+                        image = new Image(new FileInputStream(DIRECTORY + "images/Final/IceTiles/" + tileMap[j][i].getType() + ".png"));
                         imageView = new ImageView(image);
                     } else if (tileMap[j][i].isFixed()) {
-                        image = new Image(new FileInputStream(DIRECTORY + "Final/FixedTiles/" + tileMap[j][i].getType() + ".png"));
+                        image = new Image(new FileInputStream(DIRECTORY + "images/Final/FixedTiles/" + tileMap[j][i].getType() + ".png"));
                         imageView = new ImageView(image);
                     } else {
-                        image = new Image(new FileInputStream(DIRECTORY + "Final/FloorTiles/" + tileMap[j][i].getType() + ".png"));
+                        image = new Image(new FileInputStream(DIRECTORY + "images/Final/FloorTiles/" + tileMap[j][i].getType() + ".png"));
                         imageView = new ImageView(image);
                     }
 
@@ -525,11 +619,18 @@ public class TestGameController {
                     imageView.setOnMouseClicked(e -> {
                         centreCoord = arr;
                         if (selectedTile != null) {
-                            this.game.getRound().playEffectTile(selectedTile, arr);
-                            this.selectedTile = null;
-                            this.spells.getChildren().clear();
-                            refreshCentral();
-                            playAction.setVisible(false);
+                            boolean success = this.game.getRound().playEffectTile(selectedTile, arr);
+                            if (!success) {
+                                Alert a = new Alert(Alert.AlertType.WARNING);
+                                a.setHeaderText("There is a player in the way!");
+                                a.setContentText("You cannot cast a spell on a player");
+                                a.showAndWait();
+                            } else {
+                                this.selectedTile = null;
+                                this.spells.getChildren().clear();
+                                refreshCentral();
+                                playAction.setVisible(false);
+                            }
                         }
                     });
                     central.add(imageView, (j + 1), (i + 1));
@@ -543,6 +644,9 @@ public class TestGameController {
 
     //hue 0.5 for frozen
     //hue -0.5 for fire
+    /**
+     * this sets the button
+     */
     private void setButtons() {
         boolean[] row = this.game.getBoard().getBlockedRow();
         boolean[] column = this.game.getBoard().getBlockedColumn();
@@ -555,7 +659,6 @@ public class TestGameController {
                 bRow.setOnAction(e -> {
                     if (this.tile != null) {
                         insertTile(this.tile, true, ordinal.get(), false);
-                        checkSpellBook();
                     }
                 });
                 Button bRow2 = new Button();
@@ -563,9 +666,7 @@ public class TestGameController {
                 bRow2.setOnAction(e -> {
                     if (this.tile != null) {
                         insertTile(this.tile, true, ordinal.get(), true);
-                        checkSpellBook();
                     }
-                    
                 });
                 central.add(bRow, 0, (i + 1));
                 central.add(bRow2, (width + 1), (i + 1));
@@ -582,18 +683,14 @@ public class TestGameController {
                 bCol.setOnAction(e -> {
                     if (this.tile != null) {
                         insertTile(this.tile, false, ordinal.get(), false);
-                        checkSpellBook();
                     }
-                    
                 });
                 Button bCol2 = new Button();
                 bCol2.setText("^");
                 bCol2.setOnAction(e -> {
                     if (this.tile != null) {
                         insertTile(this.tile, false, ordinal.get(), true);
-                        checkSpellBook();
                     }
-                    
                 });
                 central.add(bCol, (i + 1), 0);
                 central.add(bCol2, (i + 1), (height + 1));
@@ -602,82 +699,38 @@ public class TestGameController {
             }
         }
     }
-
+    
+    /**
+     * this inserts a tile into the board
+     * @param t The type of floor tile
+     * @param row Which row you want it to be inserted into
+     * @param posNum The postion of the tile to be 
+     * @param flip 
+     */
     private void insertTile(FloorTile t, boolean row, int posNum, boolean flip) {
-        this.game.getBoard().insertTile(t, row, posNum, flip);
-        drawnTile.getChildren().clear();
-        drawnType.setText("");
-        refreshCentral();
-        this.tile = null;
-    }
+        boolean inserted = this.game.getBoard().insertTile(t, row, posNum, flip);
+        if (inserted) {
+            drawnTile.getChildren().clear();
+            drawnType.setText("");
+            refreshCentral();
+            this.tile = null;
+            checkSpellBook();
+        } else {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setHeaderText("You cannot insert it there!");
+            a.setContentText("There is a frozen tile in the way\ntry somewhere else");
+            a.showAndWait();
+        }
 
+    }
+    
+    /**
+     * This refreshes the board, players and sets the buttons again.
+     */
     private void refreshCentral() {
         central.getChildren().clear();
         refreshBoard();
         setButtons();
         refreshPlayers();
     }
-
-    /**
-     * Handle the edit button. This will display a window allowing the user to edit the selected country. After the edit is complete, the displayed list will be updated.
-     */
-    /*
-	private void handleEditButtonAction() {
-
-			// Show a message
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error: Cannot edit country");
-			alert.setHeaderText(null);
-			alert.setContentText("Cannot edit country as no country is selected. Please select a country first.");
-			alert.showAndWait();
-			
-		
-
-		// We need to use a try-catch block as the loading of the FXML file can fail.
-		try {
-			// Create a FXML loader for loading the Edit Country FXML file.
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditCountry.fxml"));     
-
-			// Run the loader
-			BorderPane editRoot = (BorderPane)fxmlLoader.load();          
-			// Access the controller that was created by the FXML loader
-			//EditCountryController editController = fxmlLoader.<EditCountryController>getController();
-			
-			//*************
-			//* Important *
-			//*************
-			// Tell the controller which country we are editing.
-			// Remember we are passing arrows (i.e., references) around.
-			// This means that the edit controller's changes to the country will be reflected here (in our list).
-			//editController.setCountryForEditing(selectedCountry);
-			
-			// Create a scene based on the loaded FXML scene graph
-			//Scene editScene = new Scene(editRoot, Main2.EDIT_WINDOW_WIDTH, Main2.EDIT_WINDOW_HEIGHT);
-		    
-			// Create a new stage (i.e., window) based on the edit scene
-			Stage editStage = new Stage();
-			//editStage.setScene(editScene);
-			//editStage.setTitle(Main2.EDIT_WINDOW_TITLE);
-			
-			// Make the stage a modal window.
-			// This means that it must be closed before you can interact with any other window from this application.
-			editStage.initModality(Modality.APPLICATION_MODAL);
-			
-			// Show the edit scene and wait for it to be closed
-			editStage.showAndWait();
-			
-			// The above method only returns when the window is closed.
-			
-			// Any changes that the edit scene made to the country will have taken place to the country object.
-			// This object is part of our country list.
-			// So we just need to refresh the JavaFX ListView.
-			refreshCountryList();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-			// Quit the program (with an error code)
-			System.exit(-1);
-		}
-	}
-     */
 }

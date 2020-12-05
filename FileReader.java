@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,17 +8,18 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- *
- * @author Bartosz Kubica & Marius Antemir
+ * This reads files.
+ * @author Bartosz Kubica & Marius Antemir.
  * @version 1.0
  */
 public class FileReader {
-
+    //CHANGE TO PERSONAL DIRECTORY BEFORE RUNNING
+    private final static String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/";
+    
     /**
-     * Open scanner to read board file
-     *
-     * @param filename name of file to be opened
-     * @return created board
+     * Open scanner to read board file.
+     * @param filename Name of file to be opened.
+     * @return in The scanner used to read the file.
      */
     private static Scanner readFile(String filename) {
         Scanner in = new Scanner(System.in);
@@ -32,16 +32,13 @@ public class FileReader {
             e.printStackTrace();
             System.exit(0);
         }
-
         return in;
-
     }
 
     /**
-     * Read file and create board
-     *
-     * @param filename name of board file to read
-     * @return created board
+     * Read file and create board.
+     * @param filename Name of board file to read.
+     * @return created board.
      */
     public static Board readBoardFile(String filename) {
         Scanner in = readFile(filename);
@@ -58,6 +55,7 @@ public class FileReader {
         String temp = in.nextLine();
         String[] tempArr;
 
+        //read the size of the board
         width = Integer.parseInt(temp.split(",")[0]);
         height = Integer.parseInt(temp.split(",")[1]);
 
@@ -65,11 +63,13 @@ public class FileReader {
         String line1 = in.nextLine();
         String line2 = in.nextLine();
 
+        //read the fixed tiles
         numOfFixedTiles = Integer.parseInt(in.nextLine()) + 1;
         FloorTile[] fixedTiles = new FloorTile[numOfFixedTiles];
         //String[] tiles = new String[numOfFixedTiles];
         int[][] tileLocations = new int[numOfFixedTiles][2];
 
+        //set the fixed tiles
         for (int i = 1; i < numOfFixedTiles; i++) {
             temp = in.nextLine();
             if (temp.contains("CORNER")) {
@@ -93,12 +93,14 @@ public class FileReader {
             }
         }
 
+        //set the goal tile
         fixedTiles[0] = new GoalTile();
         //tiles[0] = "GOAL";
         tempArr = in.nextLine().split(",");
         tileLocations[0][0] = Integer.parseInt(tempArr[0]);
         tileLocations[0][1] = Integer.parseInt(tempArr[1]);
 
+        //fill in the rest of the board with random floor tiles
         FloorTile[] floorTiles = readFloorTile(line2);
         int numOfRandTiles = (width * height) - fixedTiles.length;
         Random rand = new Random();
@@ -113,10 +115,12 @@ public class FileReader {
             floorTiles[randInt] = null;
         }
 
+        //read the number of players
         numOfPlayers = Integer.parseInt(in.nextLine());
 
         for (int i = 0; i < numOfPlayers; i++) {
             tempArr = in.nextLine().split(",");
+            //sets the locations of each player
             switch (i) {
                 case 0:
                     player1Location[0] = Integer.parseInt(tempArr[0]);
@@ -138,7 +142,7 @@ public class FileReader {
                     break;
             }
         }
-
+        //gets the action tiles
         ActionTile[] actionTiles = readActionTile(line1);
         Tile[] tiles = new Tile[actionTiles.length + floorTiles.length];
         int pos = 0;
@@ -159,30 +163,27 @@ public class FileReader {
     }
 
     /**
-     * Read Player profile
-     *
-     * @param username name of user for file to be found
-     * @return player profile
+     * Read Player profile.
+     * @param username Name of user for file to be found.
+     * @return player Profile of the player.
      */
     public static Player readPlayerFile(String username) {
         int gamesWon = 0;
         int gamesLost = 0;
-
+        //reading the profile txt files with a scanner
         try {
-            Scanner in = readFile(username + ".txt");
+            Scanner in = readFile(DIRECTORY + "players/" + username + ".txt");
             gamesWon = in.nextInt();
             gamesLost = in.nextInt();
         } catch (Exception e) {
             System.err.println("Player not Found");
         }
-
         return new Player(username, gamesWon, gamesLost);
     }
 
     /**
-     * delete file
-     *
-     * @param filename name of file to delete
+     * Delete file.
+     * @param filename name of file to delete.
      */
     public static void deleteFile(String filename) {
         File f = new File(filename);
@@ -190,16 +191,16 @@ public class FileReader {
     }
 
     /**
-     * Reads board file and gets the tiles to place into silkbag
-     *
-     * @param line1 line of number of action tiles
-     * @return tiles to add to silkbag
+     * Reads board file and gets the action tiles to place into silkbag.
+     * @param line1 Line of number of action tiles.
+     * @return Tiles to add to silkbag.
      */
     public static ActionTile[] readActionTile(String line1) {
         String[] stringTempArr;
         int totalTiles = 0;
         int[] actionTiles = null;
 
+        //gets the action tiles from the string given
         stringTempArr = line1.split(",");
         actionTiles = new int[stringTempArr.length];
         for (int i = 0; i < stringTempArr.length; i++) {
@@ -210,6 +211,7 @@ public class FileReader {
         ActionTile[] tiles = new ActionTile[totalTiles];
         int pos = 0;
 
+        //creating the action tiles and adding them to the array
         for (int i = 0; i < actionTiles.length; i++) {
             for (int y = 0; y < actionTiles[i]; y++) {
                 //tile[pos] = new ActionTile("fire");
@@ -235,13 +237,11 @@ public class FileReader {
                 }
             }
         }
-
         return tiles;
     }
 
     /**
-     * Reads board file and gets the tiles to place into silkbag
-     *
+     * Reads board file and gets the floor tiles to place into silkbag.
      * @param line2 line of number of floor tiles
      * @return tiles to add to silkbag
      */
@@ -250,6 +250,7 @@ public class FileReader {
         int totalTiles = 0;
         int[] floorTiles = null;
 
+        //gets the floor tiles from the string given
         stringTempArr = line2.split(",");
         floorTiles = new int[stringTempArr.length];
         for (int i = 0; i < stringTempArr.length; i++) {
@@ -260,6 +261,7 @@ public class FileReader {
         FloorTile[] tiles = new FloorTile[totalTiles];
         int pos = 0;
 
+        //creating the floor tiles and adding them to the array
         for (int i = 0; i < floorTiles.length; i++) {
             for (int y = 0; y < floorTiles[i]; y++) {
                 //tile[pos] = new ActionTile("fire");
@@ -281,17 +283,16 @@ public class FileReader {
                 }
             }
         }
-
         return tiles;
     }
 
     /**
      * Read saved game file storing player info
-     *
-     * @param filename name of file to open
-     * @return array of player profiles
+     * @param filename Name of the file to open
+     * @return Array of player profiles
      */
     public static RoundTable readSavedGameFileRoundTable(String filename) {
+        //reading the parameters for RoundTable from the board file
         Scanner in = readFile(filename);
         String temp;
         String[] tempArr;
@@ -313,6 +314,7 @@ public class FileReader {
         Tile drawnTile;
 
         temp = in.nextLine();
+        //sets the floor tiles for RoundTable
         if (temp.contains("CORNER")) {
             tempArr = temp.split(",");
             frozen = !"false".equals(tempArr[1]);
@@ -343,6 +345,7 @@ public class FileReader {
 
         players = new Player[numPlayers];
 
+
         String username;
         int gamesWon;
         int gamesLost;
@@ -351,6 +354,7 @@ public class FileReader {
         boolean backtrack;
         int numSpells;
         ActionTile [] spells;
+        //sets player stats for when starting a game
         for (int i = 0; i < numPlayers; i++) {
             temp = in.nextLine();
             tempArr = temp.split(",");
@@ -365,6 +369,7 @@ public class FileReader {
             backtrack = "true".equals(tempArr[8]);
             numSpells = Integer.parseInt(tempArr[9]);
             spells = new ActionTile[numSpells];
+            //sets the player spells
             for (int j = 0; j < numSpells; j++) {
                 temp = in.nextLine();
                 if (temp.contains("FIRE")) {
@@ -383,15 +388,13 @@ public class FileReader {
             }
             players[i] = new Player(username, gamesWon, gamesLost, playerNum, path, backtrack, spells);
         }
-
         return new RoundTable(numPlayers, turnCounter, players, counter);
     }
 
     /**
-     * read game saved file to get silkbag contents
-     *
-     * @param filename file to read
-     * @return created silk bag
+     * Read game saved file to get silkbag contents.
+     * @param filename File to read.
+     * @return Created silk bag.
      */
     public static SilkBag readSavedGameFileSilkBag(String filename) {
         Scanner in = readFile(filename);
@@ -405,6 +408,7 @@ public class FileReader {
         ArrayList<Tile> bag = new ArrayList<Tile>();
         int numTiles = Integer.parseInt(in.nextLine());
         for (int i = 0; i < numTiles; i++) {
+            //reads the file and looks for action tiles to put into the silkbag
             temp = in.nextLine();
             if (temp.contains("FIRE")) {
                 tempArr = temp.split(",");
@@ -418,6 +422,7 @@ public class FileReader {
             } else if (temp.contains("DOUBLEMOVE")) {
                 tempArr = temp.split(",");
                 bag.add(new MovementTile("DOUBLEMOVE", Integer.parseInt(tempArr[1])));
+                //reads the file and looks for floor tiles to put into the silkbag
             } else if (temp.contains("CORNER")) {
                 tempArr = temp.split(",");
                 frozen = "true".equals(tempArr[1]);
@@ -446,7 +451,12 @@ public class FileReader {
         }
         return new SilkBag(bag);
     }
-
+    
+    /**
+     * This writes to a file.
+     * @param filename The name of the file.
+     * @param text The text to write into the file.
+     */
     public static void writeFile(String filename, String text) {
         try {
             FileWriter myWriter = new FileWriter(filename);
@@ -458,7 +468,12 @@ public class FileReader {
             e.printStackTrace();
         }
     }
-
+    
+    /**
+     * This reads in a file and then returns a board with the dimensions specified in the file.
+     * @param filename The name of the file.
+     * @return The board with the dimensions specified in the file.
+     */
     public static Board readSavedBoardFile(String filename) {
         Scanner in = readFile(filename);
         String temp;
@@ -473,11 +488,13 @@ public class FileReader {
         boolean[] blockColumn;
         FloorTile[][] tileMap;
 
+        //reads the size of the board
         temp = in.nextLine();
         tempArr = temp.split(",");
         width = Integer.parseInt(tempArr[0]);
         height = Integer.parseInt(tempArr[1]);
 
+        //reads the player locaitons
         temp = in.nextLine();
         tempArr = temp.split(",");
         p1Loc[0] = Integer.parseInt(tempArr[0]);
@@ -495,12 +512,14 @@ public class FileReader {
         p4Loc[0] = Integer.parseInt(tempArr[0]);
         p4Loc[1] = Integer.parseInt(tempArr[1]);
 
+        //finds the blocked rows
         temp = in.nextLine();
         tempArr = temp.split(",");
         blockRow = new boolean[tempArr.length];
         for (int i = 0; i < tempArr.length; i++) {
             blockRow[i] = !"false".equals(tempArr[i]);
         }
+        //finds the blocked columns
         temp = in.nextLine();
         tempArr = temp.split(",");
         blockColumn = new boolean[tempArr.length];
@@ -515,10 +534,11 @@ public class FileReader {
         boolean fixed;
         boolean occupied;
         int rotation;
-        int [] goal = new int[2];
+        int[] goal = new int[2];
 
         //remove magic numbers
         tileMap = new FloorTile[width][height];
+        //reads the file and sets the floor tiles
         while (in.hasNextLine()) {
             temp = in.nextLine();
             if (temp.contains("CORNER")) {
@@ -530,7 +550,7 @@ public class FileReader {
                 fixed = !"false".equals(tempArr[5]);
                 occupied = !"false".equals(tempArr[6]);
                 rotation = Integer.parseInt(tempArr[7]);
-                tileMap[x][y] = new CornerTile( frozen, engulfed, fixed, occupied, rotation);
+                tileMap[x][y] = new CornerTile(frozen, engulfed, fixed, occupied, rotation);
             } else if (temp.contains("TSHAPE")) {
                 tempArr = temp.split(",");
                 x = Integer.parseInt(tempArr[0]);
@@ -565,6 +585,26 @@ public class FileReader {
                 goal[1] = y;
             }
         }
-        return new Board(p1Loc, p2Loc, p3Loc, p4Loc, width, height, tileMap, blockRow, blockColumn,goal);
+        return new Board(p1Loc, p2Loc, p3Loc, p4Loc, width, height, tileMap, blockRow, blockColumn, goal);
+    }
+    
+    /**
+     * This reads in a file and then returns a leaderboard with the players and the file.
+     * @param filename The name of the file.
+     * @return A leaderboard.
+     */
+    public static Leaderboard readLeaderboardFile(String filename) {
+        Scanner in = readFile(filename);
+        String temp;
+        String[] tempArr;
+        ArrayList<Player> players = new ArrayList<Player>();
+
+        while (in.hasNextLine()) {
+            tempArr = in.nextLine().split(",");
+            Player p = new Player(tempArr[0], Integer.parseInt(tempArr[1]), Integer.parseInt(tempArr[2]));
+            players.add(p);
+        }
+        
+        return new Leaderboard(players, filename);
     }
 }

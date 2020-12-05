@@ -15,54 +15,36 @@ import java.util.Scanner;
 
 public class Leaderboard {
 
-    ArrayList<Player> player = new ArrayList<>();
+    ArrayList<Player> board = new ArrayList<>();
+    private String filename;
 
     /**
      * Constructor used to make leaderboard
+     * @param players
+     * @param filename
      */
-    public Leaderboard() {
-        File playerMain = new File("player.txt");
-        try {
-            Scanner input = new Scanner(playerMain);
-            while (input.hasNext()) {
-            	File playerName = new File(input.next() + ".txt");
-            	try {
-            		Scanner profile = new Scanner(playerName);
-            		while (profile.hasNext()) {
-            			player.add(new Player(profile.next(), profile.nextInt(), profile.nextInt()));
-            		}
-    	       	 	profile.close();
-				} catch (FileNotFoundException e) {
-					System.out.println("Cannot open " + input.next() + ".txt");
-				}
-           input.close();
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Cannot open player.txt");
-        }
+    public Leaderboard(ArrayList<Player> players, String filename) {
+        this.board = players;
+        this.filename = filename;
+        sort();
     }
     
     /**
      * Inserts score to the player
      */
-    public void insertScore() { 
-    	sort();
-    	try {
-            FileWriter LeaderboardFile = new FileWriter("LeaderboardFile.txt", true);
-            for (int i = 0; i < player.size(); i++) {
-                LeaderboardFile.write(player.get(i).getUsername() + " " + player.get(i).getGamesWon() + " " + player.get(i).getGamesPlayed()+ "\n");
-                System.out.println("Player added to the leaderboard");
-            }
-    	} catch (IOException e) {
-            System.out.println("Player could not be added to the leaderboard");
-    	  }
+    public void insertScore(Player p) { 
+    	this.board.add(p);
+        sort();
     }
 
+    public ArrayList<Player> getBoard() {
+        return this.board;
+    }
     /**
      * Sorts the leaderboard from highest to lowest score
      */
     private void sort() {
-        Collections.sort(player, new Comparator<Player>() {
+        Collections.sort(board, new Comparator<Player>() {
             @Override
             public int compare(Player p1, Player p2) {
                 return p1.getGamesWon() > p2.getGamesWon() ? -1 : 1;
@@ -74,7 +56,16 @@ public class Leaderboard {
      * Updates the file
      */
     public void updateFile() {
-    	FileReader.deleteFile("LeaderboardFile.txt");
-    	insertScore();
+        sort();
+    	FileReader.deleteFile(filename);
+    	FileReader.writeFile(filename, toText());
+    }
+    
+    public String toText() {
+        String result = "";
+        for (int i = 0; i < this.board.size(); i++) {
+            result += this.board.get(i).toText();
+        }
+        return result;
     }
 }

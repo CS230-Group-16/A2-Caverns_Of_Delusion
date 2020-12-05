@@ -22,9 +22,13 @@ public class Main extends Application {
     private static final String GAME_NAME = "Caverns Of Delusion";
     //private static Game g;
     
+    /**
+     * Creates a scene for the game to played on
+     * @param primaryStage The stage
+     */
     public void start(Stage primaryStage) {
         try {
-            Pane root = (Pane) FXMLLoader.load(getClass().getResource("testBoard.fxml"));
+            Pane root = (Pane) FXMLLoader.load(getClass().getResource("BoardGUI.fxml"));
             
             //test
             
@@ -54,7 +58,7 @@ public class Main extends Application {
             */
             
             primaryStage.setTitle(GAME_NAME);
-            Scene scene = new Scene(root, 800,800);
+            Scene scene = new Scene(root, 800, 800);
             primaryStage.setScene(scene);
             primaryStage.show();
             
@@ -65,19 +69,19 @@ public class Main extends Application {
         }
     }
     
-    public static void main(String [] args){
-        Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000","awesomeGuy"});
+    public static void main(String [] args) {
+        //Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000","awesomeGuy"});
         //g.toStr();
         //g.displayMessage();
         
-        g.getPlayers()[0].insertTile(new EffectTile("FIRE",3));
+        //g.getPlayers()[0].insertTile(new EffectTile("FIRE",3));
         
-        g.saveGame();
+        //g.saveGame();
         
         //System.out.println(g.toText());
         //System.out.println(g.getBoard().toText());
         
-        Game g2 = new Game("SavedBoard2020.12.04.txt","SavedGame2020.12.04.txt");
+        //Game g2 = new Game("SavedBoard2020.12.04.txt","SavedGame2020.12.04.txt");
         //System.out.println(g2.toText());
         //System.out.println(g2.getBoard().toText());
         //g2.getBoard().toStr();
