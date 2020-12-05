@@ -67,6 +67,10 @@ public class Board {
         this.silkBag = silkBag;
         fillBoard(randTiles);
         this.goal = tileLocation[0];
+        this.tileMap[player1Location[0]][player1Location[1]].setOccupied(true);
+        this.tileMap[player2Location[0]][player2Location[1]].setOccupied(true);
+        this.tileMap[player3Location[0]][player3Location[1]].setOccupied(true);
+        this.tileMap[player4Location[0]][player4Location[1]].setOccupied(true);
     }
 
     /**
