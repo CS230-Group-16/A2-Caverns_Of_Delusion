@@ -193,17 +193,23 @@ public class RoundTable {
      * Allows a move action tile to be played.
      * @param t The action tile to be played.
      * @param player The player moved by the spell.
+     * @return True if moved successfully, false otherwise
      */
-    public void playMoveTile(ActionTile t, Player player) {
+    public boolean playMoveTile(ActionTile t, Player player) {
+        boolean moved = false;
         //backtracks the selected player or double moves the user depending on what spell they play
         if ("BACKTRACK".equals(t.getType())) {
-            backtrackPlayer(player);
+            moved = backtrackPlayer(player);
             //the player can only be backtracked once
             player.setBackTracked(true);
+            if (moved) {
+                this.currentPlayer.useSpell(t);
+            }
         } else if ("DOUBLEMOVE".equals(t.getType())) {
             //movement();
         }
-        this.currentPlayer.useSpell(t);
+        
+        return moved;
     }
 
     /**
@@ -302,18 +308,19 @@ public class RoundTable {
      * If that tile is engulfed, they are moved to 1 tile ago.
      * @param player The player that will be moved.
      */
-    private void backtrackPlayer(Player player) {
-        int[][] pathHistory;
-        pathHistory = player.getPathHistory();
+    private boolean backtrackPlayer(Player player) {
+        int[][] pathHistory = player.getPathHistory();
         //if the space they were on 2 turns ago was engulfed, go to the space 1 turn ago
         //if that space is also engulfed, do not move
-        for (int i = (pathHistory.length - 1); i >= 0; i--) {
-            if (pathHistory[i][0] != -1 || pathHistory[i][1] != -1) {
-                if (!board.getTileAt(pathHistory[i][0], pathHistory[i][1]).isEngulfed()) {
-                    board.updatePlayerLocation(player.getPlayerNum(), pathHistory[i]);
-                }
-            }
+        if (!this.board.getTileAt(pathHistory[1][0], pathHistory[1][1]).isEngulfed()) {
+            this.board.updatePlayerLocation(player.getPlayerNum(), pathHistory[1]);
+            return true;
+        } else if (!this.board.getTileAt(pathHistory[0][0], pathHistory[0][1]).isEngulfed()) {
+            this.board.updatePlayerLocation(player.getPlayerNum(), pathHistory[0]);
+            return true;
         }
+        
+        return false;
     }
 
     /**

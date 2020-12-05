@@ -115,6 +115,8 @@ public class TestGameController {
         this.game.getPlayers()[0].insertTile(new EffectTile("FIRE", -1));
         this.game.getPlayers()[0].insertTile(new MovementTile("DOUBLEMOVE", -1));
         this.game.getPlayers()[0].insertTile(new MovementTile("BACKTRACK", -1));
+        this.game.getPlayers()[2].updatePathHistory(new int[]{1, 1});
+        this.game.getPlayers()[2].updatePathHistory(new int[]{0, 0});
 
         setPlayerNames();
         refreshBoard();
@@ -278,9 +280,17 @@ public class TestGameController {
                             cd2.setContentText("Pick a player to cast your spell");
                             cd2.showAndWait();
                             for (int y = 0; y < players.length; y++) {
-                                if (players[y] == cd.getSelectedItem()) {
+                                if (players[y] == cd2.getSelectedItem()) {
                                     p = this.game.getPlayers()[y];
-                                    this.game.getRound().playMoveTile(spells.get(i), p);
+                                    boolean moved = this.game.getRound().playMoveTile(spells.get(i), p);
+                                    if (!moved) {
+                                        Alert a3 = new Alert(Alert.AlertType.WARNING);
+                                        a3.setHeaderText("You cannot move that player");
+                                        a3.setContentText("Select a different player");
+                                        a3.showAndWait();
+                                    } else {
+                                        refreshCentral();
+                                    }
                                 }
                             }
                         } else if ("DOUBLEMOVE".equals(spellStrings[i])) {
@@ -290,21 +300,6 @@ public class TestGameController {
                             a3.setHeaderText("Pick the center tile");
                             a3.setContentText("Select the center tile to cast your spell");
                             a3.showAndWait();
-                            /*
-                        boolean selected = false;
-                        while (!selected) {
-                            if (centreCoord == null) {
-                                Alert a2 = new Alert(Alert.AlertType.WARNING);
-                                a2.setHeaderText("Pick the center tile");
-                                a2.setContentText("You cannot cast this spell without\npicking a tile");
-                                a2.showAndWait();
-                            } else {
-                                this.game.getRound().playEffectTile(spells.get(i), centreCoord);
-                                centreCoord = null;
-                                selected = true;
-                            }
-                        }
-                             */
                             this.selectedTile = spells.get(i);
                         }
                     }
@@ -343,6 +338,7 @@ public class TestGameController {
             //go to main menu
         }
     }
+
     private void setMoveButtons(boolean set) {
         up.setVisible(set);
         down.setVisible(set);
@@ -610,7 +606,7 @@ public class TestGameController {
             a.setContentText("There is a frozen tile in the way\ntry somewhere else");
             a.showAndWait();
         }
-        
+
     }
 
     private void refreshCentral() {
