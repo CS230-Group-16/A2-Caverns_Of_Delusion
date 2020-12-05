@@ -44,7 +44,7 @@ import javafx.scene.paint.Color;
  * @author Bartosz Kubica
  * @version 1.0
  */
-public class TestGameController {
+public class GameController {
 
     private final int WIDTH_OF_TILE_IMAGE = 80;
     private final int HEIGHT_OF_TILE_IMAGE = 80;
@@ -404,15 +404,11 @@ public class TestGameController {
             //go to main menu
         }
     }
-<<<<<<< HEAD
     
     /**
      * To set the move buttons
      * @param set Sets the buttons to true or false
      */
-=======
-
->>>>>>> refs/remotes/origin/main
     private void setMoveButtons(boolean set) {
         up.setVisible(set);
         down.setVisible(set);

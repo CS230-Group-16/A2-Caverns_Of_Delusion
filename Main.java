@@ -28,7 +28,7 @@ public class Main extends Application {
      */
     public void start(Stage primaryStage) {
         try {
-            Pane root = (Pane) FXMLLoader.load(getClass().getResource("testBoard.fxml"));
+            Pane root = (Pane) FXMLLoader.load(getClass().getResource("BoardGUI.fxml"));
             
             //test
             
