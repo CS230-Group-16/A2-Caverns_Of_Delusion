@@ -5,6 +5,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ import javafx.scene.layout.BackgroundSize;
 
 public class ProfileEdit extends Application {
     //Change directory to personal one
-    private final String DIRECTORY = "E:/Users/Jimmy/Documents/Uni Work/YEAR 2/CS-230/230 code copy";
+    private final String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/";
     //initialising the tools to be displayed in JavaFX
     private Label gamesPlayedLbl = new Label("no player selected");
     private Label gamesWonLbl = new Label();
@@ -131,8 +132,8 @@ public class ProfileEdit extends Application {
         stage.setHeight(500);
 
         VBox root = new VBox();
-        
-        Image image = new Image("background_image.jpg.jpg");
+
+        Image image = new Image(new FileInputStream(DIRECTORY + "images/background_image.jpg"));
         BackgroundSize backgroundSize = new BackgroundSize(400, 500, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background backgroundPicture = new Background(backgroundImage);
