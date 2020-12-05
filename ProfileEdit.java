@@ -18,7 +18,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 
 /**
- * Edit profile name or delete profile with a GUI and also see a profiles game stats.
+ * Edit profile name or delete profile with a GUI and also see a profiles game status.
  * @author Jimmy Kells and Surinder Singh.
  * @version 1.0
  */
