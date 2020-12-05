@@ -190,7 +190,7 @@ public class Game {
      * @param locationFile name of the file that holds the leaderboard
      */
     public void createLeaderboard(String locationFile) {
-        this.leaderboard = new Leaderboard(locationFile);
+        //this.leaderboard = new Leaderboard(locationFile);
     }
 
     /**

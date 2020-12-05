@@ -555,7 +555,6 @@ public class TestGameController {
                 bRow.setOnAction(e -> {
                     if (this.tile != null) {
                         insertTile(this.tile, true, ordinal.get(), false);
-                        checkSpellBook();
                     }
                 });
                 Button bRow2 = new Button();
@@ -563,9 +562,7 @@ public class TestGameController {
                 bRow2.setOnAction(e -> {
                     if (this.tile != null) {
                         insertTile(this.tile, true, ordinal.get(), true);
-                        checkSpellBook();
                     }
-                    
                 });
                 central.add(bRow, 0, (i + 1));
                 central.add(bRow2, (width + 1), (i + 1));
@@ -582,18 +579,14 @@ public class TestGameController {
                 bCol.setOnAction(e -> {
                     if (this.tile != null) {
                         insertTile(this.tile, false, ordinal.get(), false);
-                        checkSpellBook();
                     }
-                    
                 });
                 Button bCol2 = new Button();
                 bCol2.setText("^");
                 bCol2.setOnAction(e -> {
                     if (this.tile != null) {
                         insertTile(this.tile, false, ordinal.get(), true);
-                        checkSpellBook();
                     }
-                    
                 });
                 central.add(bCol, (i + 1), 0);
                 central.add(bCol2, (i + 1), (height + 1));
@@ -604,11 +597,20 @@ public class TestGameController {
     }
 
     private void insertTile(FloorTile t, boolean row, int posNum, boolean flip) {
-        this.game.getBoard().insertTile(t, row, posNum, flip);
-        drawnTile.getChildren().clear();
-        drawnType.setText("");
-        refreshCentral();
-        this.tile = null;
+        boolean inserted = this.game.getBoard().insertTile(t, row, posNum, flip);
+        if (inserted) {
+            drawnTile.getChildren().clear();
+            drawnType.setText("");
+            refreshCentral();
+            this.tile = null;
+            checkSpellBook();
+        } else {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setHeaderText("You cannot insert it there!");
+            a.setContentText("There is a frozen tile in the way\ntry somewhere else");
+            a.showAndWait();
+        }
+        
     }
 
     private void refreshCentral() {
