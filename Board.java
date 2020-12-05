@@ -234,6 +234,7 @@ public class Board {
      * @return True if tile was successfully inserted, false otherwise.
      */
     public boolean insertTile(FloorTile tile, boolean row, int positionNum, boolean flip) {
+        FloorTile temp;
         if (row) {
             for (int i = 0; i < this.width; i++) {
                 if (this.tileMap[i][positionNum].isFrozen()) {
@@ -250,14 +251,18 @@ public class Board {
         if (!flip) {
             if (row) {
                 //insert a tile into the default side of the row
-                this.silkBag.addTile(this.tileMap[width - 1][positionNum]);
+                temp = this.tileMap[width - 1][positionNum];
+                temp.setEngulfed(false);
+                this.silkBag.addTile(temp);
                 for (int i = (width - 1); i > 0; i--) {
                     this.tileMap[i][positionNum] = this.tileMap[i - 1][positionNum];
                 }
                 this.tileMap[0][positionNum] = tile;
             } else {
                 //insert a tile to the default side of the column
-                this.silkBag.addTile(this.tileMap[positionNum][height - 1]);
+                temp = this.tileMap[positionNum][height - 1];
+                temp.setEngulfed(false);
+                this.silkBag.addTile(temp);
                 for (int i = (height - 1); i > 0; i--) {
                     this.tileMap[positionNum][i] = this.tileMap[positionNum][i - 1];
                 }
@@ -267,14 +272,18 @@ public class Board {
         } else if (flip) {
             //insert a tile into the opposite side of the row
             if (row) {
-                this.silkBag.addTile(this.tileMap[0][positionNum]);
+                temp = this.tileMap[0][positionNum];
+                temp.setEngulfed(false);
+                this.silkBag.addTile(temp);
                 for (int i = 0; i < (width - 1); i++) {
                     this.tileMap[i][positionNum] = this.tileMap[i + 1][positionNum];
                 }
                 this.tileMap[width - 1][positionNum] = tile;
             } else {
                 //insert a tile to the opposite side of the column
-                this.silkBag.addTile(this.tileMap[positionNum][0]);
+                temp = this.tileMap[positionNum][0];
+                temp.setEngulfed(false);
+                this.silkBag.addTile(temp);
                 for (int i = 0; i < (height - 1); i++) {
                     this.tileMap[positionNum][i] = this.tileMap[positionNum][i + 1];
                 }
