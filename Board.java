@@ -1,17 +1,16 @@
-
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-/*
- * class represents the template of the gameboard
- * @author Bartosz Kubica&Marius Antemir
+/**
+ * The board that the tiles and players will be placed on.
+ * @author Bartosz Kubica & Marius Antemir.
  * @version 1.6
  */
-public class Board {
 
+public class Board {
     private static final SimpleDateFormat sdfH = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
     
@@ -27,18 +26,18 @@ public class Board {
     private boolean[] blockedColumn;
     private int [] goal;
 
-    /*
-	 * Create a gameboard with every players' location, 
+    /**
+	 * Constructor to create a gameboard with every players' location,
 	 * gameboard height&width and all non-moving tileMap, orientation
-	 * of tileMap and their locations
-	 * @param player1Location first player's location
-	 * @param player2Location second player's location
-	 * @param player3Location third player's location
-	 * @param player4Location fourth player's location
-	 * @param width the width of the gameboard
-	 * @param height the height of the gameboard
-	 * @param tileMap all fixed tileMap to place on to board
-	 * @param tileLocation location of tile 
+	 * of tileMap and their locations.
+	 * @param player1Location First player's location.
+	 * @param player2Location Second player's location.
+	 * @param player3Location Third player's location.
+	 * @param player4Location Fourth player's location.
+	 * @param width The width of the gameboard.
+	 * @param height The height of the gameboard.
+	 * @param tileMap All fixed tileMap to place on to board.
+	 * @param tileLocation Location of tile .
      */
     Board(int[] player1Location, int[] player2Location, int[] player3Location, int[] player4Location,
             int width, int height, FloorTile[] fixedTiles, int[][] tileLocation, FloorTile[] randTiles, SilkBag silkBag) {
@@ -66,7 +65,20 @@ public class Board {
         fillBoard(randTiles);
         this.goal = tileLocation[0];
     }
-    
+
+    /**
+     * Second constructor with different parameters.
+     * @param p1Loc Player 1s location.
+     * @param p2Loc Player 2s location.
+     * @param p3Loc Player 3s location.
+     * @param p4Loc Player 4s location.
+     * @param width The width of the board.
+     * @param height The height of the board.
+     * @param tileMap All fixed tileMap to place on to board.
+     * @param blockRow Rows that a tile cannot be placed in.
+     * @param blockColumn Columns that a tile cannot be placed in.
+     * @param goal The goal tile location.
+     */
     public Board(int[]p1Loc,int[]p2Loc,int[]p3Loc,int[]p4Loc,int width, int height, FloorTile[][] tileMap,
             boolean [] blockRow, boolean [] blockColumn, int [] goal){
         this.player1Location = p1Loc;
@@ -82,8 +94,8 @@ public class Board {
     }
     
     /**
-     * Set the silk bag to board reference
-     * @param silkBag silk bag instance
+     * Sets the silk bag to be used.
+     * @param silkBag Silk bag instance.
      */
     public void setSilkBag(SilkBag silkBag){
         this.silkBag = silkBag;
@@ -93,10 +105,10 @@ public class Board {
         return this.goal;
     }
 
-    /*
-	 * gets the player's location on gameboard
-	 * @param player identification of player by number
-	 * @return player's location with in [x,y] format
+    /**
+	 * Gets the player's location on gameboard.
+	 * @param player Identification of player by number.
+	 * @return location Player's location in [x,y] format.
      */
     public int[] getPlayerLocation(int player) {
         int [] location = {-1,-1};
@@ -114,36 +126,49 @@ public class Board {
         }
         return location;
     }
-    
-    public void blockRowColumn(int[][] tileLocations){     
+
+    /**
+     * Sets the row and column to be blocked if the tile is blocked.
+     * @param tileLocations 2d array of blocked tiles.
+     */
+    public void blockRowColumn(int[][] tileLocations) {
         for (int[] tileLocation : tileLocations) {
             this.blockedColumn[tileLocation[0]] = true;
             this.blockedRow[tileLocation[1]] = true;
         }
     }
-    
-    public boolean[] getBlockedRow(){
+
+    /**
+     * gets the blocked row.
+     * @return blockedRow The blocked row.
+     */
+    public boolean[] getBlockedRow() {
         return this.blockedRow;
     }
-    public boolean[] getBlockedColumn(){
+
+    /**
+     * gets the blocked column.
+     * @return blockedRow The blocked column.
+     */
+    public boolean[] getBlockedColumn() {
         return this.blockedColumn;
     }
 
-    
-    /*
-     * gives the tile at a certain position
-     * @return tile at position
+
+    /**
+     * turns an x and y coordinate into a tile.
+     * @param x X location of tile.
+     * @param y Y location of tile.
+     * @return The tile at the position given.
      */
     public FloorTile getTileAt(int x, int y) {
         return this.tileMap[x][y];
     }
 
-
-
-    /*
-	 * updates/sets a new location for the player on the gameboard
-	 * @param player identification of player by number
-	 * @param newLocation the new [x,y] location of player
+    /**
+	 * updates/sets a new location for the player on the gameboard.
+	 * @param player Identification of player by number.
+	 * @param newLocation The new [x,y] location of the player.
      */
     public void updatePlayerLocation(int player, int[] newLocation) {
         if (player == 1) {
@@ -161,20 +186,20 @@ public class Board {
     }
 
     /**
-     * Update the tile at specific location
-     * @param newLocation new location of tile
-     * @param t tile to be placed in that location
+     * Update the tile at specific location.
+     * @param newLocation New location of tile.
+     * @param t Tile to be placed in that location.
      */
     public void updateTileLocation(int[] newLocation, FloorTile t) {
         this.tileMap[newLocation[0]][newLocation[1]] = t;
     }
 
-    /*
-	 * inserts tile on gameboard&pushes all tileMap along 
-	 * @param tile FloorTile to be inserted
-	 * @param row can only be inserted if true
-	 * @param positionNum where the tile should be inserted(column)
-	 * @param rotation orientation of the tile(0 degrees, 90 degrees, ..)
+    /**
+	 * inserts tile on gameboard and pushes all tileMap along.
+	 * @param tile FloorTile to be inserted.
+	 * @param row Can only be inserted if true.
+	 * @param positionNum Where the tile should be inserted (column).
+	 * @param flip Rotation orientation of the tile(0 degrees, 90 degrees, ..).
      */
     public void insertTile(FloorTile tile, Boolean row, int positionNum, boolean flip) {
         if (!flip) {
@@ -210,19 +235,19 @@ public class Board {
         //send to silkbag
     }
 
-    /* creates a floor tile(tile with no special actions, only 
-	 * 						different shapes)
-	 * @param type the type of the tile
-	 * @param rotation orientation of the tile(0 degrees, 90 degrees, ..)
-	 * @return FloorTile tile
+    /**
+     * Creates a floor tile that can be placed onto the board.
+	 * @param type The tile type e.g. Straight, Corner etc...
+	 * @param rotation orientation of the tile(0 degrees, 90 degrees, ..).
+	 * @return FloorTile The tile created.
      */
     private FloorTile createTile(String type, int rotation) {
         return null;
     }
 
-    /*
-	 * checks if player is out of the game board
-	 * @param playerNum player's number
+    /**
+	 * Checks if player is out of bounds in the game board.
+	 * @param playerNum Identification of player by number.
      */
     public void pushedOut(int playerNum) {
         int[] playerPos = getPlayerLocation(playerNum);
@@ -236,31 +261,32 @@ public class Board {
 
     }
 
-    /*
-	 * checks if a tile is 'frozen'(frozen tileMap
-	 * 						act as FloorTile[fixed tileMap]
-	 * 						until ice melts)
-	 * @param positionNum the position of the tile
-	 * @return whether the tile is frozen or not
+    /**
+	 * Checks if a tile is frozen (frozen tileMap acts as FloorTile[fixed tileMap]
+	 * 						       until ice melts).
+	 * @param x The x position of the tile.
+     * @param y The y position of the tile.
+	 * @return Whether the tile is frozen or not.
      */
     private Boolean isFrozen(int x, int y) {
         return this.tileMap[x][y].isFrozen();
     }
 
-    /*
-	 * checks if a group of tileMap are 'engulfed'(fire on
-	 * 						surrounding tileMap, cannot
-	 * 						be moved onto if on fire) 
-	 * @return whether the tileMap are engulfed or not  					    
+    /**
+	 * Checks if a group of tileMap are engulfed (fire on surrounding tileMap, cannot
+	 * 						                      be moved onto if on fire).
+     * @param x The x position of the tile.
+     * @param y The y position of the tile.
+	 * @return Whether the tileMap are engulfed or not.
      */
     private Boolean isEngulfed(int x, int y) {
         return this.tileMap[x][y].isEngulfed();
     }
 
-    /*
-	 * checks if player has reached finish
-	 * @param playerNum player's number
-	 * @return whether player is finished or not
+    /**
+	 * Checks if a player has reached the finish.
+	 * @param playerNum Player's number.
+	 * @return Whether player is has reached the goal.
      */
     public Boolean reachedGoal(int playerNum) {
         /*
@@ -287,9 +313,9 @@ public class Board {
         return false;
     }
 
-    /*
-	 * checks if tile can be used to make a path
-	 * @param tile the tile to be checked
+    /**
+	 * Checks if a player has a valid path to move
+	 * @param player The player who is trying to move
      */
     public boolean[] checkPathway(int player) { // ** needs to return boolean
         boolean[] pathway = {false,false,false,false};
@@ -342,9 +368,10 @@ public class Board {
         return pathway;
     }
 
-    /*
-	 * when a player's turn, signifies their action/'move'
-	 * @param playerNum
+    /**
+	 * On a player's turn, the player will move to a new tile if theres a valid pathway.
+	 * @param playerNum Player's number.
+     * @param newLocation the new location of where the player will be.
      */
     public void move(int playerNum,int[]newLocation) {
         //boolean[] paths = checkPathway(playerNum);
@@ -356,11 +383,11 @@ public class Board {
         }
     }
 
-    /*
-	 * moves the player forwards/backwards depending on boolean
-	 * @param move if true player moves forward, otherwise backwards
-	 * @param playerNum player's number
-	 * @param finalLocation player's goal location
+    /**
+	 * Moves the player forwards/backwards depending on boolean.
+	 * @param move If true player moves forward, otherwise backwards.
+	 * @param playerNum Player's number.
+	 * @param finalLocation Where the player wants to move to.
      */
     public void movePlayer(Boolean move, int playerNum, int[] finalLocation) {
         if (move) {
@@ -371,17 +398,17 @@ public class Board {
 
     }
 
-    /*
-	 * places tile on gameboard(used when constructing board)
-	 * @param tile tile to be placed
-	 * @param location where the tile should be placed
+    /**
+	 * places a tile on gameboard(used when constructing board)
+	 * @param tile Tile to be placed
+	 * @param location Where the tile should be placed
      */
     private void placeTile(FloorTile tile, int[] location) {
         this.tileMap[location[0]][location[1]] = tile;
     }
     
     /**
-     * Fill rest of board with random tiles
+     * Fills the rest of the board with random tiles.
      */
     private void fillBoard(FloorTile [] tiles){
         int nextTile = 0;
@@ -397,9 +424,9 @@ public class Board {
     }
     
     /**
-     * randomly rotate tiles
-     * @param x x coordinate of tile to rotate
-     * @param y y coordinate of tile to rotate
+     * Randomly rotates tiles.
+     * @param x The x coordinate of tile to rotate.
+     * @param y The y coordinate of tile to rotate.
      */
     private void rotateTile(int x, int y){
         Random rand = new Random();
@@ -407,39 +434,39 @@ public class Board {
     }
 
     /**
-     * get width of board
-     * @return width integer
+     * Get the width of the board.
+     * @return width The board's width.
      */
     public int getWidth() {
         return Board.width;
     }
 
     /**
-     * get height of board
-     * @return height integer
+     * Get the height of the board.
+     * @return height The board's height.
      */
     public int getHeight() {
         return Board.height;
     }
     
     /**
-     * get created silk bag
-     * @return silk bag
+     * Get the created silk bag.
+     * @return silkBag The silk bag created.
      */
     public SilkBag getSilkBag(){
         return this.silkBag;
     }
     
     /**
-     * returns mapping of tiles on board
-     * @return tile map of floor tiles
+     * Gets the mapping of tiles on board.
+     * @return tileMap The tileMap of floor tiles.
      */
     public FloorTile[][] getTileMap(){
         return this.tileMap;
     }
     
     /**
-     * to string method for testing
+     * Converts the board to a string for testing purposes.
      */
     public void toStr() {
         System.out.println("---Board---");
@@ -462,8 +489,8 @@ public class Board {
     }
     
     /**
-     * convert to text to put into file
-     * @return string version of the game
+     * convert the board to text to put into a save file.
+     * @return result A string version of the game.
      */
     public String toText(){
         String result = "";
@@ -500,7 +527,10 @@ public class Board {
         
         return result;
     }
-    
+
+    /**
+     * saves the board to a file.
+     */
     public void saveBoard(){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String filename = "SavedBoard" + sdf.format(timestamp) + ".txt";

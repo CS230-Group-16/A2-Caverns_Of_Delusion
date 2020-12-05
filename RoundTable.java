@@ -159,6 +159,10 @@ public class RoundTable {
         this.drawnTile = tile;
     }
 
+    /**
+     * returns the tile drawn.
+     * @return The tile drawn.
+     */
     public Tile getDrawnTile() {
         return this.drawnTile;
     }
@@ -224,7 +228,7 @@ public class RoundTable {
     /**
      * Provides an array of the surrounding tiles.
      * @param centralTile The x and y coordinates at the center of the 9x9 square of tiles to be affected.
-     * @return an array of the surrounding tiles
+     * @return selectedTiles an array of the surrounding tiles
      */
     private FloorTile[] getSurroundingTile(int[] centralTile) {
         //takes the chosen tiles array and splits them into an x and a y variable
@@ -346,7 +350,7 @@ public class RoundTable {
     
     /**
      * converts the game to text to put into a file.
-     * @return string version of the game.
+     * @return result String version of the game.
      */
     public String toText(){
         //game variables are turned to strings
