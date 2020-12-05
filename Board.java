@@ -49,12 +49,14 @@ public class Board {
         this.height = height;
         this.blockedRow = new boolean[height];
         this.blockedColumn = new boolean[width];
+        //unblocks the rows and columns that tiles can be pushed into
         for (int i = 0; i < height; i++) {
             this.blockedRow[i] = false;
         }
         for (int i = 0; i < width; i++) {
             this.blockedColumn[i] = false;
         }
+        //blocks tiles that should not move
         blockRowColumn(tileLocation);
         this.tileMap = new FloorTile[width][height];
         for (int i = 0; i < fixedTiles.length; i++) {
@@ -79,8 +81,8 @@ public class Board {
      * @param blockColumn Columns that a tile cannot be placed in.
      * @param goal The goal tile location.
      */
-    public Board(int[]p1Loc,int[]p2Loc,int[]p3Loc,int[]p4Loc,int width, int height, FloorTile[][] tileMap,
-            boolean [] blockRow, boolean [] blockColumn, int [] goal){
+    public Board(int[] p1Loc, int[] p2Loc, int[] p3Loc, int[] p4Loc, int width, int height, FloorTile[][] tileMap,
+            boolean [] blockRow, boolean [] blockColumn, int [] goal) {
         this.player1Location = p1Loc;
         this.player2Location = p2Loc;
         this.player3Location = p3Loc;
@@ -199,17 +201,19 @@ public class Board {
 	 * @param tile FloorTile to be inserted.
 	 * @param row Can only be inserted if true.
 	 * @param positionNum Where the tile should be inserted (column).
-	 * @param flip Rotation orientation of the tile(0 degrees, 90 degrees, ..).
+	 * @param flip The side of the board the tile will be inserted into.
      */
     public void insertTile(FloorTile tile, Boolean row, int positionNum, boolean flip) {
         if (!flip) {
             if (row) {
+                //insert a tile into the default side of the row
                 this.silkBag.addTile(this.tileMap[width-1][positionNum]);
                 for (int i = (width-1); i > 0; i--) {
                     this.tileMap[i][positionNum] = this.tileMap[i-1][positionNum];
                 }
                 this.tileMap[0][positionNum] = tile;
             } else {
+                //insert a tile to the default side of the column
                 this.silkBag.addTile(this.tileMap[positionNum][height-1]);
                 for (int i = (height-1); i > 0; i--) {
                     this.tileMap[positionNum][i] = this.tileMap[positionNum][i-1];
@@ -217,6 +221,7 @@ public class Board {
                 this.tileMap[positionNum][0] = tile;
             }
         } else if (flip) {
+            //insert a tile into the opposite side of the row
             if (row) {
                 this.silkBag.addTile(this.tileMap[0][positionNum]);
                 for (int i = 0; i < (width-1); i++) {
@@ -224,6 +229,7 @@ public class Board {
                 }
                 this.tileMap[width-1][positionNum] = tile;
             } else {
+                //insert a tile to the opposite side of the column
                 this.silkBag.addTile(this.tileMap[positionNum][0]);
                 for (int i = 0; i < (height-1); i++) {
                     this.tileMap[positionNum][i] = this.tileMap[positionNum][i+1];
@@ -231,7 +237,6 @@ public class Board {
                 this.tileMap[positionNum][height-1] = tile;
             }
         }
-        
         //send to silkbag
     }
 
@@ -255,6 +260,7 @@ public class Board {
         int x = playerPos[0];
         int y = playerPos[1];
 
+        //checks if the player is moved outside of the board
         if (x > getWidth() || y > getHeight()) {
             System.out.println("player outside of board");
         }
@@ -325,7 +331,8 @@ public class Board {
         int [] southPath = {0,0,0,0};
         int [] westPath = {0,0,0,0};
         int [] currentPath = getTileAt(playerLocation[0],playerLocation[1]).getPathways();
-        
+
+        //find pathways above and below the player
         if (playerLocation[1] <= 0) {
             southPath = getTileAt(playerLocation[0],(playerLocation[1]+1)).getPathways();
         } else if (playerLocation[1] >= (this.height-1)) {
@@ -334,7 +341,7 @@ public class Board {
             northPath = getTileAt(playerLocation[0],(playerLocation[1]-1)).getPathways();
             southPath = getTileAt(playerLocation[0],(playerLocation[1]+1)).getPathways();
         }
-        
+        //find pathways to the sides of the player
         if (playerLocation[0] <= 0) {
             eastPath = getTileAt((playerLocation[0]+1),playerLocation[1]).getPathways();
         } else if (playerLocation[0] >= (this.width-1)) {
@@ -373,9 +380,9 @@ public class Board {
 	 * @param playerNum Player's number.
      * @param newLocation the new location of where the player will be.
      */
-    public void move(int playerNum,int[]newLocation) {
+    public void move(int playerNum, int[]newLocation) {
         //boolean[] paths = checkPathway(playerNum);
-        //show where they can go
+        //show where the player can move
         if (newLocation[0] > 0 && newLocation[1] > 0) {
             if (newLocation[0] <= this.getWidth() && newLocation[1] <= this.getHeight()) {
                 updatePlayerLocation(playerNum,newLocation);
@@ -410,8 +417,10 @@ public class Board {
     /**
      * Fills the rest of the board with random tiles.
      */
-    private void fillBoard(FloorTile [] tiles){
+    private void fillBoard(FloorTile[] tiles) {
         int nextTile = 0;
+        //goes through all of the x and y coordinates of the board and fills them with a random tile
+        //if the tile isnt already set
         for (int x = 0; x < this.width; x++) {
             for (int y = 0; y < this.height; y++) {
                 if (this.tileMap[x][y] == null) {
@@ -428,7 +437,7 @@ public class Board {
      * @param x The x coordinate of tile to rotate.
      * @param y The y coordinate of tile to rotate.
      */
-    private void rotateTile(int x, int y){
+    private void rotateTile(int x, int y) {
         Random rand = new Random();
         this.tileMap[x][y].setRotation(rand.nextInt(4));
     }
@@ -500,7 +509,8 @@ public class Board {
                 + String.valueOf(this.player2Location[0]) + "," + String.valueOf(this.player2Location[1]) + "\n"
                 + String.valueOf(this.player3Location[0]) + "," + String.valueOf(this.player3Location[1]) + "\n"
                 + String.valueOf(this.player4Location[0]) + "," + String.valueOf(this.player4Location[1]) + "\n";
-        
+
+        //gets all the blocked rows as strings
         for (int i = 0; i < this.blockedRow.length; i++) {
             if (i == 0) {
                 result += this.blockedRow[i];
@@ -509,6 +519,7 @@ public class Board {
             }
         }
         result += "\n";
+        //gets all the blocked columns as strings
         for (int i = 0; i < this.blockedColumn.length; i++) {
             if (i == 0) {
                 result += this.blockedColumn[i];
@@ -517,14 +528,12 @@ public class Board {
             }
         }
         result += "\n";
-        
+        //gets the tiles as strings
         for (int x = 0; x < width; x++) {
             for (int y = 0 ; y < height; y++) {
                 result += String.valueOf(x) + "," + String.valueOf(y) + "," + this.tileMap[x][y].toText();
             }
         }
-
-        
         return result;
     }
 
