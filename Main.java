@@ -66,18 +66,18 @@ public class Main extends Application {
     }
     
     public static void main(String [] args){
-        Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000","awesomeGuy"});
+        //Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000","awesomeGuy"});
         //g.toStr();
         //g.displayMessage();
         
-        g.getPlayers()[0].insertTile(new EffectTile("FIRE",3));
+        //g.getPlayers()[0].insertTile(new EffectTile("FIRE",3));
         
-        g.saveGame();
+        //g.saveGame();
         
         //System.out.println(g.toText());
         //System.out.println(g.getBoard().toText());
         
-        Game g2 = new Game("SavedBoard2020.12.04.txt","SavedGame2020.12.04.txt");
+        //Game g2 = new Game("SavedBoard2020.12.04.txt","SavedGame2020.12.04.txt");
         //System.out.println(g2.toText());
         //System.out.println(g2.getBoard().toText());
         //g2.getBoard().toStr();
