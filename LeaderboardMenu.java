@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -5,6 +6,12 @@ import java.util.Scanner;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import static javafx.application.Application.launch;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.stage.Stage;
 import javax.swing.JFrame; 
 import javax.swing.JScrollPane; 
@@ -45,7 +52,7 @@ public class LeaderboardMenu extends Application {
     { 
         frame = new JFrame(); // Frame initiallization 
         frame.setTitle("Leaderboard");  // Frame Title 
-        
+       
         Leaderboard l = new Leaderboard();
         readLeaderboard();
   
@@ -55,7 +62,7 @@ public class LeaderboardMenu extends Application {
         }; 
   
         String[] columnNames = { "Username", "Games Won", "Games Played" }; // Column Names 
-  
+        
         // Initializing the JTable 
         table = new JTable(data, columnNames); 
         table.setBounds(30, 40, 200, 300); 

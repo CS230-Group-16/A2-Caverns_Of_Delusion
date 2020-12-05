@@ -9,6 +9,12 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 
 /**
  * Edit profile name or delete profile with a GUI and also see a profiles game stats.
@@ -125,6 +131,11 @@ public class ProfileEdit extends Application {
         stage.setHeight(500);
 
         VBox root = new VBox();
+        
+        Image image = new Image("background_image.jpg.jpg");
+        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
+        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        Background backgroundPicture = new Background(backgroundImage);
 
         //makes the GUI for before a profile is selected
         MenuButton menuButton = refresh();
@@ -138,7 +149,8 @@ public class ProfileEdit extends Application {
         menuButton.setOnAction(e -> {
             refresh();
         });
-
+        
+        root.setBackground(backgroundPicture);
         root.getChildren().addAll(menuButton, gamesPlayedLbl, gamesWonLbl, gamesLostLbl, usernameTxtbox,
                 updateUserBtn, deleteBtn);
         Scene scene = new Scene(root);
