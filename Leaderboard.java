@@ -20,9 +20,13 @@ public class Leaderboard {
     /**
      * Constructor used to make leaderboard
      */
-    public Leaderboard(String locationFile) {
+    public Leaderboard() {
+        getPlayers();
+        insertScore();
+    }
 
-        File playerMain = new File(locationFile);
+    public void getPlayers() {
+        File playerMain = new File("player.txt");
         try {
             Scanner input = new Scanner(playerMain);
             while (input.hasNext()) {
@@ -33,33 +37,29 @@ public class Leaderboard {
             			player.add(new Player(profile.next(), profile.nextInt(), profile.nextInt()));
             		}
     	       	 	profile.close();
-				} catch (Exception e) {
+				} catch (FileNotFoundException e) {
 					System.out.println("Cannot open " + input.next() + ".txt");
 				}
            input.close();
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Cannot open " + locationFile);
+            System.out.println("Cannot open player.txt");
         }
     }
-
     /**
      * Inserts score to the player
-     * @param player the player's profile
-     * @param score the player's score
      */
     public void insertScore() { 
     	sort();
     	try {
-    		FileWriter LeaderboardFile = new FileWriter("LeaderboardFile.txt", true);
-			for (int i = 0; i < player.size(); i++) {
-				LeaderboardFile.write(player.get(i).getUsername() + " " + player.get(i).getGamesWon() + " " + player.get(i).getGamesPlayed()+ "\n");
-				LeaderboardFile.close();
-		        System.out.println("Player added to the leaderboard");
-			}
-		} catch (IOException e) {
-			System.out.println("Player could not be added to the leaderboard");
-		}
+            FileWriter LeaderboardFile = new FileWriter("LeaderboardFile.txt", true);
+            for (int i = 0; i < player.size(); i++) {
+                LeaderboardFile.write(player.get(i).getUsername() + " " + player.get(i).getGamesWon() + " " + player.get(i).getGamesPlayed()+ "\n");
+                System.out.println("Player added to the leaderboard");
+            }
+	} catch (IOException e) {
+            System.out.println("Player could not be added to the leaderboard");
+	}
     }
 
     /**
@@ -80,9 +80,5 @@ public class Leaderboard {
     public void updateFile() {
     	FileReader.deleteFile("LeaderboardFile.txt");
     	insertScore();
-    }
-    
-    public ArrayList<Player> getPlayers(){
-        return this.player;
     }
 }
