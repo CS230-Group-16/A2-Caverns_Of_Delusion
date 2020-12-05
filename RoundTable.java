@@ -352,7 +352,7 @@ public class RoundTable {
      * converts the game to text to put into a file.
      * @return result String version of the game.
      */
-    public String toText(){
+    public String toText() {
         //game variables are turned to strings
         String result = "";
         result += String.valueOf(this.numOfPlayers) + ","

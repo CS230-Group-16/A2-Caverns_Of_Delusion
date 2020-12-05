@@ -13,7 +13,7 @@ public abstract class Tile {
      * Constructor used to the Tile class
      * @param type the type of the current tile.
      */
-    public Tile(String type){
+    public Tile(String type) {
         this.type = type;
     }
 

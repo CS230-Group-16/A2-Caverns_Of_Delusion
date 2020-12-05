@@ -1,6 +1,6 @@
 public class ActionTileTest {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         //making test objects
         EffectTile fire = new EffectTile("engulf",0);

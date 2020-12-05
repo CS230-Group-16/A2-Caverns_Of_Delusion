@@ -33,7 +33,7 @@ public abstract class FloorTile extends Tile {
      * @param occupied Is the floor tile is occupied
      * @param rotation The rotation of the floor tile
      */
-    public FloorTile(String type, boolean frozen, boolean engulfed, boolean fixed, boolean occupied, int rotation){
+    public FloorTile(String type, boolean frozen, boolean engulfed, boolean fixed, boolean occupied, int rotation) {
         super(type);
         this.tileType = type;
         this.frozen = frozen;
