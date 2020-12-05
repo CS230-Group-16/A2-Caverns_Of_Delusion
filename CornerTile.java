@@ -23,9 +23,10 @@ public class CornerTile extends FloorTile {
         super("CORNER",frozen,engulfed,fixed,occupied,rotation);
         this.rotation = rotation;
     }
+    
     /**
-     * Generates an int array (of length 4) that represents the pathways of the tile, the array represents the following [North, East, South, West]. '1' represents a path in that direction whereas '0' is a lack of a path.
-     *
+     * Generates an int array (of length 4) that represents the pathways of the tile, the array represents the following [North, East, South, West]. 
+     * '1' represents a path in that direction whereas '0' is a lack of a path.
      * @param rotation - generates the pathways based on the rotation (orientation) of the tile
      */
     public void generatePathways(int rotation) {
@@ -61,7 +62,6 @@ public class CornerTile extends FloorTile {
 
     /**
      * returns the pathways array of the current tile, showing valid and invalid paths
-     *
      * @return pathways - the pathways array of the tile
      */
     public int[] getPathways() {
@@ -70,7 +70,6 @@ public class CornerTile extends FloorTile {
 
     /**
      * change rotation by user when inserted
-     *
      * @param rotation new rotation of tile
      */
     public void setRotation(int rotation) {
