@@ -5,7 +5,7 @@
  * @version 1.3
  */
 
-abstract class FloorTile extends Tile {
+public abstract class FloorTile extends Tile {
 
     private boolean frozen;
     private boolean engulfed;
@@ -17,7 +17,6 @@ abstract class FloorTile extends Tile {
 
     /**
      * Constructor used to make for the FloorTile class
-     *
      * @param type the type of tile
      */
     public FloorTile(String type) {
@@ -25,7 +24,16 @@ abstract class FloorTile extends Tile {
         this.tileType = type;
     }
     
-    public FloorTile(String type, boolean frozen, boolean engulfed, boolean fixed, boolean occupied,int rotation){
+    /**
+     * Constructor used to make for the FloorTile class
+     * @param type The type of tile
+     * @param frozen Is the floor tile is frozen
+     * @param engulfed Is the floor tile is engulfed
+     * @param fixed is The floor tile is fixed
+     * @param occupied Is the floor tile is occupied
+     * @param rotation The rotation of the floor tile
+     */
+    public FloorTile(String type, boolean frozen, boolean engulfed, boolean fixed, boolean occupied, int rotation){
         super(type);
         this.tileType = type;
         this.frozen = frozen;
@@ -37,7 +45,6 @@ abstract class FloorTile extends Tile {
 
     /**
      * sets frozen attribute of the tile to the 'value' param
-     *
      * @param value a boolean value showing engulfed status
      */
     public void setFrozen(boolean value) {
@@ -46,7 +53,6 @@ abstract class FloorTile extends Tile {
 
     /**
      * sets engulfed attribute of the tile to the 'value' param
-     *
      * @param value a boolean value showing engulfed status
      */
     public void setEngulfed(boolean value) {
@@ -55,7 +61,6 @@ abstract class FloorTile extends Tile {
 
     /**
      * sets occupied attribute of the tile to the 'value' param
-     *
      * @param value a boolean value showing occupied status
      */
     public void setOccupied(boolean value) {
@@ -64,7 +69,6 @@ abstract class FloorTile extends Tile {
 
     /**
      * gets the frozen attribute of tile
-     *
      * @return frozen
      */
     public boolean isFrozen() {
@@ -73,7 +77,6 @@ abstract class FloorTile extends Tile {
 
     /**
      * gets the engulfed attribute of tile
-     *
      * @return engulfed
      */
     public boolean isEngulfed() {
@@ -82,7 +85,6 @@ abstract class FloorTile extends Tile {
 
     /**
      * gets the occupied attribute of tile
-     *
      * @return Occupied
      */
     public boolean isOccupied() {
@@ -91,7 +93,6 @@ abstract class FloorTile extends Tile {
 
     /**
      * setting rotation of floor tile
-     *
      * @param rotation rotation to set to
      */
     public void setRotation(int rotation) {
@@ -100,7 +101,6 @@ abstract class FloorTile extends Tile {
 
     /**
      * get rotation of floor tile
-     *
      * @return rotation of floor tile
      */
     public int getRotation() {
@@ -109,7 +109,6 @@ abstract class FloorTile extends Tile {
 
     /**
      * get pathways of tile
-     *
      * @return pathway of tile
      */
     public int[] getPathways() {
@@ -118,17 +117,24 @@ abstract class FloorTile extends Tile {
 
     /**
      * set pathways of tile
-     *
      * @param path pathway of tile
      */
     public void setPathways(int[] path) {
         this.pathways = path;
     }
-
+    
+    /**
+     * set the fixed tile
+     * @param set The tile to set
+     */
     public void setFixed(boolean set) {
         this.fixed = set;
     }
-
+    
+    /**
+     * are the tile fixed
+     * @return false if the tile is not fixed, true otherwise
+     */
     public boolean isFixed() {
         return this.fixed;
     }
@@ -147,7 +153,6 @@ abstract class FloorTile extends Tile {
 
     /**
      * convert to text to put into file
-     *
      * @return string version of the game
      */
     public String toText() {

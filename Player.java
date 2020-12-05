@@ -47,7 +47,7 @@ public class Player {
      * @param backtrack
      * @param spells 
      */
-    public Player (String username,int gamesWon, int gamesLost, int playerNum, int[][]path, boolean backtrack, ActionTile[] spells) {
+    public Player(String username,int gamesWon, int gamesLost, int playerNum, int[][]path, boolean backtrack, ActionTile[] spells) {
         this.username = username;
         this.gamesWon = gamesWon;
         this.gamesLost = gamesLost;
@@ -148,7 +148,7 @@ public class Player {
     public void saveProfile() {
         try {
             //this adds the players username to a separate file to make it easier when creating leaderboard
-            FileWriter leaderboard = new FileWriter ("player.txt", true);
+            FileWriter leaderboard = new FileWriter("player.txt", true);
             leaderboard.write(username + "\n");
             leaderboard.close();
             FileWriter playerFile = new FileWriter(username + ".txt", false);
@@ -225,7 +225,7 @@ public class Player {
         System.out.println(result);
     }
     
-        /**
+    /**
      * convert to text to put into file
      * @return string version of the game
      */

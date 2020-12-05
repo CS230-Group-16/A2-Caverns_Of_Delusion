@@ -6,35 +6,40 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 import static javafx.application.Application.launch;
 import javafx.stage.Stage;
-
 import javax.swing.JFrame; 
 import javax.swing.JScrollPane; 
 import javax.swing.JTable; 
   
 /**
- *
+ * implements a frame which is the leaderboard.  
  * @author Chloe and Michelle
+ * @version 0.1
  */
 public class LeaderboardMenu extends Application {
     
    private final ArrayList<Player> player = new ArrayList<Player>();
    
+   /**
+    * this reads the leaderbaord file
+    */
    private void readLeaderboard() {
-   
-   File leaderboardFile = new File("LeaderboardFile.txt");
+	   File leaderboardFile = new File("LeaderboardFile.txt");
         try {
             Scanner profile = new Scanner(leaderboardFile);
             while (profile.hasNext()) {
             	player.add(new Player(profile.next(), profile.nextInt(), profile.nextInt()));
             }
-	} catch (FileNotFoundException e) {
-		System.out.println("Cannot open " + "LeaderboardFile.txt");
+        } catch (FileNotFoundException e) {
+        	System.out.println("Cannot open " + "LeaderboardFile.txt");
         }
    } 
     
    JFrame frame; // frame
    JTable table; // Table 
-  
+   	
+   /**
+    * This is where the leaderboard frame is created and its dimensions are set
+    */
     @Override
     public void start(Stage stage)
     { 
@@ -62,7 +67,7 @@ public class LeaderboardMenu extends Application {
         frame.setVisible(true); // Frame Visible = true 
     } 
   
-    // Driver  method 
+   // Driver  method 
    public static void main(String[] args) {
         launch(args);
     }

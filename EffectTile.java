@@ -23,7 +23,7 @@ public class EffectTile extends ActionTile {
     }
 
     /**
-     *
+     * gets the action effect it has on the tile
      * @return effect of tile
      */
     public String getAction(){
@@ -37,5 +37,4 @@ public class EffectTile extends ActionTile {
     public static void freeze(FloorTile tile){
             tile.setFrozen(true);
     }
-
 }

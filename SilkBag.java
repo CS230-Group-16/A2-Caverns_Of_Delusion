@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -11,7 +10,6 @@ import java.util.Random;
 public class SilkBag {
     
     private final Random randNum = new Random();
-    
     private ArrayList<Tile> tileList = new ArrayList<Tile>();
     private int numOfTiles;
     
@@ -76,7 +74,6 @@ public class SilkBag {
         for (int i = 0; i < this.tileList.size(); i++) {
             result += this.tileList.get(i).toText();
         }
-        
         return result;
     }
 }

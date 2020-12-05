@@ -53,9 +53,9 @@ public class Leaderboard {
                 LeaderboardFile.write(player.get(i).getUsername() + " " + player.get(i).getGamesWon() + " " + player.get(i).getGamesPlayed()+ "\n");
                 System.out.println("Player added to the leaderboard");
             }
-	} catch (IOException e) {
+    	} catch (IOException e) {
             System.out.println("Player could not be added to the leaderboard");
-	}
+    	  }
     }
 
     /**

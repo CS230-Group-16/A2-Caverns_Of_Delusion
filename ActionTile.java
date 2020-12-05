@@ -1,17 +1,14 @@
-
 /**
  * abstract superclass for making action tiles
- *
  * @author Cameron McDonagh & Maciej Buczkowski
  * @version 1.4
  */
-abstract class ActionTile extends Tile {
+public abstract class ActionTile extends Tile {
 
     public Integer turnDrawn;
 
     /**
      * Constructor for Action Tiles
-     *
      * @param effect effect of the tile (effect codes: "engulf", "freeze", "backTrack", "doubleMove")
      * @param turnDrawn turn that the tile is drawn for the movement based effects
      */
@@ -21,7 +18,7 @@ abstract class ActionTile extends Tile {
     }
 
     /**
-     *
+     * gets the effect type
      * @return effect type
      */
     public String getEffect() {
@@ -29,7 +26,7 @@ abstract class ActionTile extends Tile {
     }
 
     /**
-     *
+     * gets the turn drawn
      * @return turn drawn
      */
     public Integer getTurnDrawn() {
@@ -38,7 +35,6 @@ abstract class ActionTile extends Tile {
 
     /**
      * sets the draw turn for movement effects
-     *
      * @param turnDrawn the turn drawn
      */
     public void setTurnDrawn(Integer turnDrawn) {
@@ -56,14 +52,12 @@ abstract class ActionTile extends Tile {
 
     /**
      * convert to text to put into file
-     *
      * @return string version of the game
      */
     public String toText() {
         String result = "";
         result += super.type + ","
                 + this.turnDrawn + "\n";
-
         return result;
     }
 }
