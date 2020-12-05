@@ -88,26 +88,7 @@ public class Main extends Application {
         //g.getBoard().toStr();
         //g.getBoard().insertTile(new StraightTile(1), false, 1, false);
         //g.getBoard().toStr();
-        
-        /*
-        Player p1 = new Player("Michelle", 2, 1);
-		Player p2 = new Player("Chloe", 5, 3);
-		
-		p1.saveProfile();
-	    p2.saveProfile();
-	    p1.updateUsername ("Blah");
-	    p1.saveProfile();
-*/
-        //List<Player> players = new ArrayList<>();
-
-        //players.add(new Player("L", 98, 78));
-        //players.add(new Player("M", 88, 56));
-        //players.add(new Player("N", 90, 67));
-
-        //System.out.println("before " + players);
-
-
-
+      
         launch(args);
     }
 }
