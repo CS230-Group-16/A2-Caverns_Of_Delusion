@@ -69,7 +69,7 @@ public class Game {
      * Get method to get the board
      * @return current board
      */
-    public Board getBoard(){
+    public Board getBoard() {
         return this.board;
     }
     
@@ -77,7 +77,7 @@ public class Game {
      * Get method to get the round
      * @return current round
      */
-    public RoundTable getRound(){
+    public RoundTable getRound() {
         return this.round;
     }
 
@@ -213,7 +213,7 @@ public class Game {
      * Get method for players
      * @return players array
      */
-    public Player[] getPlayers(){
+    public Player[] getPlayers() {
         return this.players;
     }
 
@@ -228,7 +228,7 @@ public class Game {
     /**
      * method to print object to console
      */
-    public void toStr(){
+    public void toStr() {
         System.out.println("Current Game state: " + this.gameInProgress);
         System.out.println();
         this.board.toStr();
@@ -247,7 +247,7 @@ public class Game {
      * convert to text to put into file
      * @return string version of the game
      */
-    public String toText(){
+    public String toText() {
         String result = "";
         result += this.silkBag.toText()
                 + this.round.toText();
@@ -258,7 +258,7 @@ public class Game {
     /**
      * save game to text file
      */
-    public void saveGame(){
+    public void saveGame() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String filename = "SavedGame" + sdf.format(timestamp) + ".txt";
         FileReader.writeFile(filename, this.toText());

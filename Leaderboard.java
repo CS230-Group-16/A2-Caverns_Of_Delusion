@@ -37,7 +37,7 @@ public class Leaderboard {
         sort();
     }
 
-    public ArrayList<Player> getBoard(){
+    public ArrayList<Player> getBoard() {
         return this.board;
     }
     /**
@@ -61,7 +61,7 @@ public class Leaderboard {
     	FileReader.writeFile(filename, toText());
     }
     
-    public String toText(){
+    public String toText() {
         String result = "";
         for (int i = 0; i < this.board.size(); i++) {
             result += this.board.get(i).toText();

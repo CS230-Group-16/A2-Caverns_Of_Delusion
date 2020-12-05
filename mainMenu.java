@@ -69,7 +69,7 @@ public class mainMenu extends Application{
      * @param event An event to handle the leaderboard action
      */
     @FXML
-    private void handleLeaderboardAction(ActionEvent event){
+    private void handleLeaderboardAction(ActionEvent event) {
         System.out.println("Leaderboard button clicked");
         Stage gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         try {

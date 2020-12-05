@@ -27,7 +27,7 @@ public class SilkBag {
         Collections.shuffle(tileList); 
     }
     
-    public SilkBag (ArrayList<Tile> bag){
+    public SilkBag (ArrayList<Tile> bag) {
         this.tileList = bag;
         this.numOfTiles = this.tileList.size();
     }
@@ -46,7 +46,7 @@ public class SilkBag {
      * Method to insert tile into the silk bag.
      * @param t Tile to be inserted.
      */
-    public void addTile(Tile t){
+    public void addTile(Tile t) {
         this.tileList.add(t);
         this.numOfTiles++;
     }
@@ -54,7 +54,7 @@ public class SilkBag {
     /**
      * method to print silk bag to console
      */
-    public void toStr(){
+    public void toStr() {
         System.out.println("---SilkBag---");
         System.out.println("Current Number of Tiles: " + this.numOfTiles);
         System.out.println("Current Tiles in Bag: ");
@@ -68,7 +68,7 @@ public class SilkBag {
      * convert to text to put into file
      * @return string version of the game
      */
-    public String toText(){
+    public String toText() {
         String result = "";
         result += String.valueOf(this.numOfTiles) + "\n";
         for (int i = 0; i < this.tileList.size(); i++) {

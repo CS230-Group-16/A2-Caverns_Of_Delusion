@@ -193,11 +193,11 @@ public class Player {
         this.path[0] = lastLocation;
     }
     
-    public ArrayList<ActionTile> getSpellBook(){
+    public ArrayList<ActionTile> getSpellBook() {
         return this.spellBook;
     }
     
-    public void useSpell(ActionTile t){
+    public void useSpell(ActionTile t) {
         this.spellBook.remove(t);
     }
     
@@ -229,7 +229,7 @@ public class Player {
      * convert to text to put into file
      * @return string version of the game
      */
-    public String toText(){
+    public String toText() {
         String result = "";
         result += this.username + ","
                 + String.valueOf(this.gamesWon) + ","

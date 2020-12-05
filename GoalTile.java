@@ -16,7 +16,7 @@ public class GoalTile extends FloorTile {
         super.setPathways(new int[] {1,1,1,1});
     }
 
-    public GoalTile(boolean frozen, boolean engulfed, boolean fixed, boolean occupied,int rotation){
+    public GoalTile(boolean frozen, boolean engulfed, boolean fixed, boolean occupied, int rotation) {
         super("GOAL",frozen,engulfed,fixed,occupied,rotation);
     }
     

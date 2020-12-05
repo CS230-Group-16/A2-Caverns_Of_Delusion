@@ -12,7 +12,7 @@ public class MovementTile extends ActionTile {
      * @param effect desired effect (backTrack/doubleMove)
      * @param turnDrawn the  turn drawn
      */
-    public MovementTile(String effect,Integer turnDrawn) {
+    public MovementTile(String effect, Integer turnDrawn) {
         super(effect, turnDrawn);
         if (effect == "BACKTRACK"){
             this.movement = false; // false means go back
@@ -33,7 +33,7 @@ public class MovementTile extends ActionTile {
      * gets the turn drawn
      * @return turn the tile was drawn
      */
-    public Integer getTurnDrawn(){
+    public Integer getTurnDrawn() {
         return super.getTurnDrawn();
     }
 }

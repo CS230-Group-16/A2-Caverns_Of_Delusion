@@ -28,7 +28,7 @@ public class Main extends Application {
      */
     public void start(Stage primaryStage) {
         try {
-            Pane root = (Pane) FXMLLoader.load(getClass().getResource("testBoard.fxml"));
+            Pane root = (Pane) FXMLLoader.load(getClass().getResource("BoardGUI.fxml"));
             
             //test
             
@@ -69,7 +69,7 @@ public class Main extends Application {
         }
     }
     
-    public static void main(String [] args){
+    public static void main(String [] args) {
         //Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000","awesomeGuy"});
         //g.toStr();
         //g.displayMessage();

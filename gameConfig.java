@@ -47,7 +47,7 @@ public class gameConfig{
     /**
      * This initializes the menuItems into the player's personal MenuButton.
      */
-    public void initialize(){
+    public void initialize() {
 
         for (int i = 0; i < names.size(); i++) {
             MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
