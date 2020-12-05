@@ -88,6 +88,7 @@ public class TestGameController {
     private int height;
     private ActionTile selectedTile;
     private int[] centreCoord = null;
+    private boolean doublemove = false;
 
     /**
      * Initialize the controller. This method is called automatically. The following happen in this order: 1) First an instance of the controller is created (the constructor is called), 2) Next the @FXML variables are bound to the GUI components. 3) Finally, this initialize method is called. This means we cannot bind actions to buttons in the constructor, but we can in this method.
@@ -167,11 +168,18 @@ public class TestGameController {
             if (paths[0]) {
                 currentLoc[1] = currentLoc[1] - 1;
                 this.game.getRound().movement(playerNum, currentLoc);
-                setMoveButtons(false);
-                endTurn.setVisible(true);
-                refreshCentral();
-                playAction.setVisible(false);
                 reachedGoal(this.game.getRound().getCurrentPlayer());
+                if (!doublemove) {
+                    setMoveButtons(false);
+                    endTurn.setVisible(true);
+                    refreshCentral();
+                    playAction.setVisible(false);
+                    reachedGoal(this.game.getRound().getCurrentPlayer());
+                } else {
+                    setMoveButtons(true);
+                    refreshCentral();
+                    doublemove = false;
+                }
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setHeaderText("You can't move through that!");
@@ -187,11 +195,18 @@ public class TestGameController {
             if (paths[2]) {
                 currentLoc[1] = currentLoc[1] + 1;
                 this.game.getRound().movement(playerNum, currentLoc);
-                setMoveButtons(false);
-                endTurn.setVisible(true);
-                refreshCentral();
-                playAction.setVisible(false);
                 reachedGoal(this.game.getRound().getCurrentPlayer());
+                if (!doublemove) {
+                    setMoveButtons(false);
+                    endTurn.setVisible(true);
+                    refreshCentral();
+                    playAction.setVisible(false);
+                    reachedGoal(this.game.getRound().getCurrentPlayer());
+                } else {
+                    setMoveButtons(true);
+                    refreshCentral();
+                    doublemove = false;
+                }
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setHeaderText("You can't move through that!");
@@ -207,11 +222,18 @@ public class TestGameController {
             if (paths[1]) {
                 currentLoc[0] = currentLoc[0] + 1;
                 this.game.getRound().movement(playerNum, currentLoc);
-                setMoveButtons(false);
-                endTurn.setVisible(true);
-                refreshCentral();
-                playAction.setVisible(false);
                 reachedGoal(this.game.getRound().getCurrentPlayer());
+                if (!doublemove) {
+                    setMoveButtons(false);
+                    endTurn.setVisible(true);
+                    refreshCentral();
+                    playAction.setVisible(false);
+                    reachedGoal(this.game.getRound().getCurrentPlayer());
+                } else {
+                    setMoveButtons(true);
+                    refreshCentral();
+                    doublemove = false;
+                }
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setHeaderText("You can't move through that!");
@@ -227,11 +249,18 @@ public class TestGameController {
             if (paths[3]) {
                 currentLoc[0] = currentLoc[0] - 1;
                 this.game.getRound().movement(playerNum, currentLoc);
-                setMoveButtons(false);
-                endTurn.setVisible(true);
-                refreshCentral();
-                playAction.setVisible(false);
                 reachedGoal(this.game.getRound().getCurrentPlayer());
+                if (!doublemove) {
+                    setMoveButtons(false);
+                    endTurn.setVisible(true);
+                    refreshCentral();
+                    playAction.setVisible(false);
+                    reachedGoal(this.game.getRound().getCurrentPlayer());
+                } else {
+                    setMoveButtons(true);
+                    refreshCentral();
+                    doublemove = false;
+                }
             } else {
                 Alert a = new Alert(Alert.AlertType.WARNING);
                 a.setHeaderText("You can't move through that!");
@@ -294,7 +323,7 @@ public class TestGameController {
                                 }
                             }
                         } else if ("DOUBLEMOVE".equals(spellStrings[i])) {
-                            //do something
+                            doublemove = true;
                         } else if ("ICE".equals(spellStrings[i]) || "FIRE".equals(spellStrings[i])) {
                             Alert a3 = new Alert(Alert.AlertType.WARNING);
                             a3.setHeaderText("Pick the center tile");
