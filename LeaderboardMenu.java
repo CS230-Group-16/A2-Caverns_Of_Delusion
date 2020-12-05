@@ -40,7 +40,7 @@ public class LeaderboardMenu extends Application {
 
     Button backBtn = new Button();
     private static Leaderboard board;
-    private final static String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/";
+    private final static String DIRECTORY = "C:\\Users\\helwe\\Documents\\GitHub\\A2-Caverns_Of_Delusion\\files";
 
     /**
      * This is where the leaderboard frame is created and its dimensions are set
@@ -105,7 +105,7 @@ public class LeaderboardMenu extends Application {
 
     // Driver  method
     public static void main(String[] args) {
-        board = FileReader.readLeaderboardFile(DIRECTORY + "leaderboards/leaderboard1.txt");
+        board = FileReader.readLeaderboardFile(DIRECTORY + "\\leaderboards\\leaderboard1.txt");
         launch(args);
     }
 }
