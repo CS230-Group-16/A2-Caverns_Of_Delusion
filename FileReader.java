@@ -567,4 +567,20 @@ public class FileReader {
         }
         return new Board(p1Loc, p2Loc, p3Loc, p4Loc, width, height, tileMap, blockRow, blockColumn,goal);
     }
+    
+    public static Leaderboard readLeaderboardFile(String filename){
+        Scanner in = readFile(filename);
+        String temp;
+        String[] tempArr;
+        ArrayList<Player> players = new ArrayList<Player>();
+
+        while (in.hasNextLine()) {
+            tempArr = in.nextLine().split(",");
+            Player p = new Player(tempArr[0], Integer.parseInt(tempArr[1]),Integer.parseInt(tempArr[2]));
+            players.add(p);
+        }
+        
+        
+        return new Leaderboard(players,filename);
+    }
 }
