@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -9,7 +8,6 @@ import java.util.Arrays;
 
 /**
  * The main game class that initialises all objects.
- *
  * @author Bartosz Kubica & Marius Antemir
  * @version 1.0
  */
@@ -28,7 +26,6 @@ public class Game {
 
     /**
      * Constructor 1 used to construct a new game.
-     *
      * @param boardFileLocation location of the file to initialise the board
      * @param playerUsername names of the players in the current game
      */
@@ -42,7 +39,6 @@ public class Game {
 
     /**
      * Constructor 2 used to construct a saved game.
-     *
      * @param saveBoardFileLocation location of file of saved board
      * @param saveGameFileLocation location of file of saved game info
      */
@@ -55,17 +51,14 @@ public class Game {
 
     /**
      * Gets the current game state
-     *
      * @return True if the game is being played and False if not
      */
     private Boolean gameInProgress() {
         return this.gameInProgress;
     }
 
-
     /**
      * Creates a board using file
-     *
      * @param boardFileLocation
      */
     private void createBoard(String boardFileLocation) {
@@ -80,6 +73,10 @@ public class Game {
         return this.board;
     }
     
+    /**
+     * Get method to get the round
+     * @return current round
+     */
     public RoundTable getRound(){
         return this.round;
     }
@@ -98,7 +95,6 @@ public class Game {
 
     /**
      * Decodes the message as per the instructions on the web site
-     *
      * @param msg message to decode
      * @return decoded message
      */
@@ -108,7 +104,6 @@ public class Game {
         int alphabetLength = alphabet.length();
         boolean back = true;
         int move = 0;
-
         String[] msgArr = msg.split("");
         for (int i = 0; i < msg.length(); i++) {
             if (back) {
@@ -127,20 +122,17 @@ public class Game {
                 back = true;
             }
         }
-
         solution = solution + Integer.toString(solution.length());
         return solution;
     }
 
     /**
      * Gets the message from a specific URL
-     *
      * @param stringURL URL to get the message from
      * @return the message from the website
      */
     public String getMessage(String stringURL) {
         String msg = "";
-
         try {
             URL url = new URL(stringURL);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -157,7 +149,6 @@ public class Game {
 
     /**
      * Creates a player object from profile tile
-     *
      * @return Player profile
      */
     private Player playerProfile(String username) {
@@ -166,7 +157,6 @@ public class Game {
 
     /**
      * Gets the leaderboard object
-     *
      * @return leaderboard object
      */
     public Leaderboard getLeaderboard() {
@@ -189,7 +179,6 @@ public class Game {
 
     /**
      * Creates a new silk bag using tiles from file
-     *
      * @param filename level file to create tiles and place in to silk bag
      */
     public void createSilkBag(String filename) {
@@ -198,7 +187,6 @@ public class Game {
 
     /**
      * Creates a new leader board using file of leader board
-     *
      * @param locationFile name of the file that holds the leaderboard
      */
     public void createLeaderboard(String locationFile) {
@@ -207,7 +195,6 @@ public class Game {
 
     /**
      * Creates an array of players to iterate through during the game
-     *
      * @param playerNames Usernames of players to place into array
      * @param numOfPlayers total number of players
      */
@@ -232,7 +219,6 @@ public class Game {
 
     /**
      * Deletes a player profile
-     *
      * @param username name of profile to delete
      */
     public void deletePlayer(String username) {
@@ -255,7 +241,6 @@ public class Game {
             this.players[i].toStr();
         }
         System.out.println();
-        
     }
     
     /**
@@ -266,10 +251,7 @@ public class Game {
         String result = "";
         result += this.silkBag.toText()
                 + this.round.toText();
-        
-        
         //leaderboard;
-        
         return result;
     }
     
