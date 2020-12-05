@@ -1,14 +1,14 @@
+
 import javafx.scene.input.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Each players turn. Draw a tile, insert tile, play an action tile and move along the board.
- * Also keeps track of how many rounds have passed.
+ * Each players turn. Draw a tile, insert tile, play an action tile and move along the board. Also keeps track of how many rounds have passed.
+ *
  * @author Jimmy Kells and Surinder Singh.
  * @version 1.0
  */
-
 public class RoundTable {
 
     private int numOfPlayers;
@@ -24,6 +24,7 @@ public class RoundTable {
 
     /**
      * Creates a round table that will call multiple other methods
+     *
      * @param numOfPlayers The number of players.
      * @param turnCounter The number of turns that have been taken.
      * @param players An array of players.
@@ -41,8 +42,8 @@ public class RoundTable {
     }
 
     /**
-     * A second constructor used for tables with a counter to track the current player instead of
-     * using a current player variable.
+     * A second constructor used for tables with a counter to track the current player instead of using a current player variable.
+     *
      * @param numOfPlayers The number of players.
      * @param turnCounter The number of turns that have been taken.
      * @param players An array of players.
@@ -54,11 +55,12 @@ public class RoundTable {
         this.players = players;
         this.counter = counter;
         this.currentPlayer = players[counter];
-        this.nextPlayer = players[counter+1];
+        this.nextPlayer = players[counter + 1];
     }
 
     /**
      * Checks to see what type of tile a tile is.
+     *
      * @param tileType The type of tile drawn.
      * @return tileString The tile type in a string.
      */
@@ -89,6 +91,7 @@ public class RoundTable {
 
     /**
      * Gets the current player.
+     *
      * @return currentPlayer The current players turn.
      */
     public Player checkPlayer() {
@@ -97,6 +100,7 @@ public class RoundTable {
 
     /**
      * calls the move method from Board and updates the player path history.
+     *
      * @param playerNum The player number of the player which will move.
      * @param newLocation The location the player will end up on.
      */
@@ -106,8 +110,7 @@ public class RoundTable {
     }
 
     /**
-     * End the turn of current player and move it to next player.
-     * Increments the turncounter.
+     * End the turn of current player and move it to next player. Increments the turncounter.
      */
     public void endTurn() {
         //calls a method to set the next player and increments the counter
@@ -117,6 +120,7 @@ public class RoundTable {
 
     /**
      * Sets the next player.
+     *
      * @return nextPlayer The new next player.
      */
     public Player nextPlayer() {
@@ -136,6 +140,7 @@ public class RoundTable {
 
     /**
      * Gets the counter.
+     *
      * @return counter The index of the current player in the players array.
      */
     public int getCounter() {
@@ -161,6 +166,7 @@ public class RoundTable {
 
     /**
      * returns the tile drawn.
+     *
      * @return The tile drawn.
      */
     public Tile getDrawnTile() {
@@ -169,6 +175,7 @@ public class RoundTable {
 
     /**
      * Adds a tile to the board.
+     *
      * @param tile The floorTile to be added on the board.
      */
     public void insertTile(FloorTile tile) {
@@ -183,6 +190,7 @@ public class RoundTable {
 
     /**
      * Adds the drawn action tile to the players personal spellbook.
+     *
      * @param tile The action tile drawn.
      */
     public void sendToPlayer(ActionTile tile) {
@@ -191,42 +199,54 @@ public class RoundTable {
 
     /**
      * Allows a move action tile to be played.
+     *
      * @param t The action tile to be played.
      * @param player The player moved by the spell.
+     * @return True if successful, false otherwise
      */
-    public void playMoveTile(ActionTile t, Player player) {
+    public boolean playMoveTile(ActionTile t, Player player) {
         //backtracks the selected player or double moves the user depending on what spell they play
+        boolean moved = false;
         if ("BACKTRACK".equals(t.getType())) {
-            backtrackPlayer(player);
+            moved = backtrackPlayer(player);
             //the player can only be backtracked once
             player.setBackTracked(true);
-        } else if ("DOUBLEMOVE".equals(t.getType())) {
-            //movement();
+
         }
-        this.currentPlayer.useSpell(t);
+        if (moved) {
+            this.currentPlayer.useSpell(t);
+        }
+        return moved;
     }
 
     /**
      * Allows a fire or ice spell to be played.
+     *
      * @param t The action tile to be played.
      * @param coords The x and y coordinate at the center of the spell.
+     * @return true if successful, false otherwise
      */
-    public void playEffectTile(ActionTile t, int[] coords) {
+    public boolean playEffectTile(ActionTile t, int[] coords) {
+        boolean success = false;
         //freezes or engulfs tiles depending on what spell the user plays
         if ("FIRE".equals(t.getType())) {
             //coords needs to wait for JavaFX to be implemented
             //the user will click on a tile and then it will turn the location of the tile into an array
             //with coords[0] as x and coords[1] as y.
-            engulfTiles(coords);
+            success = engulfTiles(coords);
         } else if ("ICE".equals(t.getType())) {
             //coords needs to wait for JavaFX to be implemented
             freezeTiles(coords);
         }
-        this.currentPlayer.useSpell(t);
+        if (success) {
+            this.currentPlayer.useSpell(t);
+        }
+        return success;
     }
 
     /**
      * Provides an array of the surrounding tiles.
+     *
      * @param centralTile The x and y coordinates at the center of the 9x9 square of tiles to be affected.
      * @return selectedTiles an array of the surrounding tiles
      */
@@ -270,21 +290,29 @@ public class RoundTable {
 
     /**
      * Finds the 9x9 square surrounding the tile passed in and engulfs them all.
+     *
      * @param tile The center tile to be engulfed.
      */
-    private void engulfTiles(int[] tile) {
+    private boolean engulfTiles(int[] tile) {
         //gets the tiles surrounding the center tile and sets them all to engulfed
         FloorTile[] tiles = getSurroundingTile(tile);
+
+        for (int i = 0; i < tiles.length; i++) {
+            if (tiles[i].isOccupied()) {
+                return false;
+            }
+        }
         for (int i = 0; i < tiles.length; i++) {
             if (tiles[i] != null) {
                 tiles[i].setEngulfed(true);
             }
         }
-
+        return true;
     }
 
     /**
      * Finds the 9x9 square surrounding the tile passed in and freezes them all.
+     *
      * @param tile the center tile to be frozen
      */
     private void freezeTiles(int[] tile) {
@@ -298,26 +326,37 @@ public class RoundTable {
     }
 
     /**
-     * Backtracks the player to where they were 2 turns ago.
-     * If that tile is engulfed, they are moved to 1 tile ago.
+     * Backtracks the player to where they were 2 turns ago. If that tile is engulfed, they are moved to 1 tile ago.
+     *
      * @param player The player that will be moved.
+     * @return True if successful, false otherwise
      */
-    private void backtrackPlayer(Player player) {
+    private boolean backtrackPlayer(Player player) {
         int[][] pathHistory;
         pathHistory = player.getPathHistory();
         //if the space they were on 2 turns ago was engulfed, go to the space 1 turn ago
         //if that space is also engulfed, do not move
-        for (int i = (pathHistory.length - 1); i >= 0; i--) {
-            if (pathHistory[i][0] != -1 || pathHistory[i][1] != -1) {
-                if (!board.getTileAt(pathHistory[i][0], pathHistory[i][1]).isEngulfed()) {
-                    board.updatePlayerLocation(player.getPlayerNum(), pathHistory[i]);
+        if (!player.getBackTracked()) {
+            if (pathHistory[1][0] != -1 && pathHistory[1][1] != -1) {
+                if (!this.board.getTileAt(pathHistory[1][0], pathHistory[1][1]).isEngulfed()) {
+                    this.board.updatePlayerLocation(player.getPlayerNum(), pathHistory[1]);
+                    return true;
+                }
+            }
+            if (pathHistory[0][0] != -1 && pathHistory[0][1] != -1) {
+                if (!this.board.getTileAt(pathHistory[0][0], pathHistory[0][1]).isEngulfed()) {
+                    this.board.updatePlayerLocation(player.getPlayerNum(), pathHistory[0]);
+                    return true;
                 }
             }
         }
+
+        return false;
     }
 
     /**
      * Gets the turn Counter.
+     *
      * @return turnCounter the number of turns that have elapsed.
      */
     public int getTurnCounter() {
@@ -326,6 +365,7 @@ public class RoundTable {
 
     /**
      * Returns the current player.
+     *
      * @return currentPlayer The player whose turn it currently is.
      */
     public Player getCurrentPlayer() {
@@ -334,6 +374,7 @@ public class RoundTable {
 
     /**
      * Returns the next player.
+     *
      * @return nextPlayer The player whose turn it is next.
      */
     public Player getNextPlayer() {
@@ -342,17 +383,19 @@ public class RoundTable {
 
     /**
      * Sets current player to the next player.
+     *
      * @param player The next player.
      */
     public void setCurrentPlayer(Player player) {
         this.currentPlayer = player;
     }
-    
+
     /**
      * converts the game to text to put into a file.
+     *
      * @return result String version of the game.
      */
-    public String toText(){
+    public String toText() {
         //game variables are turned to strings
         String result = "";
         result += String.valueOf(this.numOfPlayers) + ","
