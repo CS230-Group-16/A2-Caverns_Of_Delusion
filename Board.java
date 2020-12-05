@@ -247,7 +247,6 @@ public class Board {
                 }
             }
         }
-        pushedPlayer(row,positionNum,flip);
         if (!flip) {
             if (row) {
                 //insert a tile into the default side of the row
@@ -264,6 +263,7 @@ public class Board {
                 }
                 this.tileMap[positionNum][0] = tile;
             }
+            pushedPlayer(row,positionNum,flip);
         } else if (flip) {
             //insert a tile into the opposite side of the row
             if (row) {
@@ -280,6 +280,7 @@ public class Board {
                 }
                 this.tileMap[positionNum][height - 1] = tile;
             }
+            pushedPlayer(row,positionNum,flip);
         }
         return true;
     }
