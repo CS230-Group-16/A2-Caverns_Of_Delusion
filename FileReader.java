@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class FileReader {
 
-    private final static String DIRECTORY = "C:/Users/Cameron/Documents/GitHub/A2-Caverns_Of_Delusion/files/";
+    private final static String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/";
     
     /**
      * Open scanner to read board file

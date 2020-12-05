@@ -27,7 +27,7 @@ import java.util.List;
 public class gameConfig{
 
     //change to personal repo
-    private final String DIRECTORY = "C:/Users/Cameron/Documents/GitHub/A2-Caverns_Of_Delusion/files/";
+    private final String DIRECTORY = "F:\\Stuff\\230CW-TilesClasses\\src";
 
     private List<String> names = textFiles(DIRECTORY);
 

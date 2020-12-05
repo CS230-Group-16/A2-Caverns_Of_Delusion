@@ -49,7 +49,7 @@ public class TestGameController {
     private final int WIDTH_OF_TILE_IMAGE = 80;
     private final int HEIGHT_OF_TILE_IMAGE = 80;
     private final int WIDTH_OF_PLAYER_IMAGE = 35;
-    private final String DIRECTORY = "C:/Users/Cameron/Documents/GitHub/A2-Caverns_Of_Delusion/files/";
+    private final String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/";
 
     @FXML
     Button draw;
@@ -285,7 +285,7 @@ public class TestGameController {
             for (int i = 0; i < spells.size(); i++) {
                 spellStrings[i] = spells.get(i).getEffect();
             }
-            ChoiceDialog cd = new ChoiceDialog(spellStrings);
+            ChoiceDialog cd = new ChoiceDialog(spellStrings[0], spellStrings);
             cd.getDialogPane().lookupButton(ButtonType.CANCEL).setVisible(false);
             refreshSpellBook();
             cd.setHeaderText("Pick a spell!");
@@ -305,7 +305,7 @@ public class TestGameController {
                             for (int x = 0; x < this.game.getPlayers().length; x++) {
                                 players[x] = this.game.getPlayers()[x].getUsername();
                             }
-                            ChoiceDialog cd2 = new ChoiceDialog(players);
+                            ChoiceDialog cd2 = new ChoiceDialog(players[0], players);
                             cd2.getDialogPane().lookupButton(ButtonType.CANCEL).setVisible(false);
                             cd2.setHeaderText("Pick a player!");
                             cd2.setContentText("Pick a player to cast your spell");
@@ -376,14 +376,15 @@ public class TestGameController {
             //go to main menu
         }
     }
-
+<<<<<<< HEAD
     
     /**
      * To set the move buttons
      * @param set Sets the buttons to true or false
      */
+=======
 
-
+>>>>>>> refs/remotes/origin/main
     private void setMoveButtons(boolean set) {
         up.setVisible(set);
         down.setVisible(set);
