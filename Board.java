@@ -180,17 +180,33 @@ public class Board {
      * @param newLocation The new [x,y] location of the player.
      */
     public void updatePlayerLocation(int player, int[] newLocation) {
-        if (player == 1) {
-            this.player1Location = newLocation;
-        }
-        if (player == 2) {
-            this.player2Location = newLocation;
-        }
-        if (player == 3) {
-            this.player3Location = newLocation;
-        }
-        if (player == 4) {
-            this.player4Location = newLocation;
+        switch (player) {
+            case 1:
+                if (newLocation[0] != -1 && newLocation[1] != -1) {
+                    this.tileMap[this.player1Location[0]][this.player1Location[1]].setOccupied(false);
+                    this.player1Location = newLocation;
+                    this.tileMap[newLocation[0]][newLocation[1]].setOccupied(true);
+                }   break;
+            case 2:
+                if (newLocation[0] != -1 && newLocation[1] != -1) {
+                    this.tileMap[this.player2Location[0]][this.player2Location[1]].setOccupied(false);
+                    this.player2Location = newLocation;
+                    this.tileMap[newLocation[0]][newLocation[1]].setOccupied(true);
+                }   break;
+            case 3:
+                if (newLocation[0] != -1 && newLocation[1] != -1) {
+                    this.tileMap[this.player3Location[0]][this.player3Location[1]].setOccupied(false);
+                    this.player3Location = newLocation;
+                    this.tileMap[newLocation[0]][newLocation[1]].setOccupied(true);
+                }   break;
+            case 4:
+                if (newLocation[0] != -1 && newLocation[1] != -1) {
+                    this.tileMap[this.player4Location[0]][this.player4Location[1]].setOccupied(false);
+                    this.player4Location = newLocation;
+                    this.tileMap[newLocation[0]][newLocation[1]].setOccupied(true);
+                }   break;
+            default:
+                break;
         }
     }
 
@@ -213,7 +229,7 @@ public class Board {
      * @param flip The side of the board the tile will be inserted into.
      * @return True if tile was successfully inserted, false otherwise.
      */
-    public boolean insertTile(FloorTile tile, Boolean row, int positionNum, boolean flip) {
+    public boolean insertTile(FloorTile tile, boolean row, int positionNum, boolean flip) {
         if (row) {
             for (int i = 0; i < this.width; i++) {
                 if (this.tileMap[i][positionNum].isFrozen()) {
@@ -263,23 +279,30 @@ public class Board {
         return true;
     }
 
-
     /**
-     * Checks if player is out of bounds in the game board.
+     * Checks if a player needs to be moved due to inserted tile.
      *
-     * @param playerNum Identification of player by number.
+     * @param row True if the inserted tile was pushed in a row, false for a column.
+     * @param positionNum Number of row/column where tile was inserted (0 - width/height).
+     * @param flip True if opposite edges are used, false otherwise.
      */
-    public void pushedOut(int playerNum) {
-        int[] playerPos = getPlayerLocation(playerNum);
+    public void pushedPlayer(boolean row, int positionNum, boolean flip) {
+        if (row) {
 
-        int x = playerPos[0];
-        int y = playerPos[1];
+            if (player1Location[1] == positionNum) {
+                if (!flip) {
 
-        //checks if the player is moved outside of the board
-        if (x > getWidth() || y > getHeight()) {
-            System.out.println("player outside of board");
+                    //updatePlayerLocation(1, player1Location[]);
+                }
+            } else if (player2Location[1] == positionNum) {
+
+            } else if (player3Location[1] == positionNum) {
+
+            } else if (player4Location[1] == positionNum) {
+
+            }
+
         }
-
     }
 
     /**
@@ -399,8 +422,6 @@ public class Board {
      * @param newLocation the new location of where the player will be.
      */
     public void move(int playerNum, int[] newLocation) {
-        //boolean[] paths = checkPathway(playerNum);
-        //show where the player can move
         if (newLocation[0] > 0 && newLocation[1] > 0) {
             if (newLocation[0] <= this.getWidth() && newLocation[1] <= this.getHeight()) {
                 updatePlayerLocation(playerNum, newLocation);
@@ -418,10 +439,7 @@ public class Board {
     public void movePlayer(Boolean move, int playerNum, int[] finalLocation) {
         if (move) {
             updatePlayerLocation(playerNum, finalLocation);
-        } else {
-            //do we need an else??
         }
-
     }
 
     /**
