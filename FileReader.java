@@ -453,7 +453,7 @@ public class FileReader {
     }
     
     /**
-     * This writes to a file.
+     * This writes to a file. 
      * @param filename The name of the file.
      * @param text The text to write into the file.
      */

@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * class represents the game configuration
  * @author Cameron McDonagh & Maciej Buczkowski
@@ -168,4 +169,5 @@ public class gameConfig{
         gameStage.setScene(gameScene);
         gameStage.show();
     }
+
 }
