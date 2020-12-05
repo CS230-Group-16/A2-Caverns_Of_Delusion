@@ -15,6 +15,7 @@ import java.util.Scanner;
  */
 public class FileReader {
 
+    private final static String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/";
     /**
      * Open scanner to read board file
      *
@@ -169,7 +170,7 @@ public class FileReader {
         int gamesLost = 0;
 
         try {
-            Scanner in = readFile(username + ".txt");
+            Scanner in = readFile(DIRECTORY + "players/" + username + ".txt");
             gamesWon = in.nextInt();
             gamesLost = in.nextInt();
         } catch (Exception e) {
