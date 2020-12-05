@@ -316,7 +316,7 @@ public class Board {
                 }
             }
             if (player3Location[1] == positionNum) {
-                intArr = player2Location;
+                intArr = player3Location;
                 if (!flip) {
                     intArr[0] = intArr[0] + 1;
                     updatePlayerLocation(3, intArr);
@@ -326,7 +326,7 @@ public class Board {
                 }
             }
             if (player4Location[1] == positionNum) {
-                intArr = player2Location;
+                intArr = player4Location;
                 if (!flip) {
                     intArr[0] = intArr[0] + 1;
                     updatePlayerLocation(4, intArr);
@@ -357,7 +357,7 @@ public class Board {
                 }
             }
             if (player3Location[0] == positionNum) {
-                intArr = player2Location;
+                intArr = player3Location;
                 if (!flip) {
                     intArr[1] = intArr[1] + 1;
                     updatePlayerLocation(3, intArr);
@@ -367,7 +367,7 @@ public class Board {
                 }
             }
             if (player4Location[0] == positionNum) {
-                intArr = player2Location;
+                intArr = player4Location;
                 if (!flip) {
                     intArr[1] = intArr[1] + 1;
                     updatePlayerLocation(4, intArr);
