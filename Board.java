@@ -295,6 +295,7 @@ public class Board {
     public void pushedPlayer(boolean row, int positionNum, boolean flip) {
         int[] intArr;
 
+        //checks if player 1 is outside the board horizontally
         if (row) {
             if (player1Location[1] == positionNum) {
                 intArr = player1Location;
@@ -314,6 +315,7 @@ public class Board {
                     updatePlayerLocation(1, intArr);
                 }
             }
+            //checks if player 2 is outside the board horizontally
             if (player2Location[1] == positionNum) {
                 intArr = player2Location;
                 if (!flip) {
@@ -332,6 +334,7 @@ public class Board {
                     updatePlayerLocation(2, intArr);
                 }
             }
+            //checks if player 3 is outside the board horizontally
             if (player3Location[1] == positionNum) {
                 intArr = player3Location;
                 if (!flip) {
@@ -350,6 +353,7 @@ public class Board {
                     updatePlayerLocation(3, intArr);
                 }
             }
+            //checks if player 4 is outside the board horizontally
             if (player4Location[1] == positionNum) {
                 intArr = player4Location;
                 if (!flip) {
@@ -369,6 +373,7 @@ public class Board {
                 }
             }
         } else {
+            //checks if player 1 is outside the board vertically
             if (player1Location[0] == positionNum) {
                 intArr = player1Location;
                 if (!flip) {
@@ -387,6 +392,7 @@ public class Board {
                     updatePlayerLocation(1, intArr);
                 }
             }
+            //checks if player 2 is outside the board vertically
             if (player2Location[0] == positionNum) {
                 intArr = player2Location;
                 if (!flip) {
@@ -405,6 +411,7 @@ public class Board {
                     updatePlayerLocation(2, intArr);
                 }
             }
+            //checks if player 3 is outside the board vertically
             if (player3Location[0] == positionNum) {
                 intArr = player3Location;
                 if (!flip) {
@@ -423,6 +430,7 @@ public class Board {
                     updatePlayerLocation(3, intArr);
                 }
             }
+            //checks if player 4 is outside the board vertically
             if (player4Location[0] == positionNum) {
                 intArr = player4Location;
                 if (!flip) {
