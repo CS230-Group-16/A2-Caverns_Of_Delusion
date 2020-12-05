@@ -53,11 +53,23 @@ public class mainMenu extends Application{
     @FXML
     private void handleLeaderboardAction(ActionEvent event){
         System.out.println("Leaderboard button clicked");
+        Stage gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        try {
+            new LeaderboardMenu().start(gameStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    private void handleEditPlayerAction(ActionEvent event){
+    private void handleEditPlayerAction(ActionEvent event) {
         System.out.println("Edit Player button clicked");
+        Stage gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        try {
+            new ProfileEdit().start(gameStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -24,6 +24,16 @@ abstract class FloorTile extends Tile {
         super(type);
         this.tileType = type;
     }
+    
+    public FloorTile(String type, boolean frozen, boolean engulfed, boolean fixed, boolean occupied,int rotation){
+        super(type);
+        this.tileType = type;
+        this.frozen = frozen;
+        this.engulfed = engulfed;
+        this.fixed = fixed;
+        this.occupied = occupied;
+        this.rotation = rotation;
+    }
 
     /**
      * sets frozen attribute of the tile to the 'value' param
@@ -142,7 +152,7 @@ abstract class FloorTile extends Tile {
      */
     public String toText() {
         String result = "";
-        result += this.tileType + ","
+        result += super.type + ","
                 + this.frozen + ","
                 + this.engulfed + ","
                 + this.fixed + ","

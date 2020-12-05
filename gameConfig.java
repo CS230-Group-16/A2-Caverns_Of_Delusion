@@ -45,6 +45,42 @@ public class gameConfig{
             MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
             menuItem.setOnAction(a->{
                 System.out.println(menuItem.getText());
+            });
+            playerOne.getItems().add(menuItem);
+        }
+
+        for (int i = 0; i<names.size();i++) {
+            MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
+            menuItem.setOnAction(a->{
+                System.out.println(menuItem.getText());
+            });
+            playerTwo.getItems().add(menuItem);
+        }
+
+        for (int i = 0; i<names.size();i++) {
+            MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
+            menuItem.setOnAction(a->{
+                System.out.println(menuItem.getText());
+            });
+            playerThree.getItems().add(menuItem);
+        }
+
+        for (int i = 0; i<names.size();i++) {
+            MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
+            menuItem.setOnAction(a->{
+                System.out.println(menuItem.getText());
+            });
+            playerFour.getItems().add(menuItem);
+        }
+
+    }
+
+    /*
+    private void refresh(){
+        for (int i = 0; i<names.size();i++) {
+            MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
+            menuItem.setOnAction(a->{
+                System.out.println(menuItem.getText());
                 for (int j = 0; j < names.size(); j++) {
                     if (names.get(j).equals(menuItem.getText())) {
                         names.remove(j);
@@ -56,20 +92,30 @@ public class gameConfig{
 
         for (int i = 0; i<names.size();i++) {
             MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
+            menuItem.setOnAction(a->{
+                System.out.println(menuItem.getText());
+            });
             playerTwo.getItems().add(menuItem);
         }
 
         for (int i = 0; i<names.size();i++) {
             MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
+            menuItem.setOnAction(a->{
+                System.out.println(menuItem.getText());
+            });
             playerThree.getItems().add(menuItem);
         }
 
         for (int i = 0; i<names.size();i++) {
             MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
+            menuItem.setOnAction(a->{
+                System.out.println(menuItem.getText());
+            });
             playerFour.getItems().add(menuItem);
         }
-
     }
+    */
+
 
     private List<String> textFiles(String directory) {
         List<String> textFiles = new ArrayList<String>();
@@ -94,8 +140,13 @@ public class gameConfig{
     }
 
     @FXML
-    private void handlePlayGameAction(ActionEvent event){
+    private void handlePlayGameAction(ActionEvent event) throws IOException {
         System.out.println("Play! button clicked");
+        Parent game = FXMLLoader.load(getClass().getResource("testBoard.fxml"));
+        Scene gameScene = new Scene(game);
+        Stage gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        gameStage.setScene(gameScene);
+        gameStage.show();
     }
 
 

@@ -47,11 +47,10 @@ public class Game {
      * @param saveGameFileLocation location of file of saved game info
      */
     public Game(String saveBoardFileLocation, String saveGameFileLocation) {
-        createBoard(saveBoardFileLocation);
-        this.players = FileReader.readSavedGameFile(saveGameFileLocation);
-        createSilkBag(saveBoardFileLocation);
+        this.board = FileReader.readSavedBoardFile(saveBoardFileLocation);
+        this.round = FileReader.readSavedGameFileRoundTable(saveGameFileLocation);
+        this.silkBag = FileReader.readSavedGameFileSilkBag(saveGameFileLocation);
         createLeaderboard(LEADERBOARD_FILE);
-        //this.round = new RoundTable(this.players.length,turnCounter,this.players,this.board,this.silkBag);
     }
 
     /**
@@ -281,5 +280,6 @@ public class Game {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String filename = "SavedGame" + sdf.format(timestamp) + ".txt";
         FileReader.writeFile(filename, this.toText());
+        this.board.saveBoard();
     }
 }
