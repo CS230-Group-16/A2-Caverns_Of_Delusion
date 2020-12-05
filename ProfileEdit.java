@@ -1,21 +1,25 @@
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+        import javafx.scene.control.*;
+        import javafx.scene.layout.VBox;
+        import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+        import java.io.File;
+        import java.io.FileInputStream;
+        import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
+        import java.util.List;
+        import java.util.Scanner;
+        import javafx.scene.image.Image;
+        import javafx.scene.layout.Background;
+        import javafx.scene.layout.BackgroundImage;
+        import javafx.scene.layout.BackgroundPosition;
+        import javafx.scene.layout.BackgroundRepeat;
+        import javafx.scene.layout.BackgroundSize;
 
 /**
  * Edit profile name or delete profile with a GUI and also see a profiles game status.
@@ -32,6 +36,7 @@ public class ProfileEdit extends Application {
     private Label gamesLostLbl = new Label();
     private Button deleteBtn = new Button();
     private Button updateUserBtn = new Button();
+    Button backBtn = new Button();
     private TextField usernameTxtbox = new TextField();
     private Scanner in = new Scanner(System.in);
     private int location = 0;
@@ -145,12 +150,14 @@ public class ProfileEdit extends Application {
         deleteBtn.setVisible(false);
         updateUserBtn.setText("Save Username");
         updateUserBtn.setVisible(false);
+        backBtn.setText("Back");
+        backBtn.setVisible(true);
 
         //calls refresh every time the menuButton is clicked
         menuButton.setOnAction(e -> {
             refresh();
         });
-        
+
         root.setBackground(backgroundPicture);
         root.getChildren().addAll(menuButton, gamesPlayedLbl, gamesWonLbl, gamesLostLbl, usernameTxtbox,
                 updateUserBtn, deleteBtn);
@@ -233,6 +240,21 @@ public class ProfileEdit extends Application {
                     gamesLostLbl.setText("games lost: " + readGamesLost(updatedUser));
                     usernameTxtbox.setText(updatedUser.substring(0, updatedUser.length() - 4));
                 });
+            });
+
+            backBtn.setOnAction(e -> {
+                System.out.println("Back button clicked");
+                Parent game = null;
+                try {
+                    game = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                Scene gameScene = new Scene(game);
+                Stage gameStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                gameStage.setScene(gameScene);
+                gameStage.sizeToScene();
+                gameStage.show();
             });
         }
         return menuButton;
