@@ -1,4 +1,3 @@
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -42,9 +41,8 @@ import javafx.scene.paint.Color;
 
 /**
  * Test Controller for the main game.
- *
  * @author Bartosz Kubica
- *
+ * @version 1.0
  */
 public class TestGameController {
 
@@ -90,7 +88,11 @@ public class TestGameController {
     private int[] centreCoord = null;
 
     /**
-     * Initialize the controller. This method is called automatically. The following happen in this order: 1) First an instance of the controller is created (the constructor is called), 2) Next the @FXML variables are bound to the GUI components. 3) Finally, this initialize method is called. This means we cannot bind actions to buttons in the constructor, but we can in this method.
+     * Initialize the controller. This method is called automatically. The following happen in this order: 
+     * 1) First an instance of the controller is created (the constructor is called), 
+     * 2) Next the @FXML variables are bound to the GUI components. 
+     * 3) Finally, this initialize method is called. 
+     * This means we cannot bind actions to buttons in the constructor, but we can in this method.
      */
     public void initialize() {
         central.setGridLinesVisible(false);
@@ -318,12 +320,19 @@ public class TestGameController {
         });
 
     }
-
+    
+    /**
+     * This starts the game
+     */
     private void startGame() {
         this.game.gameStart();
         turn.setText(String.valueOf(this.game.getRound().getTurnCounter()));
     }
-
+    
+    /**
+     * To see if a player has reached the goal and won the game
+     * @param current The current player
+     */
     private void reachedGoal(Player current) {
         int[] location = this.game.getBoard().getPlayerLocation(current.getPlayerNum());
         int[] goal = this.game.getBoard().getGoalLocation();
@@ -343,13 +352,21 @@ public class TestGameController {
             //go to main menu
         }
     }
+    
+    /**
+     * To set the move buttons
+     * @param set Sets the buttons to true or false
+     */
     private void setMoveButtons(boolean set) {
         up.setVisible(set);
         down.setVisible(set);
         right.setVisible(set);
         left.setVisible(set);
     }
-
+    
+    /**
+     * to see if the player can move or not
+     */
     private void checkMovement() {
         boolean[] paths = this.game.getBoard().checkPathway(this.game.getRound().getCurrentPlayer().getPlayerNum());
         if (!paths[0] && !paths[1] && !paths[2] && !paths[3]) {
@@ -363,7 +380,10 @@ public class TestGameController {
             setMoveButtons(true);
         }
     }
-
+    
+    /**
+     * To see if the spell book has any spells in it
+     */
     private void checkSpellBook() {
         if (this.game.getRound().getCurrentPlayer().getSpellBook().size() <= 0) {
             Alert a = new Alert(Alert.AlertType.WARNING);
@@ -375,7 +395,10 @@ public class TestGameController {
         }
         checkMovement();
     }
-
+    
+    /**
+     * To change the current player to the next player
+     */
     private void changePlayers() {
         /*
         Player [] players = this.game.getPlayers();
@@ -389,7 +412,10 @@ public class TestGameController {
         nextPlayer2.setText(currentPlayer.getText());
         currentPlayer.setText(this.game.getRound().getCurrentPlayer().getUsername());
     }
-
+    
+    /**
+     * This clears the spell book
+     */
     private void refreshSpellBook() {
         spells.getChildren().clear();
         ArrayList<ActionTile> tiles = this.game.getRound().getCurrentPlayer().getSpellBook();
@@ -409,7 +435,10 @@ public class TestGameController {
             }
         }
     }
-
+    
+   /**
+    * to show the drawn tile
+    */
     private void showDrawnTile() {
         try {
             Image image1 = new Image(new FileInputStream(DIRECTORY + "images/Final/FloorTiles/" + this.tile.getType() + ".png"));
@@ -430,17 +459,24 @@ public class TestGameController {
             System.out.println("File not found with type: " + this.tile.getType());
         }
     }
-
+    
+    /**
+     * This creates a new game and returns it
+     * @return the new game
+     */
     private Game createGame() {
         //get names from screen
-        String[] strArr = new String[]{"Super_Cool_Name", "grapeLord5000", "awesomeGuy", "CasualGamerGuy"};
-        String[] strArr2 = new String[]{"Super_Cool_Name", "grapeLord5000", "awesomeGuy"};
+        String[] strArr = new String[] {"Super_Cool_Name", "grapeLord5000", "awesomeGuy", "CasualGamerGuy"};
+        String[] strArr2 = new String[] {"Super_Cool_Name", "grapeLord5000", "awesomeGuy"};
 
         //get name of file
         Game g = new Game(DIRECTORY + "boards/board1.txt", strArr);
         return g;
     }
-
+    
+    /**
+     * sets the players name
+     */
     private void setPlayerNames() {
         Player[] players = this.game.getPlayers();
         for (int i = 0; i < players.length; i++) {
@@ -463,6 +499,9 @@ public class TestGameController {
         }
     }
 
+    /**
+     * This refreshes the players
+     */
     private void refreshPlayers() {
         //central.getChildren().remove(imageView);
         Player[] players = this.game.getPlayers();
@@ -470,7 +509,10 @@ public class TestGameController {
             changeLocation(i, this.game.getBoard().getPlayerLocation(i));
         }
     }
-
+    
+    /**
+     * changes the players location
+     */
     private void changeLocation(int player, int[] location) {
         try {
             Image image1 = new Image(new FileInputStream(DIRECTORY + "images/Final/PlaceHolders/Player_" + player + ".png"));
@@ -543,6 +585,9 @@ public class TestGameController {
 
     //hue 0.5 for frozen
     //hue -0.5 for fire
+    /**
+     * this sets the button
+     */
     private void setButtons() {
         boolean[] row = this.game.getBoard().getBlockedRow();
         boolean[] column = this.game.getBoard().getBlockedColumn();
@@ -595,7 +640,14 @@ public class TestGameController {
             }
         }
     }
-
+    
+    /**
+     * this inserts a tile into the board
+     * @param t The type of floor tile
+     * @param row Which row you want it to be inserted into
+     * @param posNum The postion of the tile to be 
+     * @param flip 
+     */
     private void insertTile(FloorTile t, boolean row, int posNum, boolean flip) {
         boolean inserted = this.game.getBoard().insertTile(t, row, posNum, flip);
         if (inserted) {
@@ -612,7 +664,10 @@ public class TestGameController {
         }
         
     }
-
+    
+    /**
+     * This refreshes the board, players and sets the buttons again.
+     */
     private void refreshCentral() {
         central.getChildren().clear();
         refreshBoard();

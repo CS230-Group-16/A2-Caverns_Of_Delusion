@@ -51,7 +51,7 @@ public class gameConfig{
 
         for (int i = 0; i < names.size(); i++) {
             MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
-            menuItem.setOnAction(a->{
+            menuItem.setOnAction(a -> {
                 System.out.println(menuItem.getText());
             });
             playerOne.getItems().add(menuItem);
@@ -59,7 +59,7 @@ public class gameConfig{
 
         for (int i = 0; i < names.size(); i++) {
             MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
-            menuItem.setOnAction(a->{
+            menuItem.setOnAction(a -> {
                 System.out.println(menuItem.getText());
             });
             playerTwo.getItems().add(menuItem);
@@ -67,7 +67,7 @@ public class gameConfig{
 
         for (int i = 0; i < names.size(); i++) {
             MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
-            menuItem.setOnAction(a->{
+            menuItem.setOnAction(a -> {
                 System.out.println(menuItem.getText());
             });
             playerThree.getItems().add(menuItem);
@@ -75,7 +75,7 @@ public class gameConfig{
 
         for (int i = 0; i < names.size(); i++) {
             MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
-            menuItem.setOnAction(a->{
+            menuItem.setOnAction(a -> {
                 System.out.println(menuItem.getText());
             });
             playerFour.getItems().add(menuItem);
