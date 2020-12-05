@@ -71,6 +71,16 @@ public class mainMenu extends Application{
             e.printStackTrace();
         }
     }
+    
+    @FXML
+    private void handleExitApplication(ActionEvent event) {
+        System.out.println("Exit Program");
+        try {
+            System.exit(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }
