@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class ProfileEdit extends Application {
     //Change directory to personal one
-    private final String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/";
+    private final String DIRECTORY = "C:\\Users\\helwe\\Documents\\GitHub\\A2-Caverns_Of_Delusion\\files\\";
     //initialising the tools to be displayed in JavaFX
     private Label gamesPlayedLbl = new Label("no player selected");
     private Label gamesWonLbl = new Label();
@@ -133,12 +133,13 @@ public class ProfileEdit extends Application {
      */
     public void start(Stage stage) throws Exception {
 
+        stage.setTitle("Profile Edit");
         stage.setWidth(400);
         stage.setHeight(500);
 
         VBox root = new VBox();
 
-        Image image = new Image(new FileInputStream(DIRECTORY + "images/background_image.jpg"));
+        Image image = new Image(new FileInputStream(DIRECTORY + "\\images\\background.png"));
         BackgroundSize backgroundSize = new BackgroundSize(400, 500, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background backgroundPicture = new Background(backgroundImage);
@@ -177,7 +178,7 @@ public class ProfileEdit extends Application {
         //gets the profile names into a list
         List<String> fileNames;
         fileNames = textFiles(DIRECTORY);
-        MenuButton menuButton = new MenuButton("PlayerEdit");
+        MenuButton menuButton = new MenuButton("Profile Edit");
 
         //creates a menuItem for each profile
         for (int i = 0; i < fileNames.size(); i++) {
