@@ -186,25 +186,29 @@ public class Board {
                     this.tileMap[this.player1Location[0]][this.player1Location[1]].setOccupied(false);
                     this.player1Location = newLocation;
                     this.tileMap[newLocation[0]][newLocation[1]].setOccupied(true);
-                }   break;
+                }
+                break;
             case 2:
                 if (newLocation[0] != -1 && newLocation[1] != -1) {
                     this.tileMap[this.player2Location[0]][this.player2Location[1]].setOccupied(false);
                     this.player2Location = newLocation;
                     this.tileMap[newLocation[0]][newLocation[1]].setOccupied(true);
-                }   break;
+                }
+                break;
             case 3:
                 if (newLocation[0] != -1 && newLocation[1] != -1) {
                     this.tileMap[this.player3Location[0]][this.player3Location[1]].setOccupied(false);
                     this.player3Location = newLocation;
                     this.tileMap[newLocation[0]][newLocation[1]].setOccupied(true);
-                }   break;
+                }
+                break;
             case 4:
                 if (newLocation[0] != -1 && newLocation[1] != -1) {
                     this.tileMap[this.player4Location[0]][this.player4Location[1]].setOccupied(false);
                     this.player4Location = newLocation;
                     this.tileMap[newLocation[0]][newLocation[1]].setOccupied(true);
-                }   break;
+                }
+                break;
             default:
                 break;
         }
@@ -287,6 +291,7 @@ public class Board {
      * @param positionNum Number of row/column where tile was inserted (0 - width/height).
      * @param flip True if opposite edges are used, false otherwise.
      */
+
      public void pushedPlayer(boolean row, int positionNum, boolean flip) {
      int[] intArr;
 
@@ -374,7 +379,6 @@ public class Board {
              }
          }
      }
-
 
     /**
      * Checks if a tile is frozen (frozen tileMap acts as FloorTile[fixed tileMap] until ice melts).
