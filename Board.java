@@ -263,16 +263,6 @@ public class Board {
         return true;
     }
 
-    /**
-     * Creates a floor tile that can be placed onto the board.
-     *
-     * @param type The tile type e.g. Straight, Corner etc...
-     * @param rotation orientation of the tile(0 degrees, 90 degrees, ..).
-     * @return FloorTile The tile created.
-     */
-    private FloorTile createTile(String type, int rotation) {
-        return null;
-    }
 
     /**
      * Checks if player is out of bounds in the game board.
