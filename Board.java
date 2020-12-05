@@ -83,34 +83,24 @@ public class Board {
      * @param blockColumn Columns that a tile cannot be placed in.
      * @param goal The goal tile location.
      */
-    public Board(int[] p1Loc, int[] p2Loc, int[] p3Loc, int[] p4Loc, int width, int height, FloorTile[][] tileMap,
-            
-    <<<<<<< Updated upstream
-            boolean[] blockRow, boolean[] blockColumn, int[] goal
+    public Board(int[] p1Loc, int[] p2Loc, int[] p3Loc, int[] p4Loc, int width, int height, FloorTile[][] tileMap, boolean[] blockRow, boolean[] blockColumn, int[] goal) {
+        this.player1Location = p1Loc;
+        this.player2Location = p2Loc;
+        this.player3Location = p3Loc;
+        this.player4Location = p4Loc;
+        this.width = width;
+        this.height = height;
+        this.tileMap = tileMap;
+        this.blockedRow = blockRow;
+        this.blockedColumn = blockColumn;
+        this.goal = goal;
+    }
 
-    
-        ) {
- == == ==
-                = boolean[] blockRow
-        , boolean[] blockColumn, int[] goal
-        ) {
- >>> >>> > Stashed changes
-            this.player1Location = p1Loc;
-            this.player2Location = p2Loc;
-            this.player3Location = p3Loc;
-            this.player4Location = p4Loc;
-            this.width = width;
-            this.height = height;
-            this.tileMap = tileMap;
-            this.blockedRow = blockRow;
-            this.blockedColumn = blockColumn;
-            this.goal = goal;
-        }
-        /**
-         * Sets the silk bag to be used.
-         *
-         * @param silkBag Silk bag instance.
-         */
+    /**
+     * Sets the silk bag to be used.
+     *
+     * @param silkBag Silk bag instance.
+     */
     public void setSilkBag(SilkBag silkBag) {
         this.silkBag = silkBag;
     }
@@ -269,12 +259,7 @@ public class Board {
                 this.tileMap[positionNum][height - 1] = tile;
             }
         }
-         << << << < Updated 
-        upstream
-                //send to silkbag
-                == == == =
         return true;
-         >>> >>> > Stashed changes
     }
 
     /**
@@ -365,7 +350,6 @@ public class Board {
      * @param player The player who is trying to move
      */
     public boolean[] checkPathway(int player) { // ** needs to return boolean
-         << << << < Updated upstream
         boolean[] pathway = {false, false, false, false};
         int[] playerLocation = getPlayerLocation(player);
         int[] northPath = {0, 0, 0, 0};
@@ -375,16 +359,6 @@ public class Board {
         int[] currentPath = getTileAt(playerLocation[0], playerLocation[1]).getPathways();
 
         //find pathways above and below the player
-         == == ==
-                = boolean[] pathway = {false
-        , false, false, false};
-        int[] playerLocation = getPlayerLocation(player);
-        int[] northPath = {0, 0, 0, 0};
-        int[] eastPath = {0, 0, 0, 0};
-        int[] southPath = {0, 0, 0, 0};
-        int[] westPath = {0, 0, 0, 0};
-        int[] currentPath = getTileAt(playerLocation[0], playerLocation[1]).getPathways();
-         >>> >>> > Stashed changes
         if (playerLocation[1] <= 0) {
             southPath = getTileAt(playerLocation[0], (playerLocation[1] + 1)).getPathways();
         } else if (playerLocation[1] >= (this.height - 1)) {
@@ -393,11 +367,7 @@ public class Board {
             northPath = getTileAt(playerLocation[0], (playerLocation[1] - 1)).getPathways();
             southPath = getTileAt(playerLocation[0], (playerLocation[1] + 1)).getPathways();
         }
-         << << << < Updated 
-        upstream
-                //find pathways to the sides of the player
-                == == ==
-                =  >>> >>> > Stashed changes
+        //find pathways to the sides of the player
         if (playerLocation[0] <= 0) {
             eastPath = getTileAt((playerLocation[0] + 1), playerLocation[1]).getPathways();
         } else if (playerLocation[0] >= (this.width - 1)) {
@@ -437,14 +407,9 @@ public class Board {
      * @param playerNum Player's number.
      * @param newLocation the new location of where the player will be.
      */
-    <<<<<<< Updated upstream
-
     public void move(int playerNum, int[] newLocation) {
-         == == == =
-
-    public void move(int playerNum, int[] newLocation) {
-         >>> >>> > Stashed changes //boolean[] paths = checkPathway(playerNum);
-                //show where the player can move
+        //boolean[] paths = checkPathway(playerNum);
+        //show where the player can move
         if (newLocation[0] > 0 && newLocation[1] > 0) {
             if (newLocation[0] <= this.getWidth() && newLocation[1] <= this.getHeight()) {
                 updatePlayerLocation(playerNum, newLocation);
@@ -579,11 +544,7 @@ public class Board {
                 + String.valueOf(this.player2Location[0]) + "," + String.valueOf(this.player2Location[1]) + "\n"
                 + String.valueOf(this.player3Location[0]) + "," + String.valueOf(this.player3Location[1]) + "\n"
                 + String.valueOf(this.player4Location[0]) + "," + String.valueOf(this.player4Location[1]) + "\n";
-         << << << < Updated 
-        upstream
-                //gets all the blocked rows as strings
-                == == ==
-                =  >>> >>> > Stashed changes
+        //gets all the blocked rows as strings
         for (int i = 0; i < this.blockedRow.length; i++) {
             if (i == 0) {
                 result += this.blockedRow[i];
@@ -601,20 +562,12 @@ public class Board {
             }
         }
         result += "\n";
-         << << << < Updated 
-        upstream
-                //gets the tiles as strings
-                == == ==
-                =  >>> >>> > Stashed changes
+        //gets the tiles as strings
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 result += String.valueOf(x) + "," + String.valueOf(y) + "," + this.tileMap[x][y].toText();
             }
         }
-         << << << < Updated 
-        upstream
-                == == ==
-                =  >>> >>> > Stashed changes
         return result;
     }
 
