@@ -1,4 +1,4 @@
-/*
+/**
  * class represents the floor tile of type Corner
  * @author Cameron McDonagh & Maciej Buczkowski
  * @version 1.3
@@ -10,7 +10,6 @@ public class CornerTile extends FloorTile {
 
     /**
      * Constructor used to make a corner tile
-     *
      * @param rotation/orientation of the tile
      */
     public CornerTile(int rotation) {
@@ -20,7 +19,7 @@ public class CornerTile extends FloorTile {
     }
 
     public CornerTile(boolean frozen, boolean engulfed, boolean fixed, boolean occupied,int rotation){
-        super("CORNER",frozen,engulfed,fixed,occupied,rotation);
+        super("CORNER", frozen, engulfed, fixed, occupied, rotation);
         this.rotation = rotation;
     }
     

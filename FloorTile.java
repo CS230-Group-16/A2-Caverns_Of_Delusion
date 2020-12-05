@@ -1,4 +1,4 @@
-/*
+/**
  * class represents the abstract class of tile, cannot be
  * instantiated.
  * @author Cameron McDonagh & Maciej Buczkowski

@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,16 +8,16 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- *
+ * This reads files
  * @author Bartosz Kubica & Marius Antemir
  * @version 1.0
  */
 public class FileReader {
 
     private final static String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/";
+    
     /**
      * Open scanner to read board file
-     *
      * @param filename name of file to be opened
      * @return created board
      */
@@ -40,7 +39,6 @@ public class FileReader {
 
     /**
      * Read file and create board
-     *
      * @param filename name of board file to read
      * @return created board
      */
@@ -161,7 +159,6 @@ public class FileReader {
 
     /**
      * Read Player profile
-     *
      * @param username name of user for file to be found
      * @return player profile
      */
@@ -182,7 +179,6 @@ public class FileReader {
 
     /**
      * delete file
-     *
      * @param filename name of file to delete
      */
     public static void deleteFile(String filename) {
@@ -192,7 +188,6 @@ public class FileReader {
 
     /**
      * Reads board file and gets the tiles to place into silkbag
-     *
      * @param line1 line of number of action tiles
      * @return tiles to add to silkbag
      */
@@ -242,7 +237,6 @@ public class FileReader {
 
     /**
      * Reads board file and gets the tiles to place into silkbag
-     *
      * @param line2 line of number of floor tiles
      * @return tiles to add to silkbag
      */
@@ -288,7 +282,6 @@ public class FileReader {
 
     /**
      * Read saved game file storing player info
-     *
      * @param filename name of file to open
      * @return array of player profiles
      */
@@ -390,7 +383,6 @@ public class FileReader {
 
     /**
      * read game saved file to get silkbag contents
-     *
      * @param filename file to read
      * @return created silk bag
      */
@@ -447,7 +439,12 @@ public class FileReader {
         }
         return new SilkBag(bag);
     }
-
+    
+    /**
+     * This writes to a file
+     * @param filename The name of the file
+     * @param text The text to write into the filw
+     */
     public static void writeFile(String filename, String text) {
         try {
             FileWriter myWriter = new FileWriter(filename);
@@ -459,7 +456,12 @@ public class FileReader {
             e.printStackTrace();
         }
     }
-
+    
+    /**
+     * This reads in a file and then returns a board with the dimensions specified in the file
+     * @param filename The name of the file
+     * @return the board with the dimensions specified in the file
+     */
     public static Board readSavedBoardFile(String filename) {
         Scanner in = readFile(filename);
         String temp;
@@ -516,7 +518,7 @@ public class FileReader {
         boolean fixed;
         boolean occupied;
         int rotation;
-        int [] goal = new int[2];
+        int[] goal = new int[2];
 
         //remove magic numbers
         tileMap = new FloorTile[width][height];
@@ -531,7 +533,7 @@ public class FileReader {
                 fixed = !"false".equals(tempArr[5]);
                 occupied = !"false".equals(tempArr[6]);
                 rotation = Integer.parseInt(tempArr[7]);
-                tileMap[x][y] = new CornerTile( frozen, engulfed, fixed, occupied, rotation);
+                tileMap[x][y] = new CornerTile(frozen, engulfed, fixed, occupied, rotation);
             } else if (temp.contains("TSHAPE")) {
                 tempArr = temp.split(",");
                 x = Integer.parseInt(tempArr[0]);
@@ -566,9 +568,14 @@ public class FileReader {
                 goal[1] = y;
             }
         }
-        return new Board(p1Loc, p2Loc, p3Loc, p4Loc, width, height, tileMap, blockRow, blockColumn,goal);
+        return new Board(p1Loc, p2Loc, p3Loc, p4Loc, width, height, tileMap, blockRow, blockColumn, goal);
     }
     
+    /**
+     * this reads in a file and then returns a leaderboard with the players and the file.
+     * @param filename The name of the file
+     * @return a leaderboard
+     */
     public static Leaderboard readLeaderboardFile(String filename){
         Scanner in = readFile(filename);
         String temp;
@@ -577,11 +584,10 @@ public class FileReader {
 
         while (in.hasNextLine()) {
             tempArr = in.nextLine().split(",");
-            Player p = new Player(tempArr[0], Integer.parseInt(tempArr[1]),Integer.parseInt(tempArr[2]));
+            Player p = new Player(tempArr[0], Integer.parseInt(tempArr[1]), Integer.parseInt(tempArr[2]));
             players.add(p);
         }
         
-        
-        return new Leaderboard(players,filename);
+        return new Leaderboard(players, filename);
     }
 }
