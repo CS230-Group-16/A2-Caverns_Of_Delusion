@@ -211,6 +211,7 @@ public class Board {
      * @param row Can only be inserted if true.
      * @param positionNum Where the tile should be inserted (column).
      * @param flip The side of the board the tile will be inserted into.
+     * @return True if tile was successfully inserted, false otherwise.
      */
     public boolean insertTile(FloorTile tile, Boolean row, int positionNum, boolean flip) {
         if (row) {
