@@ -13,10 +13,13 @@ import java.util.Arrays;
  */
 public class Game {
 
+    private final String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/";
     private static final SimpleDateFormat sdfH = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+    private String saveGameFileName;
+    private String saveBoardFileName;
+    
     private boolean gameInProgress;
-    private final String LEADERBOARD_FILE = "leaderboard.txt";
 
     private Board board;
     private SilkBag silkBag;
@@ -33,8 +36,8 @@ public class Game {
         createBoard(boardFileLocation);
         createPlayerArray(playerUsername, playerUsername.length);
         createSilkBag(boardFileLocation);
-        createLeaderboard(LEADERBOARD_FILE);
         this.round = new RoundTable(playerUsername.length,0,this.players,this.board,this.silkBag);
+        setFileName();
     }
 
     /**
@@ -46,7 +49,9 @@ public class Game {
         this.board = FileReader.readSavedBoardFile(saveBoardFileLocation);
         this.round = FileReader.readSavedGameFileRoundTable(saveGameFileLocation);
         this.silkBag = FileReader.readSavedGameFileSilkBag(saveGameFileLocation);
-        createLeaderboard(LEADERBOARD_FILE);
+        this.players = this.round.getPlayers();
+        this.round.setBoard(this.board);
+        this.round.setSilkBag(this.silkBag);
     }
 
     /**
@@ -255,13 +260,16 @@ public class Game {
         return result;
     }
     
+    public void setFileName () {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        this.saveGameFileName = "saveGames/SavedGame" + sdfH.format(timestamp) + ".txt";
+        this.saveBoardFileName = "saveGames/SavedBoard" + sdfH.format(timestamp) + ".txt";
+    }
     /**
      * save game to text file
      */
     public void saveGame() {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        String filename = "SavedGame" + sdf.format(timestamp) + ".txt";
-        FileReader.writeFile(filename, this.toText());
-        this.board.saveBoard();
+        FileReader.writeFile(this.saveGameFileName, this.toText());
+        this.board.saveBoard(this.saveBoardFileName);
     }
 }
