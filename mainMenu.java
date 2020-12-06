@@ -37,17 +37,16 @@ public class mainMenu {
 
     @FXML
     public Label msgOfTheDay;
+    @FXML
+    public TextArea message;
 
     /**
      * creates the main menu scene
      *
      */
     public void initialize() {
-        String msg = displayMessage();
-        msgOfTheDay = new Label();
-        msgOfTheDay.setText(msg);
-        System.out.println(msg);
-        msgOfTheDay.setWrapText(true);
+        message.setText(displayMessage());
+        message.setWrapText(true);
     }
 
     /**
