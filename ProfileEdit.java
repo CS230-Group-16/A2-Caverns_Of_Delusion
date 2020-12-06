@@ -30,6 +30,7 @@ public class ProfileEdit extends Application {
     private Label gamesLostLbl = new Label();
     private Button deleteBtn = new Button();
     private Button updateUserBtn = new Button();
+    private Button newUserBtn = new Button();
     Button backBtn = new Button();
     private TextField usernameTxtbox = new TextField();
     private Scanner in = new Scanner(System.in);
@@ -113,6 +114,13 @@ public class ProfileEdit extends Application {
         return textFiles;
     }
 
+    /**
+     * Runs the code.
+     * @param args Used to run the code.
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     /**
      * Starts the JavaFX scene.
@@ -123,8 +131,6 @@ public class ProfileEdit extends Application {
 
         stage.setTitle("Profile Edit");
 
-        stage.setWidth(750);
-        stage.setHeight(550);
         VBox root = new VBox();
 
         Image image = new Image(new FileInputStream(DIRECTORY + "\\images\\background2.png"));
@@ -140,6 +146,8 @@ public class ProfileEdit extends Application {
         deleteBtn.setVisible(false);
         updateUserBtn.setText("Save Username");
         updateUserBtn.setVisible(false);
+        newUserBtn.setVisible(true);
+        newUserBtn.setText("Create new profile");
         backBtn.setText("Back");
         backBtn.setVisible(true);
 
@@ -150,7 +158,7 @@ public class ProfileEdit extends Application {
 
         root.setBackground(backgroundPicture);
         root.getChildren().addAll(menuButton, gamesPlayedLbl, gamesWonLbl, gamesLostLbl, usernameTxtbox,
-                updateUserBtn, deleteBtn, backBtn);
+                updateUserBtn, deleteBtn, newUserBtn, backBtn);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -168,7 +176,6 @@ public class ProfileEdit extends Application {
         List<String> fileNames;
         fileNames = textFiles(DIRECTORY + "\\players");
         MenuButton menuButton = new MenuButton("Profile Edit");
-
         //creates a menuItem for each profile
         for (int i = 0; i < fileNames.size(); i++) {
             MenuItem item1 = new MenuItem(fileNames.get(i).substring(0, fileNames.get(i).length() - 4));
@@ -181,16 +188,21 @@ public class ProfileEdit extends Application {
                 gamesPlayedLbl.setText("games played: " + gamesPlayed);
                 gamesWonLbl.setText("games won: " + readGamesWon(user));
                 gamesLostLbl.setText("games lost: " + readGamesLost(user));
-                usernameTxtbox.setText(fileNames.get(location).substring(0, fileNames.get(location).length() - 4));
+                String userNoTxt = user.substring(0, user.length() - 4);
+                usernameTxtbox.setText(userNoTxt);
+                menuButton.setText(userNoTxt);
                 deleteBtn.setVisible(true);
                 updateUserBtn.setVisible(true);
+                System.out.println(fileNames);
+                System.out.println(menuButton.getItems());
             });
             menuButton.getItems().add(item1);
 
             //when the delete button is clicked, the profile currently selected will be deleted
             deleteBtn.setOnAction(e -> {
                 String user = fileNames.get(location);
-                File fileToDelete = new File(user);
+                System.out.println(fileNames.get(location));
+                File fileToDelete = new File(DIRECTORY + "players\\" + user);
                 //deletes the file and tells the user if it failed or not
                 if (fileToDelete.delete()) {
                     System.out.println("File deleted successfully");
@@ -205,32 +217,43 @@ public class ProfileEdit extends Application {
 
             updateUserBtn.setOnAction(e -> {
                 String user = fileNames.get(location);
-                File file = new File(user);
+                File file = new File(DIRECTORY + "players\\" + user);
                 //creates a new player from the profile file and then updates it with the new name
                 Player player = new Player(user, readGamesWon(fileNames.get(location)), readGamesLost(fileNames.get(location)));
                 player.updateUsername(usernameTxtbox.getText());
                 //makes a new File object from the new name and renames the old file to the new one
-                File newName = new File(usernameTxtbox.getText() + ".txt");
+                File newName = new File(DIRECTORY + "players\\" + usernameTxtbox.getText() + ".txt");
                 MenuItem item2 = new MenuItem(usernameTxtbox.getText());
-                //tells the user if the username updated or failed
-                if (file.renameTo(newName)) {
-                    System.out.println("Username updated successfully");
-                } else {
-                    System.out.println("Failed to rename user");
-                }
+                //renames the file
+                file.renameTo(newName);
                 //updates the menubutton and filenames list
                 menuButton.getItems().set(location, item2);
                 fileNames.set(location, usernameTxtbox.getText() + ".txt");
 
                 //fixes bug where user couldnt click go back on the profile after updating username
                 item2.setOnAction(event -> {
-                    String updatedUser = item2.getText() + ".txt";
-                    int gamesPlayed = readGamesLost(updatedUser) + readGamesWon(updatedUser);
+                    String user2 = item1.getText() + ".txt";
+                    System.out.println("user: " + user2);
+                    location = fileNames.indexOf(user2);
+                    int gamesPlayed = readGamesLost(user2) + readGamesWon(user2);
                     gamesPlayedLbl.setText("games played: " + gamesPlayed);
-                    gamesWonLbl.setText("games won: " + readGamesWon(updatedUser));
-                    gamesLostLbl.setText("games lost: " + readGamesLost(updatedUser));
-                    usernameTxtbox.setText(updatedUser.substring(0, updatedUser.length() - 4));
+                    gamesWonLbl.setText("games won: " + readGamesWon(user2));
+                    gamesLostLbl.setText("games lost: " + readGamesLost(user2));
+                    usernameTxtbox.setText(fileNames.get(location).substring(0, fileNames.get(location).length() - 4));
+                    deleteBtn.setVisible(true);
+                    updateUserBtn.setVisible(true);
+                    System.out.println(fileNames);
+                    System.out.println(menuButton.getItems());
                 });
+            });
+
+            newUserBtn.setOnAction(e -> {
+                Player newPlayer = new Player(usernameTxtbox.getText(), 0, 0);
+                newPlayer.saveProfile();
+                fileNames.add(newPlayer.getUsername());
+                MenuItem newItem = new MenuItem(newPlayer.getUsername());
+                menuButton.getItems().add(newItem);
+                refresh();
             });
 
             backBtn.setOnAction(e -> {
