@@ -1,2 +1,2 @@
 board1
-CasualGamerGuy,awesomeGuy,grapeLord5000,Super_Cool_Name,
+awesomeGuy,CasualGamerGuy,grapeLord5000,
