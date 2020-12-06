@@ -293,7 +293,7 @@ public class FileReader {
      */
     public static RoundTable readSavedGameFileRoundTable(String filename) {
         //reading the parameters for RoundTable from the board file
-        Scanner in = readFile(filename);
+        Scanner in = readFile(DIRECTORY + filename);
         String temp;
         String[] tempArr;
         int numTiles = Integer.parseInt(in.nextLine());
@@ -397,7 +397,7 @@ public class FileReader {
      * @return Created silk bag.
      */
     public static SilkBag readSavedGameFileSilkBag(String filename) {
-        Scanner in = readFile(filename);
+        Scanner in = readFile(DIRECTORY + filename);
         String temp;
         String[] tempArr;
         boolean frozen;
@@ -475,7 +475,7 @@ public class FileReader {
      * @return The board with the dimensions specified in the file.
      */
     public static Board readSavedBoardFile(String filename) {
-        Scanner in = readFile(filename);
+        Scanner in = readFile(DIRECTORY + filename);
         String temp;
         String[] tempArr;
         int width;
