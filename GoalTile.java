@@ -3,7 +3,6 @@
  * @author Cameron McDonagh & Maciej Buczkowski
  * @version 1.3
  */
-
 public class GoalTile extends FloorTile {
 
     private final int[] PATHWAYS = {1,1,1,1};

@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-
 /**
  * Main class to run aspects of the assignment
  * @author Bartosz Kubica

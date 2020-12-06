@@ -5,6 +5,7 @@
  */
 public class EffectTile extends ActionTile {
 
+    private int endTurn;
     /**
      * Constructor to make Effect Tiles (engulf/freeze).
      * @param effect Desired tile effect.

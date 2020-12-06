@@ -3,7 +3,6 @@
  * @author Cameron McDonagh & Maciej Buczkowski.
  * @version 1.3
  */
-
 public abstract class FloorTile extends Tile {
 
     private boolean frozen;
@@ -13,6 +12,7 @@ public abstract class FloorTile extends Tile {
     private final String tileType;
     private int rotation;
     private int[] pathways;
+    private int endTurn;
 
     /**
      * Constructor used to make for the FloorTile class.
@@ -40,6 +40,23 @@ public abstract class FloorTile extends Tile {
         this.fixed = fixed;
         this.occupied = occupied;
         this.rotation = rotation;
+        this.endTurn = 0;
+    }
+    
+    /**
+     * Set the end turn of the effect
+     * @param endTurn Turn number that the effect stops
+     */
+    public void setEndTurn(int endTurn){
+        this.endTurn = endTurn;
+    }
+    
+    /**
+     * Get the end turn of the effect
+     * @return Turn number that the effect stops
+     */
+    public int getEndTurn(){
+        return this.endTurn;
     }
 
     /**

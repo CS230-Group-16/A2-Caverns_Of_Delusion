@@ -174,7 +174,12 @@ public class Board {
      * @return The tile at the position given.
      */
     public FloorTile getTileAt(int x, int y) {
-        return this.tileMap[x][y];
+        if (x >= 0 && y >= 0) {
+            if (x < this.width && y < this.height) {
+                return this.tileMap[x][y];
+            }
+        }
+        return null;
     }
 
     /**
@@ -734,9 +739,7 @@ public class Board {
     /**
      * saves the board to a file.
      */
-    public void saveBoard() {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        String filename = "SavedBoard" + sdf.format(timestamp) + ".txt";
+    public void saveBoard(String filename) {
         FileReader.writeFile(filename, this.toText());
     }
 }

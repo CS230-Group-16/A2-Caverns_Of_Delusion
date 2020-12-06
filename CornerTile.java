@@ -3,7 +3,6 @@
  * @author Cameron McDonagh & Maciej Buczkowski.
  * @version 1.3
  */
-
 public class CornerTile extends FloorTile {
 
     private int rotation;

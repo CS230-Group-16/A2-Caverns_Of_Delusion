@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class FileReader {
     //CHANGE TO PERSONAL DIRECTORY BEFORE RUNNING
-    private final static String DIRECTORY = "C:\\Users\\helwe\\Documents\\GitHub\\A2-Caverns_Of_Delusion\\files";
+    private final static String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/";
     
     /**
      * Open scanner to read board file.
@@ -30,7 +30,6 @@ public class FileReader {
         } catch (FileNotFoundException e) {
             System.out.println("File not found in directory");
             e.printStackTrace();
-            System.exit(0);
         }
         return in;
     }
@@ -186,7 +185,7 @@ public class FileReader {
      * @param filename name of file to delete.
      */
     public static void deleteFile(String filename) {
-        File f = new File(filename);
+        File f = new File(DIRECTORY + filename);
         f.delete();
     }
 
@@ -325,19 +324,19 @@ public class FileReader {
             drawnTile = new CornerTile(frozen, engulfed, fixed, occupied, rotation);
         } else if (temp.contains("TSHAPE")) {
             tempArr = temp.split(",");
-            frozen = !"false".equals(tempArr[3]);
-            engulfed = !"false".equals(tempArr[4]);
-            fixed = !"false".equals(tempArr[5]);
-            occupied = !"false".equals(tempArr[6]);
-            rotation = Integer.parseInt(tempArr[7]);
+            frozen = !"false".equals(tempArr[1]);
+            engulfed = !"false".equals(tempArr[2]);
+            fixed = !"false".equals(tempArr[3]);
+            occupied = !"false".equals(tempArr[4]);
+            rotation = Integer.parseInt(tempArr[5]);
             drawnTile = new TShapeTile(frozen, engulfed, fixed, occupied, rotation);
         } else if (temp.contains("STRAIGHT")) {
             tempArr = temp.split(",");
-            frozen = !"false".equals(tempArr[3]);
-            engulfed = !"false".equals(tempArr[4]);
-            fixed = !"false".equals(tempArr[5]);
-            occupied = !"false".equals(tempArr[6]);
-            rotation = Integer.parseInt(tempArr[7]);
+            frozen = !"false".equals(tempArr[1]);
+            engulfed = !"false".equals(tempArr[2]);
+            fixed = !"false".equals(tempArr[3]);
+            occupied = !"false".equals(tempArr[4]);
+            rotation = Integer.parseInt(tempArr[5]);
             drawnTile = new StraightTile(frozen, engulfed, fixed, occupied, rotation);
         } else {
             drawnTile = null;
@@ -388,7 +387,7 @@ public class FileReader {
             }
             players[i] = new Player(username, gamesWon, gamesLost, playerNum, path, backtrack, spells);
         }
-        return new RoundTable(numPlayers, turnCounter, players, counter);
+        return new RoundTable(numPlayers, turnCounter, players, counter, drawnTile);
     }
 
     /**
@@ -459,7 +458,7 @@ public class FileReader {
      */
     public static void writeFile(String filename, String text) {
         try {
-            FileWriter myWriter = new FileWriter(filename);
+            FileWriter myWriter = new FileWriter(DIRECTORY + filename);
             myWriter.write(text);
             myWriter.close();
             //System.out.println("Successfully wrote to the file.");
@@ -606,5 +605,17 @@ public class FileReader {
         }
         
         return new Leaderboard(players, filename);
+    }
+    
+    /**
+     * Read config file made in config menu to create game.
+     * @param filename name of config file to open.
+     * @return created game from file.
+     */
+    public static Game readGameConfig(String filename){
+        Scanner in = readFile(filename);
+        String board = in.nextLine();
+        String [] players = in.nextLine().split(",");
+        return new Game(board,players);
     }
 }

@@ -12,7 +12,6 @@ import java.util.Scanner;
  * @author Michelle Bhaskaran & Chloe Thomas
  * @version 0.4
  */
-
 public class Leaderboard {
 
     ArrayList<Player> board = new ArrayList<>();
