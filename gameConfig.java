@@ -121,7 +121,7 @@ public class gameConfig{
     @FXML
     private void handleBackAction(ActionEvent event) throws IOException {
         System.out.println("Back button clicked");
-        Parent game = FXMLLoader.load(getClass().getResource("src\\mainMenu.fxml"));
+        Parent game = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
         Scene gameScene = new Scene(game);
         Stage gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         gameStage.setScene(gameScene);
