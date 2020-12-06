@@ -70,7 +70,6 @@ public class gameConfig{
                 MenuItem menuItem = new MenuItem(names.get(i).substring(0, names.get(i).length() - 4));
                 menuItem.setOnAction(a -> {
                     System.out.println(menuItem.getText());
-                    players.add(menuItem.getText());
                     player.setText(menuItem.getText());
                 });
                 player.getItems().add(menuItem);
@@ -131,8 +130,9 @@ public class gameConfig{
     @FXML
     private void handlePlayGameAction(ActionEvent event) throws IOException {
         System.out.println("Play! button clicked");
+        menusToString();
         aquirePlayers(players);
-        createGame(board, playerList);
+        createGame(boardType.getText(), playerList);
         Parent root = FXMLLoader.load(getClass().getResource("testBoard.fxml"));
         TestGameController.setGame(game);
 
@@ -140,6 +140,24 @@ public class gameConfig{
         Stage gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         gameStage.setScene(gameScene);
         gameStage.show();
+    }
+
+    public void menusToString(){
+        if(playerOne != null){
+            players.add(playerOne.getText());
+        }
+
+        if(playerTwo != null){
+            players.add(playerTwo.getText());
+        }
+
+        if(playerThree != null){
+            players.add(playerThree.getText());
+        }
+
+        if(playerFour != null){
+            players.add(playerFour.getText());
+        }
     }
 
     public String[] aquirePlayers(ArrayList<String> players){
@@ -158,7 +176,7 @@ public class gameConfig{
             }
             String gameString = boardType + "\n" + playersString;
 
-            FileReader.writeFile("gameConfig.txt", gameString);
+            FileReader.writeFile("files\\gameConfig.txt", gameString);
         }
     }
 
