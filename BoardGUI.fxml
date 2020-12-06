@@ -25,7 +25,7 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
                <children>
-                  <HBox prefHeight="34.0" prefWidth="629.0">
+                  <HBox fx:id="playerBox" prefHeight="34.0" prefWidth="629.0">
                      <children>
                         <ImageView fx:id="playerIcon" fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                         <Label fx:id="currentPlayer" />
