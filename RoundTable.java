@@ -412,6 +412,14 @@ public class RoundTable {
     public Player getNextPlayer() {
         return this.nextPlayer;
     }
+    
+    /**
+     * Get number of players in game.
+     * @return Number of players
+     */
+    public int getNumPlayers() {
+        return this.numOfPlayers;
+    }
 
 
     /**
