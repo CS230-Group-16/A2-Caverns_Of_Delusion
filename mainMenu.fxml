@@ -51,7 +51,7 @@
             <Font name="Old English Text MT" size="32.0" />
          </font>
       </Text>
-      <TextArea fx:id="message" editable="false" layoutX="17.0" layoutY="349.0" prefHeight="37.0" prefWidth="567.0" wrapText="true">
+      <TextArea fx:id="message" editable="false" layoutX="17.0" layoutY="343.0" prefHeight="43.0" prefWidth="567.0" wrapText="true">
          <font>
             <Font name="Maiandra GD" size="15.0" />
          </font></TextArea>
