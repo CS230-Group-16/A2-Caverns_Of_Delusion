@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -15,20 +16,37 @@
             <Image url="@files/images/background3.png" />
          </image>
       </ImageView>
-      <Button fx:id="Play" layoutX="123.0" layoutY="114.0" mnemonicParsing="false" onAction="#handlePlayAction" prefHeight="31.0" prefWidth="51.0" text="Play" />
-      <Button fx:id="EditPlayer" layoutX="104.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleEditPlayerAction" text="Edit Player" />
-      <Button fx:id="Leaderboard" layoutX="97.0" layoutY="193.0" mnemonicParsing="false" onAction="#handleLeaderboardAction" text="Leaderboard" />
-      <Label fx:id="msgOfTheDay" layoutX="130.0" layoutY="337.0" prefHeight="40.0" prefWidth="341.0" />
-      <Button fx:id="ExitApplication" layoutX="127.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleExitApplication" text="Exit" />
-      <ImageView fitHeight="415.0" fitWidth="612.0" layoutX="-6.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="415.0" fitWidth="612.0" layoutX="-5.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@files/images/borders-png-22971.png" />
          </image>
       </ImageView>
+      <Button fx:id="Play" layoutX="97.0" layoutY="117.0" mnemonicParsing="false" onAction="#handlePlayAction" prefHeight="31.0" prefWidth="104.0" text="Play">
+         <font>
+            <Font name="Maiandra GD" size="15.0" />
+         </font></Button>
+      <Button fx:id="EditPlayer" layoutX="98.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleEditPlayerAction" prefHeight="31.0" prefWidth="104.0" text="Edit Player">
+         <font>
+            <Font name="Maiandra GD" size="15.0" />
+         </font></Button>
+      <Button fx:id="Leaderboard" layoutX="97.0" layoutY="193.0" mnemonicParsing="false" onAction="#handleLeaderboardAction" text="Leaderboard">
+         <font>
+            <Font name="Maiandra GD" size="15.0" />
+         </font></Button>
+      <Label fx:id="msgOfTheDay" layoutX="130.0" layoutY="337.0" prefHeight="40.0" prefWidth="341.0" />
+      <Button fx:id="ExitApplication" layoutX="97.0" layoutY="228.0" mnemonicParsing="false" onAction="#handleExitApplication" prefHeight="29.0" prefWidth="104.0" text="Exit">
+         <font>
+            <Font name="Maiandra GD" size="15.0" />
+         </font></Button>
       <ImageView fitHeight="415.0" fitWidth="320.0" layoutX="201.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@files/images/c6.png" />
          </image>
       </ImageView>
+      <Text layoutX="35.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Caverns Of Delusion" wrappingWidth="298.05224609375">
+         <font>
+            <Font name="Old English Text MT" size="32.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
