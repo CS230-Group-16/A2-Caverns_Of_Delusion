@@ -143,6 +143,7 @@ public class ProfileEdit extends Application {
         BackgroundSize backgroundSize = new BackgroundSize(600, 500, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background backgroundPicture = new Background(backgroundImage);
+        
 
         //makes the GUI for before a profile is selected
         MenuButton menuButton = refresh();

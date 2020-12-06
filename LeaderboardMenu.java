@@ -47,15 +47,15 @@ public class LeaderboardMenu extends Application {
         final Label label = new Label("Leaderboard");
         label.setFont(new Font("Arial", 20));
         
-        Image image = new Image(new FileInputStream(DIRECTORY + "\\images\\background2.png"));
-        BackgroundSize backgroundSize = new BackgroundSize(400, 500, true, true, true, false);
+        Image image = new Image(new FileInputStream(DIRECTORY + "\\images\\background3.png"));
+        BackgroundSize backgroundSize = new BackgroundSize(650, 500, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background backgroundPicture = new Background(backgroundImage);
         
         TableView tableView = new TableView();
         tableView.setPlaceholder(new Label("No rows to display"));
         TableColumn<Player, String> column1 = new TableColumn<>("Username");
-        column1.setMinWidth(100);
+        column1.setMinWidth(200);
         column1.setCellValueFactory(new PropertyValueFactory<>("username"));
 
         TableColumn<Player, String> column2 = new TableColumn<>("Games Won");
@@ -92,11 +92,12 @@ public class LeaderboardMenu extends Application {
         
         vbox.setBackground(backgroundPicture);
 
-        Scene scene = new Scene(vbox);
+        Scene scene = new Scene(new Group());
         primaryStage.setTitle("Leaderboard");
-        primaryStage.setWidth(500);
+        primaryStage.setWidth(650);
         primaryStage.setHeight(500);
         primaryStage.setScene(scene);
+       ((Group) scene.getRoot()).getChildren().addAll(vbox);
 
         backBtn.setOnAction(e -> {
                     System.out.println("Back button clicked");
