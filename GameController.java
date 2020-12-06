@@ -115,7 +115,7 @@ public class GameController {
         playAction.setVisible(false);
         setMoveButtons(false);
 
-        this.game = createGame();
+        createGame();
         width = this.game.getBoard().getWidth();
         height = this.game.getBoard().getHeight();
         for (int i = 0; i <= (width + 1); i++) {
@@ -546,16 +546,8 @@ public class GameController {
      *
      * @return the new game
      */
-    private Game createGame() {
-        //get names from screen
-        String[] strArr = new String[]{"Super_Cool_Name", "grapeLord5000", "awesomeGuy", "CasualGamerGuy"};
-        String[] strArr2 = new String[]{"Super_Cool_Name", "grapeLord5000", "awesomeGuy"};
-
-        //get name of file
-        Game g = new Game(DIRECTORY + "boards/board1.txt", strArr2);
-        //Game g = new Game(DIRECTORY + "saveGames/SavedBoard2020.12.06.14.06.15.txt", DIRECTORY + "saveGames/SavedGame2020.12.06.14.06.15.txt");
-        //return g;
-        return FileReader.readGameConfig(DIRECTORY + "gameConfig.txt");
+    private void createGame() {
+        this.game = FileReader.readGameConfig(DIRECTORY + "gameConfig.txt");
     }
 
     /**

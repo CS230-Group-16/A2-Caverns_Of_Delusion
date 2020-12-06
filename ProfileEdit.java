@@ -113,13 +113,6 @@ public class ProfileEdit extends Application {
         return textFiles;
     }
 
-    /**
-     * Runs the code.
-     * @param args Used to run the code.
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     /**
      * Starts the JavaFX scene.
@@ -130,6 +123,8 @@ public class ProfileEdit extends Application {
 
         stage.setTitle("Profile Edit");
 
+        stage.setWidth(750);
+        stage.setHeight(550);
         VBox root = new VBox();
 
         Image image = new Image(new FileInputStream(DIRECTORY + "\\images\\background2.png"));
