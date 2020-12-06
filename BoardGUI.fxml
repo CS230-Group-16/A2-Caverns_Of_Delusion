@@ -16,6 +16,16 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameController">
    <children>
+      <ImageView fitHeight="878.0" fitWidth="1024.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@files/images/background3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="800.0" fitWidth="956.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@files/images/border3.png" />
+         </image>
+      </ImageView>
       <GridPane prefHeight="800.0" prefWidth="800.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="696.0" minWidth="10.0" prefWidth="671.0" />
