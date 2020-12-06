@@ -58,6 +58,8 @@ public class GameController {
     private final int HEIGHT_OF_TILE_IMAGE = 80;
     private final int WIDTH_OF_PLAYER_IMAGE = 35;
     private final String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/";
+    
+    Button backBtn = new Button();
 
     @FXML
     Button draw;
@@ -419,7 +421,21 @@ public class GameController {
             drawnTile.getChildren().clear();
             spells.getChildren().clear();
             this.game.gameWon();
+            
             //go to main menu
+            backBtn.setOnAction(e -> {
+                System.out.println("Back button clicked");
+                Parent game = null;
+                try {
+                    game = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                Scene gameScene = new Scene(game);
+                Stage gameStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                gameStage.setScene(gameScene);
+                gameStage.sizeToScene();
+                gameStage.show();
         }
     }
 
