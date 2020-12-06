@@ -129,13 +129,13 @@ public class ProfileEdit extends Application {
     public void start(Stage stage) throws Exception {
 
         stage.setTitle("Profile Edit");
-        stage.setWidth(650);
+        stage.setWidth(600);
         stage.setHeight(500);
 
         VBox root = new VBox();
 
         Image image = new Image(new FileInputStream(DIRECTORY + "\\images\\background2.png"));
-        BackgroundSize backgroundSize = new BackgroundSize(550, 550, true, true, true, false);
+        BackgroundSize backgroundSize = new BackgroundSize(600, 500, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background backgroundPicture = new Background(backgroundImage);
 
@@ -157,7 +157,7 @@ public class ProfileEdit extends Application {
 
         root.setBackground(backgroundPicture);
         root.getChildren().addAll(menuButton, gamesPlayedLbl, gamesWonLbl, gamesLostLbl, usernameTxtbox,
-                updateUserBtn, deleteBtn);
+                updateUserBtn, deleteBtn, backBtn);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
