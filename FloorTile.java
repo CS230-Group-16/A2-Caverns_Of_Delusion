@@ -41,6 +41,7 @@ public abstract class FloorTile extends Tile {
         this.fixed = fixed;
         this.occupied = occupied;
         this.rotation = rotation;
+        this.endTurn = 0;
     }
     
     /**
