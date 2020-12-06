@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -32,7 +33,10 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -82,6 +86,8 @@ public class GameController {
     HBox spells;
     @FXML
     ImageView playerIcon;
+    @FXML
+    HBox playerBox;
 
     private Game game;
     private FloorTile tile;
@@ -541,6 +547,22 @@ public class GameController {
         Player[] players = this.game.getPlayers();
         int counter = this.game.getRound().getCounter();
 
+        switch (counter) {
+            case 0:
+                playerBox.setBackground(new Background(new BackgroundFill(Color.BLUE,CornerRadii.EMPTY,Insets.EMPTY)));
+                break;
+            case 1:
+                playerBox.setBackground(new Background(new BackgroundFill(Color.GREEN,CornerRadii.EMPTY,Insets.EMPTY)));
+                break;
+            case 2:
+                playerBox.setBackground(new Background(new BackgroundFill(Color.YELLOW,CornerRadii.EMPTY,Insets.EMPTY)));
+                break;
+            case 3:
+                playerBox.setBackground(new Background(new BackgroundFill(Color.RED,CornerRadii.EMPTY,Insets.EMPTY)));
+                break;
+            default:
+                break;
+        }
         currentPlayer.setText(players[counter].getUsername());
         if ((counter + 1) >= (players.length)) {
             counter = 0;
@@ -560,6 +582,8 @@ public class GameController {
             counter++;
         }
         nextPlayer2.setText(players[counter].getUsername());
+        
+        
     }
 
     /**
