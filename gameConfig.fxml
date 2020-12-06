@@ -21,7 +21,7 @@
             <Image url="@files/images/background3.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="421.0" fitWidth="608.0" layoutX="-8.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="421.0" fitWidth="608.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@files/images/borders-png-22971.png" />
          </image>
