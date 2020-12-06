@@ -87,10 +87,13 @@ public class mainMenu {
     @FXML
     private void handleEditPlayerAction(ActionEvent event) {
         System.out.println("Edit Player button clicked");
-        Stage gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         try {
-            new ProfileEdit().start(gameStage);
-        } catch (Exception e) {
+            Parent game = FXMLLoader.load(getClass().getResource("ProfileEdit.fxml"));
+            Scene gameScene = new Scene(game);
+            Stage gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            gameStage.setScene(gameScene);
+            gameStage.show();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
