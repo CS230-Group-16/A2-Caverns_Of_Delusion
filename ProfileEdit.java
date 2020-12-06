@@ -129,7 +129,7 @@ public class ProfileEdit extends Application {
     public void start(Stage stage) throws Exception {
 
         stage.setTitle("Profile Edit");
-        stage.setWidth(400);
+        stage.setWidth(600);
         stage.setHeight(500);
 
         VBox root = new VBox();
@@ -157,7 +157,7 @@ public class ProfileEdit extends Application {
 
         root.setBackground(backgroundPicture);
         root.getChildren().addAll(menuButton, gamesPlayedLbl, gamesWonLbl, gamesLostLbl, usernameTxtbox,
-                updateUserBtn, deleteBtn);
+                updateUserBtn, deleteBtn, backBtn);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

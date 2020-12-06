@@ -59,7 +59,7 @@ public class Main extends Application {
             */
             
             primaryStage.setTitle(GAME_NAME);
-            Scene scene = new Scene(root, 800, 800);
+            Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
             
