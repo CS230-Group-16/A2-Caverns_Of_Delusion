@@ -38,6 +38,7 @@ public class Game {
         createSilkBag(boardFileLocation);
         this.round = new RoundTable(playerUsername.length,0,this.players,this.board,this.silkBag);
         setFileName();
+        saveGame();
     }
 
     /**
@@ -180,6 +181,9 @@ public class Game {
      */
     public void gameWon() {
         //game won sequence
+        //delete save files
+        FileReader.deleteFile(this.saveGameFileName);
+        FileReader.deleteFile(this.saveBoardFileName);
     }
 
     /**
