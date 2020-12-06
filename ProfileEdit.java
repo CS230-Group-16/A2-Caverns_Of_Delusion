@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class ProfileEdit extends Application {
     //Change directory to personal one
-    private final String DIRECTORY = "C:\\Users\\helwe\\Documents\\GitHub\\A2-Caverns_Of_Delusion\\files\\";
+    private final String DIRECTORY = "C:\\Users\\helwe\\Documents\\GitHub\\A2-Caverns_Of_Delusion\\files\\txt files";
     //initialising the tools to be displayed in JavaFX
     private Label gamesPlayedLbl = new Label("no player selected");
     private Label gamesWonLbl = new Label();
