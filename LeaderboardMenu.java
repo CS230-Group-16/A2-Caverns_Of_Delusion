@@ -43,6 +43,7 @@ public class LeaderboardMenu extends Application {
     public void start(Stage primaryStage) throws FileNotFoundException {
         
         Image image = new Image(new FileInputStream(DIRECTORY + "\\images\\background3.png"));
+        board = FileReader.readLeaderboardFile(DIRECTORY + "/leaderboards/leaderboard1.txt");
         BackgroundSize backgroundSize = new BackgroundSize(700, 550, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background backgroundPicture = new Background(backgroundImage);
@@ -115,7 +116,6 @@ public class LeaderboardMenu extends Application {
 
     // Driver  method
     public static void main(String[] args) {
-        board = FileReader.readLeaderboardFile(DIRECTORY + "\\leaderboards\\leaderboard1.txt");
         launch(args);
     }
 }
