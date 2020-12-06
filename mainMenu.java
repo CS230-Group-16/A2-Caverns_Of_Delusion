@@ -2,74 +2,58 @@
 import java.io.*;
 
 import javafx.application.Application;
-        import javafx.event.ActionEvent;
-        import javafx.event.EventHandler;
-        import javafx.fxml.FXML;
-        import javafx.scene.Node;
-        import javafx.scene.Parent;
-        import javafx.scene.control.TextArea;
-        import javafx.scene.layout.AnchorPane;
-        import javafx.scene.layout.Pane;
-        import javafx.scene.text.TextFlow;
-        import javafx.stage.Stage;
-        import javafx.fxml.FXMLLoader;
-        import javafx.scene.Scene;
-        import javafx.scene.control.Button;
-        import javafx.scene.control.Label;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import javafx.scene.image.Image;
-        import javafx.scene.layout.Background;
-        import javafx.scene.layout.BackgroundImage;
-        import javafx.scene.layout.BackgroundPosition;
-        import javafx.scene.layout.BackgroundRepeat;
-        import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 
 /**
  * class represents main menu
+ *
  * @author Cameron McDonagh & Maciej Buczkowski
  * @version 1.0
  */
-public class mainMenu extends Application{
+public class mainMenu {
 
     @FXML
-    public Label msgOfTheDay = new Label();
-
+    public Label msgOfTheDay;
 
     /**
      * creates the main menu scene
-     * @param stage To create the stage
+     *
      */
+    public void initilse() {
+        String msg = displayMessage();
 
-    public void start(Stage stage) throws FileNotFoundException {
-
-        try {
-            Parent root = (Parent) FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-
-            msgOfTheDay.setText(displayMessage());
-            msgOfTheDay.setWrapText(true);
-            msgOfTheDay.setVisible(true);
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        msgOfTheDay = new Label(msg);
+        System.out.println(msgOfTheDay.getText());
+        msgOfTheDay.setWrapText(true);
     }
-
-    public static void main(String [] args) {
-        launch(args);
-    }
-
 
     /**
      * handles the playing
-     * @param  event to handle the playing
+     *
+     * @param event to handle the playing
      * @throws IOException
      */
     @FXML
@@ -84,6 +68,7 @@ public class mainMenu extends Application{
 
     /**
      * handles the leaderboard actions
+     *
      * @param event An event to handle the leaderboard action
      */
     @FXML
@@ -99,6 +84,7 @@ public class mainMenu extends Application{
 
     /**
      * Handles editing player's action
+     *
      * @param event An event to edit the player's action
      */
     @FXML
@@ -114,6 +100,7 @@ public class mainMenu extends Application{
 
     /**
      * This allows the exit of the game
+     *
      * @param event An event to exit the game
      */
     @FXML
@@ -138,6 +125,7 @@ public class mainMenu extends Application{
 
     /**
      * Decodes the message as per the instructions on the web site
+     *
      * @param msg message to decode
      * @return decoded message
      */
@@ -171,6 +159,7 @@ public class mainMenu extends Application{
 
     /**
      * Gets the message from a specific URL
+     *
      * @param stringURL URL to get the message from
      * @return the message from the website
      */

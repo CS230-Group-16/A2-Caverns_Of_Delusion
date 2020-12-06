@@ -88,6 +88,8 @@ public class GameController {
     ImageView playerIcon;
     @FXML
     HBox playerBox;
+    @FXML
+    Pane player;
 
     private Game game;
     private FloorTile tile;
@@ -549,22 +551,22 @@ public class GameController {
 
         switch (counter) {
             case 0:
-                playerBox.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+                player.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
                 break;
             case 1:
-                playerBox.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+                player.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
                 break;
             case 2:
-                playerBox.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+                player.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
                 break;
             case 3:
-                playerBox.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+                player.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
                 break;
             default:
                 break;
         }
         try {
-            Image image = new Image(new FileInputStream(DIRECTORY + "images/Final/PlaceHolders/Player_" + counter + ".png"));
+            Image image = new Image(new FileInputStream(DIRECTORY + "images/Final/PlaceHolders/Player_" + (counter+1) + ".png"));
             playerIcon = new ImageView(image);
             playerIcon.setFitHeight(WIDTH_OF_PLAYER_IMAGE);
             playerIcon.setFitWidth(WIDTH_OF_PLAYER_IMAGE);
