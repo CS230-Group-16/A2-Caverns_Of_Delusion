@@ -17,6 +17,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -423,19 +424,8 @@ public class GameController {
             this.game.gameWon();
             
             //go to main menu
-            backBtn.setOnAction(e -> {
-                System.out.println("Back button clicked");
-                Parent game = null;
-                try {
-                    game = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-                Scene gameScene = new Scene(game);
-                Stage gameStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                gameStage.setScene(gameScene);
-                gameStage.sizeToScene();
-                gameStage.show();
+            System.exit(0);
+            
         }
     }
 
