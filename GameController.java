@@ -1,4 +1,5 @@
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -41,6 +42,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
 /**
@@ -351,13 +354,14 @@ public class GameController {
                                         a3.showAndWait();
                                     } else {
                                         refreshCentral();
-
                                         this.game.saveGame();
+                                        playSFX("BACKTRACK");
                                     }
                                 }
                             }
                         } else if ("DOUBLEMOVE".equals(spellStrings[i])) {
                             doublemove = true;
+                            playSFX("DOUBLEMOVE");
                         } else if ("ICE".equals(spellStrings[i]) || "FIRE".equals(spellStrings[i])) {
                             Alert a3 = new Alert(Alert.AlertType.WARNING);
                             a3.setHeaderText("Pick the center tile");
@@ -377,6 +381,12 @@ public class GameController {
             checkMovement();
         });
 
+    }
+    
+    public void playSFX(String filename){
+        Media sound = new Media(new File(DIRECTORY + "sounds/" + filename + ".wav").toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
     }
 
     /**
@@ -671,10 +681,16 @@ public class GameController {
                                 a.setContentText("You cannot cast a spell on a player");
                                 a.showAndWait();
                             } else {
+                                if ("FIRE".equals(selectedTile.getEffect())) {
+                                    playSFX("FIRE");
+                                } else {
+                                    playSFX("ICE");
+                                }
                                 this.selectedTile = null;
                                 this.spells.getChildren().clear();
                                 refreshCentral();
                                 playAction.setVisible(false);
+                                
                             }
                         }
                     });
