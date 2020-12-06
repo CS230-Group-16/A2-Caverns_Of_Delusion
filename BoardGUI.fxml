@@ -16,7 +16,11 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameController">
    <children>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="836.0" fitWidth="1021.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@files/images/background3.png" />
+         </image>
+      </ImageView>
       <GridPane prefHeight="800.0" prefWidth="800.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="696.0" minWidth="10.0" prefWidth="671.0" />
@@ -46,17 +50,12 @@
             <GridPane fx:id="central" prefHeight="551.0" prefWidth="629.0" GridPane.rowIndex="1">
                <columnConstraints>
                   <ColumnConstraints />
+                  <ColumnConstraints />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints />
-               </rowConstraints>
-               <children>
-                  <ImageView fitHeight="941.0" fitWidth="805.0">
-                     <image>
-                        <Image url="@files/images/background3.png" />
-                     </image>
-                  </ImageView>
-               </children></GridPane>
+                  <RowConstraints />
+               </rowConstraints></GridPane>
             <HBox prefHeight="71.0" prefWidth="629.0" spacing="50.0">
                <children>
                   <Label fx:id="nextPlayer" />
