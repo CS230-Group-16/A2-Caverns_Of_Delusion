@@ -1,3 +1,5 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,6 +17,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 
 /**
  * class represents main menu
@@ -27,11 +35,13 @@ public class mainMenu extends Application{
 	/**
 	 * creates the main menu scene
 	 * @param stage To create the stage
-	 */
-    public void start(Stage stage) {
+	 */  
+    
+    public void start(Stage stage) throws FileNotFoundException {
+        
         try {
             Parent root = (Parent) FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-
+            
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();

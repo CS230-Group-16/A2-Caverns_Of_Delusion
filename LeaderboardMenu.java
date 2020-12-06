@@ -1,14 +1,9 @@
-import java.awt.Color;
-        import java.io.File;
-        import java.io.FileNotFoundException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-        import java.util.Scanner;
-        import javafx.application.Application;
-        import static javafx.application.Application.launch;
-        import static javafx.application.Application.launch;
-        import javafx.collections.FXCollections;
-        import javafx.collections.ObservableList;
+import java.util.Scanner;
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -26,9 +21,6 @@ import javafx.scene.control.Label;
         import javafx.scene.layout.BackgroundSize;
         import javafx.scene.layout.VBox;
         import javafx.stage.Stage;
-        import javax.swing.JFrame;
-        import javax.swing.JScrollPane;
-        import javax.swing.JTable;
 
 /**
  * implements a frame which is the leaderboard.
@@ -47,10 +39,16 @@ public class LeaderboardMenu extends Application {
      *
      * @param primaryStage
      */
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws FileNotFoundException {
+        
+        Image image = new Image(new FileInputStream(DIRECTORY + "\\images\\background.png"));
+        BackgroundSize backgroundSize = new BackgroundSize(400, 500, true, true, true, false);
+        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        Background backgroundPicture = new Background(backgroundImage);
+        
         TableView tableView = new TableView();
         tableView.setPlaceholder(new Label("No rows to display"));
-        TableColumn<Player, String> column1 = new TableColumn<>("First Name");
+        TableColumn<Player, String> column1 = new TableColumn<>("Username");
         column1.setCellValueFactory(new PropertyValueFactory<>("username"));
 
         TableColumn<Player, String> column2 = new TableColumn<>("Games Won");
@@ -79,6 +77,8 @@ public class LeaderboardMenu extends Application {
         backBtn.setVisible(true);
 
         vbox.getChildren().add(backBtn);
+        
+        vbox.setBackground(backgroundPicture);
 
         Scene scene = new Scene(vbox);
 
