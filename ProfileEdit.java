@@ -4,7 +4,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,21 +14,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 
 /**
  * Edit profile name or delete profile with a GUI and also see a profiles game status.
  * @author Jimmy Kells and Surinder Singh.
  * @version 1.0
  */
+
 public class ProfileEdit extends Application {
     //Change directory to personal one
-    private final String DIRECTORY = "C:\\Users\\helwe\\Documents\\GitHub\\A2-Caverns_Of_Delusion\\files\\txt files";
+    private final String DIRECTORY = "E:\\Users\\Jimmy\\Documents\\Uni Work\\YEAR 2\\CS-230\\230 code copy\\files";
     //initialising the tools to be displayed in JavaFX
     private Label gamesPlayedLbl = new Label("no player selected");
     private Label gamesWonLbl = new Label();
@@ -45,12 +41,12 @@ public class ProfileEdit extends Application {
      * @return Scanner The scanner to read the file.
      */
     public Scanner readFile(String filename) {
-        File file = new File(filename);
+        File file = new File(DIRECTORY + "\\players\\" + filename);
         try {
             in = new Scanner(file);
         } catch (FileNotFoundException e) {
             //if the file is not found, a clear error message is shown with the file that the program was looking for
-            System.out.println("File not found in directory");
+            System.out.println(file + " not found in directory: " + DIRECTORY);
             e.printStackTrace();
             System.exit(0);
         }
@@ -101,13 +97,14 @@ public class ProfileEdit extends Application {
 
     /**
      * Get all of the user files.
-     * @param directory the directory of where the text files are found.
+     * @param fileDirectory the directory of where the text files are found.
      * @return textFiles An array of profile files found.
      */
-    List<String> textFiles(String directory) {
+    List<String> textFiles(String fileDirectory) {
         List<String> textFiles = new ArrayList<String>();
-        File dir = new File(directory);
-        //finds all .txt files and removes any that start with the word board.
+        File dir = new File(fileDirectory);
+        //finds all .txt files and removes any that start with the word board
+        //this is just in case a board file ends up in the player folder
         for (File file : dir.listFiles()) {
             if (file.getName().endsWith((".txt")) && file.getName().startsWith("board") == false) {
                 textFiles.add(file.getName());
@@ -141,7 +138,7 @@ public class ProfileEdit extends Application {
         BackgroundSize backgroundSize = new BackgroundSize(600, 500, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background backgroundPicture = new Background(backgroundImage);
-        
+
 
         //makes the GUI for before a profile is selected
         MenuButton menuButton = refresh();
@@ -176,7 +173,7 @@ public class ProfileEdit extends Application {
 
         //gets the profile names into a list
         List<String> fileNames;
-        fileNames = textFiles(DIRECTORY);
+        fileNames = textFiles(DIRECTORY + "\\players");
         MenuButton menuButton = new MenuButton("Profile Edit");
 
         //creates a menuItem for each profile
@@ -185,6 +182,7 @@ public class ProfileEdit extends Application {
             item1.setOnAction(e -> {
                 //fills the GUI with information for the profile selected
                 String user = item1.getText() + ".txt";
+                System.out.println("user: " + user);
                 location = fileNames.indexOf(user);
                 int gamesPlayed = readGamesLost(user) + readGamesWon(user);
                 gamesPlayedLbl.setText("games played: " + gamesPlayed);
