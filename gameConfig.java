@@ -27,7 +27,7 @@ public class gameConfig{
     //change to personal repo
     private final String DIRECTORY = "F:\\Stuff\\230CW-TilesClasses";
 
-    ArrayList<String> players = new ArrayList<>();
+    ArrayList<String> players = new ArrayList<String>();
 
     private List<String> names = textFiles(DIRECTORY);
 
@@ -165,7 +165,7 @@ public class gameConfig{
     private void handlePlayGameAction(ActionEvent event) throws IOException {
         System.out.println("Play! button clicked");
         menusToString();
-        aquirePlayers(players);
+        this.playerList = aquirePlayers(players);
         createGame(boardType.getText(), playerList);
         Parent root = FXMLLoader.load(getClass().getResource("BoardGUI.fxml"));
 
@@ -194,6 +194,11 @@ public class gameConfig{
     }
 
     public String[] aquirePlayers(ArrayList<String> players){
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).contains("Player")) {
+                players.remove(i);
+            }
+        }
         playerList = new String[players.size()];
         for (int i = 0; i < players.size(); i++){
             playerList[i] = players.get(i);
