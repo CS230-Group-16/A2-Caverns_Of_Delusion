@@ -734,9 +734,7 @@ public class Board {
     /**
      * saves the board to a file.
      */
-    public void saveBoard() {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        String filename = "SavedBoard" + sdf.format(timestamp) + ".txt";
+    public void saveBoard(String filename) {
         FileReader.writeFile(filename, this.toText());
     }
 }
