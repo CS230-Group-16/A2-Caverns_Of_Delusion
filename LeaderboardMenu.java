@@ -2,7 +2,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -12,18 +11,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-        import javafx.scene.control.TableColumn;
-        import javafx.scene.control.TableView;
-        import javafx.scene.control.cell.PropertyValueFactory;
-        import javafx.scene.image.Image;
-        import javafx.scene.layout.Background;
-        import javafx.scene.layout.BackgroundImage;
-        import javafx.scene.layout.BackgroundPosition;
-        import javafx.scene.layout.BackgroundRepeat;
-        import javafx.scene.layout.BackgroundSize;
-        import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-        import javafx.stage.Stage;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * implements a frame which is the leaderboard.
@@ -44,11 +42,8 @@ public class LeaderboardMenu extends Application {
      */
     public void start(Stage primaryStage) throws FileNotFoundException {
         
-        final Label label = new Label("Leaderboard");
-        label.setFont(new Font("Arial", 20));
-        
         Image image = new Image(new FileInputStream(DIRECTORY + "\\images\\background3.png"));
-        BackgroundSize backgroundSize = new BackgroundSize(650, 500, true, true, true, false);
+        BackgroundSize backgroundSize = new BackgroundSize(700, 550, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background backgroundPicture = new Background(backgroundImage);
         
