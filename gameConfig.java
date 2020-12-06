@@ -229,12 +229,12 @@ public class gameConfig{
     }
 
     private void loadGame(){
-        String gameLoad = savedGames.getText();
+        String gameLoad = savedGames.getText() + ".txt";
         String loadData = "";
 
-        File dir = new File(DIRECTORY);
+        File dir = new File(DIRECTORY + "\\saveGames");
         for (File file : dir.listFiles()) {
-            if (file.getName().contains(gameLoad)) {
+            if (file.getName().contains(gameLoad.substring(9))) {
                 loadData = loadData + file.getName() + ",";
             }
         }
