@@ -13,7 +13,7 @@ import java.util.Arrays;
  */
 public class Game {
 
-    private final String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/";
+    private final String DIRECTORY = FileReader.DIRECTORY;
     private static final SimpleDateFormat sdfH = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
     private String saveGameFileName;

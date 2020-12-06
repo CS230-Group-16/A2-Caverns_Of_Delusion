@@ -23,7 +23,7 @@ import java.util.Scanner;
 
 public class ProfileEdit extends Application {
     //Change directory to personal one
-    private final String DIRECTORY = "E:\\Users\\Jimmy\\Documents\\Uni Work\\YEAR 2\\CS-230\\230 code copy\\files";
+    private final String DIRECTORY =  FileReader.DIRECTORY;
     //initialising the tools to be displayed in JavaFX
     private Label gamesPlayedLbl = new Label("no player selected");
     private Label gamesWonLbl = new Label();

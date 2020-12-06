@@ -33,7 +33,7 @@ public class LeaderboardMenu extends Application {
 
     Button backBtn = new Button();
     private static Leaderboard board;
-    private final static String DIRECTORY = "C:\\Users\\helwe\\Documents\\GitHub\\A2-Caverns_Of_Delusion\\files";
+    private final static String DIRECTORY =  FileReader.DIRECTORY;
 
     /**
      * This is where the leaderboard frame is created and its dimensions are set
@@ -42,8 +42,9 @@ public class LeaderboardMenu extends Application {
      */
     public void start(Stage primaryStage) throws FileNotFoundException {
         
-        Image image = new Image(new FileInputStream(DIRECTORY + "\\images\\background3.png"));
         board = FileReader.readLeaderboardFile(DIRECTORY + "/leaderboards/leaderboard1.txt");
+        
+        Image image = new Image(new FileInputStream(DIRECTORY + "images/background3.png"));
         BackgroundSize backgroundSize = new BackgroundSize(700, 550, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background backgroundPicture = new Background(backgroundImage);
