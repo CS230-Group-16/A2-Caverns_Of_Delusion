@@ -174,7 +174,12 @@ public class Board {
      * @return The tile at the position given.
      */
     public FloorTile getTileAt(int x, int y) {
-        return this.tileMap[x][y];
+        if (x >= 0 && y >= 0) {
+            if (x < this.width && y < this.height) {
+                return this.tileMap[x][y];
+            }
+        }
+        return null;
     }
 
     /**
