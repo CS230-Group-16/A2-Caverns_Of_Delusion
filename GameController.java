@@ -113,6 +113,7 @@ public class GameController {
             central.getRowConstraints().add(row);
         }
 
+        this.game.getPlayers()[0].insertTile(new EffectTile("FIRE",-1));
         this.tile = (FloorTile) this.game.getRound().getDrawnTile();
         setPlayerNames();
         refreshBoard();
@@ -165,21 +166,18 @@ public class GameController {
                 } else {
                     currentLoc[1] = currentLoc[1] - 1;
                     this.game.getRound().movement(playerNum, currentLoc);
-                    reachedGoal(this.game.getRound().getCurrentPlayer());
+                    this.game.saveGame();
                     if (!doublemove) {
                         setMoveButtons(false);
                         endTurn.setVisible(true);
                         refreshCentral();
                         playAction.setVisible(false);
                         reachedGoal(this.game.getRound().getCurrentPlayer());
-
-                        this.game.saveGame();
                     } else {
                         setMoveButtons(true);
                         refreshCentral();
                         doublemove = false;
-
-                        this.game.saveGame();
+                        reachedGoal(this.game.getRound().getCurrentPlayer());
                     }
                 }
             } else {
@@ -203,21 +201,18 @@ public class GameController {
                 } else {
                     currentLoc[1] = currentLoc[1] + 1;
                     this.game.getRound().movement(playerNum, currentLoc);
-                    reachedGoal(this.game.getRound().getCurrentPlayer());
+                    this.game.saveGame();
                     if (!doublemove) {
                         setMoveButtons(false);
                         endTurn.setVisible(true);
                         refreshCentral();
                         playAction.setVisible(false);
                         reachedGoal(this.game.getRound().getCurrentPlayer());
-
-                        this.game.saveGame();
                     } else {
                         setMoveButtons(true);
                         refreshCentral();
                         doublemove = false;
-
-                        this.game.saveGame();
+                        reachedGoal(this.game.getRound().getCurrentPlayer());
                     }
                 }
             } else {
@@ -241,21 +236,18 @@ public class GameController {
                 } else {
                     currentLoc[0] = currentLoc[0] + 1;
                     this.game.getRound().movement(playerNum, currentLoc);
-                    reachedGoal(this.game.getRound().getCurrentPlayer());
+                    this.game.saveGame();
                     if (!doublemove) {
                         setMoveButtons(false);
                         endTurn.setVisible(true);
                         refreshCentral();
                         playAction.setVisible(false);
                         reachedGoal(this.game.getRound().getCurrentPlayer());
-
-                        this.game.saveGame();
                     } else {
                         setMoveButtons(true);
                         refreshCentral();
                         doublemove = false;
-
-                        this.game.saveGame();
+                        reachedGoal(this.game.getRound().getCurrentPlayer());
                     }
                 }
             } else {
@@ -279,21 +271,18 @@ public class GameController {
                 } else {
                     currentLoc[0] = currentLoc[0] - 1;
                     this.game.getRound().movement(playerNum, currentLoc);
-                    reachedGoal(this.game.getRound().getCurrentPlayer());
+                    this.game.saveGame();
                     if (!doublemove) {
                         setMoveButtons(false);
                         endTurn.setVisible(true);
                         refreshCentral();
                         playAction.setVisible(false);
                         reachedGoal(this.game.getRound().getCurrentPlayer());
-
-                        this.game.saveGame();
                     } else {
                         setMoveButtons(true);
                         refreshCentral();
                         doublemove = false;
-
-                        this.game.saveGame();
+                        reachedGoal(this.game.getRound().getCurrentPlayer());
                     }
                 }
             } else {
@@ -411,6 +400,7 @@ public class GameController {
             drawnType.setText("");
             drawnTile.getChildren().clear();
             spells.getChildren().clear();
+            this.game.gameWon();
             //go to main menu
         }
     }
@@ -538,9 +528,10 @@ public class GameController {
         String[] strArr2 = new String[]{"Super_Cool_Name", "grapeLord5000", "awesomeGuy"};
 
         //get name of file
-        //Game g = new Game(DIRECTORY + "boards/board1.txt", strArr);
-        Game g = new Game(DIRECTORY + "saveGames/SavedBoard2020.12.06.14.06.15.txt", DIRECTORY + "saveGames/SavedGame2020.12.06.14.06.15.txt");
+        Game g = new Game(DIRECTORY + "boards/board1.txt", strArr);
+        //Game g = new Game(DIRECTORY + "saveGames/SavedBoard2020.12.06.14.06.15.txt", DIRECTORY + "saveGames/SavedGame2020.12.06.14.06.15.txt");
         return g;
+        //return FileReader.readGameConfig(DIRECTORY + "gameConfig.txt");
     }
 
     /**
