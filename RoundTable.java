@@ -21,7 +21,7 @@ public class RoundTable {
     private Board board;
     private SilkBag silkBag;
     private Tile drawnTile;
-
+    
     /**
      * Creates a round table that will call multiple other methods
      *
@@ -48,31 +48,19 @@ public class RoundTable {
      * @param turnCounter The number of turns that have been taken.
      * @param players An array of players.
      * @param counter Gets the current player by using a counter in the players array.
+     * @param tiledrawn Tile that was drawn
      */
-    public RoundTable(int numOfPlayers, int turnCounter, Player[] players, int counter) {
+    public RoundTable(int numOfPlayers, int turnCounter, Player[] players, int counter, Tile tileDrawn) {
         this.numOfPlayers = numOfPlayers;
         this.turnCounter = turnCounter;
         this.players = players;
         this.counter = counter;
+        this.drawnTile = tileDrawn;
         this.currentPlayer = players[counter];
-        this.nextPlayer = players[counter + 1];
-    }
-
-    /**
-     * Checks to see what type of tile a tile is.
-     *
-     * @param tileType The type of tile drawn.
-     * @return tileString The tile type in a string.
-     */
-    public String checkTileType(String tileType) {
-        if (tileType == "StraightTile") {
-            return "This is a straight tile";
-        } else if (tileType == "CornerTile") {
-            return "This is a corner tile";
-        } else if (tileType == "TShapeTile") {
-            return "This is a T Shape tile";
+        if ((counter+1) >= players.length) {
+            this.nextPlayer = players[0];
         } else {
-            return "This is an action tile";
+            this.nextPlayer = players[counter + 1];
         }
     }
 
@@ -80,13 +68,16 @@ public class RoundTable {
      * A method to start the turn and call the methods in the correct order.
      */
     public void turnStart() {
-        drawTile();
-        //playActionTile();
-        //movement();
-        //endTurn();
-        if (board.reachedGoal(1) == true) {
-            //to be coded
+        //check frozen and fire tiles
+        for (int x = 0; x < this.board.getWidth(); x++) {
+            for (int y = 0; y < this.board.getHeight(); y++) {
+                if (this.board.getTileAt(x, y).getEndTurn() <= this.turnCounter) {
+                    this.board.getTileAt(x, y).setEngulfed(false);
+                    this.board.getTileAt(x, y).setFrozen(false);
+                }
+            }
         }
+        drawTile();
     }
 
     /**
@@ -96,6 +87,30 @@ public class RoundTable {
      */
     public Player checkPlayer() {
         return currentPlayer;
+    }
+    
+    /**
+     * Get players currently in game.
+     * @return player array of players.
+     */
+    public Player[] getPlayers(){
+        return this.players;
+    }
+    
+    /**
+     * Set the SilkBag to current attribute.
+     * @param silkBag SilkBag object to set to.
+     */
+    public void setSilkBag(SilkBag silkBag){
+        this.silkBag = silkBag;
+    }
+    
+    /**
+     * Set the Board to current attribute.
+     * @param board Board object to set to.
+     */
+    public void setBoard(Board board){
+        this.board = board;
     }
 
     /**
@@ -237,6 +252,7 @@ public class RoundTable {
         } else if ("ICE".equals(t.getType())) {
             //coords needs to wait for JavaFX to be implemented
             freezeTiles(coords);
+            success = true;
         }
         if (success) {
             this.currentPlayer.useSpell(t);
@@ -305,6 +321,7 @@ public class RoundTable {
         for (int i = 0; i < tiles.length; i++) {
             if (tiles[i] != null) {
                 tiles[i].setEngulfed(true);
+                tiles[i].setEndTurn(this.turnCounter+(this.numOfPlayers*2));
             }
         }
         return true;
@@ -321,6 +338,7 @@ public class RoundTable {
         for (int i = 0; i < tiles.length; i++) {
             if (tiles[i] != null) {
                 tiles[i].setFrozen(true);
+                tiles[i].setEndTurn(this.turnCounter+this.numOfPlayers);
             }
         }
     }
