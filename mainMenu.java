@@ -98,7 +98,7 @@ public class mainMenu extends Application{
     }
 
     /**
-     * Handles editing palyer's action
+     * Handles editing player's action
      * @param event An event to edit the player's action
      */
     @FXML
