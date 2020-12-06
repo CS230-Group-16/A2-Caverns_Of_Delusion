@@ -129,8 +129,6 @@ public class ProfileEdit extends Application {
     public void start(Stage stage) throws Exception {
 
         stage.setTitle("Profile Edit");
-        stage.setWidth(650);
-        stage.setHeight(500);
 
         VBox root = new VBox();
 
