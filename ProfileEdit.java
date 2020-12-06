@@ -139,7 +139,7 @@ public class ProfileEdit extends Application {
 
         VBox root = new VBox();
 
-        Image image = new Image(new FileInputStream(DIRECTORY + "\\images\\background.png"));
+        Image image = new Image(new FileInputStream(DIRECTORY + "\\images\\background2.png"));
         BackgroundSize backgroundSize = new BackgroundSize(400, 500, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background backgroundPicture = new Background(backgroundImage);
