@@ -25,7 +25,7 @@ public class gameConfig{
     private String board;
 
     //change to personal repo
-    private final String DIRECTORY = "F:\\Stuff\\230CW-TilesClasses";
+    private final String DIRECTORY = FileReader.DIRECTORY;
 
     ArrayList<String> players = new ArrayList<String>();
 

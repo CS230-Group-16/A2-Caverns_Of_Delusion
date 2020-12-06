@@ -58,8 +58,8 @@ public class GameController {
     private final int WIDTH_OF_TILE_IMAGE = 80;
     private final int HEIGHT_OF_TILE_IMAGE = 80;
     private final int WIDTH_OF_PLAYER_IMAGE = 35;
-    private final String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/";
-    
+    private final String DIRECTORY = FileReader.DIRECTORY;
+
     Button backBtn = new Button();
 
     @FXML
@@ -385,8 +385,8 @@ public class GameController {
         });
 
     }
-    
-    public void playSFX(String filename){
+
+    public void playSFX(String filename) {
         Media sound = new Media(new File(DIRECTORY + "sounds/" + filename + ".wav").toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
@@ -422,10 +422,10 @@ public class GameController {
             drawnTile.getChildren().clear();
             spells.getChildren().clear();
             this.game.gameWon();
-            
+
             //go to main menu
             System.exit(0);
-            
+
         }
     }
 
@@ -581,34 +581,53 @@ public class GameController {
             default:
                 break;
         }
-        try {
-            Image image = new Image(new FileInputStream(DIRECTORY + "images/Final/PlaceHolders/Player_" + (counter+1) + ".png"));
-            playerIcon = new ImageView(image);
-            playerIcon.setFitHeight(WIDTH_OF_PLAYER_IMAGE);
-            playerIcon.setFitWidth(WIDTH_OF_PLAYER_IMAGE);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        switch (this.game.getRound().getNumPlayers()) {
+            case 2:
+                currentPlayer.setText(players[counter].getUsername());
+                if ((counter + 1) >= (players.length)) {
+                    counter = 0;
+                } else {
+                    counter++;
+                }
+                nextPlayer.setText(players[counter].getUsername());
+                break;
+            case 3:
+                currentPlayer.setText(players[counter].getUsername());
+                if ((counter + 1) >= (players.length)) {
+                    counter = 0;
+                } else {
+                    counter++;
+                }
+                nextPlayer.setText(players[counter].getUsername());
+                if ((counter + 1) >= (players.length)) {
+                    counter = 0;
+                } else {
+                    counter++;
+                }
+                nextPlayer1.setText(players[counter].getUsername());
+                break;
+            default:
+                currentPlayer.setText(players[counter].getUsername());
+                if ((counter + 1) >= (players.length)) {
+                    counter = 0;
+                } else {
+                    counter++;
+                }
+                nextPlayer.setText(players[counter].getUsername());
+                if ((counter + 1) >= (players.length)) {
+                    counter = 0;
+                } else {
+                    counter++;
+                }
+                nextPlayer1.setText(players[counter].getUsername());
+                if ((counter + 1) >= (players.length)) {
+                    counter = 0;
+                } else {
+                    counter++;
+                }
+                nextPlayer2.setText(players[counter].getUsername());
+                break;
         }
-
-        currentPlayer.setText(players[counter].getUsername());
-        if ((counter + 1) >= (players.length)) {
-            counter = 0;
-        } else {
-            counter++;
-        }
-        nextPlayer.setText(players[counter].getUsername());
-        if ((counter + 1) >= (players.length)) {
-            counter = 0;
-        } else {
-            counter++;
-        }
-        nextPlayer1.setText(players[counter].getUsername());
-        if ((counter + 1) >= (players.length)) {
-            counter = 0;
-        } else {
-            counter++;
-        }
-        nextPlayer2.setText(players[counter].getUsername());
 
     }
 
@@ -696,7 +715,7 @@ public class GameController {
                                 this.spells.getChildren().clear();
                                 refreshCentral();
                                 playAction.setVisible(false);
-                                
+
                             }
                         }
                     });
