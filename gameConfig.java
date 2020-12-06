@@ -164,9 +164,19 @@ public class gameConfig{
     @FXML
     private void handlePlayGameAction(ActionEvent event) throws IOException {
         System.out.println("Play! button clicked");
-        menusToString();
-        this.playerList = aquirePlayers(players);
-        createGame(boardType.getText(), playerList);
+
+        if (!savedGames.getText().contains("Saved Games")) {
+            loadGame();
+            System.out.print("load");
+        }
+
+        if(!boardType.getText().contains("Select Board Type") && !playerOne.getText().contains("Player 1") && !playerTwo.getText().contains("Player 2")) {
+            menusToString();
+            this.playerList = aquirePlayers(players);
+            createGame(boardType.getText(), playerList);
+            System.out.print("new");
+        }
+
         Parent root = FXMLLoader.load(getClass().getResource("BoardGUI.fxml"));
 
         Scene gameScene = new Scene(root);
@@ -218,7 +228,18 @@ public class gameConfig{
         }
     }
 
+    private void loadGame(){
+        String gameLoad = savedGames.getText() + ".txt";
+        String loadData = "";
 
+        File dir = new File(DIRECTORY + "\\saveGames");
+        for (File file : dir.listFiles()) {
+            if (file.getName().contains(gameLoad.substring(9))) {
+                loadData = loadData + file.getName() + ",";
+            }
+        }
 
+        FileReader.writeFile("loadConfig.txt", loadData);
+    }
 
 }
