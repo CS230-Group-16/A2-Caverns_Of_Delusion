@@ -27,6 +27,7 @@
                <children>
                   <HBox fx:id="playerBox" prefHeight="34.0" prefWidth="629.0">
                      <children>
+                        <Pane fx:id="player" prefHeight="18.0" prefWidth="44.0" />
                         <ImageView fx:id="playerIcon" fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                         <Label fx:id="currentPlayer" />
                         <Button fx:id="draw" mnemonicParsing="false" text="Draw" />
