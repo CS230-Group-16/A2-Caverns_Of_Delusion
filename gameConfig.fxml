@@ -12,15 +12,11 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.271" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gameConfig">
    <children>
       <Button fx:id="Back" layoutX="274.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleBackAction" text="Back" />
-      <ChoiceBox fx:id="boardType" layoutX="38.0" layoutY="61.0" prefWidth="150.0">
+      <MenuButton fx:id="boardType" layoutX="38.0" layoutY="61.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Board">
          <items>
-            <FXCollections fx:factory="observableArrayList">
-               <String fx:value="8x8" />
-               <String fx:value="4x4" />
-               <String fx:value="5x10" />
-            </FXCollections>
+
          </items>
-      </ChoiceBox>
+      </MenuButton>
       <Text layoutX="41.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a board type: " />
       <Button fx:id="playGame" layoutX="322.0" layoutY="355.0" mnemonicParsing="false" onAction="#handlePlayGameAction" text="Play!" />
       <Text layoutX="41.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Players:" />
