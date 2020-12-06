@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,7 +28,8 @@ public class Main extends Application {
      */
     public void start(Stage primaryStage) {
         try {
-            Pane root = (Pane) FXMLLoader.load(getClass().getResource("BoardGUI.fxml"));
+            //Pane root = (Pane) FXMLLoader.load(getClass().getResource("BoardGUI.fxml"));
+            Parent root = (Parent) FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
             
             //test
             

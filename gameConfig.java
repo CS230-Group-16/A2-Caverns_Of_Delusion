@@ -133,8 +133,7 @@ public class gameConfig{
         menusToString();
         aquirePlayers(players);
         createGame(boardType.getText(), playerList);
-        Parent root = FXMLLoader.load(getClass().getResource("testBoard.fxml"));
-        TestGameController.setGame(game);
+        Parent root = FXMLLoader.load(getClass().getResource("BoardGUI.fxml"));
 
         Scene gameScene = new Scene(root);
         Stage gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

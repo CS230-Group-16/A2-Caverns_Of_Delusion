@@ -616,6 +616,6 @@ public class FileReader {
         Scanner in = readFile(filename);
         String board = in.nextLine();
         String [] players = in.nextLine().split(",");
-        return new Game(board,players);
+        return new Game(board+".txt",players);
     }
 }

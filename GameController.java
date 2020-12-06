@@ -88,6 +88,8 @@ public class GameController {
     ImageView playerIcon;
     @FXML
     HBox playerBox;
+    @FXML
+    Pane player;
 
     private Game game;
     private FloorTile tile;
@@ -119,7 +121,7 @@ public class GameController {
             central.getRowConstraints().add(row);
         }
 
-        this.game.getPlayers()[0].insertTile(new EffectTile("FIRE",-1));
+        this.game.getPlayers()[0].insertTile(new EffectTile("FIRE", -1));
         this.tile = (FloorTile) this.game.getRound().getDrawnTile();
         setPlayerNames();
         refreshBoard();
@@ -534,10 +536,10 @@ public class GameController {
         String[] strArr2 = new String[]{"Super_Cool_Name", "grapeLord5000", "awesomeGuy"};
 
         //get name of file
-        Game g = new Game(DIRECTORY + "boards/board1.txt", strArr);
+        Game g = new Game(DIRECTORY + "boards/board1.txt", strArr2);
         //Game g = new Game(DIRECTORY + "saveGames/SavedBoard2020.12.06.14.06.15.txt", DIRECTORY + "saveGames/SavedGame2020.12.06.14.06.15.txt");
-        return g;
-        //return FileReader.readGameConfig(DIRECTORY + "gameConfig.txt");
+        //return g;
+        return FileReader.readGameConfig(DIRECTORY + "gameConfig.txt");
     }
 
     /**
@@ -549,20 +551,29 @@ public class GameController {
 
         switch (counter) {
             case 0:
-                playerBox.setBackground(new Background(new BackgroundFill(Color.BLUE,CornerRadii.EMPTY,Insets.EMPTY)));
+                player.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
                 break;
             case 1:
-                playerBox.setBackground(new Background(new BackgroundFill(Color.GREEN,CornerRadii.EMPTY,Insets.EMPTY)));
+                player.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
                 break;
             case 2:
-                playerBox.setBackground(new Background(new BackgroundFill(Color.YELLOW,CornerRadii.EMPTY,Insets.EMPTY)));
+                player.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
                 break;
             case 3:
-                playerBox.setBackground(new Background(new BackgroundFill(Color.RED,CornerRadii.EMPTY,Insets.EMPTY)));
+                player.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
                 break;
             default:
                 break;
         }
+        try {
+            Image image = new Image(new FileInputStream(DIRECTORY + "images/Final/PlaceHolders/Player_" + (counter+1) + ".png"));
+            playerIcon = new ImageView(image);
+            playerIcon.setFitHeight(WIDTH_OF_PLAYER_IMAGE);
+            playerIcon.setFitWidth(WIDTH_OF_PLAYER_IMAGE);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         currentPlayer.setText(players[counter].getUsername());
         if ((counter + 1) >= (players.length)) {
             counter = 0;
@@ -582,8 +593,7 @@ public class GameController {
             counter++;
         }
         nextPlayer2.setText(players[counter].getUsername());
-        
-        
+
     }
 
     /**
