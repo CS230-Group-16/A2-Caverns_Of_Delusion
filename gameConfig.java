@@ -18,22 +18,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * class represents the game configuration
- * @author Cameron McDonagh & Maciej Buczkowski
- * @version 1.0
- */
 public class gameConfig{
 
     private String[] playerList;
     private Game game;
+    private String board;
 
     //change to personal repo
-    private final String DIRECTORY = "F:\\Stuff\\230CW-TilesClasses\\src";
+    private final String DIRECTORY = "F:\\Stuff\\230CW-TilesClasses";
 
     ArrayList<String> players = new ArrayList<>();
 
     private List<String> names = textFiles(DIRECTORY);
+
+    private List<String> boards = boardFiles(DIRECTORY + "\\src\\files\\boards");
+
+    @FXML
+    private MenuButton boardType = new MenuButton();
 
     @FXML
     private MenuButton playerOne = new MenuButton();
@@ -48,15 +49,14 @@ public class gameConfig{
     private MenuButton playerFour = new MenuButton();
 
 
-    /**
-     * This initializes the menuItems into the player's personal MenuButton.
-     */
-    public void initialize() {
+
+    public void initialize(){
 
         populate(playerOne);
         populate(playerTwo);
         populate(playerThree);
         populate(playerFour);
+        populateBoards(boardType);
 
     }
 
@@ -78,11 +78,23 @@ public class gameConfig{
         }
     }
 
-    /**
-     * This returns a list board text files
-     * @param directory 
-     * @return gets a list of board text files
-     */
+    private void populateBoards(MenuButton board){
+
+        if(board.getItems() == null){
+
+        }else {
+            board.getItems().clear();
+            for (int i = 0; i < boards.size(); i++) {
+                MenuItem menuItem = new MenuItem(boards.get(i).substring(0, boards.get(i).length() - 4));
+                menuItem.setOnAction(a -> {
+                    System.out.println(board.getText());
+                    board.setText(menuItem.getText());
+                });
+                board.getItems().add(menuItem);
+            }
+        }
+    }
+
     private List<String> textFiles(String directory) {
         List<String> textFiles = new ArrayList<String>();
         File dir = new File(directory);
@@ -94,34 +106,37 @@ public class gameConfig{
         return textFiles;
     }
 
-    /**
-     * this allows an back action by pressing a button
-     * @param event An event to all a button to be clicked
-     * @throws This throws an IOException
-     */
+    private List<String> boardFiles(String directory) {
+        List<String> textFiles = new ArrayList<String>();
+        File dir = new File(directory);
+        for (File file : dir.listFiles()) {
+            if (file.getName().endsWith((".txt"))) {
+                textFiles.add(file.getName());
+            }
+        }
+        return textFiles;
+    }
+
+
     @FXML
     private void handleBackAction(ActionEvent event) throws IOException {
         System.out.println("Back button clicked");
-        Parent game = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        Parent game = FXMLLoader.load(getClass().getResource("src\\mainMenu.fxml"));
         Scene gameScene = new Scene(game);
         Stage gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         gameStage.setScene(gameScene);
         gameStage.show();
     }
-    
-    /**
-     * this handles the play game action by pressing a button
-     * @param event An event to all a button to be clicked
-     * @throws This throws an IOException
-     */
+
     @FXML
     private void handlePlayGameAction(ActionEvent event) throws IOException {
         System.out.println("Play! button clicked");
         aquirePlayers(players);
-        createGame("board1.txt", playerList);
-        Parent game = FXMLLoader.load(getClass().getResource("testBoard.fxml"));
+        createGame(board, playerList);
+        Parent root = FXMLLoader.load(getClass().getResource("testBoard.fxml"));
         TestGameController.setGame(game);
-        Scene gameScene = new Scene(game);
+
+        Scene gameScene = new Scene(root);
         Stage gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         gameStage.setScene(gameScene);
         gameStage.show();
@@ -137,8 +152,17 @@ public class gameConfig{
 
     public void createGame(String boardType, String[] playerList){
         if (playerList != null) {
-            game = new Game(boardType, playerList);
+            String playersString = "";
+            for (int i = 0; i < playerList.length; i++) {
+                playersString = playersString + playerList[i] + ",";
+            }
+            String gameString = boardType + "\n" + playersString;
+
+            FileReader.writeFile("gameConfig.txt", gameString);
         }
     }
+
+
+
 
 }
