@@ -3,7 +3,6 @@
  * @author Cameron McDonagh & Maciej Buczkowski.
  * @version 1.3
  */
-
 public abstract class FloorTile extends Tile {
 
     private boolean frozen;

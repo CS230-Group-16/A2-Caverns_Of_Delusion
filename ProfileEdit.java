@@ -3,30 +3,28 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-        import javafx.scene.control.*;
-        import javafx.scene.layout.VBox;
-        import javafx.stage.Stage;
-
-        import java.io.File;
-        import java.io.FileInputStream;
-        import java.io.FileNotFoundException;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-        import java.util.List;
-        import java.util.Scanner;
-        import javafx.scene.image.Image;
-        import javafx.scene.layout.Background;
-        import javafx.scene.layout.BackgroundImage;
-        import javafx.scene.layout.BackgroundPosition;
-        import javafx.scene.layout.BackgroundRepeat;
-        import javafx.scene.layout.BackgroundSize;
+import java.util.List;
+import java.util.Scanner;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 
 /**
  * Edit profile name or delete profile with a GUI and also see a profiles game status.
  * @author Jimmy Kells and Surinder Singh.
  * @version 1.0
  */
-
 public class ProfileEdit extends Application {
     //Change directory to personal one
     private final String DIRECTORY = "C:\\Users\\helwe\\Documents\\GitHub\\A2-Caverns_Of_Delusion\\files\\txt files";

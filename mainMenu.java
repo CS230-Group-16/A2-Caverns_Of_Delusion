@@ -29,7 +29,6 @@ import javafx.scene.layout.BackgroundSize;
  * @author Cameron McDonagh & Maciej Buczkowski
  * @version 1.0
  */
-
 public class mainMenu extends Application{
 
 	/**

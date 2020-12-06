@@ -11,7 +11,6 @@ import java.util.Scanner;
  * @author Michelle Bhaskaran & Chloe Thomas
  * @version 0.8
  */
-
 public class Player {
 
     private String username;

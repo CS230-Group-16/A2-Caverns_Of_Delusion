@@ -3,7 +3,6 @@
  * @author Cameron McDonagh & Maciej Buczkowski
  * @version 1.2
  */
-
 public class TShapeTile extends FloorTile {
 
     private int rotation;

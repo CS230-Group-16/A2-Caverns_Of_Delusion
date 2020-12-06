@@ -4,7 +4,6 @@
  * @author Cameron McDonagh & Maciej Buczkowski
  * @version 1.2
  */
-
 public abstract class Tile {
     
     protected final String type; // type of tile

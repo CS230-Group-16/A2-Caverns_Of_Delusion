@@ -18,13 +18,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * class represents the game configuration
  * @author Cameron McDonagh & Maciej Buczkowski
  * @version 1.0
  */
-
 public class gameConfig{
 
     private String[] playerList;
