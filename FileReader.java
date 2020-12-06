@@ -614,9 +614,15 @@ public class FileReader {
      * @return created game from file.
      */
     public static Game readGameConfig(String filename){
-        Scanner in = readFile(filename);
+        Scanner in = readFile(DIRECTORY + filename);
         String board = in.nextLine();
         String [] players = in.nextLine().split(",");
         return new Game(DIRECTORY + "boards/" + board + ".txt",players);
+    }
+    
+    public static Game readLoadConfig(String filename){
+        Scanner in = readFile(DIRECTORY + filename);
+        String [] files = in.nextLine().split(",");
+        return new Game(files[0],files[1]);
     }
 }
