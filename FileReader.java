@@ -14,7 +14,6 @@ import java.util.Scanner;
  */
 public class FileReader {
     //CHANGE TO PERSONAL DIRECTORY BEFORE RUNNING
-    public final static String DIRECTORY = "D:/Documents/NetBeansProjects/A2-Caverns_Of_Delusion/files/";
     
     /**
      * Open scanner to read board file.

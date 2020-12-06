@@ -44,11 +44,15 @@ public class LeaderboardMenu extends Application {
         
         board = FileReader.readLeaderboardFile(DIRECTORY + "/leaderboards/leaderboard1.txt");
         
-        Image image = new Image(new FileInputStream(DIRECTORY + "images/background3.png"));
-        BackgroundSize backgroundSize = new BackgroundSize(700, 550, true, true, true, false);
-        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
-        Background backgroundPicture = new Background(backgroundImage);
-        
+        Image image = new Image(new FileInputStream(DIRECTORY + "images/background4.png"));
+        BackgroundImage bgImage = new BackgroundImage(
+        image,
+        BackgroundRepeat.NO_REPEAT,
+        BackgroundRepeat.NO_REPEAT,
+        BackgroundPosition.DEFAULT,
+        new BackgroundSize(1.0, 1.0, true, true, true, true)
+        );
+      
         TableView tableView = new TableView();
         tableView.setPlaceholder(new Label("No rows to display"));
         TableColumn<Player, String> column1 = new TableColumn<>("Username");
@@ -87,7 +91,7 @@ public class LeaderboardMenu extends Application {
 
         vbox.getChildren().add(backBtn);
         
-        vbox.setBackground(backgroundPicture);
+        vbox.setBackground(new Background(bgImage));
 
         Scene scene = new Scene(new Group());
         primaryStage.setTitle("Leaderboard");
