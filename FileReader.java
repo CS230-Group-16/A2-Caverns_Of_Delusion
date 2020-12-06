@@ -606,4 +606,16 @@ public class FileReader {
         
         return new Leaderboard(players, filename);
     }
+    
+    /**
+     * Read config file made in config menu to create game.
+     * @param filename name of config file to open.
+     * @return created game from file.
+     */
+    public static Game readGameConfig(String filename){
+        Scanner in = readFile(filename);
+        String board = in.nextLine();
+        String [] players = in.nextLine().split(",");
+        return new Game(board,players);
+    }
 }
