@@ -1,3 +1,4 @@
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -40,6 +41,7 @@ import javafx.scene.paint.Color;
 
 /**
  * Test Controller for the main game.
+ *
  * @author Bartosz Kubica
  * @version 1.0
  */
@@ -78,6 +80,8 @@ public class GameController {
     Pane drawnTile;
     @FXML
     HBox spells;
+    @FXML
+    ImageView playerIcon;
 
     private Game game;
     private FloorTile tile;
@@ -88,11 +92,7 @@ public class GameController {
     private boolean doublemove = false;
 
     /**
-     * Initialize the controller. This method is called automatically. The following happen in this order: 
-     * 1) First an instance of the controller is created (the constructor is called), 
-     * 2) Next the @FXML variables are bound to the GUI components. 
-     * 3) Finally, this initialize method is called. 
-     * This means we cannot bind actions to buttons in the constructor, but we can in this method.
+     * Initialize the controller. This method is called automatically. The following happen in this order: 1) First an instance of the controller is created (the constructor is called), 2) Next the @FXML variables are bound to the GUI components. 3) Finally, this initialize method is called. This means we cannot bind actions to buttons in the constructor, but we can in this method.
      */
     public void initialize() {
         central.setGridLinesVisible(false);
@@ -113,26 +113,13 @@ public class GameController {
             central.getRowConstraints().add(row);
         }
 
-        this.game.getPlayers()[0].insertTile(new EffectTile("ICE", -1));
-        this.game.getPlayers()[0].insertTile(new EffectTile("FIRE", -1));
-        this.game.getPlayers()[0].insertTile(new MovementTile("DOUBLEMOVE", -1));
-        this.game.getPlayers()[0].insertTile(new MovementTile("BACKTRACK", -1));
-        this.game.getPlayers()[2].updatePathHistory(new int[]{1, 1});
-        this.game.getPlayers()[2].updatePathHistory(new int[]{0, 0});
-
+        this.tile = (FloorTile) this.game.getRound().getDrawnTile();
         setPlayerNames();
         refreshBoard();
         refreshPlayers();
         setButtons();
+        showDrawnTile();
         startGame();
-        /*
-        change.setOnAction(e -> {
-            GoalTile t = new GoalTile();
-            this.game.getBoard().insertTile(t, true, 2, false, 0);
-            refreshBoard();
-            refreshPlayers();
-        });
-         */
 
         draw.setOnAction(e -> {
             Tile tile = this.game.getRound().getDrawnTile();
@@ -144,6 +131,7 @@ public class GameController {
                 this.tile = (FloorTile) tile;
                 showDrawnTile();
             }
+            this.game.saveGame();
 
             draw.setVisible(false);
         });
@@ -154,6 +142,8 @@ public class GameController {
             drawnTile.getChildren().clear();
             drawnType.setText("");
             this.game.getRound().turnStart();
+            this.game.saveGame();
+            refreshCentral();
             turn.setText(String.valueOf(this.game.getRound().getTurnCounter()));
             this.tile = null;
             draw.setVisible(true);
@@ -182,10 +172,14 @@ public class GameController {
                         refreshCentral();
                         playAction.setVisible(false);
                         reachedGoal(this.game.getRound().getCurrentPlayer());
+
+                        this.game.saveGame();
                     } else {
                         setMoveButtons(true);
                         refreshCentral();
                         doublemove = false;
+
+                        this.game.saveGame();
                     }
                 }
             } else {
@@ -216,10 +210,14 @@ public class GameController {
                         refreshCentral();
                         playAction.setVisible(false);
                         reachedGoal(this.game.getRound().getCurrentPlayer());
+
+                        this.game.saveGame();
                     } else {
                         setMoveButtons(true);
                         refreshCentral();
                         doublemove = false;
+
+                        this.game.saveGame();
                     }
                 }
             } else {
@@ -250,10 +248,14 @@ public class GameController {
                         refreshCentral();
                         playAction.setVisible(false);
                         reachedGoal(this.game.getRound().getCurrentPlayer());
+
+                        this.game.saveGame();
                     } else {
                         setMoveButtons(true);
                         refreshCentral();
                         doublemove = false;
+
+                        this.game.saveGame();
                     }
                 }
             } else {
@@ -284,10 +286,14 @@ public class GameController {
                         refreshCentral();
                         playAction.setVisible(false);
                         reachedGoal(this.game.getRound().getCurrentPlayer());
+
+                        this.game.saveGame();
                     } else {
                         setMoveButtons(true);
                         refreshCentral();
                         doublemove = false;
+
+                        this.game.saveGame();
                     }
                 }
             } else {
@@ -348,6 +354,8 @@ public class GameController {
                                         a3.showAndWait();
                                     } else {
                                         refreshCentral();
+
+                                        this.game.saveGame();
                                     }
                                 }
                             }
@@ -359,6 +367,8 @@ public class GameController {
                             a3.setContentText("Select the center tile to cast your spell");
                             a3.showAndWait();
                             this.selectedTile = spells.get(i);
+
+                            this.game.saveGame();
                         }
                     }
                 }
@@ -371,7 +381,7 @@ public class GameController {
         });
 
     }
-    
+
     /**
      * This starts the game
      */
@@ -379,9 +389,10 @@ public class GameController {
         this.game.gameStart();
         turn.setText(String.valueOf(this.game.getRound().getTurnCounter()));
     }
-    
+
     /**
      * To see if a player has reached the goal and won the game
+     *
      * @param current The current player
      */
     private void reachedGoal(Player current) {
@@ -403,9 +414,10 @@ public class GameController {
             //go to main menu
         }
     }
-    
+
     /**
      * To set the move buttons
+     *
      * @param set Sets the buttons to true or false
      */
     private void setMoveButtons(boolean set) {
@@ -414,7 +426,7 @@ public class GameController {
         right.setVisible(set);
         left.setVisible(set);
     }
-    
+
     /**
      * to see if the player can move or not
      */
@@ -431,7 +443,7 @@ public class GameController {
             setMoveButtons(true);
         }
     }
-    
+
     /**
      * To see if the spell book has any spells in it
      */
@@ -446,24 +458,24 @@ public class GameController {
         }
         checkMovement();
     }
-    
+
     /**
      * To change the current player to the next player
      */
     private void changePlayers() {
+        setPlayerNames();
         /*
-        Player [] players = this.game.getPlayers();
-        currentPlayer.setText(this.game.getRound().getCurrentPlayer().getUsername());
-        nextPlayer.setText(this.game.getRound().getNextPlayer().getUsername());
-        nextPlayer1.setText(players[this.game.getRound().getCounter()+1].getUsername());
-        nextPlayer2.setText(players[this.game.getRound().getCounter()+2].getUsername());
+        try {
+            Image image = new Image(new FileInputStream(DIRECTORY + "images/Final/PlaceHolders/Player_" + this.game.getRound().getCurrentPlayer().getPlayerNum() + ".png"));
+            playerIcon = new ImageView(image);
+            playerIcon.setFitHeight(WIDTH_OF_PLAYER_IMAGE);
+            playerIcon.setFitWidth(WIDTH_OF_PLAYER_IMAGE);
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
          */
-        nextPlayer.setText(nextPlayer1.getText());
-        nextPlayer1.setText(nextPlayer2.getText());
-        nextPlayer2.setText(currentPlayer.getText());
-        currentPlayer.setText(this.game.getRound().getCurrentPlayer().getUsername());
     }
-    
+
     /**
      * This clears the spell book
      */
@@ -486,68 +498,77 @@ public class GameController {
             }
         }
     }
-    
-   /**
-    * to show the drawn tile
-    */
+
+    /**
+     * to show the drawn tile
+     */
     private void showDrawnTile() {
         try {
-            Image image1 = new Image(new FileInputStream(DIRECTORY + "images/Final/FloorTiles/" + this.tile.getType() + ".png"));
-            ImageView imageView = new ImageView(image1);
-            drawnTile.getChildren().add(imageView);
-            rotate.setOnAction(e -> {
-                if (this.tile != null) {
-                    imageView.setRotate(imageView.getRotate() + 90);
-                    if (this.tile.getRotation() >= 4) {
-                        this.tile.setRotation(0);
-                    } else {
-                        this.tile.setRotation(this.tile.getRotation() + 1);
+            if (this.tile != null) {
+                Image image1 = new Image(new FileInputStream(DIRECTORY + "images/Final/FloorTiles/" + this.tile.getType() + ".png"));
+                ImageView imageView = new ImageView(image1);
+                drawnTile.getChildren().add(imageView);
+                rotate.setOnAction(e -> {
+                    if (this.tile != null) {
+                        imageView.setRotate(imageView.getRotate() + 90);
+                        if (this.tile.getRotation() >= 4) {
+                            this.tile.setRotation(0);
+                        } else {
+                            this.tile.setRotation(this.tile.getRotation() + 1);
+                        }
+
+                        this.game.saveGame();
                     }
-                }
-            });
+                });
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("File not found with type: " + this.tile.getType());
         }
     }
-    
+
     /**
      * This creates a new game and returns it
+     *
      * @return the new game
      */
     private Game createGame() {
         //get names from screen
-        String[] strArr = new String[] {"Super_Cool_Name", "grapeLord5000", "awesomeGuy", "CasualGamerGuy"};
-        String[] strArr2 = new String[] {"Super_Cool_Name", "grapeLord5000", "awesomeGuy"};
+        String[] strArr = new String[]{"Super_Cool_Name", "grapeLord5000", "awesomeGuy", "CasualGamerGuy"};
+        String[] strArr2 = new String[]{"Super_Cool_Name", "grapeLord5000", "awesomeGuy"};
 
         //get name of file
-        Game g = new Game(DIRECTORY + "boards/board1.txt", strArr);
+        //Game g = new Game(DIRECTORY + "boards/board1.txt", strArr);
+        Game g = new Game(DIRECTORY + "saveGames/SavedBoard2020.12.06.14.06.15.txt", DIRECTORY + "saveGames/SavedGame2020.12.06.14.06.15.txt");
         return g;
     }
-    
+
     /**
      * sets the players name
      */
     private void setPlayerNames() {
         Player[] players = this.game.getPlayers();
-        for (int i = 0; i < players.length; i++) {
-            switch (i) {
-                case 0:
-                    currentPlayer.setText(players[i].getUsername());
-                    break;
-                case 1:
-                    nextPlayer.setText(players[i].getUsername());
-                    break;
-                case 2:
-                    nextPlayer1.setText(players[i].getUsername());
-                    break;
-                case 3:
-                    nextPlayer2.setText(players[i].getUsername());
-                    break;
-                default:
-                    break;
-            }
+        int counter = this.game.getRound().getCounter();
+
+        currentPlayer.setText(players[counter].getUsername());
+        if ((counter + 1) >= (players.length)) {
+            counter = 0;
+        } else {
+            counter++;
         }
+        nextPlayer.setText(players[counter].getUsername());
+        if ((counter + 1) >= (players.length)) {
+            counter = 0;
+        } else {
+            counter++;
+        }
+        nextPlayer1.setText(players[counter].getUsername());
+        if ((counter + 1) >= (players.length)) {
+            counter = 0;
+        } else {
+            counter++;
+        }
+        nextPlayer2.setText(players[counter].getUsername());
     }
 
     /**
@@ -560,7 +581,7 @@ public class GameController {
             changeLocation(i, this.game.getBoard().getPlayerLocation(i));
         }
     }
-    
+
     /**
      * changes the players location
      */
@@ -698,13 +719,14 @@ public class GameController {
             }
         }
     }
-    
+
     /**
      * this inserts a tile into the board
+     *
      * @param t The type of floor tile
      * @param row Which row you want it to be inserted into
-     * @param posNum The postion of the tile to be 
-     * @param flip 
+     * @param posNum The postion of the tile to be
+     * @param flip
      */
     private void insertTile(FloorTile t, boolean row, int posNum, boolean flip) {
         boolean inserted = this.game.getBoard().insertTile(t, row, posNum, flip);
@@ -722,7 +744,7 @@ public class GameController {
         }
 
     }
-    
+
     /**
      * This refreshes the board, players and sets the buttons again.
      */
@@ -731,5 +753,7 @@ public class GameController {
         refreshBoard();
         setButtons();
         refreshPlayers();
+
+        this.game.saveGame();
     }
 }

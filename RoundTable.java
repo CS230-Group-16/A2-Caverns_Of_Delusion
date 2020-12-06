@@ -10,32 +10,35 @@ import java.util.Random;
  */
 public class RoundTable {
 
-    private int numOfPlayers;
+    private final int numOfPlayers;
     private int turnCounter;
     private Player currentPlayer;
     private Player nextPlayer;
-    private Player[] players;
-    private int counter = 1;
-    private int moveCounter = 0;
+    private final Player[] players;
+    private int counter = 0;
     private Board board;
     private SilkBag silkBag;
     private Tile drawnTile;
-    
+
     /**
      * Creates a round table that will call multiple other methods
      *
      * @param numOfPlayers The number of players.
      * @param turnCounter The number of turns that have been taken.
      * @param players An array of players.
-     * @param board The board chosen.
-     * @param silkBag The silkbag chosen.
+     * @param board The board used in the game.
+     * @param silkBag The silk bag used in the game.
      */
     public RoundTable(int numOfPlayers, int turnCounter, Player[] players, Board board, SilkBag silkBag) {
         this.numOfPlayers = numOfPlayers;
         this.turnCounter = turnCounter;
         this.players = players;
-        this.currentPlayer = players[0];
-        this.nextPlayer = players[1];
+        this.currentPlayer = players[counter];
+        if ((counter + 1) >= players.length) {
+            this.nextPlayer = players[0];
+        } else {
+            this.nextPlayer = players[counter + 1];
+        }
         this.board = board;
         this.silkBag = silkBag;
     }
@@ -47,7 +50,7 @@ public class RoundTable {
      * @param turnCounter The number of turns that have been taken.
      * @param players An array of players.
      * @param counter Gets the current player by using a counter in the players array.
-     * @param tiledrawn Tile that was drawn
+     * @param tileDrawn Tile that was drawn 
      */
     public RoundTable(int numOfPlayers, int turnCounter, Player[] players, int counter, Tile tileDrawn) {
         this.numOfPlayers = numOfPlayers;
@@ -56,11 +59,12 @@ public class RoundTable {
         this.counter = counter;
         this.drawnTile = tileDrawn;
         this.currentPlayer = players[counter];
-        if ((counter+1) >= players.length) {
+        if ((counter + 1) >= players.length) {
             this.nextPlayer = players[0];
         } else {
             this.nextPlayer = players[counter + 1];
         }
+        toStr();
     }
 
     /**
@@ -87,28 +91,31 @@ public class RoundTable {
     public Player checkPlayer() {
         return currentPlayer;
     }
-    
+
     /**
      * Get players currently in game.
+     *
      * @return player array of players.
      */
-    public Player[] getPlayers(){
+    public Player[] getPlayers() {
         return this.players;
     }
-    
+
     /**
      * Set the SilkBag to current attribute.
+     *
      * @param silkBag SilkBag object to set to.
      */
-    public void setSilkBag(SilkBag silkBag){
+    public void setSilkBag(SilkBag silkBag) {
         this.silkBag = silkBag;
     }
-    
+
     /**
      * Set the Board to current attribute.
+     *
      * @param board Board object to set to.
      */
-    public void setBoard(Board board){
+    public void setBoard(Board board) {
         this.board = board;
     }
 
@@ -135,21 +142,27 @@ public class RoundTable {
     /**
      * Sets the next player.
      *
-     * @return nextPlayer The new next player.
      */
-    public Player nextPlayer() {
-        //setNextPlayer to current player
-        setCurrentPlayer(this.nextPlayer);
-        //set next player and increment counter
-        //if the counter goes out of bounds of the players array it is reset to the start
+    public void nextPlayer() {
+        //set current player to next player
+        //increment counter
         counter++;
-        if ((counter) > (players.length - 1)) {
+        if (counter >= this.numOfPlayers) {
             counter = 0;
-            this.nextPlayer = players[counter];
-        } else {
-            this.nextPlayer = players[counter];
         }
-        return nextPlayer;
+        
+        //set current player = counter
+        this.currentPlayer = players[counter];
+        
+        //set next player = counter + 1
+        if ((counter + 1) >= this.numOfPlayers) {
+            this.nextPlayer = players[0];
+        } else {
+            this.nextPlayer = players[counter+1];
+        }
+        //System.out.println("Current: " + currentPlayer.getUsername());
+        //System.out.println("Next: " + nextPlayer.getUsername());
+        //System.out.println("Counter: " + counter);
     }
 
     /**
@@ -320,7 +333,7 @@ public class RoundTable {
         for (int i = 0; i < tiles.length; i++) {
             if (tiles[i] != null) {
                 tiles[i].setEngulfed(true);
-                tiles[i].setEndTurn(this.turnCounter+(this.numOfPlayers*2));
+                tiles[i].setEndTurn(this.turnCounter + (this.numOfPlayers * 2));
             }
         }
         return true;
@@ -337,7 +350,7 @@ public class RoundTable {
         for (int i = 0; i < tiles.length; i++) {
             if (tiles[i] != null) {
                 tiles[i].setFrozen(true);
-                tiles[i].setEndTurn(this.turnCounter+this.numOfPlayers);
+                tiles[i].setEndTurn(this.turnCounter + this.numOfPlayers);
             }
         }
     }
@@ -398,14 +411,6 @@ public class RoundTable {
         return this.nextPlayer;
     }
 
-    /**
-     * Sets current player to the next player.
-     *
-     * @param player The next player.
-     */
-    public void setCurrentPlayer(Player player) {
-        this.currentPlayer = player;
-    }
 
     /**
      * converts the game to text to put into a file.
@@ -429,5 +434,25 @@ public class RoundTable {
             result += this.players[i].toText();
         }
         return result;
+    }
+    /**
+     * prints round to screen
+     */
+    public void toStr(){
+        String result = "";
+        result += String.valueOf(this.numOfPlayers) + ","
+                + String.valueOf(this.turnCounter) + ","
+                + String.valueOf(this.counter) + "\n";
+        //saves the tile just drawn but not played yet
+        if (this.drawnTile == null) {
+            result += "null\n";
+        } else {
+            result += this.drawnTile.toText();
+        }
+        //turns the players into strings
+        for (int i = 0; i < this.players.length; i++) {
+            result += this.players[i].toText();
+        }
+        System.out.println(result);
     }
 }
