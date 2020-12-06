@@ -19,14 +19,14 @@
       <Button fx:id="Leaderboard" layoutX="97.0" layoutY="193.0" mnemonicParsing="false" onAction="#handleLeaderboardAction" text="Leaderboard" />
       <Label fx:id="msgOfTheDay" layoutX="130.0" layoutY="337.0" prefHeight="40.0" prefWidth="341.0" />
       <Button fx:id="ExitApplication" layoutX="127.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleExitApplication" text="Exit" />
-      <ImageView fitHeight="415.0" fitWidth="320.0" layoutX="201.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@files/images/c6.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="415.0" fitWidth="612.0" layoutX="-5.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="415.0" fitWidth="612.0" layoutX="-6.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@files/images/borders-png-22971.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="415.0" fitWidth="320.0" layoutX="201.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@files/images/c6.png" />
          </image>
       </ImageView>
       <TextArea fx:id="message" layoutX="55.0" layoutY="327.0" prefHeight="60.0" prefWidth="491.0" />
