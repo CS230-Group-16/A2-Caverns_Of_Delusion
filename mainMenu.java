@@ -36,8 +36,6 @@ import javafx.scene.layout.BackgroundSize;
 public class mainMenu {
 
     @FXML
-    public Label msgOfTheDay;
-    @FXML
     public TextArea message;
 
     /**
