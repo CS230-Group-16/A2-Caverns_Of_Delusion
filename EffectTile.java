@@ -5,6 +5,7 @@
  */
 public class EffectTile extends ActionTile {
 
+    private int endTurn;
     /**
      * Constructor to make Effect Tiles (engulf/freeze).
      * @param effect Desired tile effect.
@@ -36,5 +37,21 @@ public class EffectTile extends ActionTile {
      */
     public static void freeze(FloorTile tile) {
             tile.setFrozen(true);
+    }
+    
+    /**
+     * Set the end turn of the effect
+     * @param endTurn Turn number that the effect stops
+     */
+    public void setEndTurn(int endTurn){
+        this.endTurn = endTurn;
+    }
+    
+    /**
+     * Get the end turn of the effect
+     * @return Turn number that the effect stops
+     */
+    public int getEndTurn(){
+        return this.endTurn;
     }
 }
