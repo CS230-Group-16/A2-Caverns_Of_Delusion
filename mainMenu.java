@@ -42,11 +42,11 @@ public class mainMenu {
      * creates the main menu scene
      *
      */
-    public void initilse() {
+    public void initialize() {
         String msg = displayMessage();
-
-        msgOfTheDay = new Label(msg);
-        System.out.println(msgOfTheDay.getText());
+        msgOfTheDay = new Label();
+        msgOfTheDay.setText(msg);
+        System.out.println(msg);
         msgOfTheDay.setWrapText(true);
     }
 
