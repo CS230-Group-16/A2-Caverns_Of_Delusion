@@ -10,15 +10,26 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainMenu">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0">
+      <ImageView fitHeight="415.0" fitWidth="612.0" layoutX="-6.0" layoutY="-7.0">
          <image>
-            <Image url="@files/images/background2.png" />
+            <Image url="@files/images/background3.png" />
          </image>
       </ImageView>
-      <Button fx:id="Play" layoutX="281.0" layoutY="167.0" mnemonicParsing="false" onAction="#handlePlayAction" prefHeight="25.0" prefWidth="38.0" text="Play" />
-      <Button fx:id="EditPlayer" layoutX="264.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleEditPlayerAction" text="Edit Player" />
-      <Button fx:id="Leaderboard" layoutX="259.0" layoutY="230.0" mnemonicParsing="false" onAction="#handleLeaderboardAction" text="Leaderboard" />
+      <Button fx:id="Play" layoutX="123.0" layoutY="114.0" mnemonicParsing="false" onAction="#handlePlayAction" prefHeight="31.0" prefWidth="51.0" text="Play" />
+      <Button fx:id="EditPlayer" layoutX="104.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleEditPlayerAction" text="Edit Player" />
+      <Button fx:id="Leaderboard" layoutX="97.0" layoutY="193.0" mnemonicParsing="false" onAction="#handleLeaderboardAction" text="Leaderboard" />
       <Label fx:id="msgOfTheDay" layoutX="130.0" layoutY="337.0" prefHeight="40.0" prefWidth="341.0" />
-      <Button fx:id="ExitApplication" layoutX="283.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleExitApplication" text="Exit" />
+      <Button fx:id="ExitApplication" layoutX="127.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleExitApplication" text="Exit" />
+      <ImageView fitHeight="419.0" fitWidth="284.0" layoutX="201.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Desktop/New%20folder/Artwork/Inspo/c6.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="407.0" fitWidth="606.0" layoutX="-2.0" layoutY="-7.0">
+         <image>
+            <Image url="@../../../Desktop/borders-png-22971.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
