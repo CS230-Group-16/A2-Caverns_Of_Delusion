@@ -26,7 +26,7 @@
             <Image url="@files/images/borders-png-22971.png" />
         </image>
     </ImageView>
-    <Button fx:id="Back" layoutX="355.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleBackAction" text="Back">
+    <Button fx:id="Back" layoutX="344.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleBackAction" text="Back">
         <font>
             <Font name="Maiandra GD" size="15.0" />
         </font></Button>
@@ -91,7 +91,7 @@
         <image>
             <Image url="@files/images/c3.png" />
         </image></ImageView>
-    <MenuButton fx:id="savedGames" layoutX="422.0" layoutY="61.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Saved Games">
+    <MenuButton fx:id="savedGames" layoutX="420.0" layoutY="30.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Saved Games">
         <items>
 
         </items>
