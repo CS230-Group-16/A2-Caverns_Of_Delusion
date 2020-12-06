@@ -33,6 +33,11 @@ public class gameConfig{
 
     private List<String> boards = boardFiles(DIRECTORY + "\\src\\files\\boards");
 
+    private List<String> Saves = savedFiles(DIRECTORY + "\\saveGames");
+
+    @FXML
+    private MenuButton savedGames = new MenuButton();
+
     @FXML
     private MenuButton boardType = new MenuButton();
 
@@ -57,6 +62,7 @@ public class gameConfig{
         populate(playerThree);
         populate(playerFour);
         populateBoards(boardType);
+        populateSaves(savedGames);
 
     }
 
@@ -94,6 +100,23 @@ public class gameConfig{
         }
     }
 
+    private void populateSaves(MenuButton saves){
+
+        if(saves.getItems() == null){
+
+        }else {
+            saves.getItems().clear();
+            for (int i = 0; i < Saves.size(); i++) {
+                MenuItem menuItem = new MenuItem(Saves.get(i).substring(0, Saves.get(i).length() - 4));
+                menuItem.setOnAction(a -> {
+                    System.out.println(saves.getText());
+                    saves.setText(menuItem.getText());
+                });
+                saves.getItems().add(menuItem);
+            }
+        }
+    }
+
     private List<String> textFiles(String directory) {
         List<String> textFiles = new ArrayList<String>();
         File dir = new File(directory);
@@ -110,6 +133,17 @@ public class gameConfig{
         File dir = new File(directory);
         for (File file : dir.listFiles()) {
             if (file.getName().endsWith((".txt"))) {
+                textFiles.add(file.getName());
+            }
+        }
+        return textFiles;
+    }
+
+    private List<String> savedFiles(String directory) {
+        List<String> textFiles = new ArrayList<String>();
+        File dir = new File(directory);
+        for (File file : dir.listFiles()) {
+            if (file.getName().startsWith("SavedGame")) {
                 textFiles.add(file.getName());
             }
         }
