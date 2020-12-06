@@ -185,7 +185,7 @@ public class FileReader {
      * @param filename name of file to delete.
      */
     public static void deleteFile(String filename) {
-        File f = new File(filename);
+        File f = new File(DIRECTORY + filename);
         f.delete();
     }
 

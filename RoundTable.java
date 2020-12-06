@@ -287,12 +287,13 @@ public class RoundTable {
         FloorTile[] selectedTiles = new FloorTile[9];
         //puts the tiles around the selected tile into an array
 
+        //top left
         selectedTiles[0] = (board.getTileAt(chosenx - 1, choseny - 1));
-
+        
         //top middle
         selectedTiles[1] = (board.getTileAt(chosenx, choseny - 1));
 
-        //top right corner
+        //top right
         selectedTiles[2] = (board.getTileAt(chosenx + 1, choseny - 1));
 
         //left
@@ -304,15 +305,14 @@ public class RoundTable {
         //right
         selectedTiles[5] = (board.getTileAt(chosenx + 1, choseny));
 
-        //bottom left corner
+        //bottom left
         selectedTiles[6] = (board.getTileAt(chosenx - 1, choseny + 1));
 
         //bottom
         selectedTiles[7] = (board.getTileAt(chosenx, choseny + 1));
 
-        //bottom right corner
+        //bottom right
         selectedTiles[8] = (board.getTileAt(chosenx + 1, choseny + 1));
-
         return selectedTiles;
     }
 
@@ -326,8 +326,10 @@ public class RoundTable {
         FloorTile[] tiles = getSurroundingTile(tile);
 
         for (int i = 0; i < tiles.length; i++) {
-            if (tiles[i].isOccupied()) {
-                return false;
+            if (tiles[i] != null) {
+                if (tiles[i].isOccupied()) {
+                    return false;
+                }
             }
         }
         for (int i = 0; i < tiles.length; i++) {
