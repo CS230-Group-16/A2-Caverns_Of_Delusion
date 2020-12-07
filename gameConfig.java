@@ -29,7 +29,7 @@ public class gameConfig{
 
     ArrayList<String> players = new ArrayList<String>();
 
-    private List<String> names = textFiles(DIRECTORY) + "players";
+    private List<String> names = textFiles(DIRECTORY + "players");
 
     private List<String> boards = boardFiles(DIRECTORY + "\\src\\files\\boards");
 
