@@ -73,8 +73,6 @@ public class GameController {
     @FXML
     Button up, down, left, right;
     @FXML
-    Label drawnType;
-    @FXML
     Label turn;
     @FXML
     Label currentPlayer;
@@ -138,7 +136,6 @@ public class GameController {
 
         draw.setOnAction(e -> {
             Tile tile = this.game.getRound().getDrawnTile();
-            drawnType.setText(tile.getType());
 
             if (tile.getType().equals("BACKTRACK") || tile.getType().equals("DOUBLEMOVE") || tile.getType().equals("FIRE") || tile.getType().equals("ICE")) {
                 checkSpellBook();
@@ -155,7 +152,6 @@ public class GameController {
             this.game.getRound().endTurn();
             changePlayers();
             drawnTile.getChildren().clear();
-            drawnType.setText("");
             this.game.getRound().turnStart();
             this.game.saveGame();
             refreshCentral();
@@ -418,7 +414,6 @@ public class GameController {
             rotate.setVisible(false);
             playAction.setVisible(false);
             setMoveButtons(false);
-            drawnType.setText("");
             drawnTile.getChildren().clear();
             spells.getChildren().clear();
             this.game.gameWon();
@@ -797,7 +792,6 @@ public class GameController {
         boolean inserted = this.game.getBoard().insertTile(t, row, posNum, flip);
         if (inserted) {
             drawnTile.getChildren().clear();
-            drawnType.setText("");
             refreshCentral();
             this.tile = null;
             checkSpellBook();
