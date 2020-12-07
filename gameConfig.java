@@ -222,7 +222,6 @@ public class gameConfig{
 
     public void createGame(String boardType, ArrayList<String> playerList){
         if (playerList != null) {
-            System.out.println(playerList);
             String playersString = "";
             for (int i = 0; i < playerList.size(); i++) {
                 playersString = playersString + playerList.get(i) + ",";
