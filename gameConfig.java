@@ -29,11 +29,11 @@ public class gameConfig{
 
     ArrayList<String> players = new ArrayList<String>();
 
-    private List<String> names = textFiles(DIRECTORY) + "players";
+    private List<String> names = textFiles(DIRECTORY + "players/");
 
-    private List<String> boards = boardFiles(DIRECTORY + "\\src\\files\\boards");
+    private List<String> boards = boardFiles(DIRECTORY + "boards/");
 
-    private List<String> Saves = savedFiles(DIRECTORY + "\\saveGames");
+    private List<String> Saves = savedFiles(DIRECTORY + "saveGames/");
 
     @FXML
     private MenuButton savedGames = new MenuButton();
@@ -224,7 +224,7 @@ public class gameConfig{
             }
             String gameString = boardType + "\n" + playersString;
 
-            FileReader.writeFile("files\\gameConfig.txt", gameString);
+            FileReader.writeFile("gameConfig.txt", gameString);
         }
     }
 
