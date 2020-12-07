@@ -134,8 +134,8 @@ public class ProfileEdit extends Application {
         stage.setWidth(700);
         VBox root = new VBox();
 
-        Image image = new Image(new FileInputStream(DIRECTORY + "\\images\\background2.png"));
-        BackgroundSize backgroundSize = new BackgroundSize(700, 550, true, true, true, false);
+        Image image = new Image(new FileInputStream(DIRECTORY + "\\images\\background4.png"));
+        BackgroundSize backgroundSize = new BackgroundSize(550, 700, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background backgroundPicture = new Background(backgroundImage);
 

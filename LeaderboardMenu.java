@@ -34,7 +34,7 @@ import javafx.stage.Stage;
  * implements a frame which is the leaderboard.
  *
  * @author Michelle Bhaskaran & Chloe Thomas
- * @version 0.1
+ * @version 1.0
  */
 public class LeaderboardMenu extends Application {
 

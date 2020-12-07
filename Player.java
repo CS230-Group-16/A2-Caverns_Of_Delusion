@@ -9,7 +9,7 @@ import java.util.Scanner;
 /**
  * The Player class creates profile for user
  * @author Michelle Bhaskaran & Chloe Thomas
- * @version 0.8
+ * @version 1.0
  */
 public class Player {
 
