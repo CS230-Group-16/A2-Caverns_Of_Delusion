@@ -20,7 +20,7 @@ import java.util.List;
 
 public class gameConfig{
 
-    private String[] playerList;
+    private ArrayList<String> playerList;
     private Game game;
     private String board;
 
@@ -203,24 +203,29 @@ public class gameConfig{
         }
     }
 
-    public String[] aquirePlayers(ArrayList<String> players){
-        for (int i = 0; i < players.size(); i++) {
-            if (players.get(i).contains("Player")) {
-                players.remove(i);
-            }
+    public ArrayList<String> aquirePlayers(ArrayList<String> players){
+        ArrayList<String> playerList = new ArrayList<String>();
+        if (!playerOne.getText().contains("Player 1")) {
+            playerList.add(playerOne.getText());
         }
-        playerList = new String[players.size()];
-        for (int i = 0; i < players.size(); i++){
-            playerList[i] = players.get(i);
+        if (!playerTwo.getText().contains("Player 2")) {
+            playerList.add(playerTwo.getText());
+        }
+        if (!playerThree.getText().contains("Player 3")) {
+            playerList.add(playerThree.getText());
+        }
+        if (!playerFour.getText().contains("Player 4")) {
+            playerList.add(playerFour.getText());
         }
         return playerList;
     }
 
-    public void createGame(String boardType, String[] playerList){
+    public void createGame(String boardType, ArrayList<String> playerList){
         if (playerList != null) {
+            System.out.println(playerList);
             String playersString = "";
-            for (int i = 0; i < playerList.length; i++) {
-                playersString = playersString + playerList[i] + ",";
+            for (int i = 0; i < playerList.size(); i++) {
+                playersString = playersString + playerList.get(i) + ",";
             }
             String gameString = boardType + "\n" + playersString;
 
