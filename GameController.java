@@ -551,13 +551,9 @@ public class GameController {
         if (tempFile.exists()) {
             this.game = FileReader.readLoadConfig("loadConfig.txt");
             FileReader.deleteFile("loadConfig.txt");
-        }
-        tempFile = new File(DIRECTORY + "gameConfig.txt");
-        if (tempFile.exists()) {
+        } else {
             this.game = FileReader.readGameConfig("gameConfig.txt");
             FileReader.deleteFile("gameConfig.txt");
-        } else {
-            System.err.println("Cannot find game or load file");
         }
     }
 
