@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameController">
    <children>
@@ -40,7 +41,11 @@
                      <children>
                         <Pane fx:id="player" prefHeight="18.0" prefWidth="44.0" />
                         <ImageView fx:id="playerIcon" fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="currentPlayer" />
+                        <Label fx:id="currentPlayer">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
+                        <ImageView fx:id="playerIcon1" fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                         <Button fx:id="draw" mnemonicParsing="false" text="Draw" />
                         <Button fx:id="playAction" mnemonicParsing="false" text="Play Action Tile" />
                         <Button fx:id="endTurn" mnemonicParsing="false" text="End Turn" />
@@ -49,45 +54,54 @@
                   <HBox fx:id="spells" prefHeight="100.0" prefWidth="200.0" />
                </children>
             </VBox>
-            <HBox prefHeight="71.0" prefWidth="629.0" spacing="50.0">
-               <children>
-                  <Label fx:id="nextPlayer" />
-                  <Label fx:id="nextPlayer1" />
-                  <Label fx:id="nextPlayer2" />
-               </children>
-            </HBox>
+            <HBox prefHeight="71.0" prefWidth="629.0" spacing="50.0" />
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Button fx:id="rotate" mnemonicParsing="false" text="Rotate" />
-                        <Label fx:id="drawnType" />
                      </children>
                   </HBox>
                   <Pane fx:id="drawnTile" prefHeight="200.0" prefWidth="200.0" />
                </children>
             </VBox>
             <Label fx:id="turn" GridPane.columnIndex="1" />
-            <GridPane maxHeight="130.0" maxWidth="130.0" prefHeight="129.0" prefWidth="129.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Button fx:id="up" mnemonicParsing="false" text="^" GridPane.columnIndex="1" />
-                  <Button fx:id="left" mnemonicParsing="false" text="&lt;" GridPane.rowIndex="1" />
-                  <Button fx:id="down" mnemonicParsing="false" text="V" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button fx:id="right" mnemonicParsing="false" text="&gt;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-               </children>
-            </GridPane>
             <GridPane fx:id="central" GridPane.rowIndex="1">
             </GridPane>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <GridPane maxHeight="130.0" maxWidth="130.0" prefHeight="129.0" prefWidth="129.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="up" mnemonicParsing="false" text="^" GridPane.columnIndex="1" />
+                        <Button fx:id="left" mnemonicParsing="false" text="&lt;" GridPane.rowIndex="1" />
+                        <Button fx:id="down" mnemonicParsing="false" text="V" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Button fx:id="right" mnemonicParsing="false" text="&gt;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <Label fx:id="nextPlayer2">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Label>
+                  <Label fx:id="nextPlayer1">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Label>
+                  <Label fx:id="nextPlayer">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Label>
+               </children>
+            </VBox>
          </children>
       </GridPane>
    </children>
