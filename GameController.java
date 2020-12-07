@@ -123,9 +123,8 @@ public class GameController {
         for (int i = 0; i <= (height + 1); i++) {
             RowConstraints row = new RowConstraints(HEIGHT_OF_TILE_IMAGE);
             central.getRowConstraints().add(row);
-        }
-
-        this.game.getPlayers()[0].insertTile(new EffectTile("FIRE", -1));
+        }  
+        
         this.tile = (FloorTile) this.game.getRound().getDrawnTile();
         setPlayerNames();
         refreshBoard();
@@ -416,7 +415,8 @@ public class GameController {
             setMoveButtons(false);
             drawnTile.getChildren().clear();
             spells.getChildren().clear();
-            this.game.gameWon();
+            this.game.gameWon(current);
+            
 
             //go to main menu
             System.exit(0);
