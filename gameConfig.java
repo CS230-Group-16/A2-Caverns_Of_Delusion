@@ -18,6 +18,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Allows the user to configure game
+ * @author Cameron McDonagh and Maciej Buczkowski.
+ * @version 1.5
+ */
 public class gameConfig{
 
     private ArrayList<String> playerList;
@@ -55,6 +60,9 @@ public class gameConfig{
 
 
 
+    /**
+     * initializes the javafx
+     */
     public void initialize(){
 
         populate(playerOne);
@@ -66,6 +74,10 @@ public class gameConfig{
 
     }
 
+    /**
+     * populates the menu buttons.
+     * @param player player to populate with.
+     */
     private void populate(MenuButton player){
 
         if(player.getItems() == null){
@@ -83,6 +95,10 @@ public class gameConfig{
         }
     }
 
+    /**
+     * populate board menu button
+     * @param board board to populate with
+     */
     private void populateBoards(MenuButton board){
 
         if(board.getItems() == null){
@@ -100,6 +116,10 @@ public class gameConfig{
         }
     }
 
+    /**
+     * populate save menu button
+     * @param saves save menu button
+     */
     private void populateSaves(MenuButton saves){
 
         if(saves.getItems() == null){
@@ -117,6 +137,11 @@ public class gameConfig{
         }
     }
 
+    /**
+     * get all player files
+     * @param directory directory to find files
+     * @return list of filenames
+     */
     private List<String> textFiles(String directory) {
         List<String> textFiles = new ArrayList<String>();
         File dir = new File(directory);
@@ -127,7 +152,11 @@ public class gameConfig{
         }
         return textFiles;
     }
-
+    /**
+     * get all board files
+     * @param directory directory to find files
+     * @return list of filenames
+     */
     private List<String> boardFiles(String directory) {
         List<String> textFiles = new ArrayList<String>();
         File dir = new File(directory);
@@ -139,6 +168,11 @@ public class gameConfig{
         return textFiles;
     }
 
+    /**
+     * get all saved files
+     * @param directory directory to find files
+     * @return list of filenames
+     */
     private List<String> savedFiles(String directory) {
         List<String> textFiles = new ArrayList<String>();
         File dir = new File(directory);
@@ -185,6 +219,9 @@ public class gameConfig{
         gameStage.show();
     }
 
+    /**
+     * get menus as string
+     */
     public void menusToString(){
         if(playerOne != null){
             players.add(playerOne.getText());
@@ -203,6 +240,11 @@ public class gameConfig{
         }
     }
 
+    /**
+     * get players from menu buttons
+     * @param players players from menu buttons
+     * @return player from menu buttons
+     */
     public ArrayList<String> aquirePlayers(ArrayList<String> players){
         ArrayList<String> playerList = new ArrayList<String>();
         if (!playerOne.getText().contains("Player 1")) {
@@ -220,6 +262,11 @@ public class gameConfig{
         return playerList;
     }
 
+    /**
+     * generate game config file
+     * @param boardType type of board selected
+     * @param playerList players selected
+     */
     public void createGame(String boardType, ArrayList<String> playerList){
         if (playerList != null) {
             String playersString = "";
@@ -232,6 +279,9 @@ public class gameConfig{
         }
     }
 
+    /**
+     * generate load config file
+     */
     private void loadGame(){
         String gameLoad = savedGames.getText() + ".txt";
         String loadData = "";
