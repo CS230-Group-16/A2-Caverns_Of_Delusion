@@ -130,7 +130,8 @@ public class ProfileEdit extends Application {
     public void start(Stage stage) throws Exception {
 
         stage.setTitle("Profile Edit");
-
+        stage.setHeight(550);
+        stage.setWidth(700);
         VBox root = new VBox();
 
         Image image = new Image(new FileInputStream(DIRECTORY + "\\images\\background2.png"));
