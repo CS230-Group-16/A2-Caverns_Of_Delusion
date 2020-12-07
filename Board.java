@@ -251,7 +251,7 @@ public class Board {
             }
         } else {
             for (int i = 0; i < this.width; i++) {
-                if (this.tileMap[i][positionNum].isFrozen()) {
+                if (this.tileMap[positionNum][i].isFrozen()) {
                     return false;
                 }
             }

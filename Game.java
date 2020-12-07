@@ -177,9 +177,12 @@ public class Game {
 
     /**
      * Starts the game won sequence once a player is on the goal tile
+     * @param current Player that won the game.
      */
-    public void gameWon() {
+    public void gameWon(Player current) {
         //game won sequence
+        current.incWon();
+        
         //delete save files
         FileReader.deleteFile(this.saveGameFileName);
         FileReader.deleteFile(this.saveBoardFileName);

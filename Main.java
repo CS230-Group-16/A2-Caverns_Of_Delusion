@@ -28,35 +28,8 @@ public class Main extends Application {
      */
     public void start(Stage primaryStage) {
         try {
-            //Pane root = (Pane) FXMLLoader.load(getClass().getResource("BoardGUI.fxml"));
             Parent root = (Parent) FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
             
-            //test
-            
-            //For moving between panes/scenes:
-            /*
-            Pane root2 = new Pane();
-            Label l = new Label("Hello");
-            root2.getChildren().add(l);
-            Button b = new Button("button");
-            root2.getChildren().add(b);
-            
-            b.setOnAction((ActionEventevent) -> {
-                Scene scene2 = new Scene(root2, 800,800);
-                primaryStage.setScene(scene2);
-                primaryStage.show();
-            });
-            */
-            /*
-            VBox root2 = new VBox();
-            Image i = new Image(new FileInputStream("STRAIGHT.png"));
-            ImageView imageView = new ImageView(i);
-            root2.getChildren().add(imageView);
-            Image i2 = new Image(new FileInputStream("STRAIGHT.png"));
-            ImageView imageView2 = new ImageView(i2);
-            imageView.setRotate(90);
-            root2.getChildren().add(imageView2);
-            */
             
             primaryStage.setTitle(GAME_NAME);
             Scene scene = new Scene(root);
@@ -71,24 +44,6 @@ public class Main extends Application {
     }
     
     public static void main(String [] args) {
-        //Game g = new Game("board1.txt",new String[]{"Super_Cool_Name","grapeLord5000","awesomeGuy"});
-        //g.toStr();
-        //g.displayMessage();
-        
-        //g.getPlayers()[0].insertTile(new EffectTile("FIRE",3));
-        
-        //g.saveGame();
-        
-        //System.out.println(g.toText());
-        //System.out.println(g.getBoard().toText());
-        
-        //Game g2 = new Game("SavedBoard2020.12.04.txt","SavedGame2020.12.04.txt");
-        //System.out.println(g2.toText());
-        //System.out.println(g2.getBoard().toText());
-        //g2.getBoard().toStr();
-        //g.getBoard().toStr();
-        //g.getBoard().insertTile(new StraightTile(1), false, 1, false);
-        //g.getBoard().toStr();
       
         launch(args);
     }

@@ -194,8 +194,6 @@ public class ProfileEdit extends Application {
                 menuButton.setText(userNoTxt);
                 deleteBtn.setVisible(true);
                 updateUserBtn.setVisible(true);
-                System.out.println(fileNames);
-                System.out.println(menuButton.getItems());
             });
             menuButton.getItems().add(item1);
 
