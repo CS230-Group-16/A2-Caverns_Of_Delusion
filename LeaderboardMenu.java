@@ -33,7 +33,7 @@ import javafx.stage.Stage;
 /**
  * implements a frame which is the leaderboard.
  *
- * @author Michelle Bhaskaran & Chloe Thomas
+ * @author Michelle Bhaskaran and Chloe Thomas
  * @version 1.0
  */
 public class LeaderboardMenu extends Application {
@@ -46,7 +46,7 @@ public class LeaderboardMenu extends Application {
     /**
      * This is where the leaderboard frame is created and its dimensions are set
      *
-     * @param primaryStage
+     * @param primaryStage stage to show scene
      */
     public void start(Stage primaryStage) throws FileNotFoundException {
         

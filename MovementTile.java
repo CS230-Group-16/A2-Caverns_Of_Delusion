@@ -1,6 +1,6 @@
 /**
  * class represents the tiles effecting player movement
- * @author Cameron McDonagh & Maciej Buczkowski
+ * @author Cameron McDonagh and Maciej Buczkowski
  * @version 1.0
  */
 public class MovementTile extends ActionTile {

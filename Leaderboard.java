@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 /**
  * The Leaderboard class creates a leaderboard for the players
- * @author Michelle Bhaskaran & Chloe Thomas
+ * @author Michelle Bhaskaran and Chloe Thomas
  * @version 0.4
  */
 public class Leaderboard {
@@ -19,8 +19,8 @@ public class Leaderboard {
 
     /**
      * Constructor used to make leaderboard
-     * @param players
-     * @param filename
+     * @param players players to insert into board.
+     * @param filename filename of leaderboard
      */
     public Leaderboard(ArrayList<Player> players, String filename) {
         this.board = players;
@@ -30,6 +30,7 @@ public class Leaderboard {
     
     /**
      * Inserts score to the player
+     * @param p Player to insert to board.
      */
     public void insertScore(Player p) { 
     	this.board.add(p);

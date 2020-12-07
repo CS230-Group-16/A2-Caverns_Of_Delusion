@@ -1,6 +1,6 @@
 /**
  * class represents the floor tile of type Corner
- * @author Cameron McDonagh & Maciej Buczkowski
+ * @author Cameron McDonagh and Maciej Buczkowski
  * @version 1.6
  */
 public class StraightTile extends FloorTile {

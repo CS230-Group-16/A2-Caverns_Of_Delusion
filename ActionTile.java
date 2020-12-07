@@ -1,6 +1,6 @@
 /**
  * Abstract superclass for making action tiles.
- * @author Cameron McDonagh & Maciej Buczkowski.
+ * @author Cameron McDonagh and Maciej Buczkowski.
  * @version 1.4
  */
 public abstract class ActionTile extends Tile {

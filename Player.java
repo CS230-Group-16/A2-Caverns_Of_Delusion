@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 /**
  * The Player class creates profile for user
- * @author Michelle Bhaskaran & Chloe Thomas
+ * @author Michelle Bhaskaran and Chloe Thomas
  * @version 1.0
  */
 public class Player {
@@ -37,14 +37,14 @@ public class Player {
     }
     
     /**
-     * contructor for making player from saved game file
-     * @param username
-     * @param gamesWon
-     * @param gamesLost
-     * @param playerNum
-     * @param path
-     * @param backtrack
-     * @param spells 
+     * Second contructor for making player from saved game file.
+     * @param username username of player.
+     * @param gamesWon number of games won.
+     * @param gamesLost number of games lost.
+     * @param playerNum player number.
+     * @param path path history of movement.
+     * @param backtrack True is backtracked used on player, false otherwise.
+     * @param spells ActionTiles in spell book.
      */
     public Player(String username,int gamesWon, int gamesLost, int playerNum, int[][]path, boolean backtrack, ActionTile[] spells) {
         this.username = username;
@@ -136,13 +136,6 @@ public class Player {
     	this.backtrackUsed = true;
     }
 
-    /**
-     * Saves the player profile
-     */
-    
-    public void deletePlayerFromFile(String username) {
-       
-    }
     
     public void saveProfile() {
         try {

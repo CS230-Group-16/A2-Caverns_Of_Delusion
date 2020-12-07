@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * The board that the tiles and players will be placed on.
  *
- * @author Bartosz Kubica & Marius Antemir.
+ * @author Bartosz Kubica and Marius Antemir.
  * @version 1.6
  */
 public class Board {
@@ -518,6 +518,7 @@ public class Board {
      * Checks if a player has a valid path to move
      *
      * @param player The player who is trying to move
+     * @return Array of true if pathway, false otherwise
      */
     public boolean[] checkPathway(int player) { // ** needs to return boolean
         boolean[] pathway = {false, false, false, false};
@@ -738,6 +739,7 @@ public class Board {
 
     /**
      * saves the board to a file.
+     * @param filename filename to save the board to
      */
     public void saveBoard(String filename) {
         FileReader.writeFile(filename, this.toText());

@@ -1,6 +1,6 @@
 /**
  * Class represents the abstract class of tile, cannot be instantiated.
- * @author Cameron McDonagh & Maciej Buczkowski.
+ * @author Cameron McDonagh and Maciej Buczkowski.
  * @version 1.3
  */
 public abstract class FloorTile extends Tile {
@@ -133,7 +133,7 @@ public abstract class FloorTile extends Tile {
 
     /**
      * Set pathways of tile.
-     * @param pathway The pathways of the tile.
+     * @param path set pathway of tile.
      */
     public void setPathways(int[] path) {
         this.pathways = path;

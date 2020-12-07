@@ -1,7 +1,7 @@
 /**
  * class represents the abstract class of tile, cannot be
  * instantiated.
- * @author Cameron McDonagh & Maciej Buczkowski
+ * @author Cameron McDonagh and Maciej Buczkowski
  * @version 1.2
  */
 public abstract class Tile {
