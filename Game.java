@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 /**
  * The main game class that initialises all objects.
- * @author Bartosz Kubica and Marius Antemir
+ * @author Bartosz Kubica.
  * @version 1.0
  */
 public class Game {
