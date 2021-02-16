@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 /**
  * This reads files.
- * @author Bartosz Kubica and Marius Antemir.
+ * @author Bartosz Kubica.
  * @version 1.0
  */
 public class FileReader {
