@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * The board that the tiles and players will be placed on.
  *
- * @author Bartosz Kubica and Marius Antemir.
+ * @author Bartosz Kubica.
  * @version 1.6
  */
 public class Board {
