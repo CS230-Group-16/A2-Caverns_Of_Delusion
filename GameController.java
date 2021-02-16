@@ -50,7 +50,7 @@ import javafx.scene.paint.Color;
 /**
  * Test Controller for the main game.
  *
- * @author Bartosz Kubica
+ * @author Bartosz Kubica.
  * @version 1.0
  */
 public class GameController {
