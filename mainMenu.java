@@ -31,7 +31,7 @@ import javafx.scene.layout.BackgroundSize;
  * class represents main menu
  *
  * @author Cameron McDonagh and Maciej Buczkowski
- * @version 1.0
+ * @version 1.1
  */
 public class mainMenu {
 
