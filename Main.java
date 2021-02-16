@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 
 /**
  * Main class to run aspects of the assignment
- * @author Bartosz Kubica
+ * @author Bartosz Kubica.
  */
 public class Main extends Application {
     
