@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Allows the user to configure game
  * @author Cameron McDonagh and Maciej Buczkowski.
- * @version 1.5
+ * @version 1.6
  */
 public class gameConfig{
 
